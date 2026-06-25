@@ -4,7 +4,9 @@
 //
 // When `animated` is false the bars sit still (e.g. paused playback), which also
 // satisfies prefers-reduced-motion via the CSS in globals.css.
-export default function Equalizer({
+import { memo } from "react";
+
+function Equalizer({
   bars = 5,
   className = "",
   animated = true,
@@ -28,3 +30,5 @@ export default function Equalizer({
     </span>
   );
 }
+
+export default memo(Equalizer);

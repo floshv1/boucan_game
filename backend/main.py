@@ -131,6 +131,26 @@ async def _auto_pause_blindtest(session, delay: float) -> None:
         logger.warning("blindtest auto-pause timer failed: {}", exc)
 
 
+async def _broadcast_state_sync(session) -> None:
+    """Push a fresh, role-filtered ``state_sync`` to every live connection of a
+    session. Used after a mode-agnostic transition (e.g. return_to_lobby) where
+    there is no incremental message that moves all roles at once."""
+    for conn in list(manager._conns.get(session.code, [])):
+        if conn.role == "tv":
+            snap = engine.state_sync_outbound(session, role="tv")
+            snap.payload["qcm"] = qcm.state_sync_payload(session, role="tv")
+            snap.payload["blindtest"] = blindtest.state_sync_payload(session, role="tv")
+        elif conn.role == "player":
+            snap = engine.state_sync_outbound(session, role="player", player_id=conn.player_id)
+            snap.payload["qcm"] = qcm.state_sync_payload(session, role="player", player_id=conn.player_id)
+            snap.payload["blindtest"] = blindtest.state_sync_payload(session, role="player", player_id=conn.player_id)
+        else:
+            snap = engine.state_sync_outbound(session, role="host")
+            snap.payload["qcm"] = qcm.state_sync_payload(session, role="host")
+            snap.payload["blindtest"] = blindtest.state_sync_payload(session, role="host")
+        await manager.send(conn, snap.type, snap.payload)
+
+
 app.include_router(sessions_router, prefix="/api")
 app.include_router(packs_router, prefix="/api")
 app.include_router(spotify_router)
@@ -160,17 +180,19 @@ async def _handle_message(session, conn: Connection, msg: dict) -> None:
             if session.mode is GameMode.BLINDTEST:
                 await manager.dispatch(session, blindtest.on_buzz(session, conn.player_id, now_ms()))
                 await _sync_blindtest_timer(session)
-            else:
+            elif now_ms() >= session.buzz_open_at:  # locked during the reading window
                 await manager.dispatch(session, engine.buzz(session, conn.player_id, now_ms()))
         return
 
     if mtype == "answer_submit":
         if conn.role == "player" and conn.player_id:
-            await manager.dispatch(
-                session, qcm.answer_submit(session, conn.player_id, payload.get("choice", -1), now_ms())
-            )
-            if qcm.all_answered(session):
-                await manager.dispatch(session, qcm.reveal(session))
+            # Choices are locked during the reading window (cahier: temps de lecture).
+            if now_ms() >= session.question_started_at + engine.READING_MS:
+                await manager.dispatch(
+                    session, qcm.answer_submit(session, conn.player_id, payload.get("choice", -1), now_ms())
+                )
+                if qcm.all_answered(session):
+                    await manager.dispatch(session, qcm.reveal(session))
             await _sync_qcm_timer(session)
         return
 
@@ -179,6 +201,13 @@ async def _handle_message(session, conn: Connection, msg: dict) -> None:
             await manager.send(conn, "error", {"code": "forbidden", "message": "Action réservée à l'hôte."})
             return
         action = payload.get("action", "")
+        # Mode-agnostic: rewind a finished game to the lobby (same code, players
+        # kept) and re-sync everyone to the preparation screen.
+        if action == "return_to_lobby":
+            if engine.return_to_lobby(session):
+                _cancel_timer(session.code)
+                await _broadcast_state_sync(session)
+            return
         # "reveal"/"skip"/"next" exist in both flows — disambiguate by mode so the
         # buzzer's reveal/next still reach engine.handle_host_action (cahier §12).
         is_qcm = action in QCM_ONLY_ACTIONS or (action in QCM_SHARED_ACTIONS and session.mode is GameMode.QCM)

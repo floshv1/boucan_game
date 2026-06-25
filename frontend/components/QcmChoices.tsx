@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 const COLORS = ["bg-buzz", "bg-blue-500", "bg-yellow-400 text-ink", "bg-volt text-ink"];
 const SHAPES = ["▲", "◆", "●", "■"];
 
@@ -11,7 +13,7 @@ interface Props {
   onPick: (i: number) => void;
 }
 
-export default function QcmChoices({ choices, disabled, myChoice, correct, onPick }: Props) {
+function QcmChoices({ choices, disabled, myChoice, correct, onPick }: Props) {
   return (
     <div className="grid w-full max-w-md grid-cols-1 gap-3 sm:grid-cols-2">
       {choices.map((c, i) => {
@@ -36,3 +38,5 @@ export default function QcmChoices({ choices, disabled, myChoice, correct, onPic
     </div>
   );
 }
+
+export default memo(QcmChoices);

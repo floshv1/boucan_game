@@ -2,6 +2,7 @@
 
 import { ChangeEvent, useState } from "react";
 
+import { CoverImage } from "@/components/MediaImage";
 import { uploadImage } from "@/lib/packs";
 
 // Compact image upload control for a question row. Uploads to /api/media and
@@ -35,8 +36,7 @@ export default function ImageField({
     <span className="flex items-center gap-2 font-mono text-xs text-muted">
       {image ? (
         <>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={image} alt="" className="h-9 w-9 rounded object-cover" />
+          <CoverImage src={image} size={36} className="h-9 w-9 rounded" />
           <button type="button" onClick={() => onChange(null)} className="hover:text-buzz">
             retirer l&apos;image ✕
           </button>

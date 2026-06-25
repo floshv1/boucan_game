@@ -304,10 +304,11 @@ def test_import_playlist_standard_shape_and_skips_null():
             }
         )
 
-    tracks = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
+    result = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
 
     assert seen_url["path"] == "/v1/playlists/PID", "must use the playlist object endpoint, not /tracks"
-    assert [t["spotify_track_id"] for t in tracks] == ["tid1", "tid2"]
+    assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1", "tid2"]
+    assert set(result) >= {"name", "external_url", "track_count", "tracks"}
 
 
 def test_import_playlist_partner_shape():
@@ -324,8 +325,8 @@ def test_import_playlist_partner_shape():
             }
         )
 
-    tracks = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
-    assert [t["spotify_track_id"] for t in tracks] == ["tid1", "tid3"]
+    result = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
+    assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1", "tid3"]
 
 
 def test_import_playlist_skips_local_tracks():
@@ -346,9 +347,9 @@ def test_import_playlist_skips_local_tracks():
     def handler(req: httpx.Request) -> httpx.Response:
         return _json_response({"tracks": {"items": [{"track": local_track}, {"track": _TRACK_1}]}})
 
-    tracks = spotify_client.import_playlist("37i9dQZF1DXcBWIGoYBM5M", client=_make_client(handler))
-    assert len(tracks) == 1
-    assert tracks[0]["spotify_track_id"] == "tid1"
+    result = spotify_client.import_playlist("37i9dQZF1DXcBWIGoYBM5M", client=_make_client(handler))
+    assert len(result["tracks"]) == 1
+    assert result["tracks"][0]["spotify_track_id"] == "tid1"
 
 
 # --------------------------------------------------------------------------- #

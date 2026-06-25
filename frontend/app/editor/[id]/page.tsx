@@ -66,6 +66,15 @@ function EditorInner() {
     return btTracks;
   }
 
+  const itemCount = mode === "buzzer" ? buzzerRows.length : mode === "qcm" ? qcmRows.length : btTracks.length;
+
+  function clearAll() {
+    if (!confirm("Tout supprimer ? Cette action vide le pack (pense à enregistrer ensuite).")) return;
+    if (mode === "buzzer") setBuzzerRows([]);
+    else if (mode === "qcm") setQcmRows([]);
+    else setBtTracks([]);
+  }
+
   async function save() {
     if (!name.trim()) {
       setError("Donne un nom au pack.");
@@ -152,8 +161,15 @@ function EditorInner() {
           </button>
         </>
       )}
-      {mode === "blindtest" && (
-        <BlindtestEditor tracks={btTracks} setTracks={setBtTracks} returnTo={isNew ? "/editor" : `/editor/${id}`} />
+      {mode === "blindtest" && <BlindtestEditor tracks={btTracks} setTracks={setBtTracks} />}
+
+      {itemCount > 0 && (
+        <button
+          onClick={clearAll}
+          className="self-start font-mono text-sm text-muted underline hover:text-buzz"
+        >
+          Tout supprimer ({itemCount})
+        </button>
       )}
 
       {error && <p className="rounded-xl border border-buzz/40 bg-buzz/10 px-4 py-3 text-buzz">{error}</p>}

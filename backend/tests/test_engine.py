@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from game import engine
-from game.models import GameState
+from game.models import GameMode, GameState
 from game.store import CODE_ALPHABET, SessionStore, generate_code
 
 
@@ -19,6 +19,62 @@ def _new_session_with_players(*pseudos):
         player, _ = engine.join(session, pseudo)
         players.append(player)
     return session, players
+
+
+def test_return_to_lobby_resets_from_game_end():
+    session, [alice, bob] = _new_session_with_players("Alice", "Bob")
+    alice.score = 12
+    alice.streak = 3
+    session.mode = GameMode.QCM
+    session.qcm_rounds = ["x", "y"]  # type: ignore[list-item]
+    session.qcm_index = 1
+    session.state = GameState.GAME_END
+
+    assert engine.return_to_lobby(session) is True
+    assert session.state is GameState.LOBBY
+    assert session.mode is GameMode.BUZZER
+    assert alice.score == 12 and alice.streak == 0  # scores kept, streak reset
+    assert session.qcm_rounds == [] and session.qcm_index == -1
+    assert session.blindtest_tracks == [] and session.bt_index == -1
+
+
+def test_return_to_lobby_noop_outside_game_end():
+    session, _ = _new_session_with_players("Alice")
+    assert engine.return_to_lobby(session) is False
+
+
+def test_reading_window_set_only_for_text_rounds():
+    session, _ = _new_session_with_players("Alice")
+    engine.READING_MS = 5000
+    try:
+        engine.open_buzzer(session, now=1000, question_text="Q ?", answer="A", points=1)
+        assert session.buzz_open_at == 6000  # 1000 + 5000 reading
+        session.state = GameState.LOBBY
+        engine.open_buzzer(session, now=2000)  # no text → immediate
+        assert session.buzz_open_at == 2000
+    finally:
+        engine.READING_MS = 0
+
+
+def test_buzzer_prepared_game_ends_on_podium():
+    session, [alice] = _new_session_with_players("Alice")
+    engine.set_rounds(session, [{"question_text": "Q1", "answer": "A1", "points": 1}])
+    engine.start_game(session, now=0)
+    alice.score = 4
+    outs = engine.next_action(session, now=1000)  # past the only prepared round
+    assert session.state is GameState.GAME_END
+    rs = [o for o in outs if o.type == "round_state" and o.target == "players"][0].payload
+    assert rs["state"] == "GAME_END"
+    assert alice.score == 4  # scores kept for the podium
+
+
+def test_reset_buzzer_blocked_after_reveal():
+    session, [alice] = _new_session_with_players("Alice")
+    engine.open_buzzer(session, now=0, question_text="Q", answer="A", points=1)
+    engine.buzz(session, alice.id, now=1000)
+    engine.validate(session)  # revealed = True
+    assert engine.reset_buzzer(session, now=2000) == []
+    assert session.revealed is True
 
 
 # --------------------------------------------------------------------------- #
@@ -317,9 +373,8 @@ def test_next_advances_through_prepared_rounds_then_lobby():
     assert session.round_index == 2
     assert session.answer == "1999"
 
-    engine.next_action(session)  # past the last prepared round
-    assert session.state is GameState.LOBBY
-    assert session.round_index == -1
+    engine.next_action(session)  # past the last prepared round → podium
+    assert session.state is GameState.GAME_END
 
 
 def test_round_state_carries_index_and_total():

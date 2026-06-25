@@ -4,21 +4,19 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import BlindtestEditor from "@/components/BlindtestEditor";
 import BlindtestStage from "@/components/BlindtestStage";
-import BuzzerEditor, { EMPTY_BUZZER_ROW } from "@/components/BuzzerEditor";
 import BuzzStrip from "@/components/BuzzStrip";
 import Countdown from "@/components/Countdown";
 import JoinCard from "@/components/JoinCard";
 import BonusChip from "@/components/BonusChip";
 import Button from "@/components/Button";
 import MuteToggle from "@/components/MuteToggle";
-import PackBar from "@/components/PackBar";
-import QcmEditor from "@/components/QcmEditor";
+import PackPicker from "@/components/PackPicker";
 import Scoreboard from "@/components/Scoreboard";
+import SpotifyConnect from "@/components/SpotifyConnect";
 import { useGameSocket } from "@/lib/useGameSocket";
 import { useSpotifyPlayer } from "@/lib/useSpotifyPlayer";
-import { BlindtestTrackDraft, BuzzerRowDraft, Pack, QcmRoundDraft } from "@/lib/types";
+import { BlindtestTrackDraft, BuzzerRowDraft, QcmRoundDraft } from "@/lib/types";
 
 export default function HostConsole() {
   const code = String(useParams().code ?? "").toUpperCase();
@@ -27,20 +25,18 @@ export default function HostConsole() {
   const [tvUrl, setTvUrl] = useState("");
   const [copied, setCopied] = useState(false);
 
-  // Prepared round list (edited before the game starts).
-  const [rows, setRows] = useState<BuzzerRowDraft[]>([{ ...EMPTY_BUZZER_ROW }]);
-
   // Mode toggle state (3 modes now).
   const [mode, setMode] = useState<"buzzer" | "qcm" | "blindtest">("buzzer");
 
-  // QCM mode state.
-  const [qcmSettings, setQcmSettings] = useState({ time: 20, points: 1000, shuffleQ: false, shuffleA: false });
-  const [qcmRows, setQcmRows] = useState<QcmRoundDraft[]>([
-    { question: "", choices: ["", "", "", ""], correct: 0, time_limit: 20, points: 1000 },
-  ]);
+  // Selected pack content per mode (questions merged from the chosen packs).
+  // Questions are authored in the editor; the host only picks packs, and we
+  // shuffle the merged list when the game starts.
+  const [buzzerItems, setBuzzerItems] = useState<BuzzerRowDraft[]>([]);
+  const [qcmItems, setQcmItems] = useState<QcmRoundDraft[]>([]);
+  const [btItems, setBtItems] = useState<BlindtestTrackDraft[]>([]);
 
-  // Blindtest mode state.
-  const [btTracks, setBtTracks] = useState<BlindtestTrackDraft[]>([]);
+  // Per-game settings not carried by individual questions.
+  const [shuffleChoices, setShuffleChoices] = useState(false);
   const [btSettings, setBtSettings] = useState({
     maxPlayS: 30,
     randomStart: false,
@@ -66,49 +62,6 @@ export default function HostConsole() {
   // Enabled whenever blindtest mode is active (either selected in UI or live in game).
   const isBlindtest = mode === "blindtest" || snapshot.blindtest.mode === "blindtest";
   const spotify = useSpotifyPlayer(isBlindtest);
-
-  // Repopulate the editor from the server on reconnect (host refreshed the tab).
-  useEffect(() => {
-    if (snapshot.prepared.length > 0) {
-      setRows(
-        snapshot.prepared.map((r) => ({
-          question: r.question_text ?? "",
-          answer: r.answer ?? "",
-          points: r.points,
-          image: r.image ?? null,
-        })),
-      );
-    }
-  }, [snapshot.prepared]);
-
-  // Repopulate the QCM editor from the server on reconnect.
-  useEffect(() => {
-    if (snapshot.preparedQcm.length > 0) {
-      setMode("qcm");
-      setQcmRows(snapshot.preparedQcm);
-    }
-  }, [snapshot.preparedQcm]);
-
-  // Repopulate the blindtest editor (tracks + settings) from the server on reconnect.
-  useEffect(() => {
-    if (snapshot.preparedBlindtest.length > 0) {
-      setMode("blindtest");
-      setBtTracks(snapshot.preparedBlindtest);
-    }
-  }, [snapshot.preparedBlindtest]);
-
-  useEffect(() => {
-    const cfg = snapshot.preparedBlindtestConfig;
-    if (cfg) {
-      setBtSettings({
-        maxPlayS: cfg.maxPlayS,
-        randomStart: cfg.randomStart,
-        countdown: cfg.countdown,
-        pointsTitle: cfg.pointsTitle,
-        pointsArtist: cfg.pointsArtist,
-      });
-    }
-  }, [snapshot.preparedBlindtestConfig]);
 
   if (secret === null) {
     return (
@@ -148,47 +101,44 @@ export default function HostConsole() {
 
   const action = (a: string, payload: Record<string, unknown> = {}) => send("host_action", { action: a, ...payload });
 
-  function addRow() {
-    setRows((rs) => [...rs, { ...EMPTY_BUZZER_ROW }]);
+  // Fisher–Yates: a fresh random order on every start, so the same packs play
+  // differently each game.
+  function shuffled<T>(arr: T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
 
   function startGame() {
-    const prepared = rows
-      .filter((r) => r.question.trim() || r.answer.trim())
-      .map((r) => ({
-        question_text: r.question.trim() || null,
-        answer: r.answer.trim() || null,
-        points: r.points || 1,
-        image: r.image ?? null,
-      }));
-    if (prepared.length === 0) return;
+    if (buzzerItems.length === 0) return;
+    const prepared = shuffled(buzzerItems).map((r) => ({
+      question_text: (r.question ?? "").trim() || null,
+      answer: (r.answer ?? "").trim() || null,
+      points: r.points || 1,
+      bonus: !!r.bonus,
+      image: r.image ?? null,
+    }));
     action("set_rounds", { rounds: prepared });
     action("start_game");
   }
 
-  function addQcmRow() {
-    setQcmRows((rs) => [
-      ...rs,
-      { question: "", choices: ["", "", "", ""], correct: 0, time_limit: qcmSettings.time, points: qcmSettings.points },
-    ]);
-  }
   function startQcm() {
-    const prepared = qcmRows
-      .filter((r) => r.question.trim() && r.choices.every((c) => c.trim()))
-      .map((r) => ({ ...r, question: r.question.trim(), choices: r.choices.map((c) => c.trim()) }));
-    if (prepared.length === 0) return;
+    if (qcmItems.length === 0) return;
     action("set_qcm_rounds", {
-      rounds: prepared,
-      shuffle_questions: qcmSettings.shuffleQ,
-      shuffle_choices: qcmSettings.shuffleA,
+      rounds: shuffled(qcmItems),
+      shuffle_questions: false, // already shuffled client-side
+      shuffle_choices: shuffleChoices,
     });
     action("start_qcm");
   }
 
   function startBlindtest() {
-    if (btTracks.length === 0) return;
+    if (btItems.length === 0) return;
     action("set_blindtest_tracks", {
-      tracks: btTracks,
+      tracks: shuffled(btItems),
       max_play_s: btSettings.maxPlayS,
       random_start: btSettings.randomStart,
       countdown: btSettings.countdown,
@@ -205,8 +155,8 @@ export default function HostConsole() {
     });
   }
 
-  const preparedCount = rows.filter((r) => r.question.trim() || r.answer.trim()).length;
-  const qcmCount = qcmRows.filter((r) => r.question.trim() && r.choices.every((c) => c.trim())).length;
+  const preparedCount = buzzerItems.length;
+  const qcmCount = qcmItems.length;
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-6 sm:px-5">
@@ -241,8 +191,8 @@ export default function HostConsole() {
             <div>
               <h2 className="font-display text-3xl">Préparer la partie</h2>
               <p className="mt-1 text-sm text-muted">
-                Saisis tes questions à l&apos;avance — réponses visibles de toi seul. Pendant le jeu, tu enchaînes avec
-                « Suivant » sans rien retaper.
+                Choisis un ou plusieurs packs — les questions sont tirées au hasard à chaque partie. Crée ou modifie
+                tes packs dans l&apos;éditeur.
               </p>
 
               {/* Mode toggle — 3 buttons, even width + comfortable tap targets */}
@@ -262,19 +212,7 @@ export default function HostConsole() {
 
               {mode === "buzzer" && (
                 <div className="flex flex-col gap-3">
-                  <PackBar
-                    mode="buzzer"
-                    onLoad={(p: Pack) => setRows(p.items as BuzzerRowDraft[])}
-                    getItems={() => rows}
-                  />
-                  <BuzzerEditor rows={rows} setRows={setRows} />
-
-                  <button
-                    onClick={addRow}
-                    className="min-h-[44px] rounded-xl border border-dashed border-panel2 px-4 py-3 font-mono text-sm text-muted hover:border-muted hover:text-cream"
-                  >
-                    + Ajouter une question
-                  </button>
+                  <PackPicker mode="buzzer" onItemsChange={(items) => setBuzzerItems(items as BuzzerRowDraft[])} />
 
                   <Button variant="accent" size="lg" onClick={startGame} disabled={preparedCount === 0} className="mt-2 w-full">
                     Démarrer ({preparedCount} round{preparedCount > 1 ? "s" : ""})
@@ -288,44 +226,11 @@ export default function HostConsole() {
 
               {mode === "qcm" && (
                 <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap items-center gap-4 rounded-xl border border-panel2 bg-ink/30 p-3 font-mono text-xs text-muted">
-                    <label className="flex items-center gap-2">
-                      Temps déf.
-                      <input
-                        type="number"
-                        value={qcmSettings.time}
-                        onChange={(e) => setQcmSettings((s) => ({ ...s, time: Number.parseInt(e.target.value, 10) || 20 }))}
-                        className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
-                      />
-                      s
-                    </label>
-                    <label className="flex items-center gap-2">
-                      Points déf.
-                      <input
-                        type="number"
-                        value={qcmSettings.points}
-                        onChange={(e) => setQcmSettings((s) => ({ ...s, points: Number.parseInt(e.target.value, 10) || 1000 }))}
-                        className="w-20 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
-                      />
-                    </label>
-                    <label className="flex items-center gap-2">
-                      <input type="checkbox" checked={qcmSettings.shuffleQ} onChange={(e) => setQcmSettings((s) => ({ ...s, shuffleQ: e.target.checked }))} />
-                      Mélanger les questions
-                    </label>
-                    <label className="flex items-center gap-2">
-                      <input type="checkbox" checked={qcmSettings.shuffleA} onChange={(e) => setQcmSettings((s) => ({ ...s, shuffleA: e.target.checked }))} />
-                      Mélanger les réponses
-                    </label>
-                  </div>
-                  <PackBar
-                    mode="qcm"
-                    onLoad={(p: Pack) => setQcmRows(p.items as QcmRoundDraft[])}
-                    getItems={() => qcmRows}
-                  />
-                  <QcmEditor rows={qcmRows} setRows={setQcmRows} />
-                  <button onClick={addQcmRow} className="min-h-[44px] rounded-xl border border-dashed border-panel2 px-4 py-3 font-mono text-sm text-muted hover:border-muted hover:text-cream">
-                    + Ajouter une question
-                  </button>
+                  <PackPicker mode="qcm" onItemsChange={(items) => setQcmItems(items as QcmRoundDraft[])} />
+                  <label className="flex items-center gap-2 rounded-xl border border-panel2 bg-ink/30 p-3 font-mono text-xs text-muted">
+                    <input type="checkbox" checked={shuffleChoices} onChange={(e) => setShuffleChoices(e.target.checked)} />
+                    Mélanger l&apos;ordre des réponses
+                  </label>
                   <Button variant="accent" size="lg" onClick={startQcm} disabled={qcmCount === 0} className="mt-2 w-full">
                     Démarrer le QCM ({qcmCount} question{qcmCount > 1 ? "s" : ""})
                   </Button>
@@ -334,12 +239,8 @@ export default function HostConsole() {
 
               {mode === "blindtest" && (
                 <div className="flex flex-col gap-4">
-                  <PackBar
-                    mode="blindtest"
-                    onLoad={(p: Pack) => setBtTracks(p.items as BlindtestTrackDraft[])}
-                    getItems={() => btTracks}
-                  />
-                  <BlindtestEditor tracks={btTracks} setTracks={setBtTracks} returnTo={`/host/${code}`} />
+                  <SpotifyConnect />
+                  <PackPicker mode="blindtest" onItemsChange={(items) => setBtItems(items as BlindtestTrackDraft[])} />
                   <div className="flex flex-wrap items-center gap-4 rounded-xl border border-panel2 bg-ink/20 px-4 py-3 font-mono text-xs text-muted">
                     <label className="flex items-center gap-2">
                       Temps max (s)
@@ -389,8 +290,8 @@ export default function HostConsole() {
                     </label>
                     <span className="text-muted/70">Bonus ★ = ×2 · 0 s = pas de limite</span>
                   </div>
-                  <Button variant="accent" size="lg" onClick={startBlindtest} disabled={btTracks.length === 0} className="mt-2 w-full">
-                    Démarrer le blindtest ({btTracks.length} morceau{btTracks.length > 1 ? "x" : ""})
+                  <Button variant="accent" size="lg" onClick={startBlindtest} disabled={btItems.length === 0} className="mt-2 w-full">
+                    Démarrer le blindtest ({btItems.length} morceau{btItems.length > 1 ? "x" : ""})
                   </Button>
                 </div>
               )}
@@ -412,8 +313,8 @@ export default function HostConsole() {
                           </li>
                         ))}
                       </ol>
-                      <Button variant="primary" onClick={() => action("replay_game")} className="mt-6 w-full">
-                        ⟲ Rejouer (mêmes questions)
+                      <Button variant="primary" onClick={() => action("return_to_lobby")} className="mt-6 w-full">
+                        ⟲ Rejouer (retour au menu)
                       </Button>
                     </div>
                   ) : (
@@ -425,11 +326,18 @@ export default function HostConsole() {
                         </h2>
                         {snapshot.qcm.state === "QUESTION_ACTIVE" && snapshot.qcm.question && (
                           <span className="font-mono text-sm text-muted">
-                            <Countdown endsAt={snapshot.qcm.question.ends_at} offsetMs={snapshot.qcm.clockOffset} /> ·{" "}
                             {snapshot.qcm.progress.answered}/{snapshot.qcm.progress.total} ont répondu
                           </span>
                         )}
                       </div>
+                      {snapshot.qcm.state === "QUESTION_ACTIVE" && snapshot.qcm.question && (
+                        <Countdown
+                          endsAt={snapshot.qcm.question.ends_at}
+                          offsetMs={snapshot.qcm.clockOffset}
+                          durationMs={snapshot.qcm.question.time_limit * 1000}
+                          className="mt-3"
+                        />
+                      )}
                       {snapshot.qcm.question && <p className="mt-3 text-xl">{snapshot.qcm.question.question}</p>}
                       <ul className="mt-4 grid grid-cols-2 gap-2">
                         {(snapshot.qcm.question?.choices ?? []).map((c, i) => {
@@ -473,6 +381,21 @@ export default function HostConsole() {
                       </div>
                     </div>
                   )}
+                </div>
+              ) : state === "GAME_END" ? (
+                <div>
+                  <h2 className="font-display text-3xl">Partie terminée 🏆</h2>
+                  <ol className="mt-4 flex flex-col gap-2">
+                    {[...players].sort((a, b) => a.rank - b.rank).slice(0, 5).map((p) => (
+                      <li key={p.id} className="flex justify-between rounded-xl border border-panel2 bg-panel px-4 py-3">
+                        <span className="font-display text-xl">{p.rank}. {p.pseudo}</span>
+                        <span className="font-display text-xl tabular-nums">{p.score}</span>
+                      </li>
+                    ))}
+                  </ol>
+                  <Button variant="primary" onClick={() => action("return_to_lobby")} className="mt-6 w-full">
+                    ⟲ Rejouer (retour au menu)
+                  </Button>
                 </div>
               ) : (
                 <div>
@@ -529,9 +452,13 @@ export default function HostConsole() {
                         Suivant →
                       </Button>
                     )}
-                    <Button variant="ghost" onClick={() => action("reset_buzzer")}>
-                      Rouvrir le buzzer
-                    </Button>
+                    {/* Once a round is revealed (someone found, or the host gave up) the
+                        buzzer must not reopen — only "Suivant" advances. */}
+                    {!round.revealed && (
+                      <Button variant="ghost" onClick={() => action("reset_buzzer")}>
+                        Rouvrir le buzzer
+                      </Button>
+                    )}
                   </div>
                 </div>
               )}

@@ -14,8 +14,10 @@ from __future__ import annotations
 
 import random
 
+from game import engine
 from game.engine import Outbound, _ranked, player_list_payload
 from game.models import GameMode, GameState, QcmAnswer, QcmRound, Session
+from game.store import now_ms
 
 
 def prepared_qcm_payload(session: Session) -> dict:
@@ -98,6 +100,10 @@ def question_start_payload(session: Session, *, include_correct: bool) -> dict:
         "choices": choices,
         "time_limit": rnd.time_limit,
         "ends_at": session.question_ends_at,
+        # Reading window: clients hide the choices + block answers until choices_at;
+        # server_now lets them correct for clock skew (see blindtest timing).
+        "choices_at": session.question_started_at + engine.READING_MS,
+        "server_now": now_ms(),
         "points": rnd.points,
         "bonus": rnd.bonus,
         "image": rnd.image,
@@ -127,7 +133,9 @@ def load_question(session: Session, index: int, now: int) -> list[Outbound]:
     session.qcm_index = index
     session.state = GameState.QUESTION_ACTIVE
     session.question_started_at = now
-    session.question_ends_at = now + rnd.time_limit * 1000
+    # Players read the question during READING_MS before the choices unlock, then
+    # get the full time_limit to answer (so ends_at extends by the reading window).
+    session.question_ends_at = now + engine.READING_MS + rnd.time_limit * 1000
     session.answers = {}
     order = [0, 1, 2, 3]
     if session.qcm_shuffle_choices:

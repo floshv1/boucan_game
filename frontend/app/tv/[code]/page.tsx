@@ -10,8 +10,11 @@ import BuzzStrip from "@/components/BuzzStrip";
 import Countdown from "@/components/Countdown";
 import Equalizer from "@/components/Equalizer";
 import JoinCard from "@/components/JoinCard";
+import { CoverImage, PromptImage } from "@/components/MediaImage";
+import ReadingBadge from "@/components/ReadingBadge";
 import Scoreboard from "@/components/Scoreboard";
 import { useGameSocket } from "@/lib/useGameSocket";
+import { useNow } from "@/lib/useNow";
 
 // Public shared screen (TV / projector). Read-only spectator: it shows the
 // question, the buzz order and the scores — but the backend never sends it the
@@ -25,11 +28,18 @@ export default function TvView() {
   }, [code]);
 
   const { snapshot } = useGameSocket({ code, role: "tv" });
+  const now = useNow();
   const { round, players, buzz, reveal, connected } = snapshot;
   const state = round.state;
   const leader = players[0];
   const bt = snapshot.blindtest;
   const isBt = bt.mode === "blindtest";
+  const ranking = [...players].sort((a, b) => a.rank - b.rank);
+
+  // QCM reading window (choices hidden until they unlock).
+  const qcmQ = snapshot.qcm.question;
+  const qcmReading = !!qcmQ && (qcmQ.choices_at ?? 0) > now + snapshot.qcm.clockOffset;
+  const qcmReadSecs = qcmQ ? Math.ceil(((qcmQ.choices_at ?? 0) - (now + snapshot.qcm.clockOffset)) / 1000) : 0;
 
   return (
     <main className="mx-auto flex min-h-screen max-w-7xl flex-col px-8 py-8">
@@ -107,21 +117,31 @@ export default function TvView() {
                       Question {snapshot.qcm.index + 1}/{snapshot.qcm.total}
                       {snapshot.qcm.question.bonus && <BonusChip />}
                     </span>
-                    <span><Countdown endsAt={snapshot.qcm.question.ends_at} offsetMs={snapshot.qcm.clockOffset} /></span>
                     <span>{snapshot.qcm.progress.answered}/{snapshot.qcm.progress.total} ✓</span>
                   </div>
+                  {!qcmReading && (
+                    <Countdown
+                      endsAt={snapshot.qcm.question.ends_at}
+                      offsetMs={snapshot.qcm.clockOffset}
+                      durationMs={snapshot.qcm.question.time_limit * 1000}
+                      className="mx-auto mb-6 max-w-xl text-2xl"
+                    />
+                  )}
                   <p className="font-display text-6xl leading-tight">{snapshot.qcm.question.question}</p>
                   {snapshot.qcm.question.image && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={snapshot.qcm.question.image} alt="" className="mx-auto mt-6 max-h-64 rounded-xl object-contain" />
+                    <PromptImage src={snapshot.qcm.question.image} className="mx-auto mt-6 max-h-64 rounded-xl" />
                   )}
-                  <div className="mt-8 grid grid-cols-2 gap-4">
-                    {snapshot.qcm.question.choices.map((c, i) => (
-                      <div key={i} className={`rounded-2xl px-6 py-6 font-display text-3xl text-white ${["bg-buzz", "bg-blue-500", "bg-yellow-400 text-ink", "bg-volt text-ink"][i]}`}>
-                        {c}
-                      </div>
-                    ))}
-                  </div>
+                  {qcmReading ? (
+                    <ReadingBadge secondsLeft={qcmReadSecs} className="mt-8" />
+                  ) : (
+                    <div className="mt-8 grid grid-cols-2 gap-4">
+                      {snapshot.qcm.question.choices.map((c, i) => (
+                        <div key={i} className={`rounded-2xl px-6 py-6 font-display text-3xl text-white ${["bg-buzz", "bg-blue-500", "bg-yellow-400 text-ink", "bg-volt text-ink"][i]}`}>
+                          {c}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <p className="font-display text-4xl text-muted">En attente…</p>
@@ -163,8 +183,7 @@ export default function TvView() {
               ) : bt.state === "REVEAL" && bt.reveal ? (
                 <div className="flex flex-col items-center">
                   {bt.reveal.cover_url && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={bt.reveal.cover_url} alt="" className="h-44 w-44 rounded-2xl object-cover" />
+                    <CoverImage src={bt.reveal.cover_url} size={176} className="h-44 w-44 rounded-2xl" />
                   )}
                   <p className="mt-6 font-display text-5xl text-volt">{bt.reveal.title}</p>
                   <p className="mt-2 font-display text-3xl text-cream/80">{bt.reveal.artist}</p>
@@ -189,21 +208,38 @@ export default function TvView() {
 
           {snapshot.qcm.mode !== "qcm" && !isBt && (
             <div className="flex flex-1 flex-col items-center justify-center rounded-3xl border border-panel2 bg-panel/50 px-8 py-12 text-center">
-              {state === "LOBBY" ? (
+              {state === "GAME_END" ? (
+                <div className="w-full">
+                  <p className="font-display text-5xl text-volt">Podium 🏆</p>
+                  <ol className="mx-auto mt-8 flex max-w-xl flex-col gap-3">
+                    {ranking.slice(0, 3).map((p) => (
+                      <li key={p.id} className="flex items-center justify-between rounded-2xl border border-panel2 bg-panel px-6 py-4">
+                        <span className="font-display text-3xl">{p.rank}. {p.pseudo}</span>
+                        <span className="font-display text-3xl tabular-nums text-volt">{p.score}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ) : state === "LOBBY" ? (
                 <p className="font-display text-4xl text-muted">En attente du prochain round…</p>
               ) : round.question_text ? (
                 <div className="flex flex-col items-center">
                   <p className="font-display text-6xl leading-tight">{round.question_text}</p>
                   {round.image && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={round.image} alt="" className="mt-6 max-h-64 rounded-xl object-contain" />
+                    <PromptImage src={round.image} className="mt-6 max-h-64 rounded-xl" />
+                  )}
+                  {(round.buzz_open_at ?? 0) > now + (round.clockOffset ?? 0) && !round.revealed && (
+                    <ReadingBadge
+                      secondsLeft={Math.ceil(((round.buzz_open_at ?? 0) - (now + (round.clockOffset ?? 0))) / 1000)}
+                      className="mt-8"
+                    />
                   )}
                 </div>
               ) : (
                 <p className="font-display text-5xl text-muted">À l&apos;écoute… buzze dès que tu sais !</p>
               )}
 
-              {reveal && (
+              {reveal && state !== "GAME_END" && (
                 <p className="mt-8 rounded-2xl border border-volt/40 bg-volt/10 px-6 py-4 font-display text-3xl text-volt">
                   {reveal.answer ? `Réponse : ${reveal.answer}` : "Round terminé"}
                 </p>

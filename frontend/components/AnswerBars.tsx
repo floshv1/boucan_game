@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 const COLORS = ["bg-buzz", "bg-blue-500", "bg-yellow-400", "bg-volt"];
 
 interface Props {
@@ -8,7 +10,7 @@ interface Props {
   correct: number;
 }
 
-export default function AnswerBars({ choices, distribution, correct }: Props) {
+function AnswerBars({ choices, distribution, correct }: Props) {
   const max = Math.max(1, ...distribution);
   return (
     <div className="grid w-full grid-cols-4 items-end gap-4">
@@ -27,3 +29,5 @@ export default function AnswerBars({ choices, distribution, correct }: Props) {
     </div>
   );
 }
+
+export default memo(AnswerBars);

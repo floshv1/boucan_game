@@ -8,7 +8,20 @@ import * as sfx from "@/lib/sfx";
 // `offsetMs` corrects for clock skew between this device and the server (estimated
 // when the question started — see the question_start reducer). The last three
 // seconds play a tick so players feel the pressure.
-export default function Countdown({ endsAt, offsetMs = 0 }: { endsAt: number; offsetMs?: number }) {
+//
+// When `durationMs` is provided, a depleting progress bar is shown above the
+// number, mirroring the blindtest play bar so every timed mode looks the same.
+export default function Countdown({
+  endsAt,
+  offsetMs = 0,
+  durationMs,
+  className = "",
+}: {
+  endsAt: number;
+  offsetMs?: number;
+  durationMs?: number;
+  className?: string;
+}) {
   const [now, setNow] = useState(() => Date.now());
   const lastTickRef = useRef<number>(-1);
   useEffect(() => {
@@ -16,7 +29,8 @@ export default function Countdown({ endsAt, offsetMs = 0 }: { endsAt: number; of
     return () => clearInterval(id);
   }, []);
 
-  const left = Math.max(0, Math.ceil((endsAt - (now + offsetMs)) / 1000));
+  const remainingMs = Math.max(0, endsAt - (now + offsetMs));
+  const left = Math.ceil(remainingMs / 1000);
 
   useEffect(() => {
     if (left !== lastTickRef.current) {
@@ -25,5 +39,22 @@ export default function Countdown({ endsAt, offsetMs = 0 }: { endsAt: number; of
     }
   }, [left]);
 
-  return <span className="font-display tabular-nums">{left}s</span>;
+  if (durationMs && durationMs > 0) {
+    const progress = Math.max(0, Math.min(1, remainingMs / durationMs));
+    return (
+      <div className={`flex items-center gap-3 ${className}`}>
+        <div className="h-2 flex-1 rounded bg-panel2">
+          <div
+            className={`h-2 rounded transition-[width] duration-200 ease-linear ${
+              left <= 3 ? "bg-buzz" : "bg-volt"
+            }`}
+            style={{ width: `${progress * 100}%` }}
+          />
+        </div>
+        <span className="font-display tabular-nums">{left}s</span>
+      </div>
+    );
+  }
+
+  return <span className={`font-display tabular-nums ${className}`}>{left}s</span>;
 }

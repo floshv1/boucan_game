@@ -53,7 +53,13 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
         ...s,
         code: p.code ?? code,
         you: { ...s.you, ...you },
-        round: p.round ?? s.round,
+        round: p.round
+          ? {
+              ...p.round,
+              clockOffset:
+                p.round.server_now !== undefined ? p.round.server_now - Date.now() : s.round.clockOffset ?? 0,
+            }
+          : s.round,
         players: p.player_list?.players ?? s.players,
         buzz: p.buzz ?? s.buzz,
         reveal: p.round?.revealed ? s.reveal : null,
@@ -68,6 +74,10 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
               progress: p.qcm.progress ?? s.qcm.progress,
               gameEnd: p.qcm.game_end ?? null,
               myChoice: p.qcm.my_choice ?? null,
+              clockOffset:
+                p.qcm.question?.server_now !== undefined
+                  ? p.qcm.question.server_now - Date.now()
+                  : s.qcm.clockOffset,
             }
           : s.qcm,
         blindtest: p.blindtest
@@ -97,33 +107,16 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
     case "player_list":
       return { ...s, players: p.players ?? s.players };
     case "round_state":
-      return { ...s, round: p, reveal: p.revealed ? s.reveal : null };
+      return {
+        ...s,
+        round: {
+          ...p,
+          clockOffset: p.server_now !== undefined ? p.server_now - Date.now() : s.round.clockOffset ?? 0,
+        },
+        reveal: p.revealed ? s.reveal : null,
+      };
     case "buzz_locked":
       return { ...s, buzz: p };
-    case "prepared_rounds":
-      return { ...s, prepared: p.rounds ?? s.prepared };
-    case "prepared_qcm":
-      return {
-        ...s,
-        preparedQcm: p.rounds ?? s.preparedQcm,
-        qcm: { ...s.qcm, mode: "qcm" },
-      };
-    case "prepared_blindtest":
-      return {
-        ...s,
-        preparedBlindtest: p.tracks ?? s.preparedBlindtest,
-        preparedBlindtestConfig:
-          p.max_play_s !== undefined
-            ? {
-                maxPlayS: p.max_play_s,
-                randomStart: !!p.random_start,
-                countdown: !!p.countdown,
-                pointsTitle: p.points_title ?? 1,
-                pointsArtist: p.points_artist ?? 1,
-              }
-            : s.preparedBlindtestConfig,
-        blindtest: { ...s.blindtest, mode: "blindtest" },
-      };
     case "bt_track": {
       const hasTrackFields =
         p.title !== undefined && p.artist !== undefined;
@@ -177,12 +170,10 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
           reveal: null,
           progress: { answered: 0, total: s.qcm.progress.total },
           myChoice: null,
-          // Estimate clock skew: the question started at (ends_at - time_limit) in
-          // server time; compare to our clock now (≈ receipt time).
+          // Clock skew: the server stamps server_now on the question; comparing it
+          // to our receipt time gives the offset used by the reading + answer timers.
           clockOffset:
-            p.ends_at && p.time_limit
-              ? p.ends_at - p.time_limit * 1000 - Date.now()
-              : s.qcm.clockOffset,
+            p.server_now !== undefined ? p.server_now - Date.now() : s.qcm.clockOffset,
         },
       };
     case "qcm_progress":
@@ -237,12 +228,8 @@ export function useGameSocket({ code, role, pseudo, hostSecret, enabled = true }
     players: [],
     buzz: { state: "LOBBY", floor_player_id: null, queue: [] },
     reveal: null,
-    prepared: [],
     qcm: EMPTY_QCM,
-    preparedQcm: [],
     blindtest: EMPTY_BLINDTEST,
-    preparedBlindtest: [],
-    preparedBlindtestConfig: null,
     connected: false,
     error: null,
   }));

@@ -6,6 +6,14 @@ const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8200";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  images: {
+    // No server-side optimization: the standalone runtime is node:20-alpine (musl)
+    // and sharp's prebuilt binaries are flaky there, and the optimizer adds little
+    // for tiny Spotify thumbnails on a LAN. next/image still gives lazy-loading +
+    // explicit dimensions (less layout shift). unoptimized bypasses the optimizer,
+    // so remotePatterns aren't needed.
+    unoptimized: true,
+  },
   async rewrites() {
     return [
       { source: "/api/:path*", destination: `${BACKEND_URL}/api/:path*` },

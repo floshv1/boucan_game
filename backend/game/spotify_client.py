@@ -239,13 +239,17 @@ def _extract_playlist_items(body: dict) -> list[dict]:
     return paging.get("items", []) or []
 
 
-def import_playlist(url: str, *, client: httpx.Client | None = None) -> list[dict]:
-    """Fetch tracks from a Spotify playlist URL/URI/id and return mapped dicts.
+def import_playlist(url: str, *, client: httpx.Client | None = None) -> dict:
+    """Fetch a Spotify playlist URL/URI/id and return its metadata + mapped tracks.
 
     Reads the playlist *object* endpoint (``/v1/playlists/{id}``) rather than the
     dedicated ``/tracks`` sub-resource: the latter is blocked (403) for apps in
     Spotify Development Mode, while the object embeds the first page of tracks.
     Caps at ``_PLAYLIST_CAP`` tracks; skips null or local tracks.
+
+    Returns ``{"name", "external_url", "track_count", "tracks"}``. ``track_count``
+    is the playlist's full total (from Spotify), which may exceed ``len(tracks)``
+    when the playlist is larger than ``_PLAYLIST_CAP``.
     """
     playlist_id = _parse_playlist_id(url)
     access_token = get_access_token(client=client)
@@ -266,8 +270,16 @@ def import_playlist(url: str, *, client: httpx.Client | None = None) -> list[dic
         if len(tracks) >= _PLAYLIST_CAP:
             break
 
-    logger.info("Spotify: imported {} tracks from playlist {}", len(tracks), playlist_id)
-    return tracks
+    paging = body.get("tracks") if isinstance(body.get("tracks"), dict) else {}
+    total = paging.get("total")
+    meta = {
+        "name": body.get("name") or "Playlist",
+        "external_url": (body.get("external_urls") or {}).get("spotify"),
+        "track_count": int(total) if isinstance(total, int) else len(tracks),
+        "tracks": tracks,
+    }
+    logger.info("Spotify: imported {} tracks from playlist {} ({})", len(tracks), playlist_id, meta["name"])
+    return meta
 
 
 # Spotify caps the search ``limit`` at 10 for apps in Development Mode

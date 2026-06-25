@@ -146,7 +146,7 @@ async def spotify_playlist(url: str) -> dict | JSONResponse:
             content={"error": "not_authenticated", "detail": "Not authenticated with Spotify."},
         )
     try:
-        tracks = spotify_client.import_playlist(url)
+        result = spotify_client.import_playlist(url)
     except ValueError as exc:
         return JSONResponse(status_code=400, content={"error": "bad_url", "detail": str(exc)})
     except RuntimeError as exc:
@@ -156,7 +156,7 @@ async def spotify_playlist(url: str) -> dict | JSONResponse:
             status_code=502,
             content={"error": "spotify_error", "detail": f"Spotify a renvoyé {exc.response.status_code}"},
         )
-    return {"tracks": tracks}
+    return result
 
 
 @router.get("/api/spotify/search", response_model=None)

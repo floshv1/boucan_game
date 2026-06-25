@@ -1,0 +1,47 @@
+# Boucan — production stack for Komodo (or any host) that PULLS pre-built images
+# from GHCR instead of building from source. Images are published by
+# .github/workflows/docker-publish.yml.
+#
+# Komodo usage:
+#   1. Create a Stack pointing at this file (compose.prod.yml).
+#   2. Set the environment variables below in the Stack's "Environment" section
+#      (Spotify creds + URLs). They are substituted into the compose at deploy.
+#   3. If the GHCR packages are private, add a registry account in Komodo (GHCR
+#      user + a PAT with read:packages); otherwise make the packages public.
+#   4. Pin IMAGE_TAG to a release (e.g. v1.0.0) or leave it at "latest".
+#
+# Local equivalent that builds from source: compose.yml.
+name: boucan
+
+services:
+  backend:
+    image: ghcr.io/floshv1/boucan-backend:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      - PORT_BACKEND=8200
+      - CORS_ORIGINS=*
+      # Spotify OAuth — set these in the Komodo Stack environment.
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
+      # Must match the URI registered in the Spotify dashboard, e.g.
+      # http://<server-ip>:8200/auth/spotify/callback
+      - SPOTIFY_REDIRECT_URI=${SPOTIFY_REDIRECT_URI}
+      # Where Spotify sends the user back after auth, e.g. http://<server-ip>:3200
+      - FRONTEND_URL=${FRONTEND_URL}
+    volumes:
+      - packs:/app/packs
+      - media:/app/media
+    ports:
+      - "8200:8200"
+
+  frontend:
+    image: ghcr.io/floshv1/boucan-frontend:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3200:3200"
+
+volumes:
+  packs:
+  media:

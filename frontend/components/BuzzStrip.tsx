@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 import Equalizer from "@/components/Equalizer";
 import { BuzzEntry } from "@/lib/types";
 
@@ -10,7 +12,7 @@ interface Props {
 
 // The buzz order as a photo-finish strip: rank, who, and the millisecond gap
 // behind the leader (cahier §14).
-export default function BuzzStrip({ queue, floorPlayerId }: Props) {
+function BuzzStrip({ queue, floorPlayerId }: Props) {
   if (queue.length === 0) {
     return <p className="font-mono text-sm text-muted">En attente des buzzes…</p>;
   }
@@ -42,3 +44,5 @@ export default function BuzzStrip({ queue, floorPlayerId }: Props) {
     </ol>
   );
 }
+
+export default memo(BuzzStrip);

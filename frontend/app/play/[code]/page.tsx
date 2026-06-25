@@ -2,17 +2,20 @@
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import BlindtestTimerBar from "@/components/BlindtestTimerBar";
 import BonusChip from "@/components/BonusChip";
 import Buzzer from "@/components/Buzzer";
 import Countdown from "@/components/Countdown";
+import { CoverImage, PromptImage } from "@/components/MediaImage";
 import MuteToggle from "@/components/MuteToggle";
 import QcmChoices from "@/components/QcmChoices";
+import ReadingBadge from "@/components/ReadingBadge";
 import Scoreboard from "@/components/Scoreboard";
 import * as sfx from "@/lib/sfx";
 import { useGameSocket } from "@/lib/useGameSocket";
+import { useNow } from "@/lib/useNow";
 
 export default function PlayerView() {
   const code = String(useParams().code ?? "").toUpperCase();
@@ -66,6 +69,14 @@ export default function PlayerView() {
     }
   }, [snapshot]);
 
+  // Stable handlers so the memoised QcmChoices / Buzzer skip re-renders when the
+  // snapshot changes for unrelated reasons (`send` is already a stable callback).
+  const submitAnswer = useCallback((i: number) => send("answer_submit", { choice: i }), [send]);
+  const doBuzz = useCallback(() => { sfx.buzz(); send("buzz"); }, [send]);
+  const noop = useCallback(() => {}, []);
+
+  const now = useNow();
+
   if (!pseudo) return null;
 
   const { round, players, buzz, reveal, you, error } = snapshot;
@@ -103,38 +114,57 @@ export default function PlayerView() {
         </header>
 
         {q.state === "QUESTION_ACTIVE" && q.question ? (
-          <>
-            <div className="mt-4 flex items-center justify-between gap-2">
-              <span className="flex items-center gap-2 font-mono text-xs text-muted">
-                Question {q.index + 1}/{q.total}
-                {q.question.bonus && <BonusChip />}
-              </span>
-              <span className="font-mono text-sm text-muted"><Countdown endsAt={q.question.ends_at} offsetMs={q.clockOffset} /></span>
-            </div>
-            <p className="mt-3 text-center text-lg">{q.question.question}</p>
-            {q.question.image && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={q.question.image} alt="" className="mx-auto mt-3 max-h-40 rounded-lg object-contain" />
-            )}
-            <div className="flex flex-1 items-center justify-center py-6">
-              <QcmChoices
-                choices={q.question.choices}
-                disabled={q.myChoice !== null}
-                myChoice={q.myChoice}
-                correct={null}
-                onPick={(i) => send("answer_submit", { choice: i })}
-              />
-            </div>
-            {q.myChoice !== null && <p className="text-center font-mono text-sm text-muted">Réponse verrouillée — attends les autres…</p>}
-          </>
+          (() => {
+            const reading = (q.question.choices_at ?? 0) > now + q.clockOffset;
+            const readSecs = Math.ceil(((q.question.choices_at ?? 0) - (now + q.clockOffset)) / 1000);
+            return (
+              <>
+                <div className="mt-4 flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2 font-mono text-xs text-muted">
+                    Question {q.index + 1}/{q.total}
+                    {q.question.bonus && <BonusChip />}
+                  </span>
+                </div>
+                {!reading && (
+                  <Countdown
+                    endsAt={q.question.ends_at}
+                    offsetMs={q.clockOffset}
+                    durationMs={q.question.time_limit * 1000}
+                    className="mt-2 text-muted"
+                  />
+                )}
+                <p className="mt-3 text-center text-lg">{q.question.question}</p>
+                {q.question.image && <PromptImage src={q.question.image} className="mx-auto mt-3 max-h-40 rounded-lg" />}
+                {reading ? (
+                  <div className="flex flex-1 flex-col items-center justify-center gap-2 py-6">
+                    <ReadingBadge secondsLeft={readSecs} />
+                    <p className="font-mono text-sm text-muted">Lis bien la question…</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex flex-1 items-center justify-center py-6">
+                      <QcmChoices
+                        choices={q.question.choices}
+                        disabled={q.myChoice !== null}
+                        myChoice={q.myChoice}
+                        correct={null}
+                        onPick={submitAnswer}
+                      />
+                    </div>
+                    {q.myChoice !== null && <p className="text-center font-mono text-sm text-muted">Réponse verrouillée — attends les autres…</p>}
+                  </>
+                )}
+              </>
+            );
+          })()
         ) : q.state === "REVEAL" && q.question ? (
           <div className="flex flex-1 flex-col items-center justify-center">
-            <p className="font-display text-7xl">{won ? "✓" : "✗"}</p>
-            <p className="mt-2 text-cream/80">
+            <p className={`font-display text-7xl ${won ? "text-volt" : "text-buzz"}`}>{won ? "✓" : "✗"}</p>
+            <p className="mt-2 font-display text-2xl">
               {won ? `+${reveal?.deltas[you.id ?? ""] ?? 0} pts` : "Pas cette fois"}
             </p>
             <div className="mt-6 w-full">
-              <QcmChoices choices={q.question.choices} disabled myChoice={q.myChoice} correct={reveal?.correct ?? null} onPick={() => {}} />
+              <QcmChoices choices={q.question.choices} disabled myChoice={q.myChoice} correct={reveal?.correct ?? null} onPick={noop} />
             </div>
           </div>
         ) : q.state === "GAME_END" ? (
@@ -205,11 +235,10 @@ export default function PlayerView() {
           </div>
         ) : b.state === "REVEAL" && b.reveal ? (
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <p className="font-display text-7xl">{wonReveal ? "✓" : "✗"}</p>
-            <p className="mt-2 text-cream/80">{wonReveal ? `+${myDelta} pts` : "Pas cette fois"}</p>
+            <p className={`font-display text-7xl ${wonReveal ? "text-volt" : "text-buzz"}`}>{wonReveal ? "✓" : "✗"}</p>
+            <p className="mt-2 font-display text-2xl">{wonReveal ? `+${myDelta} pts` : "Pas cette fois"}</p>
             {b.reveal.cover_url && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={b.reveal.cover_url} alt="" className="mt-6 h-32 w-32 rounded-xl object-cover" />
+              <CoverImage src={b.reveal.cover_url} size={128} className="mt-6 h-32 w-32 rounded-xl" />
             )}
             <p className="mt-4 font-display text-2xl">{b.reveal.title}</p>
             <p className="font-mono text-sm text-muted">{b.reveal.artist}</p>
@@ -234,7 +263,7 @@ export default function PlayerView() {
                 sublabel={sublabel}
                 disabled={!canBuzz}
                 locked={buzz.state === "BUZZED" && b.state === "BUZZER_OPEN"}
-                onBuzz={() => { sfx.buzz(); send("buzz"); }}
+                onBuzz={doBuzz}
               />
             </div>
           </>
@@ -251,19 +280,45 @@ export default function PlayerView() {
     );
   }
 
+  // Buzzer game over → podium screen (same as QCM / blindtest).
+  if (round.state === "GAME_END") {
+    return (
+      <main className="flex min-h-screen flex-col px-5 py-5">
+        <header className="flex items-center justify-between font-mono text-xs text-muted">
+          <span className="flex items-center gap-2">
+            <span className={`h-2 w-2 rounded-full ${snapshot.connected ? "bg-volt" : "bg-buzz"}`} />
+            {code}
+          </span>
+          <span className="truncate">{me?.pseudo ?? pseudo}</span>
+        </header>
+        <div className="flex flex-1 flex-col justify-center">
+          <p className="text-center font-display text-5xl text-volt">Terminé !</p>
+          <p className="mt-2 text-center font-display text-2xl">#{me?.rank ?? "—"} · {me?.score ?? 0} pts</p>
+          <div className="mt-6"><Scoreboard players={ranking} highlightId={you.id ?? undefined} /></div>
+        </div>
+      </main>
+    );
+  }
+
   const youBuzzed = buzz.queue.some((e) => e.player_id === you.id);
   const hasFloor = !!round.floor_player_id && round.floor_player_id === you.id;
   const floorPseudo = players.find((p) => p.id === round.floor_player_id)?.pseudo;
   const wonReveal = round.revealed && reveal?.correct_player_id === you.id;
 
-  const canBuzz = round.state === "BUZZER_OPEN" && !round.revealed && !youBuzzed;
-  const locked = !canBuzz;
+  // Reading window: buzzer stays locked + shows a "Lecture…" countdown first.
+  const buzzReading =
+    round.state === "BUZZER_OPEN" && !round.revealed && (round.buzz_open_at ?? 0) > now + (round.clockOffset ?? 0);
+  const buzzReadSecs = Math.ceil(((round.buzz_open_at ?? 0) - (now + (round.clockOffset ?? 0))) / 1000);
+  const canBuzz = round.state === "BUZZER_OPEN" && !round.revealed && !youBuzzed && !buzzReading;
 
   let label = "BUZZ";
   let sublabel: string | undefined = "Appuie dès que tu sais !";
   if (round.state === "LOBBY") {
     label = "…";
     sublabel = "En attente du prochain round";
+  } else if (buzzReading) {
+    label = "LIS";
+    sublabel = "Lis la question…";
   } else if (round.revealed) {
     label = wonReveal ? "✓" : "✗";
     sublabel = wonReveal ? "Bien joué !" : round.answer ? `Réponse : ${round.answer}` : "Round terminé";
@@ -291,19 +346,22 @@ export default function PlayerView() {
         <p className="mt-6 text-center text-xl">{round.question_text}</p>
       )}
       {round.image && round.state !== "LOBBY" && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={round.image} alt="" className="mx-auto mt-3 max-h-44 rounded-lg object-contain" />
+        <PromptImage src={round.image} className="mx-auto mt-3 max-h-44 rounded-lg" />
       )}
 
-      {/* Buzzer */}
+      {/* Buzzer (or reading countdown) */}
       <div className="flex flex-1 flex-col items-center justify-center py-8">
-        <Buzzer
-          label={label}
-          sublabel={sublabel}
-          disabled={!canBuzz}
-          locked={round.state === "BUZZED" && !round.revealed}
-          onBuzz={() => { sfx.buzz(); send("buzz"); }}
-        />
+        {buzzReading ? (
+          <ReadingBadge secondsLeft={buzzReadSecs} label="Lecture…" />
+        ) : (
+          <Buzzer
+            label={label}
+            sublabel={sublabel}
+            disabled={!canBuzz}
+            locked={round.state === "BUZZED" && !round.revealed}
+            onBuzz={doBuzz}
+          />
+        )}
       </div>
 
       {/* Score */}

@@ -29,6 +29,8 @@ export interface QcmQuestion {
   choices: string[];
   time_limit: number;
   ends_at: number;
+  choices_at?: number; // server ms the choices unlock (after the reading window)
+  server_now?: number; // server clock at emission (clock-skew estimate)
   points: number;
   bonus?: boolean; // ×2 points
   correct?: number; // host only, presented index
@@ -128,6 +130,18 @@ export interface BlindtestTrackDraft {
   points_title: number;
   points_artist: number;
   bonus?: boolean; // ×2 points (title + artist) for this song
+  // Editor-only grouping metadata (ignored by the game): which imported playlist
+  // a track came from, so the editor can show a compact "playlist — N songs" card.
+  source_playlist?: string | null;
+  source_playlist_url?: string | null;
+}
+
+// Response of GET /api/spotify/playlist.
+export interface PlaylistImportResult {
+  name: string;
+  external_url: string | null;
+  track_count: number;
+  tracks: Omit<BlindtestTrackDraft, "start_ms" | "points_title" | "points_artist">[];
 }
 
 export interface BlindtestTrackNow {
@@ -214,14 +228,8 @@ export interface RoundState {
   round_index: number; // -1 = not started / lobby
   round_total: number;
   answer: string | null;
-}
-
-// A round prepared by the host before the game (host-only: carries the answer).
-export interface PreparedRound {
-  question_text: string | null;
-  answer: string | null;
-  points: number;
-  image?: string | null;
+  buzz_open_at?: number; // server ms the buzzer unlocks (after the reading window)
+  clockOffset?: number; // server_now - Date.now(), estimated when round_state arrived
 }
 
 export interface BuzzState {
@@ -249,19 +257,8 @@ export interface GameSnapshot {
   players: PlayerInfo[];
   buzz: BuzzState;
   reveal: RevealInfo | null;
-  prepared: PreparedRound[]; // host-only buzzer prepared list
   qcm: QcmState;
-  preparedQcm: QcmRoundDraft[]; // host-only QCM prepared list
   blindtest: BlindtestState;
-  preparedBlindtest: BlindtestTrackDraft[]; // host-only blindtest prepared list
-  // host-only blindtest config, restored into the editor on reconnect
-  preparedBlindtestConfig: {
-    maxPlayS: number;
-    randomStart: boolean;
-    countdown: boolean;
-    pointsTitle: number;
-    pointsArtist: number;
-  } | null;
   connected: boolean;
   error: { code: string; message: string } | null;
 }

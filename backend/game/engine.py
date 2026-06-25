@@ -19,7 +19,12 @@ import secrets
 from dataclasses import dataclass
 from uuid import uuid4
 
-from .models import BuzzEntry, GameState, Player, PreparedRound, Session
+from .models import BuzzEntry, GameMode, GameState, Player, PreparedRound, Session
+from .store import now_ms
+
+# Reading window before a buzzer round opens or QCM choices appear, so players can
+# read the question (or listen) first. Shared with qcm.py.
+READING_MS = 5000
 
 
 @dataclass
@@ -95,6 +100,10 @@ def round_state_payload(session: Session, *, include_answer: bool) -> dict:
         "round_index": session.round_index,
         "round_total": len(session.rounds),
         "answer": session.answer if show_answer else None,
+        # Reading window: clients keep the buzzer locked + show "Lecture…" until
+        # buzz_open_at; server_now lets them correct for clock skew (see blindtest).
+        "buzz_open_at": session.buzz_open_at,
+        "server_now": now_ms(),
     }
 
 
@@ -245,23 +254,28 @@ def _open_round(
     question_text: str | None,
     answer: str | None,
     points: int | None,
+    now: int,
     image: str | None = None,
     bonus: bool = False,
 ) -> list[Outbound]:
     """Open the buzzer for a round from *any* state (used by both the manual
-    ``open_buzzer`` and the prepared-list ``load_round``)."""
+    ``open_buzzer`` and the prepared-list ``load_round``). A round that carries a
+    question text gets a reading window (buzzer locked for READING_MS); an ad-hoc
+    "buzzer immédiat" with no text opens straight away."""
     session.state = GameState.BUZZER_OPEN
     session.question_text = question_text or None
     session.answer = answer or None
     session.points = points if points is not None else 1
     session.bonus = bonus
     session.image = image or None
+    session.buzz_open_at = now + READING_MS if session.question_text else now
     _reset_round_fields(session)
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
 
 def open_buzzer(
     session: Session,
+    now: int | None = None,
     question_text: str | None = None,
     answer: str | None = None,
     points: int | None = None,
@@ -272,7 +286,9 @@ def open_buzzer(
     where the host opens a buzzer without a prepared list."""
     if session.state is not GameState.LOBBY:
         return []
-    return _open_round(session, question_text, answer, points, image, bonus)
+    if now is None:
+        now = now_ms()
+    return _open_round(session, question_text, answer, points, now, image, bonus)
 
 
 # --------------------------------------------------------------------------- #
@@ -318,34 +334,59 @@ def set_rounds(session: Session, items: list[dict]) -> list[Outbound]:
     return [_prepared_rounds_outbound(session), *_round_state_outbounds(session)]
 
 
-def load_round(session: Session, index: int) -> list[Outbound]:
+def load_round(session: Session, index: int, now: int | None = None) -> list[Outbound]:
     """Open the prepared round at ``index`` (works mid-game, from any state)."""
     if not (0 <= index < len(session.rounds)):
         return []
+    if now is None:
+        now = now_ms()
     session.round_index = index
     prepared = session.rounds[index]
     return _open_round(
-        session, prepared.question_text, prepared.answer, prepared.points, prepared.image, prepared.bonus
+        session, prepared.question_text, prepared.answer, prepared.points, now, prepared.image, prepared.bonus
     )
 
 
-def start_game(session: Session) -> list[Outbound]:
+def start_game(session: Session, now: int | None = None) -> list[Outbound]:
     """Begin the prepared game at the first round."""
-    return load_round(session, 0)
+    return load_round(session, 0, now if now is not None else now_ms())
 
 
-def next_action(session: Session) -> list[Outbound]:
-    """The host "Suivant" button: advance to the next prepared round, or return
-    to the lobby once the list is exhausted."""
+def game_end_payload(session: Session) -> dict:
+    """Final ranking for the buzzer podium (mirrors qcm.game_end_payload)."""
+    ordered, ranks = _ranked(session)
+    podium = [
+        {"id": p.id, "pseudo": p.pseudo, "score": p.score, "rank": ranks[p.id]} for p in ordered if ranks[p.id] <= 3
+    ]
+    return {"podium": podium, "players": player_list_payload(session)["players"]}
+
+
+def next_action(session: Session, now: int | None = None) -> list[Outbound]:
+    """The host "Suivant" button: advance to the next prepared round; once a
+    prepared list is exhausted, finish on the podium (GAME_END). An ad-hoc game
+    with no prepared list just returns to the lobby."""
+    if now is None:
+        now = now_ms()
     if session.rounds and session.round_index + 1 < len(session.rounds):
-        return load_round(session, session.round_index + 1)
+        return load_round(session, session.round_index + 1, now)
+    if session.rounds:
+        session.state = GameState.GAME_END
+        session.revealed = False
+        return [*_round_state_outbounds(session), _player_list_outbound(session)]
     return next_round(session)
 
 
-def reset_buzzer(session: Session) -> list[Outbound]:
+def reset_buzzer(session: Session, now: int | None = None) -> list[Outbound]:
+    # Once the round is revealed (a correct answer was validated, or the host gave
+    # up and showed the answer) the round is over — don't reopen the buzzer.
+    if session.revealed:
+        return []
     if session.state not in (GameState.BUZZER_OPEN, GameState.BUZZED):
         return []
+    if now is None:
+        now = now_ms()
     session.state = GameState.BUZZER_OPEN
+    session.buzz_open_at = now  # immediate reopen — players have already read it
     _reset_round_fields(session)
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
@@ -401,6 +442,33 @@ def next_round(session: Session) -> list[Outbound]:
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
 
+def return_to_lobby(session: Session) -> bool:
+    """Send a finished game back to the lobby, keeping players (and their scores)
+    on the same code so the host can pick packs again for the next round.
+
+    Acts only from GAME_END (any mode). Scores are **kept** (cumulative across
+    rounds on the same code — a player who leaves and rejoins via their
+    reconnect_token keeps their total); only the per-round streak/rank bookkeeping
+    is reset. The session drops back to the default buzzer mode in LOBBY and every
+    prepared list is cleared. Returns whether it acted, so the caller can broadcast
+    a fresh state_sync to move all clients back to the preparation screen."""
+    if session.state is not GameState.GAME_END:
+        return False
+    for p in session.players.values():
+        p.streak = 0
+        p.last_rank = 0
+    session.mode = GameMode.BUZZER
+    session.state = GameState.LOBBY
+    session.rounds = []
+    session.round_index = -1
+    session.qcm_rounds = []
+    session.qcm_index = -1
+    session.blindtest_tracks = []
+    session.bt_index = -1
+    _reset_round_fields(session)
+    return True
+
+
 def adjust_score(session: Session, player_id: str | None, delta: int) -> list[Outbound]:
     player = session.players.get(player_id or "")
     if player is None:
@@ -419,12 +487,15 @@ def kick(session: Session, player_id: str | None) -> list[Outbound]:
     return outs
 
 
-def handle_host_action(session: Session, action: str, payload: dict) -> list[Outbound]:
+def handle_host_action(session: Session, action: str, payload: dict, now: int | None = None) -> list[Outbound]:
     """Dispatch a ``host_action`` message to the matching handler."""
+    if now is None:
+        now = now_ms()
     match action:
         case "open_buzzer":
             return open_buzzer(
                 session,
+                now,
                 payload.get("question_text"),
                 payload.get("answer"),
                 payload.get("points"),
@@ -434,13 +505,13 @@ def handle_host_action(session: Session, action: str, payload: dict) -> list[Out
             return set_rounds(session, items) if isinstance(items, list) else []
         case "load_round":
             try:
-                return load_round(session, int(payload.get("index")))
+                return load_round(session, int(payload.get("index")), now)
             except (TypeError, ValueError):
                 return []
         case "start" | "start_game":
-            return start_game(session)
+            return start_game(session, now)
         case "reset_buzzer":
-            return reset_buzzer(session)
+            return reset_buzzer(session, now)
         case "validate":
             return validate(session)
         case "invalidate":
@@ -448,7 +519,7 @@ def handle_host_action(session: Session, action: str, payload: dict) -> list[Out
         case "reveal":
             return reveal(session)
         case "next" | "skip":
-            return next_action(session)
+            return next_action(session, now)
         case "end":
             return next_round(session)
         case "adjust_score":

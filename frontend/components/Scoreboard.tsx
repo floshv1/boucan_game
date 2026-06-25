@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 import { PlayerInfo } from "@/lib/types";
 
 interface Props {
@@ -10,7 +12,7 @@ interface Props {
   highlightId?: string;
 }
 
-export default function Scoreboard({ players, onAdjust, onKick, highlightId }: Props) {
+function Scoreboard({ players, onAdjust, onKick, highlightId }: Props) {
   if (players.length === 0) {
     return <p className="text-muted">Personne n&apos;a encore rejoint.</p>;
   }
@@ -64,3 +66,5 @@ export default function Scoreboard({ players, onAdjust, onKick, highlightId }: P
     </ul>
   );
 }
+
+export default memo(Scoreboard);

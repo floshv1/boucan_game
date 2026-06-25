@@ -2,15 +2,15 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-// ---------------------------------------------------------------------------
-// Backend HTTP URL helper — mirrors backendWsUrl() in useGameSocket.ts.
-// The page is served on :3200 but the backend API lives on :8200.
-// ---------------------------------------------------------------------------
-function backendHttpUrl(path: string): string {
-  const proto = window.location.protocol; // "http:" or "https:"
-  const port = process.env.NEXT_PUBLIC_BACKEND_PORT ?? "8200";
-  return `${proto}//${window.location.hostname}:${port}${path}`;
-}
+import { backendHttpUrl } from "./backend";
+
+// Actionable hints appended to opaque SDK errors. The most common host-side
+// failures are browser-side (DRM disabled / tracker blockers killing Spotify's
+// license + dealer endpoints), not server-side.
+const HINT_DRM =
+  "Active le DRM du navigateur et désactive la protection anti-pistage / bloqueur pour ce site (ou utilise Chrome/Edge).";
+const HINT_BLOCKER =
+  "Désactive la protection anti-pistage / le bloqueur pour ce site (ou utilise Chrome/Edge).";
 
 // ---------------------------------------------------------------------------
 // Token helper — fetches a fresh Spotify access token from the backend.
@@ -94,27 +94,33 @@ export function useSpotifyPlayer(enabled: boolean): SpotifyPlayerControls {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       player.addListener("not_ready", (_ev: any) => {
-        if (!cancelled) setReady(false);
+        if (cancelled) return;
+        // The device dropped (often the dealer websocket flapped). Forget its id so
+        // play() never PUTs to a dead device → avoids "404 Device not found".
+        setReady(false);
+        setDeviceId(null);
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       player.addListener("initialization_error", ({ message }: { message: string }) => {
-        if (!cancelled) setError(`Initialization error: ${message}`);
+        if (!cancelled) setError(`Initialisation impossible : ${message}. ${HINT_BLOCKER}`);
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       player.addListener("authentication_error", ({ message }: { message: string }) => {
-        if (!cancelled) setError(`Authentication error: ${message}`);
+        if (!cancelled) setError(`Authentification Spotify refusée : ${message}. Reconnecte Spotify (compte Premium requis).`);
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       player.addListener("account_error", ({ message }: { message: string }) => {
-        if (!cancelled) setError(`Account error: ${message}`);
+        if (!cancelled) setError(`Compte non éligible : ${message}. Spotify Premium est requis pour la lecture.`);
       });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       player.addListener("playback_error", ({ message }: { message: string }) => {
-        if (!cancelled) setError(`Playback error: ${message}`);
+        // A bare "playback error" on Firefox-based browsers is almost always the
+        // Widevine DRM / tracker-blocker gotcha — point the host at the fix.
+        if (!cancelled) setError(`Lecture bloquée : ${message}. ${HINT_DRM}`);
       });
 
       player.connect();
@@ -156,31 +162,39 @@ export function useSpotifyPlayer(enabled: boolean): SpotifyPlayerControls {
       const id = deviceId;
       if (!id) return;
       const url = `https://api.spotify.com/v1/me/player/play?device_id=${encodeURIComponent(id)}`;
-      const attempt = async (canRetry: boolean): Promise<void> => {
-        const token = await fetchSpotifyToken();
-        const res = await fetch(url, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ uris: [uri], position_ms: startMs }),
-        });
-        if (res.ok || res.status === 204) {
-          setError(null);
-          return;
+      // The SDK device isn't always propagated to Spotify's backend the instant it
+      // registers (a fresh play can 404 "Device not found"), and a flapping dealer
+      // websocket can drop it briefly — so retry 404s a few times with backoff
+      // before giving up.
+      const BACKOFF_MS = [600, 1200, 2400];
+      const run = async (): Promise<void> => {
+        for (let i = 0; ; i++) {
+          const token = await fetchSpotifyToken();
+          const res = await fetch(url, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ uris: [uri], position_ms: startMs }),
+          });
+          if (res.ok || res.status === 204) {
+            setError(null);
+            return;
+          }
+          if (res.status === 404 && i < BACKOFF_MS.length) {
+            await new Promise((r) => setTimeout(r, BACKOFF_MS[i]));
+            continue;
+          }
+          if (res.status === 404) {
+            throw new Error(`appareil introuvable. ${HINT_BLOCKER}`);
+          }
+          const body = await res.text().catch(() => "");
+          throw new Error(`${res.status} ${body.slice(0, 140)}`);
         }
-        // The SDK device often isn't propagated to Spotify's backend the instant
-        // it registers — a first play can 404 "Device not found". Wait + retry once.
-        if (res.status === 404 && canRetry) {
-          await new Promise((r) => setTimeout(r, 800));
-          return attempt(false);
-        }
-        const body = await res.text().catch(() => "");
-        throw new Error(`${res.status} ${body.slice(0, 140)}`);
       };
-      attempt(true).catch((err: unknown) => {
-        setError(`Lecture: ${err instanceof Error ? err.message : String(err)}`);
+      run().catch((err: unknown) => {
+        setError(`Lecture : ${err instanceof Error ? err.message : String(err)}`);
       });
     },
     [deviceId]

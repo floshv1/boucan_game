@@ -123,6 +123,7 @@ class Session:
     bonus: bool = False  # current buzzer round is a ×2 bonus
     image: str | None = None  # optional prompt image URL for the current buzzer round
     revealed: bool = False
+    buzz_open_at: int = 0  # epoch ms the buzzer actually opens (after the reading window)
     buzz_queue: list[BuzzEntry] = field(default_factory=list)
     buzzed_ids: set[str] = field(default_factory=set)  # idempotence guard
     floor_index: int = 0  # index into buzz_queue of the player holding the floor

@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 interface Props {
   label: string;
   sublabel?: string;
@@ -8,7 +10,7 @@ interface Props {
   onBuzz?: () => void;
 }
 
-export default function Buzzer({ label, sublabel, disabled, locked, onBuzz }: Props) {
+function Buzzer({ label, sublabel, disabled, locked, onBuzz }: Props) {
   return (
     <div className="relative flex flex-col items-center">
       {locked && !disabled && (
@@ -27,3 +29,5 @@ export default function Buzzer({ label, sublabel, disabled, locked, onBuzz }: Pr
     </div>
   );
 }
+
+export default memo(Buzzer);

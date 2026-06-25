@@ -6,6 +6,7 @@ import BonusChip from "@/components/BonusChip";
 import Button from "@/components/Button";
 import BuzzStrip from "@/components/BuzzStrip";
 import Equalizer from "@/components/Equalizer";
+import { CoverImage } from "@/components/MediaImage";
 import * as sfx from "@/lib/sfx";
 import { SpotifyPlayerControls } from "@/lib/useSpotifyPlayer";
 import { GameSnapshot } from "@/lib/types";
@@ -96,8 +97,8 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
             </li>
           ))}
         </ol>
-        <Button variant="primary" onClick={() => action("replay_game")} className="mt-6 w-full">
-          ⟲ Rejouer (mêmes morceaux)
+        <Button variant="primary" onClick={() => action("return_to_lobby")} className="mt-6 w-full">
+          ⟲ Rejouer (retour au menu)
         </Button>
       </div>
     );
@@ -173,12 +174,7 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
         ) : (
           <div className="mt-4 flex items-center gap-4 rounded-xl border border-panel2 bg-ink/40 px-4 py-3">
             {bt.track.cover_url && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={bt.track.cover_url}
-                alt=""
-                className="h-14 w-14 shrink-0 rounded-lg object-cover"
-              />
+              <CoverImage src={bt.track.cover_url} size={56} className="h-14 w-14 shrink-0 rounded-lg" />
             )}
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-lg">{bt.track.title}</p>
@@ -300,12 +296,7 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
       {bt.reveal && (
         <div className="mt-4 flex items-center gap-4 rounded-xl border border-volt/40 bg-volt/10 px-4 py-3">
           {bt.reveal.cover_url && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={bt.reveal.cover_url}
-              alt=""
-              className="h-12 w-12 shrink-0 rounded-lg object-cover"
-            />
+            <CoverImage src={bt.reveal.cover_url} size={48} className="h-12 w-12 shrink-0 rounded-lg" />
           )}
           <p className="font-display text-lg text-volt">
             ✓ {bt.reveal.title} — {bt.reveal.artist}
