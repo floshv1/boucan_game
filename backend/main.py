@@ -182,6 +182,8 @@ async def _handle_message(session, conn: Connection, msg: dict) -> None:
                 await _sync_blindtest_timer(session)
             elif now_ms() >= session.buzz_open_at:  # locked during the reading window
                 await manager.dispatch(session, engine.buzz(session, conn.player_id, now_ms()))
+            else:
+                logger.debug("[{}] buzz dropped: reading window ({}ms left)", session.code, session.buzz_open_at - now_ms())
         return
 
     if mtype == "answer_submit":
@@ -201,6 +203,7 @@ async def _handle_message(session, conn: Connection, msg: dict) -> None:
             await manager.send(conn, "error", {"code": "forbidden", "message": "Action réservée à l'hôte."})
             return
         action = payload.get("action", "")
+        logger.info("[{}] host_action: {}", session.code, action)
         # Mode-agnostic: rewind a finished game to the lobby (same code, players
         # kept) and re-sync everyone to the preparation screen.
         if action == "return_to_lobby":

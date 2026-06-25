@@ -19,6 +19,8 @@ import secrets
 from dataclasses import dataclass
 from uuid import uuid4
 
+from loguru import logger
+
 from .models import BuzzEntry, GameMode, GameState, Player, PreparedRound, Session
 from .store import now_ms
 
@@ -270,6 +272,12 @@ def _open_round(
     session.image = image or None
     session.buzz_open_at = now + READING_MS if session.question_text else now
     _reset_round_fields(session)
+    logger.info(
+        "[{}] buzzer round opened (q={!r}, reading={}ms)",
+        session.code,
+        (session.question_text or "")[:40],
+        session.buzz_open_at - now,
+    )
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
 
@@ -372,7 +380,9 @@ def next_action(session: Session, now: int | None = None) -> list[Outbound]:
     if session.rounds:
         session.state = GameState.GAME_END
         session.revealed = False
-        return [*_round_state_outbounds(session), _player_list_outbound(session)]
+        _reset_round_fields(session)  # clear the last round's buzz queue (else it lingers on the TV)
+        logger.info("[{}] buzzer game ended ({} rounds played)", session.code, len(session.rounds))
+        return [*_round_state_outbounds(session), _buzz_outbound(session), _player_list_outbound(session)]
     return next_round(session)
 
 
@@ -400,6 +410,7 @@ def validate(session: Session) -> list[Outbound]:
     awarded = session.points * (2 if session.bonus else 1)
     session.players[player_id].score += awarded
     session.revealed = True
+    logger.info("[{}] validated {} (+{} pts)", session.code, session.players[player_id].pseudo, awarded)
     reveal = Outbound(
         "all",
         "reveal",
@@ -466,6 +477,7 @@ def return_to_lobby(session: Session) -> bool:
     session.blindtest_tracks = []
     session.bt_index = -1
     _reset_round_fields(session)
+    logger.info("[{}] return to lobby ({} players, scores kept)", session.code, len(session.players))
     return True
 
 

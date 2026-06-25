@@ -3,8 +3,18 @@
 from __future__ import annotations
 
 import pytest
+from loguru import logger
 
 from game import engine
+
+
+@pytest.fixture(autouse=True, scope="session")
+def _quiet_logs():
+    """Drop loguru sinks for the test session. Logging to stderr from the
+    Starlette TestClient's worker thread (under pytest capture) intermittently
+    deadlocks the anyio portal — and tests don't need the output anyway."""
+    logger.remove()
+    yield
 
 
 @pytest.fixture(autouse=True)

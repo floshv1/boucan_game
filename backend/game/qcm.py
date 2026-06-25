@@ -14,6 +14,8 @@ from __future__ import annotations
 
 import random
 
+from loguru import logger
+
 from game import engine
 from game.engine import Outbound, _ranked, player_list_payload
 from game.models import GameMode, GameState, QcmAnswer, QcmRound, Session
@@ -141,6 +143,15 @@ def load_question(session: Session, index: int, now: int) -> list[Outbound]:
     if session.qcm_shuffle_choices:
         random.shuffle(order)
     session.presented_order = order
+    logger.info(
+        "[{}] qcm question {}/{} ({!r}, {}s after {}ms reading)",
+        session.code,
+        index + 1,
+        len(session.qcm_rounds),
+        rnd.question[:40],
+        rnd.time_limit,
+        engine.READING_MS,
+    )
     return _question_start_outbounds(session)
 
 
@@ -212,6 +223,14 @@ def reveal(session: Session, *, award: bool = True) -> list[Outbound]:
             player.streak = 0
 
     session.state = GameState.REVEAL
+    logger.info(
+        "[{}] qcm reveal q{} — {} answers, {} correct{}",
+        session.code,
+        session.qcm_index + 1,
+        len(session.answers),
+        len(deltas),
+        "" if award else " (skipped, no points)",
+    )
     reveal_payload = {"correct": presented_correct, "distribution": distribution, "deltas": deltas}
     reveal_out = Outbound("all", "reveal", reveal_payload)
     return [reveal_out, Outbound("all", "player_list", player_list_payload(session))]
