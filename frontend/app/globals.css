@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #15102a;
+  --cream: #fbf4e6;
+  --buzz: #ff2e63;
+  --volt: #c6ff4a;
+}
+
+body {
+  background-color: var(--ink);
+  /* faint stage-light glow behind the action */
+  background-image: radial-gradient(60% 50% at 50% 0%, rgba(255, 46, 99, 0.16) 0%, transparent 70%);
+  background-attachment: fixed;
+  color: var(--cream);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The signature: a tactile arcade buzzer dome that depresses on press. */
+.buzzer {
+  position: relative;
+  width: min(76vw, 340px);
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: #fff;
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: 0.04em;
+  background: radial-gradient(circle at 50% 30%, #ff6088 0%, #ff2e63 46%, #c01540 100%);
+  box-shadow:
+    0 0 0 12px rgba(255, 46, 99, 0.1),
+    0 22px 0 0 #8e0c2c,
+    0 34px 60px rgba(0, 0, 0, 0.55);
+  transition:
+    transform 70ms ease,
+    box-shadow 70ms ease,
+    filter 120ms ease;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.buzzer:active,
+.buzzer.is-down {
+  transform: translateY(18px);
+  box-shadow:
+    0 0 0 12px rgba(255, 46, 99, 0.1),
+    0 4px 0 0 #8e0c2c,
+    0 10px 22px rgba(0, 0, 0, 0.55);
+}
+
+.buzzer:disabled {
+  cursor: not-allowed;
+  filter: saturate(0.35) brightness(0.6);
+}
+
+.buzzer--locked {
+  background: radial-gradient(circle at 50% 30%, #4a3a6f 0%, #33235c 60%, #241640 100%);
+}
+
+/* Shockwave when the floor is taken */
+@keyframes ring-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.shockwave {
+  animation: ring-pulse 900ms ease-out infinite;
+}
+
+/* Boucan signature: equalizer bars (see components/Equalizer.tsx). */
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.32);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.eq-bar {
+  display: inline-block;
+  width: 4px;
+  height: 100%;
+  min-height: 0.5rem;
+  border-radius: 2px;
+  background: var(--volt);
+  transform-origin: bottom;
+  animation: eq 720ms ease-in-out infinite;
+}
+
+.eq-bar--paused {
+  animation-play-state: paused;
+  transform: scaleY(0.45);
+}
+
+/* 3-2-1 countdown: each new digit pops in. Keyed on the value in JSX. */
+@keyframes countdown-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.countdown-pop {
+  display: inline-block;
+  animation: countdown-pop 320ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buzzer,
+  .shockwave,
+  .eq-bar,
+  .countdown-pop {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Focus visibility floor */
+:focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}

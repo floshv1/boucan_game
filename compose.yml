@@ -1,0 +1,52 @@
+# Boucan — local/LAN stack. Builds both services from source.
+# No database: all live game state lives in memory (cahier §15). The ONLY
+# persistent state is question packs + uploaded images (Phase 4), kept on the
+# named volumes below so they survive rebuilds/restarts.
+#
+#   docker compose up --build      # start
+#   docker compose down            # stop
+#
+# Ports are published on 0.0.0.0 (not 127.0.0.1) so phones on the home WiFi can
+# reach the host (cahier §2 scénario A). Open on the PC/TV:
+#   http://<ip-locale>:3200/host        the private control console
+#   http://<ip-locale>:3200/tv/<CODE>   the shared TV screen
+# Players join from their phone at http://<ip-locale>:3200 .
+#
+# Production images (GHCR) + CI come in a later step.
+name: boucan
+
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    # Spotify credentials (SPOTIFY_CLIENT_ID/SECRET/REDIRECT_URI, FRONTEND_URL)
+    # are read from backend/.env. Secrets stay out of the image and out of git.
+    env_file:
+      - ./backend/.env
+    environment:
+      - PORT_BACKEND=8200
+      - CORS_ORIGINS=*
+    # Persist authored packs + uploaded images (Phase 4). packs_store defaults to
+    # ./packs and ./media relative to the /app workdir.
+    volumes:
+      - packs:/app/packs
+      - media:/app/media
+    ports:
+      - "8200:8200"
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      # Server-side only: used by Next rewrites at runtime to reach the backend.
+      # (The browser's WebSocket port is baked into the image at build time —
+      # backend port is fixed at 8200, see frontend/Dockerfile.)
+      - BACKEND_URL=http://backend:8200
+    ports:
+      - "3200:3200"
+
+volumes:
+  packs:
+  media:

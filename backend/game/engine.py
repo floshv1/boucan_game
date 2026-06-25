@@ -1,0 +1,463 @@
+"""Pure game logic for Phase 1 (buzzer mode).
+
+The engine never touches the network. Each function mutates a :class:`Session`
+and returns a list of :class:`Outbound` messages describing *what* to send and
+*to whom* — the WebSocket layer (``ws/manager.py``) turns those into actual
+frames. Keeping this layer pure makes the buzzer arbitration (cahier §14)
+straightforward to unit-test.
+
+Targets used by :class:`Outbound`:
+  * ``"all"``     — every connection in the session (host + players)
+  * ``"host"``    — the host connection only
+  * ``"players"`` — every player, but not the host
+  * ``<player_id>`` — a single player (unicast)
+"""
+
+from __future__ import annotations
+
+import secrets
+from dataclasses import dataclass
+from uuid import uuid4
+
+from .models import BuzzEntry, GameState, Player, PreparedRound, Session
+
+
+@dataclass
+class Outbound:
+    target: str
+    type: str
+    payload: dict
+
+
+# --------------------------------------------------------------------------- #
+# Payload builders
+# --------------------------------------------------------------------------- #
+def _ranked(session: Session) -> tuple[list[Player], dict[str, int]]:
+    ordered = sorted(session.players.values(), key=lambda p: (-p.score, p.pseudo.lower()))
+    ranks: dict[str, int] = {}
+    last_score: int | None = None
+    last_rank = 0
+    for i, player in enumerate(ordered, start=1):
+        if player.score != last_score:  # ties share a rank (cahier §19)
+            last_rank = i
+            last_score = player.score
+        ranks[player.id] = last_rank
+    return ordered, ranks
+
+
+def player_list_payload(session: Session) -> dict:
+    ordered, ranks = _ranked(session)
+    return {
+        "players": [
+            {
+                "id": p.id,
+                "pseudo": p.pseudo,
+                "score": p.score,
+                "connected": p.connected,
+                "rank": ranks[p.id],
+            }
+            for p in ordered
+        ]
+    }
+
+
+def _pseudo(session: Session, player_id: str) -> str:
+    player = session.players.get(player_id)
+    return player.pseudo if player else "—"
+
+
+def buzz_payload(session: Session) -> dict:
+    return {
+        "state": session.state.value,
+        "floor_player_id": session.floor_player_id,
+        "queue": [
+            {
+                "player_id": e.player_id,
+                "pseudo": _pseudo(session, e.player_id),
+                "order": e.order,
+                "delta_ms": e.delta_ms,
+            }
+            for e in session.buzz_queue
+        ],
+    }
+
+
+def round_state_payload(session: Session, *, include_answer: bool) -> dict:
+    show_answer = include_answer or session.revealed
+    return {
+        "state": session.state.value,
+        "question_text": session.question_text,
+        "points": session.points,
+        "bonus": session.bonus,
+        "image": session.image,
+        "revealed": session.revealed,
+        "floor_player_id": session.floor_player_id,
+        "round_index": session.round_index,
+        "round_total": len(session.rounds),
+        "answer": session.answer if show_answer else None,
+    }
+
+
+def _round_state_outbounds(session: Session) -> list[Outbound]:
+    """Role-filtered round state: the host sees the answer, players never do
+    before REVEAL (cahier §16)."""
+    return [
+        Outbound("host", "round_state", round_state_payload(session, include_answer=True)),
+        Outbound("players", "round_state", round_state_payload(session, include_answer=False)),
+    ]
+
+
+def _buzz_outbound(session: Session) -> Outbound:
+    return Outbound("all", "buzz_locked", buzz_payload(session))
+
+
+def _player_list_outbound(session: Session) -> Outbound:
+    return Outbound("all", "player_list", player_list_payload(session))
+
+
+def state_sync_outbound(session: Session, *, role: str, player_id: str | None = None) -> Outbound:
+    """Full snapshot sent to a single recipient on (re)connection (cahier §13)."""
+    target = player_id if role == "player" and player_id else "host"
+    you: dict = {"role": role, "id": player_id}
+    if role == "player" and player_id and player_id in session.players:
+        you["reconnect_token"] = session.players[player_id].reconnect_token
+    payload = {
+        "code": session.code,
+        "you": you,
+        "round": round_state_payload(session, include_answer=(role == "host")),
+        "player_list": player_list_payload(session),
+        "buzz": buzz_payload(session),
+    }
+    return Outbound(target, "state_sync", payload)
+
+
+# --------------------------------------------------------------------------- #
+# Players joining / leaving
+# --------------------------------------------------------------------------- #
+def _find_by_token(session: Session, token: str | None) -> Player | None:
+    if not token:
+        return None
+    for player in session.players.values():
+        if player.reconnect_token == token:
+            return player
+    return None
+
+
+def _unique_pseudo(session: Session, pseudo: str) -> str:
+    existing = {p.pseudo for p in session.players.values()}
+    if pseudo not in existing:
+        return pseudo
+    n = 2
+    while f"{pseudo} ({n})" in existing:
+        n += 1
+    return f"{pseudo} ({n})"
+
+
+def join(session: Session, pseudo: str, reconnect_token: str | None = None) -> tuple[Player, list[Outbound]]:
+    """Attach a player. With a valid ``reconnect_token`` the existing player is
+    reattached (score + place kept); otherwise a new player is created with a
+    de-duplicated pseudo."""
+    existing = _find_by_token(session, reconnect_token)
+    if existing is not None:
+        existing.connected = True
+        outs = [
+            state_sync_outbound(session, role="player", player_id=existing.id),
+            _player_list_outbound(session),
+        ]
+        return existing, outs
+
+    player = Player(
+        id=uuid4().hex,
+        pseudo=_unique_pseudo(session, (pseudo or "Joueur").strip()[:24] or "Joueur"),
+        reconnect_token=secrets.token_urlsafe(24),
+    )
+    session.players[player.id] = player
+    outs = [
+        state_sync_outbound(session, role="player", player_id=player.id),
+        _player_list_outbound(session),
+    ]
+    return player, outs
+
+
+def _advance_floor_if_departed(session: Session, player_id: str) -> list[Outbound]:
+    """If ``player_id`` held the floor, pass it to the next in the queue, or
+    reopen the buzzer if the queue is exhausted (cahier §14/§19)."""
+    if session.state is not GameState.BUZZED or session.floor_player_id != player_id:
+        return []
+    session.floor_index += 1
+    if session.floor_index >= len(session.buzz_queue):
+        session.state = GameState.BUZZER_OPEN
+        session.floor_index = 0
+    return [*_round_state_outbounds(session), _buzz_outbound(session)]
+
+
+def on_disconnect(session: Session, player_id: str) -> list[Outbound]:
+    """Mark a player disconnected (kept for reconnection) and free the floor if
+    they held it."""
+    player = session.players.get(player_id)
+    if player is None:
+        return []
+    player.connected = False
+    outs = _advance_floor_if_departed(session, player_id)
+    outs.append(_player_list_outbound(session))
+    return outs
+
+
+# --------------------------------------------------------------------------- #
+# Buzzer arbitration (cahier §14)
+# --------------------------------------------------------------------------- #
+def buzz(session: Session, player_id: str, now: int) -> list[Outbound]:
+    if session.state not in (GameState.BUZZER_OPEN, GameState.BUZZED):
+        return []
+    if session.revealed or player_id not in session.players:
+        return []
+    if player_id in session.buzzed_ids:  # idempotent: one buzz per round
+        return []
+
+    first_ts = session.buzz_queue[0].ts if session.buzz_queue else now
+    session.buzz_queue.append(
+        BuzzEntry(
+            player_id=player_id,
+            ts=now,
+            order=len(session.buzz_queue) + 1,
+            delta_ms=now - first_ts,
+        )
+    )
+    session.buzzed_ids.add(player_id)
+    if session.state is GameState.BUZZER_OPEN:
+        session.state = GameState.BUZZED
+        session.floor_index = 0
+    return [*_round_state_outbounds(session), _buzz_outbound(session)]
+
+
+# --------------------------------------------------------------------------- #
+# Host actions
+# --------------------------------------------------------------------------- #
+def _reset_round_fields(session: Session) -> None:
+    session.revealed = False
+    session.buzz_queue = []
+    session.buzzed_ids = set()
+    session.floor_index = 0
+
+
+def _open_round(
+    session: Session,
+    question_text: str | None,
+    answer: str | None,
+    points: int | None,
+    image: str | None = None,
+    bonus: bool = False,
+) -> list[Outbound]:
+    """Open the buzzer for a round from *any* state (used by both the manual
+    ``open_buzzer`` and the prepared-list ``load_round``)."""
+    session.state = GameState.BUZZER_OPEN
+    session.question_text = question_text or None
+    session.answer = answer or None
+    session.points = points if points is not None else 1
+    session.bonus = bonus
+    session.image = image or None
+    _reset_round_fields(session)
+    return [*_round_state_outbounds(session), _buzz_outbound(session)]
+
+
+def open_buzzer(
+    session: Session,
+    question_text: str | None = None,
+    answer: str | None = None,
+    points: int | None = None,
+    image: str | None = None,
+    bonus: bool = False,
+) -> list[Outbound]:
+    """Manual ad-hoc round (LOBBY only) — kept for improvised / blindtest rounds
+    where the host opens a buzzer without a prepared list."""
+    if session.state is not GameState.LOBBY:
+        return []
+    return _open_round(session, question_text, answer, points, image, bonus)
+
+
+# --------------------------------------------------------------------------- #
+# Prepared round list (itération 2)
+# --------------------------------------------------------------------------- #
+def _prepared_rounds_outbound(session: Session) -> Outbound:
+    """Full list *with answers* — host only, never sent to players/TV."""
+    return Outbound(
+        "host",
+        "prepared_rounds",
+        {
+            "index": session.round_index,
+            "rounds": [
+                {
+                    "question_text": r.question_text,
+                    "answer": r.answer,
+                    "points": r.points,
+                    "bonus": r.bonus,
+                    "image": r.image,
+                }
+                for r in session.rounds
+            ],
+        },
+    )
+
+
+def set_rounds(session: Session, items: list[dict]) -> list[Outbound]:
+    """Replace the prepared round list (LOBBY only). The host prepares everything
+    up front so nothing is typed live on a shared screen."""
+    if session.state is not GameState.LOBBY:
+        return []
+    session.rounds = [
+        PreparedRound(
+            question_text=(item.get("question_text") or None),
+            answer=(item.get("answer") or None),
+            points=int(item.get("points") or 1),
+            bonus=bool(item.get("bonus")),
+            image=(item.get("image") or None),
+        )
+        for item in items
+    ]
+    session.round_index = -1
+    return [_prepared_rounds_outbound(session), *_round_state_outbounds(session)]
+
+
+def load_round(session: Session, index: int) -> list[Outbound]:
+    """Open the prepared round at ``index`` (works mid-game, from any state)."""
+    if not (0 <= index < len(session.rounds)):
+        return []
+    session.round_index = index
+    prepared = session.rounds[index]
+    return _open_round(
+        session, prepared.question_text, prepared.answer, prepared.points, prepared.image, prepared.bonus
+    )
+
+
+def start_game(session: Session) -> list[Outbound]:
+    """Begin the prepared game at the first round."""
+    return load_round(session, 0)
+
+
+def next_action(session: Session) -> list[Outbound]:
+    """The host "Suivant" button: advance to the next prepared round, or return
+    to the lobby once the list is exhausted."""
+    if session.rounds and session.round_index + 1 < len(session.rounds):
+        return load_round(session, session.round_index + 1)
+    return next_round(session)
+
+
+def reset_buzzer(session: Session) -> list[Outbound]:
+    if session.state not in (GameState.BUZZER_OPEN, GameState.BUZZED):
+        return []
+    session.state = GameState.BUZZER_OPEN
+    _reset_round_fields(session)
+    return [*_round_state_outbounds(session), _buzz_outbound(session)]
+
+
+def validate(session: Session) -> list[Outbound]:
+    if session.state is not GameState.BUZZED or session.revealed:
+        return []
+    player_id = session.floor_player_id
+    if player_id is None:
+        return []
+    awarded = session.points * (2 if session.bonus else 1)
+    session.players[player_id].score += awarded
+    session.revealed = True
+    reveal = Outbound(
+        "all",
+        "reveal",
+        {
+            "answer": session.answer,
+            "correct_player_id": player_id,
+            "deltas": {player_id: awarded},
+        },
+    )
+    return [*_round_state_outbounds(session), reveal, _player_list_outbound(session)]
+
+
+def invalidate(session: Session) -> list[Outbound]:
+    if session.state is not GameState.BUZZED or session.revealed:
+        return []
+    session.floor_index += 1
+    if session.floor_index >= len(session.buzz_queue):
+        session.state = GameState.BUZZER_OPEN
+        session.floor_index = 0
+    return [*_round_state_outbounds(session), _buzz_outbound(session)]
+
+
+def reveal(session: Session) -> list[Outbound]:
+    if session.state not in (GameState.BUZZER_OPEN, GameState.BUZZED):
+        return []
+    session.revealed = True
+    reveal = Outbound("all", "reveal", {"answer": session.answer, "correct_player_id": None, "deltas": {}})
+    return [*_round_state_outbounds(session), reveal]
+
+
+def next_round(session: Session) -> list[Outbound]:
+    session.state = GameState.LOBBY
+    session.question_text = None
+    session.answer = None
+    session.points = 1
+    session.bonus = False
+    session.image = None
+    session.round_index = -1
+    _reset_round_fields(session)
+    return [*_round_state_outbounds(session), _buzz_outbound(session)]
+
+
+def adjust_score(session: Session, player_id: str | None, delta: int) -> list[Outbound]:
+    player = session.players.get(player_id or "")
+    if player is None:
+        return []
+    player.score += delta
+    return [_player_list_outbound(session)]
+
+
+def kick(session: Session, player_id: str | None) -> list[Outbound]:
+    player = session.players.pop(player_id or "", None)
+    if player is None:
+        return []
+    outs: list[Outbound] = [Outbound(player.id, "error", {"code": "kicked", "message": "Vous avez été exclu."})]
+    outs += _advance_floor_if_departed(session, player.id)
+    outs.append(_player_list_outbound(session))
+    return outs
+
+
+def handle_host_action(session: Session, action: str, payload: dict) -> list[Outbound]:
+    """Dispatch a ``host_action`` message to the matching handler."""
+    match action:
+        case "open_buzzer":
+            return open_buzzer(
+                session,
+                payload.get("question_text"),
+                payload.get("answer"),
+                payload.get("points"),
+            )
+        case "set_rounds":
+            items = payload.get("rounds")
+            return set_rounds(session, items) if isinstance(items, list) else []
+        case "load_round":
+            try:
+                return load_round(session, int(payload.get("index")))
+            except (TypeError, ValueError):
+                return []
+        case "start" | "start_game":
+            return start_game(session)
+        case "reset_buzzer":
+            return reset_buzzer(session)
+        case "validate":
+            return validate(session)
+        case "invalidate":
+            return invalidate(session)
+        case "reveal":
+            return reveal(session)
+        case "next" | "skip":
+            return next_action(session)
+        case "end":
+            return next_round(session)
+        case "adjust_score":
+            try:
+                delta = int(payload.get("delta", 0))
+            except (TypeError, ValueError):
+                return []
+            return adjust_score(session, payload.get("player_id"), delta)
+        case "kick":
+            return kick(session, payload.get("player_id"))
+        case _:
+            return []
