@@ -7,10 +7,13 @@ import AnswerBars from "@/components/AnswerBars";
 import BlindtestTimerBar from "@/components/BlindtestTimerBar";
 import BonusChip from "@/components/BonusChip";
 import BuzzStrip from "@/components/BuzzStrip";
+import Card from "@/components/Card";
 import Countdown from "@/components/Countdown";
 import Equalizer from "@/components/Equalizer";
 import JoinCard from "@/components/JoinCard";
 import { CoverImage, PromptImage } from "@/components/MediaImage";
+import { ANSWER_SHAPE, ANSWER_TILE } from "@/components/QcmChoices";
+import RankList, { RankRow } from "@/components/RankList";
 import ReadingBadge from "@/components/ReadingBadge";
 import Scoreboard from "@/components/Scoreboard";
 import { useGameSocket } from "@/lib/useGameSocket";
@@ -71,35 +74,21 @@ export default function TvView() {
         {/* Stage: question + buzz order */}
         <section className="flex flex-col">
           {snapshot.qcm.mode === "qcm" ? (
-            <div className="flex flex-1 flex-col items-center justify-center rounded-3xl border border-panel2 bg-panel/50 px-8 py-10 text-center">
+            <Card className="flex flex-1 flex-col items-center justify-center px-8 py-10 text-center">
               {snapshot.qcm.state === "GAME_END" ? (
                 <div className="w-full">
                   <p className="font-display text-5xl text-volt">Podium 🏆</p>
-                  <ol className="mx-auto mt-8 flex max-w-xl flex-col gap-3">
-                    {(snapshot.qcm.gameEnd?.podium ?? []).map((p) => (
-                      <li key={p.id} className="flex items-center justify-between rounded-2xl border border-panel2 bg-panel px-6 py-4">
-                        <span className="font-display text-3xl">{p.rank}. {p.pseudo}</span>
-                        <span className="font-display text-3xl tabular-nums text-volt">{p.score}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <RankList
+                    variant="podium"
+                    animate
+                    className="mt-8"
+                    rows={(snapshot.qcm.gameEnd?.podium ?? []) as RankRow[]}
+                  />
                 </div>
               ) : snapshot.qcm.state === "SCOREBOARD" ? (
                 <div className="w-full">
                   <p className="mb-6 font-display text-4xl">Classement</p>
-                  <ol className="mx-auto flex max-w-xl flex-col gap-2">
-                    {snapshot.qcm.scoreboard.slice(0, 8).map((r) => (
-                      <li key={r.id} className="flex items-center justify-between rounded-xl border border-panel2 bg-panel px-5 py-3">
-                        <span className="font-display text-2xl">
-                          {r.rank}. {r.pseudo}{" "}
-                          <span className={r.delta > 0 ? "text-volt" : r.delta < 0 ? "text-buzz" : "text-muted"}>
-                            {r.delta > 0 ? "▲" : r.delta < 0 ? "▼" : "·"}
-                          </span>
-                        </span>
-                        <span className="font-display text-2xl tabular-nums">{r.score}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <RankList variant="scoreboard" rows={snapshot.qcm.scoreboard.slice(0, 8) as RankRow[]} />
                 </div>
               ) : snapshot.qcm.state === "REVEAL" && snapshot.qcm.question && snapshot.qcm.reveal ? (
                 <div className="w-full">
@@ -127,7 +116,7 @@ export default function TvView() {
                       className="mx-auto mb-6 max-w-xl text-2xl"
                     />
                   )}
-                  <p className="font-display text-6xl leading-tight">{snapshot.qcm.question.question}</p>
+                  <p className="font-display text-display-2xl">{snapshot.qcm.question.question}</p>
                   {snapshot.qcm.question.image && (
                     <PromptImage src={snapshot.qcm.question.image} className="mx-auto mt-6 max-h-64 rounded-xl" />
                   )}
@@ -136,8 +125,12 @@ export default function TvView() {
                   ) : (
                     <div className="mt-8 grid grid-cols-2 gap-4">
                       {snapshot.qcm.question.choices.map((c, i) => (
-                        <div key={i} className={`rounded-2xl px-6 py-6 font-display text-3xl text-white ${["bg-buzz", "bg-blue-500", "bg-yellow-400 text-ink", "bg-volt text-ink"][i]}`}>
-                          {c}
+                        <div
+                          key={i}
+                          className={`flex items-center gap-3 rounded-2xl px-6 py-6 text-left font-display text-3xl text-white ${ANSWER_TILE[i]}`}
+                        >
+                          <span className="text-2xl">{ANSWER_SHAPE[i]}</span>
+                          <span className="flex-1">{c}</span>
                         </div>
                       ))}
                     </div>
@@ -146,44 +139,25 @@ export default function TvView() {
               ) : (
                 <p className="font-display text-4xl text-muted">En attente…</p>
               )}
-            </div>
+            </Card>
           ) : null}
 
           {isBt && snapshot.qcm.mode !== "qcm" && (
-            <div className="flex flex-1 flex-col items-center justify-center rounded-3xl border border-panel2 bg-panel/50 px-8 py-12 text-center">
+            <Card className="flex flex-1 flex-col items-center justify-center px-8 py-12 text-center">
               {bt.state === "GAME_END" ? (
                 <div className="w-full">
                   <p className="font-display text-5xl text-volt">Podium 🏆</p>
-                  <ol className="mx-auto mt-8 flex max-w-xl flex-col gap-3">
-                    {(bt.gameEnd?.podium ?? []).map((p) => (
-                      <li key={p.id} className="flex items-center justify-between rounded-2xl border border-panel2 bg-panel px-6 py-4">
-                        <span className="font-display text-3xl">{p.rank}. {p.pseudo}</span>
-                        <span className="font-display text-3xl tabular-nums text-volt">{p.score}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <RankList variant="podium" animate className="mt-8" rows={(bt.gameEnd?.podium ?? []) as RankRow[]} />
                 </div>
               ) : bt.state === "SCOREBOARD" ? (
                 <div className="w-full">
                   <p className="mb-6 font-display text-4xl">Classement</p>
-                  <ol className="mx-auto flex max-w-xl flex-col gap-2">
-                    {bt.scoreboard.slice(0, 8).map((r) => (
-                      <li key={r.id} className="flex items-center justify-between rounded-xl border border-panel2 bg-panel px-5 py-3">
-                        <span className="font-display text-2xl">
-                          {r.rank}. {r.pseudo}{" "}
-                          <span className={r.delta > 0 ? "text-volt" : r.delta < 0 ? "text-buzz" : "text-muted"}>
-                            {r.delta > 0 ? "▲" : r.delta < 0 ? "▼" : "·"}
-                          </span>
-                        </span>
-                        <span className="font-display text-2xl tabular-nums">{r.score}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <RankList variant="scoreboard" rows={bt.scoreboard.slice(0, 8) as RankRow[]} />
                 </div>
               ) : bt.state === "REVEAL" && bt.reveal ? (
                 <div className="flex flex-col items-center">
                   {bt.reveal.cover_url && (
-                    <CoverImage src={bt.reveal.cover_url} size={176} className="h-44 w-44 rounded-2xl" />
+                    <CoverImage src={bt.reveal.cover_url} size={176} className="countdown-pop h-44 w-44 rounded-2xl" />
                   )}
                   <p className="mt-6 font-display text-5xl text-volt">{bt.reveal.title}</p>
                   <p className="mt-2 font-display text-3xl text-cream/80">{bt.reveal.artist}</p>
@@ -198,33 +172,27 @@ export default function TvView() {
                     {bt.bonus && <BonusChip className="text-base" />}
                   </p>
                   <BlindtestTimerBar bt={bt} />
-                  <p className="mt-2 font-display text-2xl text-muted">À l&apos;écoute… buzze dès que tu sais !</p>
+                  <Equalizer bars={9} animated={bt.playing} className="mt-2 h-10" />
+                  <p className="mt-3 font-display text-2xl text-muted">À l&apos;écoute… buzze dès que tu sais !</p>
                 </div>
               ) : (
                 <p className="font-display text-4xl text-muted">En attente du blindtest…</p>
               )}
-            </div>
+            </Card>
           )}
 
           {snapshot.qcm.mode !== "qcm" && !isBt && (
-            <div className="flex flex-1 flex-col items-center justify-center rounded-3xl border border-panel2 bg-panel/50 px-8 py-12 text-center">
+            <Card className="flex flex-1 flex-col items-center justify-center px-8 py-12 text-center">
               {state === "GAME_END" ? (
                 <div className="w-full">
                   <p className="font-display text-5xl text-volt">Podium 🏆</p>
-                  <ol className="mx-auto mt-8 flex max-w-xl flex-col gap-3">
-                    {ranking.slice(0, 3).map((p) => (
-                      <li key={p.id} className="flex items-center justify-between rounded-2xl border border-panel2 bg-panel px-6 py-4">
-                        <span className="font-display text-3xl">{p.rank}. {p.pseudo}</span>
-                        <span className="font-display text-3xl tabular-nums text-volt">{p.score}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <RankList variant="podium" animate className="mt-8" rows={ranking.slice(0, 3) as RankRow[]} />
                 </div>
               ) : state === "LOBBY" ? (
                 <p className="font-display text-4xl text-muted">En attente du prochain round…</p>
               ) : round.question_text ? (
                 <div className="flex flex-col items-center">
-                  <p className="font-display text-6xl leading-tight">{round.question_text}</p>
+                  <p className="font-display text-display-2xl">{round.question_text}</p>
                   {round.image && (
                     <PromptImage src={round.image} className="mt-6 max-h-64 rounded-xl" />
                   )}
@@ -251,24 +219,39 @@ export default function TvView() {
                   />
                 )}
 
+              {buzz.state === "BUZZED" && buzz.floor_player_id && (buzz.answer_ends_at ?? 0) > 0 && (
+                <Countdown
+                  endsAt={buzz.answer_ends_at ?? 0}
+                  offsetMs={isBt ? bt.clockOffset : round.clockOffset}
+                  className="mx-auto mt-8 max-w-xl text-2xl text-buzz"
+                />
+              )}
+
+              {isBt && !buzz.floor_player_id && bt.revealEndsAt > 0 && bt.state === "BUZZER_OPEN" && (
+                <p className="mt-8 flex items-center justify-center gap-3 font-mono text-xl text-muted">
+                  Révélation dans
+                  <Countdown endsAt={bt.revealEndsAt} offsetMs={bt.clockOffset} className="text-2xl" />
+                </p>
+              )}
+
               {reveal && state !== "GAME_END" && (
-                <p className="mt-8 rounded-2xl border border-volt/40 bg-volt/10 px-6 py-4 font-display text-3xl text-volt">
+                <p className="animate-reveal-flash mt-8 rounded-2xl border border-volt/40 bg-volt/10 px-6 py-4 font-display text-3xl text-volt">
                   {reveal.answer ? `Réponse : ${reveal.answer}` : "Round terminé"}
                 </p>
               )}
-            </div>
+            </Card>
           )}
 
           {buzz.queue.length > 0 && snapshot.qcm.mode !== "qcm" && (!isBt || bt.state === "BUZZER_OPEN") && (
-            <div className="mt-6 rounded-3xl border border-panel2 bg-panel/50 p-5">
+            <Card className="mt-6 p-5">
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-muted">Ordre des buzz</p>
               <BuzzStrip queue={buzz.queue} floorPlayerId={isBt ? buzz.floor_player_id : round.floor_player_id} />
-            </div>
+            </Card>
           )}
         </section>
 
         {/* Scoreboard (read-only) */}
-        <section className="rounded-3xl border border-panel2 bg-panel/50 p-6">
+        <Card as="section" className="p-6">
           <div className="mb-4 flex items-baseline justify-between">
             <h2 className="font-display text-4xl">Scores</h2>
             {leader && players.length > 1 && (
@@ -276,7 +259,7 @@ export default function TvView() {
             )}
           </div>
           <Scoreboard players={players} highlightId={(isBt ? buzz.floor_player_id : round.floor_player_id) ?? undefined} />
-        </section>
+        </Card>
       </div>
     </main>
   );

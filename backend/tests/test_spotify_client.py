@@ -279,55 +279,55 @@ _TRACK_3 = {
 }
 
 
-def test_import_playlist_standard_shape_and_skips_null():
-    """Standard playlist-object shape (tracks paging, item under 'track').
-
-    Hits the playlist *object* endpoint (not /tracks, which is 403 in dev mode).
-    One null track is skipped → 2 mapped tracks.
-    """
+def test_import_playlist_via_items_endpoint_skips_null():
+    """Feb-2026 path: metadata from the object endpoint, tracks from /items (shape:
+    items list, track under 'item'). One null track is skipped → 2 mapped tracks."""
     spotify_client._store.access_token = "acc_tok"
     spotify_client._store.refresh_token = "ref_tok"
     spotify_client._store.expires_at = int(time.time() * 1000) + 600_000
 
-    seen_url = {}
+    seen_paths = []
 
     def handler(req: httpx.Request) -> httpx.Response:
-        seen_url["path"] = req.url.path
-        return _json_response(
-            {
-                "tracks": {
-                    "items": [
-                        {"track": _TRACK_1},
-                        {"track": None},  # null track — skipped
-                        {"track": _TRACK_2},
-                    ],
-                },
-            }
-        )
+        seen_paths.append(req.url.path)
+        if req.url.path == "/v1/playlists/PID/items":
+            return _json_response(
+                {
+                    "total": 2,
+                    "next": None,
+                    "items": [{"item": _TRACK_1}, {"item": None}, {"item": _TRACK_2}],
+                }
+            )
+        return _json_response({"name": "My BlindTest", "external_urls": {"spotify": "http://x"}})
 
     result = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
 
-    assert seen_url["path"] == "/v1/playlists/PID", "must use the playlist object endpoint, not /tracks"
+    assert "/v1/playlists/PID/items" in seen_paths, "must use the new /items endpoint"
     assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1", "tid2"]
+    assert result["name"] == "My BlindTest"
+    assert result["truncated"] is False
     assert set(result) >= {"name", "external_url", "track_count", "tracks"}
 
 
-def test_import_playlist_partner_shape():
-    """Restricted/partner shape: paging under top-level 'items', track under 'item'."""
+def test_import_playlist_items_follows_pagination_beyond_one_page():
+    """>1 page: follow the /items 'next' cursor to import past the first 100."""
     spotify_client._store.access_token = "acc_tok"
     spotify_client._store.refresh_token = "ref_tok"
     spotify_client._store.expires_at = int(time.time() * 1000) + 600_000
 
+    page2 = "https://api.spotify.com/v1/playlists/PID/items?offset=100&limit=100"
+
     def handler(req: httpx.Request) -> httpx.Response:
-        return _json_response(
-            {
-                "tracks": {},  # empty in partner shape
-                "items": {"items": [{"item": _TRACK_1}, {"item": _TRACK_3}]},
-            }
-        )
+        if req.url.path == "/v1/playlists/PID":
+            return _json_response({"name": "Big"})
+        if str(req.url.params.get("offset")) == "100":
+            return _json_response({"total": 2, "next": None, "items": [{"item": _TRACK_2}]})
+        return _json_response({"total": 2, "next": page2, "items": [{"item": _TRACK_1}]})
 
     result = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
-    assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1", "tid3"]
+    assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1", "tid2"]
+    assert result["truncated"] is False
+    assert result["track_count"] == 2
 
 
 def test_import_playlist_skips_local_tracks():
@@ -346,48 +346,28 @@ def test_import_playlist_skips_local_tracks():
     }
 
     def handler(req: httpx.Request) -> httpx.Response:
-        return _json_response({"tracks": {"items": [{"track": local_track}, {"track": _TRACK_1}]}})
+        if req.url.path == "/v1/playlists/37i9dQZF1DXcBWIGoYBM5M/items":
+            return _json_response({"total": 1, "next": None, "items": [{"item": local_track}, {"item": _TRACK_1}]})
+        return _json_response({"name": "P"})
 
     result = spotify_client.import_playlist("37i9dQZF1DXcBWIGoYBM5M", client=_make_client(handler))
     assert len(result["tracks"]) == 1
     assert result["tracks"][0]["spotify_track_id"] == "tid1"
 
 
-def test_import_playlist_follows_pagination():
-    """Playlists >1 page are fully imported by following the 'next' URL."""
+def test_import_playlist_falls_back_to_embedded_when_items_forbidden():
+    """If /items is unusable for this playlist (401/403, e.g. not owned), fall back to
+    the object endpoint's embedded first page and flag truncated."""
     spotify_client._store.access_token = "acc_tok"
     spotify_client._store.refresh_token = "ref_tok"
     spotify_client._store.expires_at = int(time.time() * 1000) + 600_000
 
-    next_url = "https://api.spotify.com/v1/playlists/PID/tracks?offset=1"
-
     def handler(req: httpx.Request) -> httpx.Response:
-        if req.url.path == "/v1/playlists/PID":
-            return _json_response(
-                {"name": "Big", "tracks": {"items": [{"track": _TRACK_1}], "next": next_url, "total": 2}}
-            )
-        # paginated /tracks page: items directly on the body, no further next
-        return _json_response({"items": [{"track": _TRACK_2}], "next": None})
-
-    result = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
-    assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1", "tid2"]
-    assert result["truncated"] is False
-
-
-def test_import_playlist_truncates_gracefully_on_403():
-    """Spotify dev mode 403s the /tracks pagination → keep page 1, flag truncated."""
-    spotify_client._store.access_token = "acc_tok"
-    spotify_client._store.refresh_token = "ref_tok"
-    spotify_client._store.expires_at = int(time.time() * 1000) + 600_000
-
-    next_url = "https://api.spotify.com/v1/playlists/PID/tracks?offset=1"
-
-    def handler(req: httpx.Request) -> httpx.Response:
-        if req.url.path == "/v1/playlists/PID":
-            return _json_response(
-                {"name": "Big", "tracks": {"items": [{"track": _TRACK_1}], "next": next_url, "total": 200}}
-            )
-        return _json_response({"error": {"status": 403}}, status_code=403)
+        if req.url.path == "/v1/playlists/PID/items":
+            return _json_response({"error": {"status": 403}}, status_code=403)
+        return _json_response(
+            {"name": "Big", "tracks": {"items": [{"track": _TRACK_1}], "total": 200}}
+        )
 
     result = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
     assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1"]

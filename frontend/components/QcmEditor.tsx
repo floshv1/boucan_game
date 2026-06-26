@@ -1,10 +1,16 @@
 "use client";
 
+import { useState } from "react";
+
 import BonusToggle from "@/components/BonusToggle";
+import Collapsible, { toggleInSet } from "@/components/Collapsible";
 import ImageField from "@/components/ImageField";
+import { ANSWER_BG } from "@/components/QcmChoices";
 import { QcmRoundDraft } from "@/lib/types";
 
-const COLORS = ["bg-buzz", "bg-blue-500", "bg-yellow-400", "bg-volt"];
+// Same per-slot colours as the live game (player + TV), so the editor preview
+// matches what players will see.
+const COLORS = ANSWER_BG;
 
 interface Props {
   rows: QcmRoundDraft[];
@@ -12,6 +18,7 @@ interface Props {
 }
 
 export default function QcmEditor({ rows, setRows }: Props) {
+  const [collapsed, setCollapsed] = useState<Set<number>>(new Set());
   const patch = (i: number, p: Partial<QcmRoundDraft>) =>
     setRows(rows.map((r, j) => (j === i ? { ...r, ...p } : r)));
   const patchChoice = (i: number, c: number, val: string) =>
@@ -20,14 +27,25 @@ export default function QcmEditor({ rows, setRows }: Props) {
 
   return (
     <div className="flex flex-col gap-3">
+      {rows.length > 1 && (
+        <div className="flex justify-end gap-3 font-mono text-xs text-muted">
+          <button onClick={() => setCollapsed(new Set(rows.map((_, i) => i)))} className="hover:text-cream">
+            Tout replier
+          </button>
+          <button onClick={() => setCollapsed(new Set())} className="hover:text-cream">
+            Tout déplier
+          </button>
+        </div>
+      )}
       {rows.map((row, i) => (
-        <div key={i} className="rounded-xl border border-panel2 bg-ink/40 p-3">
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted">Question {i + 1}</span>
-            <button onClick={() => remove(i)} className="font-mono text-xs text-muted hover:text-buzz">
-              retirer ✕
-            </button>
-          </div>
+        <Collapsible
+          key={i}
+          title={`Question ${i + 1}`}
+          subtitle={row.question || "(sans énoncé)"}
+          open={!collapsed.has(i)}
+          onToggle={() => setCollapsed((s) => toggleInSet(s, i))}
+          onRemove={() => remove(i)}
+        >
           <input
             value={row.question}
             onChange={(e) => patch(i, { question: e.target.value })}
@@ -77,7 +95,7 @@ export default function QcmEditor({ rows, setRows }: Props) {
             <BonusToggle on={!!row.bonus} onChange={(v) => patch(i, { bonus: v })} />
             <ImageField image={row.image} onChange={(url) => patch(i, { image: url })} />
           </div>
-        </div>
+        </Collapsible>
       ))}
     </div>
   );

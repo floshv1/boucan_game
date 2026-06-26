@@ -2,11 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ───────────────────────────────────────────────────────────────────────────
+ * Boucan design system — the documented scale. Keep new UI on these rails.
+ *
+ * COLOUR (defined in tailwind.config.ts + mirrored as CSS vars below)
+ *   surfaces : ink (page) · panel (card) · panel2 (border/divider)
+ *   accents  : buzz (pink, primary CTA / negative) · volt (lime, go / positive)
+ *              buzzdeep (deep pink, destructive)
+ *   text     : cream (primary) · muted (secondary / labels)
+ *   answers  : quiz-a pink · quiz-b teal · quiz-c lime · quiz-d amber
+ *   opacity  : use /60 for translucent panels, /10 for tinted highlights,
+ *              /80 for soft body text — avoid other ad-hoc steps.
+ *
+ * TYPE
+ *   display (Anton)  headlines/buttons → text-display-hero / -2xl / -xl, else 4xl–2xl
+ *   body    (Archivo) prose → text-lg / base / sm
+ *   mono    (Space Mono) codes, labels, metadata → text-xs / sm, tracking-widest
+ *
+ * DEPTH  arcade buttons use the tokenised shadow-arcade-* utilities (never raw hex).
+ * MOTION every animation must be disabled under prefers-reduced-motion (see below).
+ * ──────────────────────────────────────────────────────────────────────────*/
+
 :root {
   --ink: #15102a;
+  --panel: #271a45;
+  --panel2: #33235c;
   --cream: #fbf4e6;
+  --muted: #9a87c4;
   --buzz: #ff2e63;
+  --buzz-hi: #ff6088; /* buzzer dome highlight */
+  --buzzdeep: #c0103a;
   --volt: #c6ff4a;
+  --arcade-buzz: #8e0c2c; /* 3D depth under the buzzer dome */
+  --quiz-a: #ff2e63;
+  --quiz-b: #2bd9d9;
+  --quiz-c: #c6ff4a;
+  --quiz-d: #ffb23e;
 }
 
 body {
@@ -30,10 +61,10 @@ body {
   color: #fff;
   font-family: var(--font-display), sans-serif;
   letter-spacing: 0.04em;
-  background: radial-gradient(circle at 50% 30%, #ff6088 0%, #ff2e63 46%, #c01540 100%);
+  background: radial-gradient(circle at 50% 30%, var(--buzz-hi) 0%, var(--buzz) 46%, var(--buzzdeep) 100%);
   box-shadow:
     0 0 0 12px rgba(255, 46, 99, 0.1),
-    0 22px 0 0 #8e0c2c,
+    0 22px 0 0 var(--arcade-buzz),
     0 34px 60px rgba(0, 0, 0, 0.55);
   transition:
     transform 70ms ease,
@@ -48,7 +79,7 @@ body {
   transform: translateY(18px);
   box-shadow:
     0 0 0 12px rgba(255, 46, 99, 0.1),
-    0 4px 0 0 #8e0c2c,
+    0 4px 0 0 var(--arcade-buzz),
     0 10px 22px rgba(0, 0, 0, 0.55);
 }
 
@@ -129,7 +160,9 @@ body {
   .buzzer,
   .shockwave,
   .eq-bar,
-  .countdown-pop {
+  .countdown-pop,
+  .animate-reveal-flash,
+  .animate-podium-rise {
     transition: none;
     animation: none;
   }

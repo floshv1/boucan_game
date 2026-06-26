@@ -90,6 +90,11 @@ def _normalize_blindtest_item(it: dict) -> dict:
         "points_title": track.points_title,
         "points_artist": track.points_artist,
         "bonus": track.bonus,
+        # Editor-only grouping metadata: kept so re-opening a saved pack still shows
+        # imported playlists as compact cards instead of exploding into loose tracks.
+        # Ignored by the game engine (_parse_track doesn't read them).
+        "source_playlist": (str(it["source_playlist"]) if it.get("source_playlist") else None),
+        "source_playlist_url": (str(it["source_playlist_url"]) if it.get("source_playlist_url") else None),
     }
 
 

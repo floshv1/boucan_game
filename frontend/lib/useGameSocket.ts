@@ -36,6 +36,7 @@ function btTiming(p: any, prev: GameSnapshot["blindtest"]) {
     playedMs: p.played_ms ?? prev.playedMs,
     playing: p.playing ?? prev.playing,
     audioSeq: p.audio_seq ?? prev.audioSeq,
+    revealEndsAt: p.reveal_ends_at ?? prev.revealEndsAt,
     bonus: p.bonus ?? prev.bonus,
     clockOffset:
       p.server_now !== undefined ? p.server_now - Date.now() : prev.clockOffset,
@@ -62,6 +63,7 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
           : s.round,
         players: p.player_list?.players ?? s.players,
         buzz: p.buzz ?? s.buzz,
+        stats: p.stats ?? s.stats,
         reveal: p.round?.revealed ? s.reveal : null,
         qcm: p.qcm
           ? {
@@ -212,6 +214,7 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
         ...s,
         qcm: { ...s.qcm, state: "GAME_END", gameEnd: p },
         blindtest: { ...s.blindtest, state: "GAME_END", gameEnd: { podium: p.podium ?? [] } },
+        stats: p.history ? { history: p.history } : s.stats,
       };
     case "error":
       return { ...s, error: p };
@@ -230,6 +233,7 @@ export function useGameSocket({ code, role, pseudo, hostSecret, enabled = true }
     reveal: null,
     qcm: EMPTY_QCM,
     blindtest: EMPTY_BLINDTEST,
+    stats: { history: [] },
     connected: false,
     error: null,
   }));

@@ -127,8 +127,11 @@ class Session:
     buzz_open_at: int = 0  # epoch ms the buzzer actually opens (after the reading window)
     buzz_limit_ms: int = 20000  # per-round buzzer countdown; auto-reveal when it elapses (0 = no limit)
     buzz_ends_at: int = 0  # epoch ms the open buzzer auto-reveals (0 = no limit / not open)
+    buzz_answer_ms: int = 7000  # time the floor-holder has to answer after buzzing (0 = no limit)
+    answer_ends_at: int = 0  # epoch ms the floor-holder's answer window expires (0 = none / not BUZZED)
     buzz_queue: list[BuzzEntry] = field(default_factory=list)
     buzzed_ids: set[str] = field(default_factory=set)  # idempotence guard
+    excluded_ids: set[str] = field(default_factory=set)  # players barred from (re)buzzing this round (wrong answer / already scored)
     floor_index: int = 0  # index into buzz_queue of the player holding the floor
 
     # Blindtest mode (Phase 3). Track list and per-track state.
@@ -143,6 +146,8 @@ class Session:
     bt_countdown_ms: int = 3000  # 3-2-1 pre-roll before a track (0 = none)
     bt_play_started_at: int = 0  # epoch ms the current play segment's clock started (incl. countdown)
     bt_play_ends_at: int = 0  # epoch ms the server auto-pauses the current segment (0 = no cap / paused)
+    bt_reveal_grace_ms: int = 5000  # after the snippet ends, grace to keep buzzing before auto-reveal (0 = never)
+    bt_reveal_ends_at: int = 0  # epoch ms the server auto-reveals the track if nobody buzzes (0 = none)
     bt_current_start_ms: int = 0  # the start offset chosen for the current track (host payload)
     # Pause-aware accounting: the progress bar is driven by accumulated *played* time,
     # not wall-clock, so it freezes on pause/buzz and survives clock skew (clients
@@ -162,6 +167,12 @@ class Session:
     question_ends_at: int = 0
     answers: dict[str, QcmAnswer] = field(default_factory=dict)
     presented_order: list[int] = field(default_factory=lambda: [0, 1, 2, 3])
+
+    # Stats (in-memory, session-scoped). A "game" = one pack played start→GAME_END.
+    # Scores are cumulative across games on the same code, so points-per-game is a
+    # delta against the snapshot taken at game start.
+    game_start_scores: dict[str, int] = field(default_factory=dict)
+    game_history: list[dict] = field(default_factory=list)
 
     @property
     def floor_player_id(self) -> str | None:

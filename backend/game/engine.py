@@ -77,6 +77,10 @@ def buzz_payload(session: Session) -> dict:
     return {
         "state": session.state.value,
         "floor_player_id": session.floor_player_id,
+        # Post-buzz answer countdown: clients show a depleting bar for the
+        # floor-holder; server auto-invalidates at answer_ends_at (0 = no limit).
+        "answer_ends_at": session.answer_ends_at,
+        "server_now": now_ms(),
         "queue": [
             {
                 "player_id": e.player_id,
@@ -141,6 +145,7 @@ def state_sync_outbound(session: Session, *, role: str, player_id: str | None = 
         "round": round_state_payload(session, include_answer=(role == "host")),
         "player_list": player_list_payload(session),
         "buzz": buzz_payload(session),
+        "stats": stats_payload(session),
     }
     return Outbound(target, "state_sync", payload)
 
@@ -234,6 +239,8 @@ def buzz(session: Session, player_id: str, now: int) -> list[Outbound]:
         return []
     if player_id in session.buzzed_ids:  # idempotent: one buzz per round
         return []
+    if player_id in session.excluded_ids:  # barred this round (wrong answer / already scored)
+        return []
 
     first_ts = session.buzz_queue[0].ts if session.buzz_queue else now
     session.buzz_queue.append(
@@ -248,6 +255,9 @@ def buzz(session: Session, player_id: str, now: int) -> list[Outbound]:
     if session.state is GameState.BUZZER_OPEN:
         session.state = GameState.BUZZED
         session.floor_index = 0
+        # Arm the per-buzz answer window: if the floor-holder doesn't get judged in
+        # time, main.py auto-invalidates (counts as a wrong answer).
+        session.answer_ends_at = now + session.buzz_answer_ms if session.buzz_answer_ms > 0 else 0
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
 
@@ -258,8 +268,10 @@ def _reset_round_fields(session: Session) -> None:
     session.revealed = False
     session.buzz_queue = []
     session.buzzed_ids = set()
+    session.excluded_ids = set()  # new round: everyone may buzz again
     session.floor_index = 0
     session.buzz_ends_at = 0  # cleared here; (re)open paths set it after this
+    session.answer_ends_at = 0
 
 
 def _open_round(
@@ -336,14 +348,22 @@ def _prepared_rounds_outbound(session: Session) -> Outbound:
     )
 
 
-def set_rounds(session: Session, items: list[dict], buzz_limit_s: int | None = None) -> list[Outbound]:
+def set_rounds(
+    session: Session,
+    items: list[dict],
+    buzz_limit_s: int | None = None,
+    buzz_answer_s: int | None = None,
+) -> list[Outbound]:
     """Replace the prepared round list (LOBBY only). The host prepares everything
     up front so nothing is typed live on a shared screen. ``buzz_limit_s`` sets the
-    per-round buzzer countdown (0 = no limit); unset keeps the current value."""
+    per-round buzzer countdown (0 = no limit); ``buzz_answer_s`` the post-buzz answer
+    window (0 = no limit); unset keeps the current value."""
     if session.state is not GameState.LOBBY:
         return []
     if buzz_limit_s is not None:
         session.buzz_limit_ms = max(0, int(buzz_limit_s)) * 1000
+    if buzz_answer_s is not None:
+        session.buzz_answer_ms = max(0, int(buzz_answer_s)) * 1000
     session.rounds = [
         PreparedRound(
             question_text=(item.get("question_text") or None),
@@ -373,7 +393,40 @@ def load_round(session: Session, index: int, now: int | None = None) -> list[Out
 
 def start_game(session: Session, now: int | None = None) -> list[Outbound]:
     """Begin the prepared game at the first round."""
+    record_game_start(session)
     return load_round(session, 0, now if now is not None else now_ms())
+
+
+# --------------------------------------------------------------------------- #
+# Stats — points won per game (in-memory, session-scoped, mode-agnostic)
+# --------------------------------------------------------------------------- #
+def record_game_start(session: Session) -> None:
+    """Snapshot every player's score at the start of a game so the points won *this
+    game* can be reported as a delta at GAME_END (scores are cumulative on a code)."""
+    session.game_start_scores = {pid: p.score for pid, p in session.players.items()}
+
+
+def record_game_end(session: Session, mode: str) -> None:
+    """Append a per-game breakdown (points won this game, per player) to game_history."""
+    ordered, ranks = _ranked(session)
+    results = [
+        {
+            "id": p.id,
+            "pseudo": p.pseudo,
+            "points": p.score - session.game_start_scores.get(p.id, 0),
+            "total": p.score,
+            "rank": ranks[p.id],
+        }
+        for p in ordered
+    ]
+    session.game_history.append(
+        {"game": len(session.game_history) + 1, "mode": mode, "ts": now_ms(), "results": results}
+    )
+
+
+def stats_payload(session: Session) -> dict:
+    """Per-game point history for the stats panel (non-secret, all roles)."""
+    return {"history": list(session.game_history)}
 
 
 def game_end_payload(session: Session) -> dict:
@@ -382,7 +435,11 @@ def game_end_payload(session: Session) -> dict:
     podium = [
         {"id": p.id, "pseudo": p.pseudo, "score": p.score, "rank": ranks[p.id]} for p in ordered if ranks[p.id] <= 3
     ]
-    return {"podium": podium, "players": player_list_payload(session)["players"]}
+    return {
+        "podium": podium,
+        "players": player_list_payload(session)["players"],
+        "history": list(session.game_history),
+    }
 
 
 def next_action(session: Session, now: int | None = None) -> list[Outbound]:
@@ -397,8 +454,14 @@ def next_action(session: Session, now: int | None = None) -> list[Outbound]:
         session.state = GameState.GAME_END
         session.revealed = False
         _reset_round_fields(session)  # clear the last round's buzz queue (else it lingers on the TV)
+        record_game_end(session, "buzzer")
         logger.info("[{}] buzzer game ended ({} rounds played)", session.code, len(session.rounds))
-        return [*_round_state_outbounds(session), _buzz_outbound(session), _player_list_outbound(session)]
+        return [
+            *_round_state_outbounds(session),
+            _buzz_outbound(session),
+            _player_list_outbound(session),
+            Outbound("all", "game_end", game_end_payload(session)),
+        ]
     return next_round(session)
 
 
@@ -427,6 +490,7 @@ def validate(session: Session) -> list[Outbound]:
     awarded = session.points * (2 if session.bonus else 1)
     session.players[player_id].score += awarded
     session.revealed = True
+    session.answer_ends_at = 0
     logger.info("[{}] validated {} (+{} pts)", session.code, session.players[player_id].pseudo, awarded)
     reveal = Outbound(
         "all",
@@ -441,19 +505,25 @@ def validate(session: Session) -> list[Outbound]:
 
 
 def invalidate(session: Session, now: int | None = None) -> list[Outbound]:
+    """Wrong oral answer: bar the floor-holder from re-buzzing this round, clear the
+    whole queue and reopen the buzzer for a fresh race (no stale "pass the floor")."""
     if session.state is not GameState.BUZZED or session.revealed:
         return []
-    session.floor_index += 1
-    if session.floor_index >= len(session.buzz_queue):
-        session.state = GameState.BUZZER_OPEN
-        session.floor_index = 0
-        # Buzzer mode: restart the countdown for the reopened (empty) buzzer.
-        # (Blindtest reuses this queue logic but drives its own timing.)
-        if session.mode is GameMode.BUZZER:
-            if now is None:
-                now = now_ms()
-            session.buzz_open_at = now
-            session.buzz_ends_at = now + session.buzz_limit_ms if session.buzz_limit_ms > 0 else 0
+    wrong = session.floor_player_id
+    if wrong is not None:
+        session.excluded_ids.add(wrong)
+    session.state = GameState.BUZZER_OPEN
+    session.buzz_queue = []
+    session.buzzed_ids = set()
+    session.floor_index = 0
+    session.answer_ends_at = 0
+    # Buzzer mode: restart the countdown for the reopened (empty) buzzer.
+    # (Blindtest reuses this queue logic but drives its own timing.)
+    if session.mode is GameMode.BUZZER:
+        if now is None:
+            now = now_ms()
+        session.buzz_open_at = now
+        session.buzz_ends_at = now + session.buzz_limit_ms if session.buzz_limit_ms > 0 else 0
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
 
@@ -461,6 +531,7 @@ def reveal(session: Session) -> list[Outbound]:
     if session.state not in (GameState.BUZZER_OPEN, GameState.BUZZED):
         return []
     session.revealed = True
+    session.answer_ends_at = 0
     reveal = Outbound("all", "reveal", {"answer": session.answer, "correct_player_id": None, "deltas": {}})
     return [*_round_state_outbounds(session), reveal]
 
@@ -535,6 +606,12 @@ def handle_host_action(session: Session, action: str, payload: dict, now: int | 
                     session.buzz_limit_ms = max(0, int(limit)) * 1000
                 except (TypeError, ValueError):
                     pass
+            answer_limit = payload.get("buzz_answer_s")
+            if answer_limit is not None:
+                try:
+                    session.buzz_answer_ms = max(0, int(answer_limit)) * 1000
+                except (TypeError, ValueError):
+                    pass
             return open_buzzer(
                 session,
                 now,
@@ -551,7 +628,12 @@ def handle_host_action(session: Session, action: str, payload: dict, now: int | 
                 limit_s = int(limit) if limit is not None else None
             except (TypeError, ValueError):
                 limit_s = None
-            return set_rounds(session, items, buzz_limit_s=limit_s)
+            answer = payload.get("buzz_answer_s")
+            try:
+                answer_s = int(answer) if answer is not None else None
+            except (TypeError, ValueError):
+                answer_s = None
+            return set_rounds(session, items, buzz_limit_s=limit_s, buzz_answer_s=answer_s)
         case "load_round":
             try:
                 return load_round(session, int(payload.get("index")), now)

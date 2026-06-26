@@ -228,15 +228,26 @@ def test_bonus_round_doubles_points():
     assert _by_type(outs, "reveal")[0].payload["deltas"][alice.id] == 6
 
 
-def test_invalidate_passes_floor_to_next():
+def test_invalidate_resets_queue_and_bars_wrong_player():
+    # A wrong answer no longer "passes the floor": the queue is wiped and the buzzer
+    # reopens for a fresh race, with the fautif barred from buzzing again this round.
     session, [alice, bob] = _new_session_with_players("Alice", "Bob")
     engine.open_buzzer(session)
     engine.buzz(session, alice.id, now=1000)
     engine.buzz(session, bob.id, now=1100)
 
     engine.invalidate(session)
-    assert session.floor_player_id == bob.id
+    assert session.state is GameState.BUZZER_OPEN
+    assert session.floor_player_id is None
+    assert session.buzz_queue == []
+    assert alice.id in session.excluded_ids
     assert session.players[alice.id].score == 0
+
+    # Alice can't re-buzz; Bob (and anyone else) can.
+    engine.buzz(session, alice.id, now=1200)
+    assert session.floor_player_id is None
+    engine.buzz(session, bob.id, now=1300)
+    assert session.floor_player_id == bob.id
 
 
 def test_invalidate_reopens_when_queue_exhausted():
@@ -247,6 +258,79 @@ def test_invalidate_reopens_when_queue_exhausted():
     engine.invalidate(session)
     assert session.state is GameState.BUZZER_OPEN
     assert session.floor_player_id is None
+
+
+def test_new_round_clears_exclusions():
+    session, [alice] = _new_session_with_players("Alice")
+    engine.set_rounds(session, [{"question_text": "Q1", "answer": "A", "points": 1}, {"question_text": "Q2", "answer": "B", "points": 1}])
+    engine.load_round(session, 0)
+    engine.buzz(session, alice.id, now=1000)
+    engine.invalidate(session)
+    assert alice.id in session.excluded_ids
+    engine.load_round(session, 1)
+    assert session.excluded_ids == set()
+    engine.buzz(session, alice.id, now=2000)
+    assert session.floor_player_id == alice.id
+
+
+# --------------------------------------------------------------------------- #
+# Post-buzz answer window (answer_ends_at)
+# --------------------------------------------------------------------------- #
+def test_buzz_arms_answer_window():
+    session, [alice] = _new_session_with_players("Alice")
+    session.buzz_answer_ms = 7000
+    engine.open_buzzer(session)
+    engine.buzz(session, alice.id, now=1000)
+    assert session.answer_ends_at == 1000 + 7000
+
+
+def test_answer_window_zero_means_no_deadline():
+    session, [alice] = _new_session_with_players("Alice")
+    session.buzz_answer_ms = 0
+    engine.open_buzzer(session)
+    engine.buzz(session, alice.id, now=1000)
+    assert session.answer_ends_at == 0
+
+
+def test_answer_window_cleared_on_validate_and_invalidate():
+    session, [alice, bob] = _new_session_with_players("Alice", "Bob")
+    engine.open_buzzer(session, answer=None, points=1)
+    engine.buzz(session, alice.id, now=1000)
+    assert session.answer_ends_at > 0
+    engine.invalidate(session)  # reopen → no floor → window cleared
+    assert session.answer_ends_at == 0
+    engine.buzz(session, bob.id, now=1100)
+    assert session.answer_ends_at > 0
+    engine.validate(session)
+    assert session.answer_ends_at == 0
+
+
+def test_set_rounds_stores_buzz_answer_limit():
+    session, _ = _new_session_with_players("Alice")
+    engine.set_rounds(session, [{"question_text": "Q", "answer": "A", "points": 1}], buzz_answer_s=12)
+    assert session.buzz_answer_ms == 12000
+
+
+# --------------------------------------------------------------------------- #
+# Stats — points won per game
+# --------------------------------------------------------------------------- #
+def test_game_history_records_points_per_game():
+    session, [alice, bob] = _new_session_with_players("Alice", "Bob")
+    bob.score = 5  # pre-existing cumulative score from an earlier game
+    engine.set_rounds(session, [{"question_text": "Q", "answer": "A", "points": 3}])
+    engine.start_game(session)  # snapshots {alice:0, bob:5}
+    engine.buzz(session, alice.id, now=1000)
+    engine.validate(session)  # alice +3
+    engine.next_action(session)  # → GAME_END, records the game
+
+    assert len(session.game_history) == 1
+    entry = session.game_history[0]
+    assert entry["mode"] == "buzzer"
+    by_pseudo = {r["pseudo"]: r for r in entry["results"]}
+    assert by_pseudo["Alice"]["points"] == 3  # delta this game
+    assert by_pseudo["Alice"]["total"] == 3
+    assert by_pseudo["Bob"]["points"] == 0  # didn't score this game
+    assert by_pseudo["Bob"]["total"] == 5
 
 
 # --------------------------------------------------------------------------- #

@@ -7,9 +7,11 @@ import { useEffect, useState } from "react";
 import BlindtestStage from "@/components/BlindtestStage";
 import BuzzStrip from "@/components/BuzzStrip";
 import Countdown from "@/components/Countdown";
+import StatsPanel from "@/components/StatsPanel";
 import JoinCard from "@/components/JoinCard";
 import BonusChip from "@/components/BonusChip";
 import Button from "@/components/Button";
+import Card from "@/components/Card";
 import MuteToggle from "@/components/MuteToggle";
 import PackPicker from "@/components/PackPicker";
 import Scoreboard from "@/components/Scoreboard";
@@ -45,12 +47,15 @@ export default function HostConsole() {
   const [shuffleChoices, setShuffleChoices] = useState(false);
   // Buzzer round time limit in seconds (0 = no limit → auto-reveal disabled).
   const [buzzLimitS, setBuzzLimitS] = useState(20);
+  // Time the floor-holder has to answer after buzzing (0 = no limit). Shared buzzer + blindtest.
+  const [answerLimitS, setAnswerLimitS] = useState(7);
   const [btSettings, setBtSettings] = useState({
     maxPlayS: 30,
     randomStart: false,
     countdown: true,
     pointsTitle: 1,
     pointsArtist: 1,
+    revealGraceS: 5,
   });
 
   useEffect(() => {
@@ -140,7 +145,7 @@ export default function HostConsole() {
       bonus: !!r.bonus,
       image: r.image ?? null,
     }));
-    action("set_rounds", { rounds: prepared, buzz_limit_s: buzzLimitS });
+    action("set_rounds", { rounds: prepared, buzz_limit_s: buzzLimitS, buzz_answer_s: answerLimitS });
     action("start_game");
   }
 
@@ -163,6 +168,8 @@ export default function HostConsole() {
       countdown: btSettings.countdown,
       points_title: btSettings.pointsTitle,
       points_artist: btSettings.pointsArtist,
+      buzz_answer_s: answerLimitS,
+      reveal_grace_s: btSettings.revealGraceS,
     });
     action("start_blindtest");
   }
@@ -178,7 +185,7 @@ export default function HostConsole() {
   const qcmCount = qcmItems.length;
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-6 sm:px-5">
+    <main className="mx-auto max-w-6xl px-4 py-6 sm:px-5">
       {/* Header */}
       <header className="flex flex-wrap items-center justify-between gap-4 border-b border-panel2 pb-5">
         <JoinCard code={code} joinUrl={joinUrl} size={92} />
@@ -205,7 +212,7 @@ export default function HostConsole() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         {/* Round panel */}
-        <section className="rounded-2xl border border-panel2 bg-panel/60 p-5">
+        <Card as="section" className="p-5">
           {showConfig ? (
             <div>
               <h2 className="font-display text-3xl">Préparer la partie</h2>
@@ -260,11 +267,23 @@ export default function HostConsole() {
                     <span className="text-muted/70">0 = illimité · révélation auto sinon</span>
                   </label>
 
+                  <label className="flex items-center gap-2 rounded-xl border border-panel2 bg-ink/30 p-3 font-mono text-xs text-muted">
+                    Temps de réponse après buzz (s)
+                    <input
+                      type="number"
+                      min={0}
+                      value={answerLimitS}
+                      onChange={(e) => setAnswerLimitS(Math.max(0, Number.parseInt(e.target.value, 10) || 0))}
+                      className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
+                    />
+                    <span className="text-muted/70">0 = illimité · faux auto sinon</span>
+                  </label>
+
                   <Button variant="accent" size="lg" onClick={startGame} disabled={preparedCount === 0} className="mt-2 w-full">
                     Démarrer ({effectiveCount(preparedCount)} round{effectiveCount(preparedCount) > 1 ? "s" : ""})
                   </Button>
 
-                  <Button variant="ghost" onClick={() => action("open_buzzer", { buzz_limit_s: buzzLimitS })}>
+                  <Button variant="ghost" onClick={() => action("open_buzzer", { buzz_limit_s: buzzLimitS, buzz_answer_s: answerLimitS })}>
                     Buzzer immédiat (sans texte)
                   </Button>
                 </div>
@@ -323,6 +342,28 @@ export default function HostConsole() {
                         min={0}
                         value={btSettings.maxPlayS}
                         onChange={(e) => setBtSettings((s) => ({ ...s, maxPlayS: Number.parseInt(e.target.value, 10) || 0 }))}
+                        className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
+                      />
+                    </label>
+                    <label className="flex items-center gap-2">
+                      Réponse (s)
+                      <input
+                        type="number"
+                        min={0}
+                        value={answerLimitS}
+                        onChange={(e) => setAnswerLimitS(Math.max(0, Number.parseInt(e.target.value, 10) || 0))}
+                        className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
+                      />
+                    </label>
+                    <label className="flex items-center gap-2" title="Délai pour buzzer après la fin de la musique avant révélation auto (0 = jamais)">
+                      Révéler après (s)
+                      <input
+                        type="number"
+                        min={0}
+                        value={btSettings.revealGraceS}
+                        onChange={(e) =>
+                          setBtSettings((s) => ({ ...s, revealGraceS: Math.max(0, Number.parseInt(e.target.value, 10) || 0) }))
+                        }
                         className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
                       />
                     </label>
@@ -505,6 +546,13 @@ export default function HostConsole() {
                       />
                     )}
 
+                  {floorOpen && (buzz.answer_ends_at ?? 0) > 0 && (
+                    <div className="mt-3 flex items-center gap-2 font-mono text-sm text-buzz">
+                      ⏱ Réponse :
+                      <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={round.clockOffset} />
+                    </div>
+                  )}
+
                   <div className="mt-5">
                     <BuzzStrip queue={buzz.queue} floorPlayerId={round.floor_player_id} />
                   </div>
@@ -550,10 +598,10 @@ export default function HostConsole() {
               )}
             </div>
           )}
-        </section>
+        </Card>
 
         {/* Right column: a join-focused "Salon" while preparing, the scoreboard once live */}
-        <section className="rounded-2xl border border-panel2 bg-panel/60 p-5">
+        <Card as="section" className="p-5">
           {showConfig ? (
             <div className="flex flex-col gap-5">
               <div>
@@ -584,6 +632,7 @@ export default function HostConsole() {
                   </ul>
                 )}
               </div>
+              <StatsPanel stats={snapshot.stats} />
             </div>
           ) : (
             <>
@@ -594,9 +643,10 @@ export default function HostConsole() {
                 onAdjust={(id, delta) => action("adjust_score", { player_id: id, delta })}
                 onKick={(id) => action("kick", { player_id: id })}
               />
+              <StatsPanel stats={snapshot.stats} className="mt-5" />
             </>
           )}
-        </section>
+        </Card>
       </div>
     </main>
   );

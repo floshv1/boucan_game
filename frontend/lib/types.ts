@@ -91,6 +91,25 @@ export interface PodiumEntry {
   rank: number;
 }
 
+export interface GameStatResult {
+  id: string;
+  pseudo: string;
+  points: number; // points won during that game (delta)
+  total: number; // cumulative score after that game
+  rank: number;
+}
+
+export interface GameStatEntry {
+  game: number; // 1-based game number within the session
+  mode: GameMode | string;
+  ts: number;
+  results: GameStatResult[];
+}
+
+export interface GameStats {
+  history: GameStatEntry[];
+}
+
 export interface QcmState {
   mode: GameMode;
   state: GameStateName;
@@ -177,6 +196,7 @@ export interface BlindtestState {
   maxPlayMs: number;    // 0 = no cap
   playedMs: number;     // snippet time consumed in earlier (paused) segments
   playing: boolean;     // whether the snippet clock is currently running
+  revealEndsAt: number; // epoch ms the track auto-reveals after the post-music grace (0 = none)
   clockOffset: number;  // server_now - Date.now() at last timing message; add to Date.now() to estimate server time
   bonus: boolean;       // current song is a ×2 bonus
 }
@@ -198,6 +218,7 @@ export const EMPTY_BLINDTEST: BlindtestState = {
   maxPlayMs: 0,
   playedMs: 0,
   playing: false,
+  revealEndsAt: 0,
   clockOffset: 0,
   bonus: false,
 };
@@ -236,6 +257,8 @@ export interface RoundState {
 export interface BuzzState {
   state: GameStateName;
   floor_player_id: string | null;
+  answer_ends_at?: number; // epoch ms the floor-holder's answer window expires (0 = none)
+  server_now?: number; // server clock at send time, for skew correction
   queue: BuzzEntry[];
 }
 
@@ -260,6 +283,7 @@ export interface GameSnapshot {
   reveal: RevealInfo | null;
   qcm: QcmState;
   blindtest: BlindtestState;
+  stats: GameStats;
   connected: boolean;
   error: { code: string; message: string } | null;
 }

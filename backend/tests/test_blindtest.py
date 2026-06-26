@@ -292,9 +292,9 @@ def test_on_buzz_queued_buzz_re_emits_pause_without_changing_floor():
     assert audio_outs and audio_outs[0].payload["audio"] == "pause"
 
 
-def test_on_buzz_second_player_then_invalidate_passes_floor_paused():
-    """Reported scenario: two players buzz, music must stay stopped and the hand goes
-    in buzz order — alice first, then bob after the host invalidates alice."""
+def test_on_buzz_second_player_then_invalidate_resets_and_resumes():
+    """Two players buzz; alice is wrong. The queue is wiped (no stale "pass the floor"),
+    the music resumes, and alice is barred from re-buzzing this track — only bob can."""
     session, [alice, bob] = _session_with_players("Alice", "Bob")
     blindtest.set_blindtest_tracks(session, _TWO_TRACKS, countdown=False)
     blindtest.start_blindtest(session, now=0)
@@ -307,11 +307,20 @@ def test_on_buzz_second_player_then_invalidate_passes_floor_paused():
     assert session.floor_player_id == alice.id
     assert session.bt_playing is False
 
-    outs = blindtest.invalidate(session, now=5200)  # alice wrong → hand to bob
-    assert session.floor_player_id == bob.id
-    assert session.bt_playing is False
+    outs = blindtest.invalidate(session, now=5200)  # alice wrong → reset + resume
+    assert session.state is GameState.BUZZER_OPEN
+    assert session.floor_player_id is None
+    assert session.buzz_queue == []
+    assert alice.id in session.excluded_ids
+    assert session.bt_playing is True
     audio_outs = _by_type(outs, "bt_audio")
-    assert audio_outs and audio_outs[0].payload["audio"] == "pause"
+    assert audio_outs and audio_outs[0].payload["audio"] == "resume"
+
+    # alice is barred; bob can grab the reopened floor.
+    blindtest.on_buzz(session, alice.id, now=5300)
+    assert session.floor_player_id is None
+    blindtest.on_buzz(session, bob.id, now=5400)
+    assert session.floor_player_id == bob.id
 
 
 # --------------------------------------------------------------------------- #
@@ -462,6 +471,24 @@ def test_cont_reopens_buzzer_after_partial_validate():
     assert "uri" not in payload
 
 
+def test_cont_bars_scorer_from_rebuzzing_for_second_point():
+    # A player who already scored the artist (or title) must NOT be able to re-buzz
+    # for the remaining point — only the others may go for it.
+    session, [alice, bob] = _session_with_players("Alice", "Bob")
+    blindtest.set_blindtest_tracks(session, _TWO_TRACKS)
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+    blindtest.validate(session, title=False, artist=True)  # alice gets the artist
+
+    blindtest.cont(session, now=6000)
+    assert alice.id in session.excluded_ids
+
+    blindtest.on_buzz(session, alice.id, now=6100)  # barred
+    assert session.floor_player_id is None
+    blindtest.on_buzz(session, bob.id, now=6200)  # free to go for the title
+    assert session.floor_player_id == bob.id
+
+
 def test_cont_noop_outside_buzzed():
     session, _ = _session_with_players()
     blindtest.set_blindtest_tracks(session, _TWO_TRACKS)
@@ -474,7 +501,7 @@ def test_cont_noop_outside_buzzed():
 # --------------------------------------------------------------------------- #
 
 
-def test_invalidate_passes_floor_to_next_in_queue():
+def test_invalidate_resets_queue_and_resumes():
     session, [alice, bob] = _session_with_players("Alice", "Bob")
     blindtest.set_blindtest_tracks(session, _TWO_TRACKS)
     blindtest.load_track(session, 0, 0)
@@ -483,12 +510,14 @@ def test_invalidate_passes_floor_to_next_in_queue():
 
     outs = blindtest.invalidate(session)
 
-    assert session.state is GameState.BUZZED
-    assert session.floor_player_id == bob.id
+    # No more "pass the floor": queue wiped, buzzer reopened, snippet resumes.
+    assert session.state is GameState.BUZZER_OPEN
+    assert session.floor_player_id is None
+    assert session.buzz_queue == []
+    assert alice.id in session.excluded_ids
 
-    # audio stays pause (next player in queue)
     audio_outs = _by_type(outs, "bt_audio")
-    assert audio_outs and audio_outs[0].payload["audio"] == "pause"
+    assert audio_outs and audio_outs[0].payload["audio"] == "resume"
 
 
 def test_invalidate_queue_exhausted_reopens_buzzer():
@@ -857,6 +886,46 @@ def test_on_play_timeout_noop_when_buzzed():
     blindtest.start_blindtest(session, now=0)
     blindtest.on_buzz(session, alice.id, now=10)  # floor held → BUZZED
     assert blindtest.on_play_timeout(session) == []
+
+
+def test_on_play_timeout_arms_reveal_grace():
+    # Music ends with nobody on the floor → pause + arm the post-music auto-reveal grace,
+    # but the round STAYS open so players can still buzz during the grace.
+    session, _ = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TWO_TRACKS, max_play_s=5, countdown=False, reveal_grace_s=5)
+    blindtest.start_blindtest(session, now=0)
+    blindtest.on_play_timeout(session, now=5000)
+    assert session.state is GameState.BUZZER_OPEN  # still open, not revealed yet
+    assert session.bt_reveal_ends_at == 5000 + 5000
+
+
+def test_auto_reveal_after_grace_via_reveal():
+    # After the grace, with nobody having buzzed, reveal fires (this is what the
+    # _auto_reveal_blindtest timer calls).
+    session, _ = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TWO_TRACKS, max_play_s=5, countdown=False, reveal_grace_s=5)
+    blindtest.start_blindtest(session, now=0)
+    blindtest.on_play_timeout(session, now=5000)
+    outs = blindtest.reveal(session, now=10000)
+    assert session.state is GameState.REVEAL
+    assert session.bt_reveal_ends_at == 0
+    assert _by_type(outs, "reveal")
+
+
+def test_buzz_during_grace_cancels_reveal():
+    session, [alice] = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TWO_TRACKS, max_play_s=5, countdown=False, reveal_grace_s=5)
+    blindtest.start_blindtest(session, now=0)
+    blindtest.on_play_timeout(session, now=5000)  # grace armed
+    blindtest.on_buzz(session, alice.id, now=6000)  # buzz during grace
+    assert session.state is GameState.BUZZED
+    assert session.bt_reveal_ends_at == 0  # auto-reveal suspended while a floor is held
+
+
+def test_set_blindtest_tracks_stores_reveal_grace():
+    session, _ = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TWO_TRACKS, reveal_grace_s=8)
+    assert session.bt_reveal_grace_ms == 8000
 
 
 def test_replay_resets_timing_and_emits_play():

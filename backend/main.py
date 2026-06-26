@@ -143,40 +143,93 @@ async def _auto_reveal(session, delay: float) -> None:
         logger.warning("auto-reveal timer failed: {}", exc)
 
 
-async def _sync_blindtest_timer(session) -> None:
-    """Keep exactly one auto-pause timer alive while a blindtest track is playing under a cap."""
+async def _arm_round_timer(session) -> None:
+    """Keep exactly one buzzer/blindtest round timer alive on the shared slot, picking
+    the right one for the current state (these are mutually exclusive):
+      * BUZZED + answer window     → auto-invalidate the floor-holder (wrong answer)
+      * BUZZER_OPEN buzzer + limit → auto-reveal if nobody buzzes
+      * BUZZER_OPEN blindtest cap  → auto-pause the snippet if nobody buzzes
+    Reschedules against the absolute deadline, so re-syncing mid-round keeps the end."""
     code = session.code
     _cancel_timer(code)
-    if session.state is GameState.BUZZER_OPEN and session.bt_play_ends_at > 0:
-        delay = max(0.0, (session.bt_play_ends_at - now_ms()) / 1000.0)
-        _qcm_timers[code] = asyncio.create_task(_auto_pause_blindtest(session, delay))
-
-
-async def _auto_pause_blindtest(session, delay: float) -> None:
-    try:
-        await asyncio.sleep(delay)
-        if session.state is GameState.BUZZER_OPEN and not session.revealed:
-            await manager.dispatch(session, blindtest.on_play_timeout(session))
-    except asyncio.CancelledError:
-        pass
-    except Exception as exc:  # never let a background task die with an unretrieved error
-        logger.warning("blindtest auto-pause timer failed: {}", exc)
-
-
-async def _sync_buzzer_timer(session) -> None:
-    """Keep exactly one auto-reveal timer alive while a buzzer round is open with a
-    countdown and nobody has buzzed. Reschedules against the absolute deadline, so
-    re-syncing mid-round (e.g. after an unrelated host action) keeps the same end."""
-    code = session.code
-    _cancel_timer(code)
+    now = now_ms()
+    if session.state is GameState.BUZZED and not session.revealed and session.answer_ends_at > 0:
+        delay = max(0.0, (session.answer_ends_at - now) / 1000.0)
+        _qcm_timers[code] = asyncio.create_task(_auto_invalidate_answer(session, delay))
+        return
     if (
         session.mode is GameMode.BUZZER
         and session.state is GameState.BUZZER_OPEN
         and not session.revealed
         and session.buzz_ends_at > 0
     ):
-        delay = max(0.0, (session.buzz_ends_at - now_ms()) / 1000.0)
+        delay = max(0.0, (session.buzz_ends_at - now) / 1000.0)
         _qcm_timers[code] = asyncio.create_task(_auto_reveal_buzzer(session, delay))
+        return
+    if session.mode is GameMode.BLINDTEST and session.state is GameState.BUZZER_OPEN and session.bt_play_ends_at > 0:
+        delay = max(0.0, (session.bt_play_ends_at - now) / 1000.0)
+        _qcm_timers[code] = asyncio.create_task(_auto_pause_blindtest(session, delay))
+        return
+    if session.mode is GameMode.BLINDTEST and session.state is GameState.BUZZER_OPEN and session.bt_reveal_ends_at > 0:
+        delay = max(0.0, (session.bt_reveal_ends_at - now) / 1000.0)
+        _qcm_timers[code] = asyncio.create_task(_auto_reveal_blindtest(session, delay))
+
+
+# Kept as thin aliases so existing call sites stay readable; both arm the unified timer.
+async def _sync_blindtest_timer(session) -> None:
+    await _arm_round_timer(session)
+
+
+async def _sync_buzzer_timer(session) -> None:
+    await _arm_round_timer(session)
+
+
+async def _auto_invalidate_answer(session, delay: float) -> None:
+    """The floor-holder ran out of time to answer → count it as wrong (invalidate),
+    which bars them and reopens the buzzer, then re-arm the reopened round's timer."""
+    try:
+        await asyncio.sleep(delay)
+        if session.state is GameState.BUZZED and not session.revealed and session.answer_ends_at > 0:
+            if session.mode is GameMode.BLINDTEST:
+                await manager.dispatch(session, blindtest.invalidate(session))
+            else:
+                await manager.dispatch(session, engine.invalidate(session))
+            await _arm_round_timer(session)
+    except asyncio.CancelledError:
+        pass
+    except Exception as exc:  # never let a background task die with an unretrieved error
+        logger.warning("answer-timeout timer failed: {}", exc)
+
+
+async def _auto_pause_blindtest(session, delay: float) -> None:
+    try:
+        await asyncio.sleep(delay)
+        if session.state is GameState.BUZZER_OPEN and not session.revealed:
+            # Pauses the snippet and arms the post-music auto-reveal grace → re-sync to
+            # schedule the reveal timer on the freed slot.
+            await manager.dispatch(session, blindtest.on_play_timeout(session))
+            await _arm_round_timer(session)
+    except asyncio.CancelledError:
+        pass
+    except Exception as exc:  # never let a background task die with an unretrieved error
+        logger.warning("blindtest auto-pause timer failed: {}", exc)
+
+
+async def _auto_reveal_blindtest(session, delay: float) -> None:
+    """Post-snippet grace elapsed with nobody buzzing → auto-reveal the track."""
+    try:
+        await asyncio.sleep(delay)
+        if (
+            session.state is GameState.BUZZER_OPEN
+            and not session.revealed
+            and session.floor_player_id is None
+            and session.bt_reveal_ends_at > 0
+        ):
+            await manager.dispatch(session, blindtest.reveal(session))
+    except asyncio.CancelledError:
+        pass
+    except Exception as exc:  # never let a background task die with an unretrieved error
+        logger.warning("blindtest auto-reveal timer failed: {}", exc)
 
 
 async def _auto_reveal_buzzer(session, delay: float) -> None:
@@ -342,6 +395,10 @@ def _run_blindtest_host_action(session, action: str, payload: dict) -> list:
                 kwargs["points_title"] = int(payload["points_title"])
             if "points_artist" in payload:
                 kwargs["points_artist"] = int(payload["points_artist"])
+            if "buzz_answer_s" in payload:
+                kwargs["buzz_answer_s"] = int(payload["buzz_answer_s"])
+            if "reveal_grace_s" in payload:
+                kwargs["reveal_grace_s"] = int(payload["reveal_grace_s"])
             return blindtest.set_blindtest_tracks(session, tracks, **kwargs)
         case "start_blindtest":
             return blindtest.start_blindtest(session, now_ms())

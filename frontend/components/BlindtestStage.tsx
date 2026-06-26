@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import BonusChip from "@/components/BonusChip";
 import Button from "@/components/Button";
 import BuzzStrip from "@/components/BuzzStrip";
+import Countdown from "@/components/Countdown";
 import Equalizer from "@/components/Equalizer";
 import { CoverImage } from "@/components/MediaImage";
 import * as sfx from "@/lib/sfx";
@@ -261,6 +262,22 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
               <span className="text-volt">{pseudoById(bt.partial.artistBy)}</span>
             </span>
           )}
+        </div>
+      )}
+
+      {/* Post-buzz answer countdown for the floor-holder */}
+      {buzzed && (snapshot.buzz.answer_ends_at ?? 0) > 0 && (
+        <div className="mt-3 flex items-center gap-2 font-mono text-sm text-buzz">
+          ⏱ Réponse :
+          <Countdown endsAt={snapshot.buzz.answer_ends_at ?? 0} offsetMs={bt.clockOffset} />
+        </div>
+      )}
+
+      {/* Post-music grace: auto-reveal countdown when nobody holds the floor */}
+      {!buzzed && bt.revealEndsAt > 0 && bt.state === "BUZZER_OPEN" && (
+        <div className="mt-3 flex items-center gap-2 font-mono text-sm text-muted">
+          ⏱ Révélation auto dans :
+          <Countdown endsAt={bt.revealEndsAt} offsetMs={bt.clockOffset} />
         </div>
       )}
 

@@ -5,6 +5,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
 import BlindtestEditor from "@/components/BlindtestEditor";
+import Button from "@/components/Button";
 import BuzzerEditor, { EMPTY_BUZZER_ROW } from "@/components/BuzzerEditor";
 import QcmEditor from "@/components/QcmEditor";
 import { getPack, savePack, updatePack } from "@/lib/packs";
@@ -174,13 +175,9 @@ function EditorInner() {
 
       {error && <p className="rounded-xl border border-buzz/40 bg-buzz/10 px-4 py-3 text-buzz">{error}</p>}
 
-      <button
-        onClick={save}
-        disabled={saving}
-        className="rounded-2xl bg-volt px-6 py-4 font-display text-2xl text-ink shadow-[0_8px_0_0_#b5b200] transition active:translate-y-1 active:shadow-[0_3px_0_0_#b5b200] disabled:opacity-40"
-      >
+      <Button variant="primary" size="lg" onClick={save} disabled={saving} className="self-start text-2xl">
         {saving ? "Enregistrement…" : "Enregistrer"}
-      </button>
+      </Button>
     </main>
   );
 }

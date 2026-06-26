@@ -118,6 +118,7 @@ def _timing_block(session: Session, now: int) -> dict:
         "played_ms": session.bt_played_ms,
         "playing": session.bt_playing,
         "audio_seq": session.bt_audio_seq,
+        "reveal_ends_at": session.bt_reveal_ends_at,  # non-secret: post-snippet auto-reveal countdown
         "bonus": bool(cur.bonus) if cur else False,  # non-secret: lets all clients show ×2
     }
 
@@ -161,6 +162,8 @@ def set_blindtest_tracks(
     countdown: bool = True,
     points_title: int = 1,
     points_artist: int = 1,
+    buzz_answer_s: int | None = None,
+    reveal_grace_s: int | None = None,
 ) -> list[Outbound]:
     """Replace the blindtest track list (LOBBY only) and switch to BLINDTEST mode."""
     if session.state is not GameState.LOBBY:
@@ -169,6 +172,10 @@ def set_blindtest_tracks(
     session.blindtest_tracks = [_parse_track(it) for it in items]
     session.bt_index = -1
     session.bt_max_play_ms = max(0, int(max_play_s)) * 1000
+    if buzz_answer_s is not None:
+        session.buzz_answer_ms = max(0, int(buzz_answer_s)) * 1000
+    if reveal_grace_s is not None:
+        session.bt_reveal_grace_ms = max(0, int(reveal_grace_s)) * 1000
     session.bt_random_start = bool(random_start)
     session.bt_countdown_ms = 3000 if countdown else 0
     session.bt_points_title = max(0, int(points_title))
@@ -209,7 +216,9 @@ def load_track(session: Session, index: int, now: int) -> list[Outbound]:
     # Reset buzz arbitration fields
     session.buzz_queue = []
     session.buzzed_ids = set()
+    session.excluded_ids = set()
     session.floor_index = 0
+    session.answer_ends_at = 0
     session.revealed = False
     # Reset per-track blindtest state
     session.bt_title_by = None
@@ -224,6 +233,7 @@ def load_track(session: Session, index: int, now: int) -> list[Outbound]:
     session.bt_playing = True
     session.bt_play_started_at = now + session.bt_countdown_ms
     session.bt_play_ends_at = session.bt_play_started_at + session.bt_max_play_ms if session.bt_max_play_ms > 0 else 0
+    session.bt_reveal_ends_at = 0
     session.bt_audio_seq += 1
     return _bt_track_outbounds(session, now, "start")
 
@@ -235,6 +245,7 @@ def start_blindtest(session: Session, now: int) -> list[Outbound]:
     for p in session.players.values():
         p.streak = 0
         p.last_rank = 0
+    engine.record_game_start(session)
     return load_track(session, 0, now)
 
 
@@ -253,6 +264,8 @@ def on_buzz(session: Session, player_id: str, now: int) -> list[Outbound]:
         return []
     outs = [o for o in raw if o.type == "buzz_locked"]
     if session.state is GameState.BUZZED:
+        # Someone holds the floor → the post-snippet auto-reveal grace is suspended.
+        session.bt_reveal_ends_at = 0
         if session.bt_playing:
             # First buzz to land while playing freezes the running snippet clock.
             session.bt_played_ms = _played_now(session, now)
@@ -293,6 +306,7 @@ def validate(session: Session, *, title: bool, artist: bool, now: int | None = N
     track = session.blindtest_tracks[session.bt_index]
     player = session.players[pid]
     pts_title, pts_artist = _bt_award(session, track)
+    session.answer_ends_at = 0  # judged: stop the post-buzz answer countdown
 
     if title and session.bt_title_by is None:
         player.score += pts_title
@@ -318,13 +332,19 @@ def validate(session: Session, *, title: bool, artist: bool, now: int | None = N
 
 
 def cont(session: Session, now: int) -> list[Outbound]:
-    """'Continuer': reopen the buzzer for the remaining point (BUZZED only)."""
+    """'Continuer': reopen the buzzer for the remaining point (BUZZED only).
+
+    The player(s) who already scored (title and/or artist) are barred from
+    re-buzzing for the remaining point — only the others may go for it."""
     if session.state is not GameState.BUZZED:
         return []
     session.state = GameState.BUZZER_OPEN
     session.buzz_queue = []
     session.buzzed_ids = set()
+    session.excluded_ids = {pid for pid in (session.bt_title_by, session.bt_artist_by) if pid}
     session.floor_index = 0
+    session.answer_ends_at = 0
+    session.bt_reveal_ends_at = 0
     session.revealed = False  # engine.buzz rejects buzzes while revealed is True
     # Resume the snippet clock from where the buzz froze it (keep bt_played_ms, no
     # countdown). The remaining budget is the cap minus what's already been played.
@@ -337,7 +357,8 @@ def cont(session: Session, now: int) -> list[Outbound]:
 
 
 def invalidate(session: Session, now: int | None = None) -> list[Outbound]:
-    """Wrong oral answer: delegate to engine.invalidate, add audio directive."""
+    """Wrong oral answer: delegate to engine.invalidate (which bars the fautif and
+    clears the queue), then resume the snippet from where the buzz froze it."""
     raw = engine.invalidate(session)
     if not raw:
         return []
@@ -345,17 +366,22 @@ def invalidate(session: Session, now: int | None = None) -> list[Outbound]:
         now = now_ms()
     outs = [o for o in raw if o.type == "buzz_locked"]
     session.bt_audio_seq += 1
-    if session.state is GameState.BUZZER_OPEN:
-        # Queue exhausted → reopen and resume the snippet from where it froze.
+    # engine.invalidate always reopens the buzzer (BUZZER_OPEN) now.
+    remaining = session.bt_max_play_ms - session.bt_played_ms
+    if session.bt_max_play_ms > 0 and remaining <= 0:
+        # The snippet was already exhausted (wrong answer during the post-music grace):
+        # stay paused and re-arm the auto-reveal grace instead of a 0-length resume.
+        session.bt_playing = False
+        session.bt_play_ends_at = 0
+        session.bt_reveal_ends_at = now + session.bt_reveal_grace_ms if session.bt_reveal_grace_ms > 0 else 0
+        outs.append(_audio(session, "pause", now))
+    else:
+        # Resume the snippet from where the buzz froze it.
         session.bt_playing = True
         session.bt_play_started_at = now
-        remaining = session.bt_max_play_ms - session.bt_played_ms
         session.bt_play_ends_at = now + max(0, remaining) if session.bt_max_play_ms > 0 else 0
         outs.append(_audio(session, "resume", now))
-        outs.append(Outbound("players", "bt_track", _track_payload(session, now, include_track=False)))
-    else:
-        # Floor passed to the next player in the queue → stays paused.
-        outs.append(_audio(session, "pause", now))
+    outs.append(Outbound("players", "bt_track", _track_payload(session, now, include_track=False)))
     return outs
 
 
@@ -379,6 +405,7 @@ def reveal(session: Session, now: int | None = None) -> list[Outbound]:
     session.state = GameState.REVEAL
     session.bt_playing = False
     session.bt_play_ends_at = 0
+    session.bt_reveal_ends_at = 0
     session.bt_audio_seq += 1
     return [
         Outbound(
@@ -418,17 +445,21 @@ def next_(session: Session, now: int) -> list[Outbound]:
     if session.bt_index + 1 < len(session.blindtest_tracks):
         return load_track(session, session.bt_index + 1, now)
     session.state = GameState.GAME_END
+    engine.record_game_end(session, "blindtest")
     return [Outbound("all", "game_end", qcm.game_end_payload(session))]
 
 
 def on_play_timeout(session: Session, now: int | None = None) -> list[Outbound]:
-    """Max play time elapsed with nobody holding the floor → pause; round stays open."""
+    """Max play time elapsed with nobody holding the floor → pause the snippet but keep
+    the round open for a short grace so players can still buzz after the music; arm an
+    auto-reveal at the end of that grace (cahier: 'si le temps est dépassé, révéler')."""
     if session.state is GameState.BUZZER_OPEN and not session.revealed and session.floor_player_id is None:
         if now is None:
             now = now_ms()
         session.bt_played_ms = _played_now(session, now)
         session.bt_playing = False
         session.bt_play_ends_at = 0
+        session.bt_reveal_ends_at = now + session.bt_reveal_grace_ms if session.bt_reveal_grace_ms > 0 else 0
         session.bt_audio_seq += 1
         return [
             _audio(session, "pause", now),
@@ -459,6 +490,7 @@ def resume_bt(session: Session, now: int) -> list[Outbound]:
     session.bt_play_started_at = now
     remaining = session.bt_max_play_ms - session.bt_played_ms
     session.bt_play_ends_at = now + max(0, remaining) if session.bt_max_play_ms > 0 else 0
+    session.bt_reveal_ends_at = 0  # music playing again → cancel any pending auto-reveal
     session.bt_audio_seq += 1
     return [
         _audio(session, "resume", now),
@@ -474,6 +506,7 @@ def replay(session: Session, now: int) -> list[Outbound]:
     session.bt_playing = True
     session.bt_play_started_at = now
     session.bt_play_ends_at = now + session.bt_max_play_ms if session.bt_max_play_ms > 0 else 0
+    session.bt_reveal_ends_at = 0  # fresh snippet → cancel any pending auto-reveal
     session.bt_audio_seq += 1
     return _bt_track_outbounds(session, now, "start")
 

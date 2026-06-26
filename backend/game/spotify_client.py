@@ -26,7 +26,8 @@ from loguru import logger
 # the token is valid for Web API calls.
 SPOTIFY_SCOPES = (
     "streaming user-read-email user-read-private "
-    "user-read-playback-state user-modify-playback-state playlist-read-private"
+    "user-read-playback-state user-modify-playback-state "
+    "playlist-read-private playlist-read-collaborative"
 )
 _ACCOUNTS_BASE = "https://accounts.spotify.com"
 _API_BASE = "https://api.spotify.com"
@@ -268,52 +269,69 @@ def _collect_tracks(items: list[dict], tracks: list[dict]) -> None:
 def import_playlist(url: str, *, client: httpx.Client | None = None) -> dict:
     """Fetch a Spotify playlist URL/URI/id and return its metadata + mapped tracks.
 
-    Reads the playlist *object* endpoint (``/v1/playlists/{id}``) for the first page
-    of tracks, then follows the ``next`` pagination URL to import beyond the first
-    ~100 tracks (up to ``_PLAYLIST_CAP``). The ``/tracks`` pagination endpoint is
-    blocked (403) for apps in Spotify Development Mode, so pagination is best-effort:
-    on any HTTP error we keep what we already have and flag ``truncated``.
+    Reads the playlist *object* endpoint (``/v1/playlists/{id}``) for metadata, then
+    paginates the **Feb-2026** items endpoint ``/v1/playlists/{id}/items`` to import the
+    whole playlist (past the old 100-track wall). That endpoint works for playlists the
+    user owns or collaborates on — including in Development Mode — where the legacy
+    ``/tracks`` sub-resource now returns 403. If ``/items`` is unusable for this playlist
+    (e.g. not owned by the user → 401/403/404), we fall back to whatever the object
+    endpoint embedded (~first 100) and flag ``truncated``.
 
     Returns ``{"name", "external_url", "track_count", "tracks", "truncated"}``.
     ``track_count`` is the playlist's full total (from Spotify); ``truncated`` is True
-    when fewer tracks were imported than that total (dev-mode 403 or the cap).
+    when fewer tracks were imported than that total (fallback path or the cap).
     """
     playlist_id = _parse_playlist_id(url)
     access_token = get_access_token(client=client)
     c = client or _default_client()
     headers = {"Authorization": f"Bearer {access_token}"}
 
+    # Metadata (name, external url, total). May also embed a first page of items for
+    # owned playlists, used as a fallback if /items is unavailable below.
     resp = c.get(f"{_API_BASE}/v1/playlists/{playlist_id}", headers=headers)
     resp.raise_for_status()
     body = resp.json()
 
     tracks: list[dict] = []
-    _collect_tracks(_extract_playlist_items(body), tracks)
-
-    # Follow pagination for playlists larger than the first embedded page. This hits
-    # the /tracks sub-resource which is 403 in Spotify dev mode — degrade gracefully.
     truncated = False
-    next_url = _paging_next(body)
+    total: int | None = None
+
+    # Paginate the items endpoint, following Spotify's ``next`` cursor (100 per page).
+    items_ok = True
+    first = True
+    next_url: str | None = f"{_API_BASE}/v1/playlists/{playlist_id}/items?limit=100&offset=0"
     while next_url and len(tracks) < _PLAYLIST_CAP:
         try:
             page = c.get(next_url, headers=headers)
             page.raise_for_status()
         except httpx.HTTPError as exc:
-            truncated = True
+            if first:
+                items_ok = False  # endpoint unusable for this playlist → fall back below
+            else:
+                truncated = True  # partial pagination (e.g. cap or transient error)
             logger.warning(
-                "Spotify: playlist {} pagination stopped at {} tracks ({})",
-                playlist_id,
-                len(tracks),
-                exc,
+                "Spotify: playlist {} /items stopped at {} tracks ({})", playlist_id, len(tracks), exc
             )
             break
+        first = False
         page_body = page.json()
+        if total is None and isinstance(page_body.get("total"), int):
+            total = page_body["total"]
         _collect_tracks(_extract_playlist_items(page_body), tracks)
         next_url = _paging_next(page_body)
 
-    paging = body.get("tracks") if isinstance(body.get("tracks"), dict) else {}
-    total = paging.get("total")
-    track_count = int(total) if isinstance(total, int) else len(tracks)
+    if not items_ok:
+        # Fallback: whatever the object endpoint embedded (legacy / non-owned playlists).
+        _collect_tracks(_extract_playlist_items(body), tracks)
+        truncated = True
+
+    # Total: prefer the /items total, else the object endpoint's embedded paging total.
+    if total is None:
+        embedded = body.get("tracks") if isinstance(body.get("tracks"), dict) else body.get("items")
+        if isinstance(embedded, dict) and isinstance(embedded.get("total"), int):
+            total = embedded["total"]
+    track_count = total if isinstance(total, int) else len(tracks)
+
     meta = {
         "name": body.get("name") or "Playlist",
         "external_url": (body.get("external_urls") or {}).get("spotify"),

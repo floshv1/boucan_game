@@ -11,7 +11,7 @@ import { PackMode, PackSummary } from "@/lib/types";
 const MODE_LABEL: Record<PackMode, string> = { buzzer: "Buzzer", qcm: "QCM", blindtest: "Blindtest" };
 const MODE_BADGE: Record<PackMode, string> = {
   buzzer: "bg-buzz/20 text-buzz",
-  qcm: "bg-blue-500/20 text-blue-300",
+  qcm: "bg-quiz-b/20 text-quiz-b",
   blindtest: "bg-volt/20 text-volt",
 };
 

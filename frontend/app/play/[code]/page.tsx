@@ -9,10 +9,11 @@ import BonusChip from "@/components/BonusChip";
 import Buzzer from "@/components/Buzzer";
 import Countdown from "@/components/Countdown";
 import { CoverImage, PromptImage } from "@/components/MediaImage";
-import MuteToggle from "@/components/MuteToggle";
 import QcmChoices from "@/components/QcmChoices";
 import ReadingBadge from "@/components/ReadingBadge";
 import Scoreboard from "@/components/Scoreboard";
+import ScoreFooter from "@/components/ScoreFooter";
+import ScreenHeader from "@/components/ScreenHeader";
 import * as sfx from "@/lib/sfx";
 import { useGameSocket } from "@/lib/useGameSocket";
 import { useNow } from "@/lib/useNow";
@@ -102,16 +103,7 @@ export default function PlayerView() {
     const won = reveal && q.myChoice !== null && q.myChoice === reveal.correct;
     return (
       <main className="flex min-h-screen flex-col px-5 py-5">
-        <header className="flex items-center justify-between font-mono text-xs text-muted">
-          <span className="flex items-center gap-2">
-            <span className={`h-2 w-2 rounded-full ${snapshot.connected ? "bg-volt" : "bg-buzz"}`} />
-            {code}
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="max-w-[40vw] truncate">{me?.pseudo ?? pseudo}</span>
-            <MuteToggle />
-          </span>
-        </header>
+        <ScreenHeader code={code} pseudo={me?.pseudo ?? pseudo} connected={snapshot.connected} />
 
         {q.state === "QUESTION_ACTIVE" && q.question ? (
           (() => {
@@ -159,7 +151,7 @@ export default function PlayerView() {
           })()
         ) : q.state === "REVEAL" && q.question ? (
           <div className="flex flex-1 flex-col items-center justify-center">
-            <p className={`font-display text-7xl ${won ? "text-volt" : "text-buzz"}`}>{won ? "✓" : "✗"}</p>
+            <p className={`countdown-pop font-display text-8xl ${won ? "text-volt" : "text-buzz"}`}>{won ? "✓" : "✗"}</p>
             <p className="mt-2 font-display text-2xl">
               {won ? `+${reveal?.deltas[you.id ?? ""] ?? 0} pts` : "Pas cette fois"}
             </p>
@@ -180,13 +172,7 @@ export default function PlayerView() {
           </div>
         )}
 
-        <footer className="flex items-center justify-between rounded-2xl border border-panel2 bg-panel/60 px-5 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-muted">Ton score</span>
-          <span className="flex items-baseline gap-3">
-            <span className="font-mono text-sm text-muted">#{me?.rank ?? "—"}</span>
-            <span className="font-display text-4xl tabular-nums">{me?.score ?? 0}</span>
-          </span>
-        </footer>
+        <ScoreFooter rank={me?.rank ?? "—"} score={me?.score ?? 0} />
       </main>
     );
   }
@@ -216,16 +202,7 @@ export default function PlayerView() {
 
     return (
       <main className="flex min-h-screen flex-col px-5 py-5">
-        <header className="flex items-center justify-between font-mono text-xs text-muted">
-          <span className="flex items-center gap-2">
-            <span className={`h-2 w-2 rounded-full ${snapshot.connected ? "bg-volt" : "bg-buzz"}`} />
-            {code}
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="max-w-[40vw] truncate">{me?.pseudo ?? pseudo}</span>
-            <MuteToggle />
-          </span>
-        </header>
+        <ScreenHeader code={code} pseudo={me?.pseudo ?? pseudo} connected={snapshot.connected} />
 
         {b.state === "GAME_END" ? (
           <div className="flex flex-1 flex-col justify-center">
@@ -235,7 +212,7 @@ export default function PlayerView() {
           </div>
         ) : b.state === "REVEAL" && b.reveal ? (
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <p className={`font-display text-7xl ${wonReveal ? "text-volt" : "text-buzz"}`}>{wonReveal ? "✓" : "✗"}</p>
+            <p className={`countdown-pop font-display text-8xl ${wonReveal ? "text-volt" : "text-buzz"}`}>{wonReveal ? "✓" : "✗"}</p>
             <p className="mt-2 font-display text-2xl">{wonReveal ? `+${myDelta} pts` : "Pas cette fois"}</p>
             {b.reveal.cover_url && (
               <CoverImage src={b.reveal.cover_url} size={128} className="mt-6 h-32 w-32 rounded-xl" />
@@ -257,6 +234,14 @@ export default function PlayerView() {
               </p>
             )}
             <BlindtestTimerBar bt={b} />
+            {btHasFloor && buzz.state === "BUZZED" && (buzz.answer_ends_at ?? 0) > 0 && (
+              <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={b.clockOffset} className="mt-4 text-buzz" />
+            )}
+            {!buzz.floor_player_id && b.revealEndsAt > 0 && b.state === "BUZZER_OPEN" && (
+              <p className="mt-4 text-center font-mono text-xs text-muted">
+                Révélation auto dans <Countdown endsAt={b.revealEndsAt} offsetMs={b.clockOffset} />
+              </p>
+            )}
             <div className="flex flex-1 flex-col items-center justify-center py-8">
               <Buzzer
                 label={label}
@@ -269,13 +254,7 @@ export default function PlayerView() {
           </>
         )}
 
-        <footer className="flex items-center justify-between rounded-2xl border border-panel2 bg-panel/60 px-5 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-muted">Ton score</span>
-          <span className="flex items-baseline gap-3">
-            <span className="font-mono text-sm text-muted">#{me?.rank ?? "—"}</span>
-            <span className="font-display text-4xl tabular-nums">{me?.score ?? 0}</span>
-          </span>
-        </footer>
+        <ScoreFooter rank={me?.rank ?? "—"} score={me?.score ?? 0} />
       </main>
     );
   }
@@ -284,13 +263,7 @@ export default function PlayerView() {
   if (round.state === "GAME_END") {
     return (
       <main className="flex min-h-screen flex-col px-5 py-5">
-        <header className="flex items-center justify-between font-mono text-xs text-muted">
-          <span className="flex items-center gap-2">
-            <span className={`h-2 w-2 rounded-full ${snapshot.connected ? "bg-volt" : "bg-buzz"}`} />
-            {code}
-          </span>
-          <span className="truncate">{me?.pseudo ?? pseudo}</span>
-        </header>
+        <ScreenHeader code={code} pseudo={me?.pseudo ?? pseudo} connected={snapshot.connected} />
         <div className="flex flex-1 flex-col justify-center">
           <p className="text-center font-display text-5xl text-volt">Terminé !</p>
           <p className="mt-2 text-center font-display text-2xl">#{me?.rank ?? "—"} · {me?.score ?? 0} pts</p>
@@ -357,6 +330,11 @@ export default function PlayerView() {
           durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
           className="mt-4 text-muted"
         />
+      )}
+
+      {/* Post-buzz answer countdown for the player who has the floor */}
+      {hasFloor && !round.revealed && (buzz.answer_ends_at ?? 0) > 0 && (
+        <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={round.clockOffset} className="mt-4 text-buzz" />
       )}
 
       {/* Buzzer (or reading countdown) */}

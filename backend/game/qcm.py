@@ -163,6 +163,7 @@ def start_qcm(session: Session, now: int) -> list[Outbound]:
     for p in session.players.values():
         p.streak = 0
         p.last_rank = 0
+    engine.record_game_start(session)
     return load_question(session, 0, now)
 
 
@@ -280,7 +281,11 @@ def game_end_payload(session: Session) -> dict:
     podium = [
         {"id": p.id, "pseudo": p.pseudo, "score": p.score, "rank": ranks[p.id]} for p in ordered if ranks[p.id] <= 3
     ]
-    return {"podium": podium, "players": player_list_payload(session)["players"]}
+    return {
+        "podium": podium,
+        "players": player_list_payload(session)["players"],
+        "history": list(session.game_history),
+    }
 
 
 def next_(session: Session, now: int) -> list[Outbound]:
@@ -289,6 +294,7 @@ def next_(session: Session, now: int) -> list[Outbound]:
     if session.qcm_index + 1 < len(session.qcm_rounds):
         return load_question(session, session.qcm_index + 1, now)
     session.state = GameState.GAME_END
+    engine.record_game_end(session, "qcm")
     return [Outbound("all", "game_end", game_end_payload(session))]
 
 

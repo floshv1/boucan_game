@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
+
 import BonusToggle from "@/components/BonusToggle";
+import Collapsible, { toggleInSet } from "@/components/Collapsible";
 import ImageField from "@/components/ImageField";
 import { BuzzerRowDraft } from "@/lib/types";
 
@@ -13,20 +16,32 @@ export const EMPTY_BUZZER_ROW: BuzzerRowDraft = { question: "", answer: "", poin
 
 // Buzzer round list editor, shared by the host console and the pack editor.
 export default function BuzzerEditor({ rows, setRows }: Props) {
+  const [collapsed, setCollapsed] = useState<Set<number>>(new Set());
   const patch = (i: number, p: Partial<BuzzerRowDraft>) =>
     setRows(rows.map((r, j) => (j === i ? { ...r, ...p } : r)));
   const remove = (i: number) => setRows(rows.length > 1 ? rows.filter((_, j) => j !== i) : rows);
 
   return (
     <div className="flex flex-col gap-3">
+      {rows.length > 1 && (
+        <div className="flex justify-end gap-3 font-mono text-xs text-muted">
+          <button onClick={() => setCollapsed(new Set(rows.map((_, i) => i)))} className="hover:text-cream">
+            Tout replier
+          </button>
+          <button onClick={() => setCollapsed(new Set())} className="hover:text-cream">
+            Tout déplier
+          </button>
+        </div>
+      )}
       {rows.map((row, i) => (
-        <div key={i} className="rounded-xl border border-panel2 bg-ink/40 p-3">
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted">Question {i + 1}</span>
-            <button onClick={() => remove(i)} className="font-mono text-xs text-muted hover:text-buzz">
-              retirer ✕
-            </button>
-          </div>
+        <Collapsible
+          key={i}
+          title={`Question ${i + 1}`}
+          subtitle={row.question || "(buzz pur)"}
+          open={!collapsed.has(i)}
+          onToggle={() => setCollapsed((s) => toggleInSet(s, i))}
+          onRemove={() => remove(i)}
+        >
           <input
             value={row.question}
             onChange={(e) => patch(i, { question: e.target.value })}
@@ -52,7 +67,7 @@ export default function BuzzerEditor({ rows, setRows }: Props) {
             <BonusToggle on={!!row.bonus} onChange={(v) => patch(i, { bonus: v })} />
             <ImageField image={row.image} onChange={(url) => patch(i, { image: url })} />
           </div>
-        </div>
+        </Collapsible>
       ))}
     </div>
   );

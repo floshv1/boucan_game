@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import Button from "@/components/Button";
 import { backendHttpUrl } from "@/lib/backend";
 
 interface SpotifyStatus {
@@ -83,13 +84,9 @@ export default function SpotifyConnect({
         <p className="font-mono text-sm text-volt">Spotify connecté ✓</p>
       ) : (
         <div className="flex items-center gap-3">
-          <button
-            onClick={connect}
-            disabled={connecting}
-            className="rounded-xl bg-buzz px-4 py-3 font-display text-lg text-white shadow-[0_8px_0_0_#8e0c22] transition active:translate-y-1 active:shadow-[0_3px_0_0_#8e0c22] disabled:opacity-50"
-          >
+          <Button variant="accent" onClick={connect} disabled={connecting}>
             {connecting ? "Connexion…" : "Connecter Spotify"}
-          </button>
+          </Button>
           {connecting && <span className="font-mono text-xs text-muted">Termine la connexion dans la fenêtre Spotify…</span>}
         </div>
       )}

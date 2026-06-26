@@ -2,8 +2,15 @@
 
 import { memo } from "react";
 
-const COLORS = ["bg-buzz", "bg-blue-500", "bg-yellow-400 text-ink", "bg-volt text-ink"];
-const SHAPES = ["▲", "◆", "●", "■"];
+// One stable colour + shape per answer slot. Exported so the TV renders the same
+// answer with the same colour/icon — a player sees their tile match the big screen.
+// ANSWER_BG is the bare background (e.g. for chart bars); ANSWER_TILE adds the
+// readable text colour for filled tiles.
+export const ANSWER_BG = ["bg-quiz-a", "bg-quiz-b", "bg-quiz-c", "bg-quiz-d"];
+export const ANSWER_TILE = ["bg-quiz-a", "bg-quiz-b text-ink", "bg-quiz-c text-ink", "bg-quiz-d text-ink"];
+export const ANSWER_SHAPE = ["▲", "◆", "●", "■"];
+const COLORS = ANSWER_TILE;
+const SHAPES = ANSWER_SHAPE;
 
 interface Props {
   choices: string[];
