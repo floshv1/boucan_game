@@ -23,10 +23,12 @@ services:
       # Spotify OAuth — set these in the Komodo Stack environment.
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
-      # Must match the URI registered in the Spotify dashboard, e.g.
-      # http://<server-ip>:8200/auth/spotify/callback
+      # Must match the URI registered in the Spotify dashboard. The frontend now
+      # proxies /auth/* to the backend (see frontend/next.config.ts), so this can
+      # live on a single (Tailscale) HTTPS hostname on the frontend port, e.g.
+      # https://<host>:3200/auth/spotify/callback (or http://<server-ip>:8200/auth/spotify/callback).
       - SPOTIFY_REDIRECT_URI=${SPOTIFY_REDIRECT_URI}
-      # Where Spotify sends the user back after auth, e.g. http://<server-ip>:3200
+      # Where Spotify sends the user back after auth, e.g. https://<host>:3200
       - FRONTEND_URL=${FRONTEND_URL}
     volumes:
       - packs:/app/packs

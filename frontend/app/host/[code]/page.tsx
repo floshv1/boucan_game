@@ -15,6 +15,7 @@ import PackPicker from "@/components/PackPicker";
 import Scoreboard from "@/components/Scoreboard";
 import SpotifyConnect from "@/components/SpotifyConnect";
 import { useGameSocket } from "@/lib/useGameSocket";
+import { useNow } from "@/lib/useNow";
 import { useSpotifyPlayer } from "@/lib/useSpotifyPlayer";
 import { BlindtestTrackDraft, BuzzerRowDraft, QcmRoundDraft } from "@/lib/types";
 
@@ -35,8 +36,15 @@ export default function HostConsole() {
   const [qcmItems, setQcmItems] = useState<QcmRoundDraft[]>([]);
   const [btItems, setBtItems] = useState<BlindtestTrackDraft[]>([]);
 
+  // How many questions/tracks to draw from the selected packs each game. Fixed
+  // default, capped to the available total when starting (see pickN).
+  const DEFAULT_DRAW = 10;
+  const [drawCount, setDrawCount] = useState(DEFAULT_DRAW);
+
   // Per-game settings not carried by individual questions.
   const [shuffleChoices, setShuffleChoices] = useState(false);
+  // Buzzer round time limit in seconds (0 = no limit → auto-reveal disabled).
+  const [buzzLimitS, setBuzzLimitS] = useState(20);
   const [btSettings, setBtSettings] = useState({
     maxPlayS: 30,
     randomStart: false,
@@ -62,6 +70,7 @@ export default function HostConsole() {
   // Enabled whenever blindtest mode is active (either selected in UI or live in game).
   const isBlindtest = mode === "blindtest" || snapshot.blindtest.mode === "blindtest";
   const spotify = useSpotifyPlayer(isBlindtest);
+  const now = useNow();
 
   if (secret === null) {
     return (
@@ -112,23 +121,32 @@ export default function HostConsole() {
     return a;
   }
 
+  // Shuffle, then keep at most `drawCount` items (clamped to what's available).
+  function pickN<T>(arr: T[]): T[] {
+    const n = Math.max(1, Math.min(drawCount, arr.length));
+    return shuffled(arr).slice(0, n);
+  }
+
+  // Effective number drawn for a given pool size, for button labels.
+  const effectiveCount = (total: number) => Math.max(1, Math.min(drawCount, total));
+
   function startGame() {
     if (buzzerItems.length === 0) return;
-    const prepared = shuffled(buzzerItems).map((r) => ({
+    const prepared = pickN(buzzerItems).map((r) => ({
       question_text: (r.question ?? "").trim() || null,
       answer: (r.answer ?? "").trim() || null,
       points: r.points || 1,
       bonus: !!r.bonus,
       image: r.image ?? null,
     }));
-    action("set_rounds", { rounds: prepared });
+    action("set_rounds", { rounds: prepared, buzz_limit_s: buzzLimitS });
     action("start_game");
   }
 
   function startQcm() {
     if (qcmItems.length === 0) return;
     action("set_qcm_rounds", {
-      rounds: shuffled(qcmItems),
+      rounds: pickN(qcmItems),
       shuffle_questions: false, // already shuffled client-side
       shuffle_choices: shuffleChoices,
     });
@@ -138,7 +156,7 @@ export default function HostConsole() {
   function startBlindtest() {
     if (btItems.length === 0) return;
     action("set_blindtest_tracks", {
-      tracks: shuffled(btItems),
+      tracks: pickN(btItems),
       max_play_s: btSettings.maxPlayS,
       random_start: btSettings.randomStart,
       countdown: btSettings.countdown,
@@ -214,11 +232,38 @@ export default function HostConsole() {
                 <div className="flex flex-col gap-3">
                   <PackPicker mode="buzzer" onItemsChange={(items) => setBuzzerItems(items as BuzzerRowDraft[])} />
 
+                  {preparedCount > 0 && (
+                    <label className="flex items-center gap-2 rounded-xl border border-panel2 bg-ink/30 p-3 font-mono text-xs text-muted">
+                      Nombre de questions
+                      <input
+                        type="number"
+                        min={1}
+                        max={preparedCount}
+                        value={Math.min(drawCount, preparedCount)}
+                        onChange={(e) => setDrawCount(Math.max(1, Number.parseInt(e.target.value, 10) || 1))}
+                        className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
+                      />
+                      <span className="text-muted/70">sur {preparedCount} disponible{preparedCount > 1 ? "s" : ""}</span>
+                    </label>
+                  )}
+
+                  <label className="flex items-center gap-2 rounded-xl border border-panel2 bg-ink/30 p-3 font-mono text-xs text-muted">
+                    Temps limite (s)
+                    <input
+                      type="number"
+                      min={0}
+                      value={buzzLimitS}
+                      onChange={(e) => setBuzzLimitS(Math.max(0, Number.parseInt(e.target.value, 10) || 0))}
+                      className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
+                    />
+                    <span className="text-muted/70">0 = illimité · révélation auto sinon</span>
+                  </label>
+
                   <Button variant="accent" size="lg" onClick={startGame} disabled={preparedCount === 0} className="mt-2 w-full">
-                    Démarrer ({preparedCount} round{preparedCount > 1 ? "s" : ""})
+                    Démarrer ({effectiveCount(preparedCount)} round{effectiveCount(preparedCount) > 1 ? "s" : ""})
                   </Button>
 
-                  <Button variant="ghost" onClick={() => action("open_buzzer")}>
+                  <Button variant="ghost" onClick={() => action("open_buzzer", { buzz_limit_s: buzzLimitS })}>
                     Buzzer immédiat (sans texte)
                   </Button>
                 </div>
@@ -227,12 +272,26 @@ export default function HostConsole() {
               {mode === "qcm" && (
                 <div className="flex flex-col gap-3">
                   <PackPicker mode="qcm" onItemsChange={(items) => setQcmItems(items as QcmRoundDraft[])} />
+                  {qcmCount > 0 && (
+                    <label className="flex items-center gap-2 rounded-xl border border-panel2 bg-ink/30 p-3 font-mono text-xs text-muted">
+                      Nombre de questions
+                      <input
+                        type="number"
+                        min={1}
+                        max={qcmCount}
+                        value={Math.min(drawCount, qcmCount)}
+                        onChange={(e) => setDrawCount(Math.max(1, Number.parseInt(e.target.value, 10) || 1))}
+                        className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
+                      />
+                      <span className="text-muted/70">sur {qcmCount} disponible{qcmCount > 1 ? "s" : ""}</span>
+                    </label>
+                  )}
                   <label className="flex items-center gap-2 rounded-xl border border-panel2 bg-ink/30 p-3 font-mono text-xs text-muted">
                     <input type="checkbox" checked={shuffleChoices} onChange={(e) => setShuffleChoices(e.target.checked)} />
                     Mélanger l&apos;ordre des réponses
                   </label>
                   <Button variant="accent" size="lg" onClick={startQcm} disabled={qcmCount === 0} className="mt-2 w-full">
-                    Démarrer le QCM ({qcmCount} question{qcmCount > 1 ? "s" : ""})
+                    Démarrer le QCM ({effectiveCount(qcmCount)} question{effectiveCount(qcmCount) > 1 ? "s" : ""})
                   </Button>
                 </div>
               )}
@@ -241,6 +300,20 @@ export default function HostConsole() {
                 <div className="flex flex-col gap-4">
                   <SpotifyConnect />
                   <PackPicker mode="blindtest" onItemsChange={(items) => setBtItems(items as BlindtestTrackDraft[])} />
+                  {btItems.length > 0 && (
+                    <label className="flex items-center gap-2 rounded-xl border border-panel2 bg-ink/30 p-3 font-mono text-xs text-muted">
+                      Nombre de musiques
+                      <input
+                        type="number"
+                        min={1}
+                        max={btItems.length}
+                        value={Math.min(drawCount, btItems.length)}
+                        onChange={(e) => setDrawCount(Math.max(1, Number.parseInt(e.target.value, 10) || 1))}
+                        className="w-16 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
+                      />
+                      <span className="text-muted/70">sur {btItems.length} disponible{btItems.length > 1 ? "s" : ""}</span>
+                    </label>
+                  )}
                   <div className="flex flex-wrap items-center gap-4 rounded-xl border border-panel2 bg-ink/20 px-4 py-3 font-mono text-xs text-muted">
                     <label className="flex items-center gap-2">
                       Temps max (s)
@@ -291,7 +364,7 @@ export default function HostConsole() {
                     <span className="text-muted/70">Bonus ★ = ×2 · 0 s = pas de limite</span>
                   </div>
                   <Button variant="accent" size="lg" onClick={startBlindtest} disabled={btItems.length === 0} className="mt-2 w-full">
-                    Démarrer le blindtest ({btItems.length} morceau{btItems.length > 1 ? "x" : ""})
+                    Démarrer le blindtest ({effectiveCount(btItems.length)} morceau{effectiveCount(btItems.length) > 1 ? "x" : ""})
                   </Button>
                 </div>
               )}
@@ -418,6 +491,18 @@ export default function HostConsole() {
 
                   {round.question_text && <p className="mt-3 text-xl">{round.question_text}</p>}
                   {round.answer && <p className="mt-2 font-mono text-sm text-volt">réponse : {round.answer}</p>}
+
+                  {state === "BUZZER_OPEN" &&
+                    !round.revealed &&
+                    (round.buzz_ends_at ?? 0) > 0 &&
+                    (round.buzz_open_at ?? 0) <= now + (round.clockOffset ?? 0) && (
+                      <Countdown
+                        endsAt={round.buzz_ends_at ?? 0}
+                        offsetMs={round.clockOffset}
+                        durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
+                        className="mt-3"
+                      />
+                    )}
 
                   <div className="mt-5">
                     <BuzzStrip queue={buzz.queue} floorPlayerId={round.floor_player_id} />

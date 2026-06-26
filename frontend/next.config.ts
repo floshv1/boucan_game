@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
       { source: "/api/:path*", destination: `${BACKEND_URL}/api/:path*` },
       // Serve uploaded question images same-origin (backend serves /media/*).
       { source: "/media/:path*", destination: `${BACKEND_URL}/media/:path*` },
+      // Spotify OAuth login/callback proxied same-origin so a single (Tailscale)
+      // HTTPS hostname works: the redirect_uri can stay on :3200 (see backend.ts).
+      { source: "/auth/:path*", destination: `${BACKEND_URL}/auth/:path*` },
     ];
   },
 };

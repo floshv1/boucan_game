@@ -185,10 +185,18 @@ def answer_submit(session: Session, player_id: str, choice: int, now: int) -> li
     ]
 
 
+# Grace window (seconds) after the choices unlock during which a correct answer
+# still earns full speed points — so answering fast enough yields a "perfect" score.
+SPEED_GRACE_S = 1.0
+
+
 def _speed_factor(t: float, limit: int) -> float:
-    """1.0 at t=0 → 0.5 at t=limit (clamped)."""
+    """Full 1.0 within the grace window, then linear decay to 0.5 at ``limit``
+    (clamped). ``t`` is seconds since the choices unlocked."""
     t = max(0.0, min(float(t), float(limit)))
-    return max(0.5, min(1.0, 1.0 - (t / limit) / 2.0))
+    if t <= SPEED_GRACE_S or limit <= SPEED_GRACE_S:
+        return 1.0
+    return max(0.5, 1.0 - 0.5 * (t - SPEED_GRACE_S) / (limit - SPEED_GRACE_S))
 
 
 def _streak_mult(streak_after: int) -> float:
@@ -211,7 +219,11 @@ def reveal(session: Session, *, award: bool = True) -> list[Outbound]:
             continue
         is_correct = ans is not None and ans.choice == presented_correct
         if is_correct:
-            t = (ans.ts - session.question_started_at) / 1000.0
+            # Speed is measured from when the choices unlock (after the reading
+            # window), not from question_started_at — otherwise the reading delay is
+            # baked into everyone's answer time, capping the speed bonus below 1.0
+            # (and collapsing it to the floor when time_limit ≤ the reading window).
+            t = (ans.ts - session.question_started_at - engine.READING_MS) / 1000.0
             player.streak += 1
             base = rnd.points * (2 if rnd.bonus else 1)
             awarded = round(base * _speed_factor(t, rnd.time_limit) * _streak_mult(player.streak))

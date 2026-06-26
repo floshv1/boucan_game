@@ -253,18 +253,20 @@ def on_buzz(session: Session, player_id: str, now: int) -> list[Outbound]:
         return []
     outs = [o for o in raw if o.type == "buzz_locked"]
     if session.state is GameState.BUZZED:
-        # A floor is now held; the very first buzz that causes BUZZED transition
-        # freezes the snippet clock + pauses audio. Subsequent queued buzzes don't.
-        # We detect "first floor" by checking if this was the player who got index 0.
-        floor = session.floor_player_id
-        if floor == player_id:
+        if session.bt_playing:
+            # First buzz to land while playing freezes the running snippet clock.
             session.bt_played_ms = _played_now(session, now)
             session.bt_playing = False
             session.bt_play_ends_at = 0
-            session.bt_audio_seq += 1
-            outs.append(_audio(session, "pause", now))
-            # players/TV freeze their progress bar (no track secrets, §16-safe)
-            outs.append(Outbound("players", "bt_track", _track_payload(session, now, include_track=False)))
+        # Re-emit the pause directive on *every* buzz while a floor is held — not only
+        # the floor-acquiring one. This self-heals the reported bug where a second
+        # buzzer (or a host that missed the first pause) kept the music playing:
+        # pausing an already-paused player is a no-op, and bumping bt_audio_seq forces
+        # the host audio effect to re-fire.
+        session.bt_audio_seq += 1
+        outs.append(_audio(session, "pause", now))
+        # players/TV freeze their progress bar (no track secrets, §16-safe)
+        outs.append(Outbound("players", "bt_track", _track_payload(session, now, include_track=False)))
     return outs
 
 

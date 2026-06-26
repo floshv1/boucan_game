@@ -139,8 +139,10 @@ def test_all_answered_ignores_disconnected_players():
 
 def test_speed_factor_bounds():
     assert qcm._speed_factor(0, 20) == 1.0
+    assert qcm._speed_factor(1, 20) == 1.0  # within the grace window → still perfect
     assert qcm._speed_factor(20, 20) == 0.5
-    assert abs(qcm._speed_factor(4, 20) - 0.9) < 1e-9
+    # Linear decay from 1.0 at the grace edge (t=1) to 0.5 at the limit (t=20).
+    assert abs(qcm._speed_factor(10.5, 20) - 0.75) < 1e-9  # midpoint of [1, 20]
     assert qcm._speed_factor(999, 20) == 0.5  # clamped
 
 
@@ -156,12 +158,12 @@ def test_reveal_awards_speed_times_streak_and_builds_distribution():
     qcm.set_qcm_rounds(session, _TWO_QCM)  # Q0 correct index 1
     qcm.start_qcm(session, now=0)
     alice.streak = 2  # so a correct answer makes streak_after = 3 → mult 1.20
-    qcm.answer_submit(session, alice.id, choice=1, now=4_000)  # correct, t=4s, f=0.9
-    qcm.answer_submit(session, bob.id, choice=0, now=5_000)  # wrong
+    qcm.answer_submit(session, alice.id, choice=1, now=10_500)  # correct, t=10.5s → f=0.75
+    qcm.answer_submit(session, bob.id, choice=0, now=11_000)  # wrong
 
     outs = qcm.reveal(session)
     assert session.state is GameState.REVEAL
-    assert alice.score == round(1000 * 0.9 * 1.20)  # 1080
+    assert alice.score == round(1000 * 0.75 * 1.20)  # 900
     assert alice.streak == 3
     assert bob.score == 0
     assert bob.streak == 0  # wrong answer resets
@@ -169,7 +171,23 @@ def test_reveal_awards_speed_times_streak_and_builds_distribution():
     payload = [o for o in outs if o.type == "reveal"][0].payload
     assert payload["correct"] == 1
     assert payload["distribution"] == [1, 1, 0, 0]  # choice0:bob, choice1:alice
-    assert payload["deltas"][alice.id] == 1080
+    assert payload["deltas"][alice.id] == 900
+
+
+def test_speed_measured_from_choices_unlock_not_reading_window():
+    """With a reading window, the speed bonus must start when the choices unlock —
+    a player answering the instant they appear gets the full 1.0 factor, not a
+    penalty for the time spent reading."""
+    from game import engine
+
+    session, [alice] = _session_with_players("Alice")
+    engine.READING_MS = 5000  # autouse fixture restores this afterwards
+    qcm.set_qcm_rounds(session, _TWO_QCM)  # Q0 correct index 1, time_limit 20
+    qcm.start_qcm(session, now=0)
+    # Choices unlock at READING_MS; answering right then = t≈0 → speed factor 1.0.
+    qcm.answer_submit(session, alice.id, choice=1, now=5_000)
+    qcm.reveal(session)
+    assert alice.score == 1000  # 1000 * 1.0 (speed) * 1.0 (streak), no reading penalty
 
 
 def test_bonus_question_doubles_base_points():
@@ -177,9 +195,9 @@ def test_bonus_question_doubles_base_points():
     qcm.set_qcm_rounds(session, [{**_TWO_QCM[0], "bonus": True}])
     qcm.start_qcm(session, now=0)
     alice.streak = 2  # mult 1.20 after a correct answer
-    qcm.answer_submit(session, alice.id, choice=_TWO_QCM[0]["correct"], now=4_000)  # f=0.9
+    qcm.answer_submit(session, alice.id, choice=_TWO_QCM[0]["correct"], now=10_500)  # t=10.5s → f=0.75
     qcm.reveal(session)
-    assert alice.score == round(1000 * 2 * 0.9 * 1.20)  # base doubled by bonus → 2160
+    assert alice.score == round(1000 * 2 * 0.75 * 1.20)  # base doubled by bonus → 1800
 
 
 def test_no_answer_resets_streak():

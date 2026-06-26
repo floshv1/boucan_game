@@ -256,9 +256,12 @@ def test_on_buzz_second_player_queued():
     assert session.floor_player_id == alice.id
     assert len(session.buzz_queue) == 2
 
-    # No new audio pause (floor didn't change), but buzz_locked still comes through
+    # buzz_locked still comes through, and the pause directive is re-emitted so a host
+    # that missed alice's pause still stops the music for bob's buzz (self-healing).
     buzz_outs = _by_type(outs, "buzz_locked")
     assert buzz_outs
+    audio_outs = _by_type(outs, "bt_audio")
+    assert audio_outs and audio_outs[0].payload["audio"] == "pause"
 
 
 def test_on_buzz_idempotent_same_player():
@@ -271,17 +274,44 @@ def test_on_buzz_idempotent_same_player():
     assert len(session.buzz_queue) == 1
 
 
-def test_on_buzz_queued_buzz_emits_no_audio_pause():
-    """Only the first floor-acquiring buzz pauses; a queued buzz must not."""
+def test_on_buzz_queued_buzz_re_emits_pause_without_changing_floor():
+    """A queued buzz re-emits the pause directive (self-healing if the host missed
+    the first pause) but keeps the floor with the first buzzer and does not double-
+    advance the snippet clock."""
     session, [alice, bob] = _session_with_players("Alice", "Bob")
     blindtest.set_blindtest_tracks(session, _TWO_TRACKS)
     blindtest.load_track(session, 0, 0)
 
-    blindtest.on_buzz(session, alice.id, now=5000)  # alice takes the floor
+    blindtest.on_buzz(session, alice.id, now=5000)  # alice takes the floor, freezes clock
+    frozen_played = session.bt_played_ms
     outs = blindtest.on_buzz(session, bob.id, now=5100)  # bob queued behind alice
 
     assert session.floor_player_id == alice.id
-    assert _by_type(outs, "bt_audio") == []  # no spurious pause for a queued buzz
+    assert session.bt_played_ms == frozen_played  # already paused → clock not re-advanced
+    audio_outs = _by_type(outs, "bt_audio")
+    assert audio_outs and audio_outs[0].payload["audio"] == "pause"
+
+
+def test_on_buzz_second_player_then_invalidate_passes_floor_paused():
+    """Reported scenario: two players buzz, music must stay stopped and the hand goes
+    in buzz order — alice first, then bob after the host invalidates alice."""
+    session, [alice, bob] = _session_with_players("Alice", "Bob")
+    blindtest.set_blindtest_tracks(session, _TWO_TRACKS, countdown=False)
+    blindtest.start_blindtest(session, now=0)
+
+    blindtest.on_buzz(session, alice.id, now=5000)  # alice grabs the floor, music pauses
+    assert session.floor_player_id == alice.id
+    assert session.bt_playing is False
+
+    blindtest.on_buzz(session, bob.id, now=5100)  # bob queued, music still paused
+    assert session.floor_player_id == alice.id
+    assert session.bt_playing is False
+
+    outs = blindtest.invalidate(session, now=5200)  # alice wrong → hand to bob
+    assert session.floor_player_id == bob.id
+    assert session.bt_playing is False
+    audio_outs = _by_type(outs, "bt_audio")
+    assert audio_outs and audio_outs[0].payload["audio"] == "pause"
 
 
 # --------------------------------------------------------------------------- #

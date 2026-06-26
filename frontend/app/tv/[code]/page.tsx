@@ -239,6 +239,18 @@ export default function TvView() {
                 <p className="font-display text-5xl text-muted">À l&apos;écoute… buzze dès que tu sais !</p>
               )}
 
+              {state === "BUZZER_OPEN" &&
+                !round.revealed &&
+                (round.buzz_ends_at ?? 0) > 0 &&
+                (round.buzz_open_at ?? 0) <= now + (round.clockOffset ?? 0) && (
+                  <Countdown
+                    endsAt={round.buzz_ends_at ?? 0}
+                    offsetMs={round.clockOffset}
+                    durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
+                    className="mx-auto mt-8 max-w-xl text-2xl"
+                  />
+                )}
+
               {reveal && state !== "GAME_END" && (
                 <p className="mt-8 rounded-2xl border border-volt/40 bg-volt/10 px-6 py-4 font-display text-3xl text-volt">
                   {reveal.answer ? `Réponse : ${reveal.answer}` : "Round terminé"}

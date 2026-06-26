@@ -352,6 +352,48 @@ def test_import_playlist_skips_local_tracks():
     assert result["tracks"][0]["spotify_track_id"] == "tid1"
 
 
+def test_import_playlist_follows_pagination():
+    """Playlists >1 page are fully imported by following the 'next' URL."""
+    spotify_client._store.access_token = "acc_tok"
+    spotify_client._store.refresh_token = "ref_tok"
+    spotify_client._store.expires_at = int(time.time() * 1000) + 600_000
+
+    next_url = "https://api.spotify.com/v1/playlists/PID/tracks?offset=1"
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        if req.url.path == "/v1/playlists/PID":
+            return _json_response(
+                {"name": "Big", "tracks": {"items": [{"track": _TRACK_1}], "next": next_url, "total": 2}}
+            )
+        # paginated /tracks page: items directly on the body, no further next
+        return _json_response({"items": [{"track": _TRACK_2}], "next": None})
+
+    result = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
+    assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1", "tid2"]
+    assert result["truncated"] is False
+
+
+def test_import_playlist_truncates_gracefully_on_403():
+    """Spotify dev mode 403s the /tracks pagination → keep page 1, flag truncated."""
+    spotify_client._store.access_token = "acc_tok"
+    spotify_client._store.refresh_token = "ref_tok"
+    spotify_client._store.expires_at = int(time.time() * 1000) + 600_000
+
+    next_url = "https://api.spotify.com/v1/playlists/PID/tracks?offset=1"
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        if req.url.path == "/v1/playlists/PID":
+            return _json_response(
+                {"name": "Big", "tracks": {"items": [{"track": _TRACK_1}], "next": next_url, "total": 200}}
+            )
+        return _json_response({"error": {"status": 403}}, status_code=403)
+
+    result = spotify_client.import_playlist("spotify:playlist:PID", client=_make_client(handler))
+    assert [t["spotify_track_id"] for t in result["tracks"]] == ["tid1"]
+    assert result["truncated"] is True
+    assert result["track_count"] == 200
+
+
 # --------------------------------------------------------------------------- #
 # search_tracks
 # --------------------------------------------------------------------------- #

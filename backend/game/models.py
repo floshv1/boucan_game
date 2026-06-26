@@ -124,6 +124,8 @@ class Session:
     image: str | None = None  # optional prompt image URL for the current buzzer round
     revealed: bool = False
     buzz_open_at: int = 0  # epoch ms the buzzer actually opens (after the reading window)
+    buzz_limit_ms: int = 20000  # per-round buzzer countdown; auto-reveal when it elapses (0 = no limit)
+    buzz_ends_at: int = 0  # epoch ms the open buzzer auto-reveals (0 = no limit / not open)
     buzz_queue: list[BuzzEntry] = field(default_factory=list)
     buzzed_ids: set[str] = field(default_factory=set)  # idempotence guard
     floor_index: int = 0  # index into buzz_queue of the player holding the floor

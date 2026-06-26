@@ -229,6 +229,7 @@ export interface RoundState {
   round_total: number;
   answer: string | null;
   buzz_open_at?: number; // server ms the buzzer unlocks (after the reading window)
+  buzz_ends_at?: number; // server ms the open buzzer auto-reveals (0 = no limit)
   clockOffset?: number; // server_now - Date.now(), estimated when round_state arrived
 }
 

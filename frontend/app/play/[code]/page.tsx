@@ -349,6 +349,16 @@ export default function PlayerView() {
         <PromptImage src={round.image} className="mx-auto mt-3 max-h-44 rounded-lg" />
       )}
 
+      {/* Round time limit bar (auto-reveal when it empties) */}
+      {round.state === "BUZZER_OPEN" && !round.revealed && !buzzReading && (round.buzz_ends_at ?? 0) > 0 && (
+        <Countdown
+          endsAt={round.buzz_ends_at ?? 0}
+          offsetMs={round.clockOffset}
+          durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
+          className="mt-4 text-muted"
+        />
+      )}
+
       {/* Buzzer (or reading countdown) */}
       <div className="flex flex-1 flex-col items-center justify-center py-8">
         {buzzReading ? (

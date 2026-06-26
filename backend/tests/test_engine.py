@@ -230,6 +230,55 @@ def test_invalidate_reopens_when_queue_exhausted():
 
 
 # --------------------------------------------------------------------------- #
+# Buzzer countdown (buzz_ends_at) — auto-reveal when nobody buzzes
+# --------------------------------------------------------------------------- #
+def test_buzz_ends_at_set_from_open_after_reading_window():
+    session, _ = _new_session_with_players("Alice")
+    engine.READING_MS = 3000
+    try:
+        session.buzz_limit_ms = 20000
+        engine.open_buzzer(session, now=1000, question_text="Q ?", answer="A", points=1)
+        # opens at 1000+3000 reading, then 20s limit → 24000
+        assert session.buzz_open_at == 4000
+        assert session.buzz_ends_at == 24000
+    finally:
+        engine.READING_MS = 0
+
+
+def test_buzz_limit_zero_means_no_deadline():
+    session, _ = _new_session_with_players("Alice")
+    session.buzz_limit_ms = 0
+    engine.open_buzzer(session, now=0)
+    assert session.buzz_ends_at == 0
+
+
+def test_set_rounds_stores_buzz_limit():
+    session, _ = _new_session_with_players("Alice")
+    engine.set_rounds(session, [{"question_text": "Q", "answer": "A", "points": 1}], buzz_limit_s=15)
+    assert session.buzz_limit_ms == 15000
+
+
+def test_buzz_ends_at_cleared_on_game_end_and_lobby():
+    session, [alice] = _new_session_with_players("Alice")
+    engine.set_rounds(session, [{"question_text": "Q1", "answer": "A1", "points": 1}])
+    engine.start_game(session, now=0)
+    assert session.buzz_ends_at > 0
+    engine.next_action(session, now=1000)  # exhaust → GAME_END
+    assert session.state is GameState.GAME_END
+    assert session.buzz_ends_at == 0
+
+
+def test_invalidate_restarts_buzzer_countdown():
+    session, [alice] = _new_session_with_players("Alice")
+    session.buzz_limit_ms = 20000
+    engine.open_buzzer(session, now=0)  # no text → opens now, ends at 20000
+    engine.buzz(session, alice.id, now=1000)  # → BUZZED, countdown paused
+    engine.invalidate(session, now=5000)  # wrong → reopen, fresh countdown from 5000
+    assert session.state is GameState.BUZZER_OPEN
+    assert session.buzz_ends_at == 25000
+
+
+# --------------------------------------------------------------------------- #
 # Answer filtering by role (cahier §16)
 # --------------------------------------------------------------------------- #
 def test_answer_hidden_from_players_until_reveal():

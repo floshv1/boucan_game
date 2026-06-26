@@ -223,33 +223,60 @@ def _map_track(track: dict) -> dict:
 # API calls
 # --------------------------------------------------------------------------- #
 
-_PLAYLIST_CAP = 100  # max tracks imported from a playlist
+_PLAYLIST_CAP = 1000  # max tracks imported from a playlist
 
 
 def _extract_playlist_items(body: dict) -> list[dict]:
     """Pull the list of playlist-item wrappers from a playlist-object response.
 
-    Handles two shapes returned by Spotify:
-    - standard: tracks paging under ``body["tracks"]``, track under ``item["track"]``
-    - partner/restricted: paging under top-level ``body["items"]``, track under ``item["item"]``
+    Handles three shapes returned by Spotify:
+    - standard playlist object: tracks paging under ``body["tracks"]``, track under ``item["track"]``
+    - partner/restricted: paging under top-level ``body["items"]`` (a dict), track under ``item["item"]``
+    - ``/tracks`` paging page: ``body["items"]`` is the list of wrappers directly (used when following ``next``)
     """
-    paging = body.get("tracks") or body.get("items") or {}
+    tracks = body.get("tracks")
+    if isinstance(tracks, dict) and tracks.get("items"):
+        return tracks.get("items") or []
+    items = body.get("items")
+    if isinstance(items, dict):  # partner/restricted object shape
+        return items.get("items") or []
+    if isinstance(items, list):  # /tracks pagination page
+        return items
+    return []
+
+
+def _paging_next(body: dict) -> str | None:
+    """The ``next`` page URL for a playlist response, whichever shape it is in."""
+    paging = body.get("tracks") if isinstance(body.get("tracks"), dict) else body
     if not isinstance(paging, dict):
-        return []
-    return paging.get("items", []) or []
+        return None
+    nxt = paging.get("next")
+    return nxt if isinstance(nxt, str) and nxt else None
+
+
+def _collect_tracks(items: list[dict], tracks: list[dict]) -> None:
+    """Append mapped tracks from a page's item wrappers, skipping null/local tracks."""
+    for item in items:
+        track = item.get("track") or item.get("item")
+        if not track or not track.get("id"):  # null tracks and local files
+            continue
+        tracks.append(_map_track(track))
+        if len(tracks) >= _PLAYLIST_CAP:
+            break
 
 
 def import_playlist(url: str, *, client: httpx.Client | None = None) -> dict:
     """Fetch a Spotify playlist URL/URI/id and return its metadata + mapped tracks.
 
-    Reads the playlist *object* endpoint (``/v1/playlists/{id}``) rather than the
-    dedicated ``/tracks`` sub-resource: the latter is blocked (403) for apps in
-    Spotify Development Mode, while the object embeds the first page of tracks.
-    Caps at ``_PLAYLIST_CAP`` tracks; skips null or local tracks.
+    Reads the playlist *object* endpoint (``/v1/playlists/{id}``) for the first page
+    of tracks, then follows the ``next`` pagination URL to import beyond the first
+    ~100 tracks (up to ``_PLAYLIST_CAP``). The ``/tracks`` pagination endpoint is
+    blocked (403) for apps in Spotify Development Mode, so pagination is best-effort:
+    on any HTTP error we keep what we already have and flag ``truncated``.
 
-    Returns ``{"name", "external_url", "track_count", "tracks"}``. ``track_count``
-    is the playlist's full total (from Spotify), which may exceed ``len(tracks)``
-    when the playlist is larger than ``_PLAYLIST_CAP``.
+    Returns ``{"name", "external_url", "track_count", "tracks", "truncated"}``.
+    ``track_count`` is the playlist's full total (from Spotify); ``truncated`` is True
+    when fewer tracks were imported than that total (dev-mode 403 or the cap).
     """
     playlist_id = _parse_playlist_id(url)
     access_token = get_access_token(client=client)
@@ -261,24 +288,47 @@ def import_playlist(url: str, *, client: httpx.Client | None = None) -> dict:
     body = resp.json()
 
     tracks: list[dict] = []
-    for item in _extract_playlist_items(body):
-        track = item.get("track") or item.get("item")
-        # Skip null tracks and local files (no Spotify id)
-        if not track or not track.get("id"):
-            continue
-        tracks.append(_map_track(track))
-        if len(tracks) >= _PLAYLIST_CAP:
+    _collect_tracks(_extract_playlist_items(body), tracks)
+
+    # Follow pagination for playlists larger than the first embedded page. This hits
+    # the /tracks sub-resource which is 403 in Spotify dev mode — degrade gracefully.
+    truncated = False
+    next_url = _paging_next(body)
+    while next_url and len(tracks) < _PLAYLIST_CAP:
+        try:
+            page = c.get(next_url, headers=headers)
+            page.raise_for_status()
+        except httpx.HTTPError as exc:
+            truncated = True
+            logger.warning(
+                "Spotify: playlist {} pagination stopped at {} tracks ({})",
+                playlist_id,
+                len(tracks),
+                exc,
+            )
             break
+        page_body = page.json()
+        _collect_tracks(_extract_playlist_items(page_body), tracks)
+        next_url = _paging_next(page_body)
 
     paging = body.get("tracks") if isinstance(body.get("tracks"), dict) else {}
     total = paging.get("total")
+    track_count = int(total) if isinstance(total, int) else len(tracks)
     meta = {
         "name": body.get("name") or "Playlist",
         "external_url": (body.get("external_urls") or {}).get("spotify"),
-        "track_count": int(total) if isinstance(total, int) else len(tracks),
+        "track_count": track_count,
         "tracks": tracks,
+        "truncated": truncated or len(tracks) < track_count,
     }
-    logger.info("Spotify: imported {} tracks from playlist {} ({})", len(tracks), playlist_id, meta["name"])
+    logger.info(
+        "Spotify: imported {}/{} tracks from playlist {} ({}){}",
+        len(tracks),
+        track_count,
+        playlist_id,
+        meta["name"],
+        " [truncated]" if meta["truncated"] else "",
+    )
     return meta
 
 

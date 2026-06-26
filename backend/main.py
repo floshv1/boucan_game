@@ -131,6 +131,33 @@ async def _auto_pause_blindtest(session, delay: float) -> None:
         logger.warning("blindtest auto-pause timer failed: {}", exc)
 
 
+async def _sync_buzzer_timer(session) -> None:
+    """Keep exactly one auto-reveal timer alive while a buzzer round is open with a
+    countdown and nobody has buzzed. Reschedules against the absolute deadline, so
+    re-syncing mid-round (e.g. after an unrelated host action) keeps the same end."""
+    code = session.code
+    _cancel_timer(code)
+    if (
+        session.mode is GameMode.BUZZER
+        and session.state is GameState.BUZZER_OPEN
+        and not session.revealed
+        and session.buzz_ends_at > 0
+    ):
+        delay = max(0.0, (session.buzz_ends_at - now_ms()) / 1000.0)
+        _qcm_timers[code] = asyncio.create_task(_auto_reveal_buzzer(session, delay))
+
+
+async def _auto_reveal_buzzer(session, delay: float) -> None:
+    try:
+        await asyncio.sleep(delay)
+        if session.state is GameState.BUZZER_OPEN and not session.revealed and session.floor_player_id is None:
+            await manager.dispatch(session, engine.reveal(session))
+    except asyncio.CancelledError:
+        pass
+    except Exception as exc:  # never let a background task die with an unretrieved error
+        logger.warning("buzzer auto-reveal timer failed: {}", exc)
+
+
 async def _broadcast_state_sync(session) -> None:
     """Push a fresh, role-filtered ``state_sync`` to every live connection of a
     session. Used after a mode-agnostic transition (e.g. return_to_lobby) where
@@ -182,6 +209,7 @@ async def _handle_message(session, conn: Connection, msg: dict) -> None:
                 await _sync_blindtest_timer(session)
             elif now_ms() >= session.buzz_open_at:  # locked during the reading window
                 await manager.dispatch(session, engine.buzz(session, conn.player_id, now_ms()))
+                await _sync_buzzer_timer(session)  # a buzz pauses the countdown (→ BUZZED)
             else:
                 logger.debug("[{}] buzz dropped: reading window ({}ms left)", session.code, session.buzz_open_at - now_ms())
         return
@@ -226,6 +254,7 @@ async def _handle_message(session, conn: Connection, msg: dict) -> None:
             await _sync_blindtest_timer(session)
             return
         await manager.dispatch(session, engine.handle_host_action(session, action, payload))
+        await _sync_buzzer_timer(session)  # (re)opening the buzzer arms the auto-reveal countdown
         if action == "kick":
             await manager.disconnect_player(session.code, payload.get("player_id"))
         return

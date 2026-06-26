@@ -26,7 +26,7 @@ from .store import now_ms
 
 # Reading window before a buzzer round opens or QCM choices appear, so players can
 # read the question (or listen) first. Shared with qcm.py.
-READING_MS = 5000
+READING_MS = 3000
 
 
 @dataclass
@@ -105,6 +105,9 @@ def round_state_payload(session: Session, *, include_answer: bool) -> dict:
         # Reading window: clients keep the buzzer locked + show "Lecture…" until
         # buzz_open_at; server_now lets them correct for clock skew (see blindtest).
         "buzz_open_at": session.buzz_open_at,
+        # Buzzer countdown: server auto-reveals at buzz_ends_at if nobody buzzes
+        # (0 = no limit). Clients show a depleting bar between buzz_open_at and here.
+        "buzz_ends_at": session.buzz_ends_at,
         "server_now": now_ms(),
     }
 
@@ -249,6 +252,7 @@ def _reset_round_fields(session: Session) -> None:
     session.buzz_queue = []
     session.buzzed_ids = set()
     session.floor_index = 0
+    session.buzz_ends_at = 0  # cleared here; (re)open paths set it after this
 
 
 def _open_round(
@@ -272,11 +276,13 @@ def _open_round(
     session.image = image or None
     session.buzz_open_at = now + READING_MS if session.question_text else now
     _reset_round_fields(session)
+    session.buzz_ends_at = session.buzz_open_at + session.buzz_limit_ms if session.buzz_limit_ms > 0 else 0
     logger.info(
-        "[{}] buzzer round opened (q={!r}, reading={}ms)",
+        "[{}] buzzer round opened (q={!r}, reading={}ms, limit={}ms)",
         session.code,
         (session.question_text or "")[:40],
         session.buzz_open_at - now,
+        session.buzz_limit_ms,
     )
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
@@ -323,11 +329,14 @@ def _prepared_rounds_outbound(session: Session) -> Outbound:
     )
 
 
-def set_rounds(session: Session, items: list[dict]) -> list[Outbound]:
+def set_rounds(session: Session, items: list[dict], buzz_limit_s: int | None = None) -> list[Outbound]:
     """Replace the prepared round list (LOBBY only). The host prepares everything
-    up front so nothing is typed live on a shared screen."""
+    up front so nothing is typed live on a shared screen. ``buzz_limit_s`` sets the
+    per-round buzzer countdown (0 = no limit); unset keeps the current value."""
     if session.state is not GameState.LOBBY:
         return []
+    if buzz_limit_s is not None:
+        session.buzz_limit_ms = max(0, int(buzz_limit_s)) * 1000
     session.rounds = [
         PreparedRound(
             question_text=(item.get("question_text") or None),
@@ -398,6 +407,7 @@ def reset_buzzer(session: Session, now: int | None = None) -> list[Outbound]:
     session.state = GameState.BUZZER_OPEN
     session.buzz_open_at = now  # immediate reopen — players have already read it
     _reset_round_fields(session)
+    session.buzz_ends_at = now + session.buzz_limit_ms if session.buzz_limit_ms > 0 else 0
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
 
@@ -423,13 +433,20 @@ def validate(session: Session) -> list[Outbound]:
     return [*_round_state_outbounds(session), reveal, _player_list_outbound(session)]
 
 
-def invalidate(session: Session) -> list[Outbound]:
+def invalidate(session: Session, now: int | None = None) -> list[Outbound]:
     if session.state is not GameState.BUZZED or session.revealed:
         return []
     session.floor_index += 1
     if session.floor_index >= len(session.buzz_queue):
         session.state = GameState.BUZZER_OPEN
         session.floor_index = 0
+        # Buzzer mode: restart the countdown for the reopened (empty) buzzer.
+        # (Blindtest reuses this queue logic but drives its own timing.)
+        if session.mode is GameMode.BUZZER:
+            if now is None:
+                now = now_ms()
+            session.buzz_open_at = now
+            session.buzz_ends_at = now + session.buzz_limit_ms if session.buzz_limit_ms > 0 else 0
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
 
@@ -505,6 +522,12 @@ def handle_host_action(session: Session, action: str, payload: dict, now: int | 
         now = now_ms()
     match action:
         case "open_buzzer":
+            limit = payload.get("buzz_limit_s")
+            if limit is not None:
+                try:
+                    session.buzz_limit_ms = max(0, int(limit)) * 1000
+                except (TypeError, ValueError):
+                    pass
             return open_buzzer(
                 session,
                 now,
@@ -514,7 +537,14 @@ def handle_host_action(session: Session, action: str, payload: dict, now: int | 
             )
         case "set_rounds":
             items = payload.get("rounds")
-            return set_rounds(session, items) if isinstance(items, list) else []
+            if not isinstance(items, list):
+                return []
+            limit = payload.get("buzz_limit_s")
+            try:
+                limit_s = int(limit) if limit is not None else None
+            except (TypeError, ValueError):
+                limit_s = None
+            return set_rounds(session, items, buzz_limit_s=limit_s)
         case "load_round":
             try:
                 return load_round(session, int(payload.get("index")), now)
