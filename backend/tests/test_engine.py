@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from game import engine
+from game import store as store_mod
 from game.models import GameMode, GameState
-from game.store import CODE_ALPHABET, SessionStore, generate_code
+from game.store import CODE_ALPHABET, SessionStore, generate_code, now_ms
 
 
 def _by_type(outs, type_):
@@ -99,6 +100,25 @@ def test_create_session_starts_in_lobby():
     assert session.host_secret
     assert store.get(session.code) is session
     assert store.get(session.code.lower()) is session  # case-insensitive lookup
+
+
+def test_has_host_secret_constant_time_lookup():
+    store = SessionStore()
+    s = store.create()
+    assert store.has_host_secret(s.host_secret) is True
+    assert store.has_host_secret("nope") is False
+    assert store.has_host_secret("") is False
+
+
+def test_store_evicts_idle_sessions_on_create():
+    store = SessionStore()
+    idle = store.create()
+    idle.last_seen = now_ms() - store_mod.SESSION_TTL_MS - 1  # abandoned past the TTL
+    active = store.create()
+    active.last_seen = now_ms()  # still warm (would be refreshed by pings)
+    store.create()  # any new creation runs eviction
+    assert store.get(idle.code) is None  # idle one evicted
+    assert store.get(active.code) is active  # active one kept
 
 
 # --------------------------------------------------------------------------- #
@@ -276,6 +296,20 @@ def test_invalidate_restarts_buzzer_countdown():
     engine.invalidate(session, now=5000)  # wrong → reopen, fresh countdown from 5000
     assert session.state is GameState.BUZZER_OPEN
     assert session.buzz_ends_at == 25000
+
+
+def test_floor_holder_departure_restarts_buzzer_countdown():
+    """Kicking/disconnecting the floor-holder reopens the buzzer with a fresh
+    countdown (not the stale open deadline, which would auto-reveal instantly)."""
+    from game.store import now_ms
+
+    session, [alice, bob] = _new_session_with_players("Alice", "Bob")
+    session.buzz_limit_ms = 20000
+    engine.open_buzzer(session, now=0)  # logical deadline 20000 — already past in real time
+    engine.buzz(session, alice.id, now=1000)  # alice holds the floor
+    engine.kick(session, alice.id)  # floor-holder leaves → reopen
+    assert session.state is GameState.BUZZER_OPEN
+    assert session.buzz_ends_at >= now_ms()  # refreshed to a future real-clock deadline
 
 
 # --------------------------------------------------------------------------- #

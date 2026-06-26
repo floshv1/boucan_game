@@ -10,13 +10,22 @@ import os
 import secrets
 
 import httpx
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse, RedirectResponse
 from loguru import logger
 
 from game import spotify_client
 
 router = APIRouter()
+
+
+def _is_host(request: Request, host_secret: str) -> bool:
+    """True when ``host_secret`` belongs to a live session. The Spotify access
+    token grants the host's account (email/profile/playback/private playlists),
+    so this endpoint is gated to game hosts — a LAN/tailnet peer without the
+    secret can't lift it. Fails closed if the store is unavailable."""
+    store = getattr(request.app.state, "store", None)
+    return bool(store is not None and store.has_host_secret(host_secret))
 
 # In-memory CSRF / return-to map: state_token → return_to path
 _pending_states: dict[str, str] = {}
@@ -112,11 +121,17 @@ async def spotify_status() -> dict:
 
 
 @router.get("/api/spotify/token", response_model=None)
-async def spotify_token() -> dict | JSONResponse:
-    """Return the current access token.
+async def spotify_token(request: Request, host_secret: str = "") -> dict | JSONResponse:
+    """Return the current access token for the host's Web Playback SDK.
 
-    Returns 401 if not authenticated.
+    Gated to a game host (``host_secret``) so a LAN peer can't lift the token.
+    Returns 403 if the secret is not a live host's, 401 if not authenticated.
     """
+    if not _is_host(request, host_secret):
+        return JSONResponse(
+            status_code=403,
+            content={"error": "forbidden", "detail": "Réservé à l'hôte de la partie."},
+        )
     if not spotify_client.is_authenticated():
         return JSONResponse(
             status_code=401,

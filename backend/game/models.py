@@ -109,6 +109,7 @@ class Session:
     code: str
     host_secret: str
     created_at: int
+    last_seen: int = 0  # epoch ms of the last activity; idle sessions are evicted (store)
     state: GameState = GameState.LOBBY
     players: dict[str, Player] = field(default_factory=dict)
 

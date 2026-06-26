@@ -4,7 +4,14 @@ from __future__ import annotations
 
 from fastapi.testclient import TestClient
 
-from main import app
+from main import _ws_origin_allowed, app
+
+
+class _FakeWS:
+    """Minimal stand-in for a Starlette WebSocket (just the headers mapping)."""
+
+    def __init__(self, headers: dict[str, str]) -> None:
+        self.headers = headers
 
 
 def _read_until(ws, type_, limit=12, where=None):
@@ -129,6 +136,36 @@ def test_host_secret_required():
         msg = ws.receive_json()
         assert msg["type"] == "error"
         assert msg["payload"]["code"] == "bad_secret"
+
+
+def test_ws_origin_guard(monkeypatch):
+    """CSWSH guard: reject foreign Origins, allow the app's own frontend (same
+    hostname as the backend, different port) and native clients (no Origin)."""
+    import main
+
+    # Pin the policy (ambient env / .env may set a wildcard that disables the guard).
+    monkeypatch.setattr(main, "_WS_ALLOW_ANY", False)
+    monkeypatch.setattr(main, "_WS_ALLOWED_HOSTS", {"localhost"})
+
+    # Cross-site → rejected.
+    assert _ws_origin_allowed(_FakeWS({"origin": "https://evil.example", "host": "myhost:8200"})) is False
+    # Frontend :3200 → backend :8200 on the same host → allowed.
+    assert _ws_origin_allowed(_FakeWS({"origin": "http://myhost:3200", "host": "myhost:8200"})) is True
+    # A configured CORS origin host → allowed.
+    assert _ws_origin_allowed(_FakeWS({"origin": "http://localhost:3200", "host": "x:8200"})) is True
+    # Native client / same-origin (no Origin header) → allowed.
+    assert _ws_origin_allowed(_FakeWS({"host": "myhost:8200"})) is True
+
+
+def test_ws_allows_same_host_origin():
+    """End-to-end: an Origin whose host matches the backend's Host connects fine."""
+    client = TestClient(app)
+    code = client.post("/api/sessions").json()["code"]
+    # TestClient's default Host header is "testserver".
+    with client.websocket_connect("/ws", headers={"origin": "http://testserver:3200"}) as ws:
+        ws.send_json({"type": "join", "payload": {"code": code, "role": "tv"}})
+        msg = _read_until(ws, "state_sync")
+        assert msg["payload"]["you"]["role"] == "tv"
 
 
 def test_qcm_flow_question_answer_reveal_scoreboard():

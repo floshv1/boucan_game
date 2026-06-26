@@ -9,7 +9,9 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
+import secrets
 import sys
+from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
@@ -31,7 +33,14 @@ from ws.manager import Connection, ConnectionManager, envelope
 load_dotenv()
 
 PORT_BACKEND = int(os.environ.get("PORT_BACKEND", "8200"))
-CORS_ORIGINS = [o.strip() for o in os.environ.get("CORS_ORIGINS", "*").split(",") if o.strip()] or ["*"]
+# CORS defaults to the frontend origin: the app only ever talks to the backend
+# same-origin (via the Next proxy) or over the WebSocket (not CORS-governed), so a
+# wildcard is unnecessary and would let any site read responses (e.g. the Spotify
+# token). Override with CORS_ORIGINS (comma-separated) if you really need to.
+_FRONTEND_ORIGIN = os.environ.get("FRONTEND_URL", "http://localhost:3200").rstrip("/")
+CORS_ORIGINS = [o.strip() for o in os.environ.get("CORS_ORIGINS", _FRONTEND_ORIGIN).split(",") if o.strip()] or [
+    _FRONTEND_ORIGIN
+]
 
 
 class _InterceptHandler(logging.Handler):
@@ -64,6 +73,29 @@ app.add_middleware(
 app.state.store = SessionStore()
 
 manager = ConnectionManager()
+
+# Origins explicitly allowed to open the WebSocket. A wildcard CORS setting also
+# opens the WS to any site (matching the CORS posture).
+_WS_ALLOW_ANY = "*" in CORS_ORIGINS
+_WS_ALLOWED_HOSTS = {h for h in (urlparse(o).hostname for o in CORS_ORIGINS) if h}
+
+
+def _ws_origin_allowed(ws: WebSocket) -> bool:
+    """Reject cross-site WebSocket handshakes (CSWSH). Browsers always send Origin;
+    non-browser clients omit it (allowed). An Origin is accepted when its host is the
+    same as the host the backend was reached on — which the app always satisfies, since
+    the page and the WS share a hostname (e.g. frontend :3200 → backend :8200 on the
+    same Tailscale host / LAN IP) — or when it's in the configured CORS origins."""
+    if _WS_ALLOW_ANY:
+        return True
+    origin = ws.headers.get("origin")
+    if not origin:  # native clients / same-origin requests
+        return True
+    origin_host = urlparse(origin).hostname
+    if not origin_host:
+        return False
+    backend_host = (ws.headers.get("host", "").rsplit(":", 1)[0]) or None
+    return origin_host == backend_host or origin_host in _WS_ALLOWED_HOSTS
 
 _qcm_timers: dict[str, asyncio.Task] = {}
 # Actions only the QCM flow defines (no buzzer equivalent) — always route to qcm.
@@ -197,6 +229,7 @@ async def health() -> dict:
 async def _handle_message(session, conn: Connection, msg: dict) -> None:
     mtype = msg.get("type")
     payload = msg.get("payload") or {}
+    session.last_seen = now_ms()  # keep active sessions from being evicted (store TTL)
 
     if mtype == "ping":
         await manager.send(conn, "pong", {})
@@ -348,6 +381,10 @@ def _run_blindtest_host_action(session, action: str, payload: dict) -> list:
 @app.websocket("/ws")
 async def ws_endpoint(ws: WebSocket) -> None:
     await ws.accept()
+    if not _ws_origin_allowed(ws):
+        logger.warning("ws rejected: cross-site origin {!r}", ws.headers.get("origin"))
+        await ws.close(code=1008)  # policy violation
+        return
     store: SessionStore = ws.app.state.store
     conn: Connection | None = None
     code: str | None = None
@@ -370,7 +407,7 @@ async def ws_endpoint(ws: WebSocket) -> None:
 
         role = payload.get("role", "player")
         if role == "host":
-            if payload.get("host_secret") != session.host_secret:
+            if not secrets.compare_digest(str(payload.get("host_secret") or ""), session.host_secret):
                 await ws.send_json(envelope("error", {"code": "bad_secret", "message": "Secret hôte invalide."}))
                 await ws.close()
                 return
@@ -412,6 +449,8 @@ async def ws_endpoint(ws: WebSocket) -> None:
             manager.unregister(code, conn)
             if session is not None and conn.role == "player" and conn.player_id:
                 await manager.dispatch(session, engine.on_disconnect(session, conn.player_id))
+                # A floor-holder leaving can reopen the buzzer → (re)arm its countdown.
+                await _sync_buzzer_timer(session)
             if not manager._conns.get(code):
                 _cancel_timer(code)
 

@@ -15,8 +15,10 @@ const HINT_BLOCKER =
 // ---------------------------------------------------------------------------
 // Token helper — fetches a fresh Spotify access token from the backend.
 // ---------------------------------------------------------------------------
-async function fetchSpotifyToken(): Promise<string> {
-  const url = backendHttpUrl("/api/spotify/token");
+async function fetchSpotifyToken(hostSecret: string): Promise<string> {
+  // host_secret gates this endpoint to the game host (see routers/spotify.py) so a
+  // LAN peer can't lift the token.
+  const url = backendHttpUrl(`/api/spotify/token?host_secret=${encodeURIComponent(hostSecret)}`);
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Token fetch failed: ${res.status}`);
   const data = (await res.json()) as { access_token: string };
@@ -45,12 +47,16 @@ export interface SpotifyPlayerControls {
 // credentials. All browser-global accesses are guarded with
 // `typeof window !== "undefined"` so the module is SSR/build-safe.
 // ---------------------------------------------------------------------------
-export function useSpotifyPlayer(enabled: boolean): SpotifyPlayerControls {
+export function useSpotifyPlayer(enabled: boolean, hostSecret = ""): SpotifyPlayerControls {
   const [ready, setReady] = useState(false);
   const [deviceId, setDeviceId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [volume, setVolumeState] = useState(0.8);
   const volumeRef = useRef(0.8);
+  // Kept in a ref so the SDK token callback + play() always read the latest secret
+  // without re-initialising the player or going stale in their closures.
+  const hostSecretRef = useRef(hostSecret);
+  hostSecretRef.current = hostSecret;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
@@ -72,7 +78,7 @@ export function useSpotifyPlayer(enabled: boolean): SpotifyPlayerControls {
         name: "Boucan",
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         getOAuthToken: (cb: (token: string) => void) => {
-          fetchSpotifyToken()
+          fetchSpotifyToken(hostSecretRef.current)
             .then((token) => cb(token))
             .catch(() => {
               /* token fetch failed — SDK will retry */
@@ -169,7 +175,7 @@ export function useSpotifyPlayer(enabled: boolean): SpotifyPlayerControls {
       const BACKOFF_MS = [600, 1200, 2400];
       const run = async (): Promise<void> => {
         for (let i = 0; ; i++) {
-          const token = await fetchSpotifyToken();
+          const token = await fetchSpotifyToken(hostSecretRef.current);
           const res = await fetch(url, {
             method: "PUT",
             headers: {

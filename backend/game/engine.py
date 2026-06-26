@@ -193,7 +193,7 @@ def join(session: Session, pseudo: str, reconnect_token: str | None = None) -> t
     return player, outs
 
 
-def _advance_floor_if_departed(session: Session, player_id: str) -> list[Outbound]:
+def _advance_floor_if_departed(session: Session, player_id: str, now: int | None = None) -> list[Outbound]:
     """If ``player_id`` held the floor, pass it to the next in the queue, or
     reopen the buzzer if the queue is exhausted (cahier §14/§19)."""
     if session.state is not GameState.BUZZED or session.floor_player_id != player_id:
@@ -202,6 +202,13 @@ def _advance_floor_if_departed(session: Session, player_id: str) -> list[Outboun
     if session.floor_index >= len(session.buzz_queue):
         session.state = GameState.BUZZER_OPEN
         session.floor_index = 0
+        # Buzzer mode: the floor-holder left, so restart the countdown for the
+        # reopened (empty) buzzer — otherwise the stale deadline would fire instantly.
+        if session.mode is GameMode.BUZZER:
+            if now is None:
+                now = now_ms()
+            session.buzz_open_at = now
+            session.buzz_ends_at = now + session.buzz_limit_ms if session.buzz_limit_ms > 0 else 0
     return [*_round_state_outbounds(session), _buzz_outbound(session)]
 
 

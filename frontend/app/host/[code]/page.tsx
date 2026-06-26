@@ -69,7 +69,8 @@ export default function HostConsole() {
   // Call the Spotify player hook unconditionally at the top level (React hooks rule).
   // Enabled whenever blindtest mode is active (either selected in UI or live in game).
   const isBlindtest = mode === "blindtest" || snapshot.blindtest.mode === "blindtest";
-  const spotify = useSpotifyPlayer(isBlindtest);
+  // Wait for the host secret before connecting: the token endpoint is gated on it.
+  const spotify = useSpotifyPlayer(isBlindtest && !!secret, secret ?? "");
   const now = useNow();
 
   if (secret === null) {

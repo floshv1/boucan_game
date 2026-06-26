@@ -14,6 +14,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from game import spotify_client
+from game.store import SessionStore
 from routers.spotify import router as spotify_router
 
 # --------------------------------------------------------------------------- #
@@ -427,7 +428,15 @@ def test_search_tracks_maps_items():
 def test_app():
     app = FastAPI()
     app.include_router(spotify_router)
+    # The token endpoint is gated to a live host; give the app a store with one
+    # session so tests can present a valid host_secret.
+    app.state.store = SessionStore()
+    app.state.store.create()
     return app
+
+
+def _host_secret(test_app) -> str:
+    return next(iter(test_app.state.store._sessions.values())).host_secret
 
 
 @pytest.fixture()
@@ -445,10 +454,25 @@ def test_status_shape(client):
     assert isinstance(body["authenticated"], bool)
 
 
-def test_token_401_when_unauthenticated(client):
-    # store is reset by autouse fixture — no tokens present
-    resp = client.get("/api/spotify/token")
+def test_token_403_without_host_secret(client):
+    # No (or wrong) host_secret → forbidden, before any Spotify check.
+    assert client.get("/api/spotify/token").status_code == 403
+    assert client.get("/api/spotify/token", params={"host_secret": "nope"}).status_code == 403
+
+
+def test_token_401_when_unauthenticated(client, test_app):
+    # Valid host gets past the gate; store is reset by autouse fixture → no tokens.
+    resp = client.get("/api/spotify/token", params={"host_secret": _host_secret(test_app)})
     assert resp.status_code == 401
+
+
+def test_token_returns_token_for_host_when_authenticated(client, test_app):
+    spotify_client._store.access_token = "acc_tok"
+    spotify_client._store.refresh_token = "ref_tok"
+    spotify_client._store.expires_at = int(time.time() * 1000) + 600_000
+    resp = client.get("/api/spotify/token", params={"host_secret": _host_secret(test_app)})
+    assert resp.status_code == 200
+    assert resp.json()["access_token"] == "acc_tok"
 
 
 def test_login_redirects_to_spotify(client):

@@ -19,7 +19,9 @@ services:
     restart: unless-stopped
     environment:
       - PORT_BACKEND=8200
-      - CORS_ORIGINS=*
+      # CORS: leave unset to default to FRONTEND_URL (the app never needs a
+      # wildcard — HTTP is same-origin via the Next proxy, WS isn't CORS-governed).
+      - CORS_ORIGINS=${CORS_ORIGINS:-${FRONTEND_URL}}
       # Spotify OAuth — set these in the Komodo Stack environment.
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
