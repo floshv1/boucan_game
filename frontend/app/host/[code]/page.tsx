@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import BlindtestStage from "@/components/BlindtestStage";
 import BuzzStrip from "@/components/BuzzStrip";
 import Countdown from "@/components/Countdown";
+import ElapsedTimer from "@/components/ElapsedTimer";
 import StatsPanel from "@/components/StatsPanel";
 import JoinCard from "@/components/JoinCard";
 import BonusChip from "@/components/BonusChip";
@@ -536,20 +537,31 @@ export default function HostConsole() {
 
                   {state === "BUZZER_OPEN" &&
                     !round.revealed &&
-                    (round.buzz_ends_at ?? 0) > 0 &&
                     (round.buzz_open_at ?? 0) <= now + (round.clockOffset ?? 0) && (
-                      <Countdown
-                        endsAt={round.buzz_ends_at ?? 0}
-                        offsetMs={round.clockOffset}
-                        durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
-                        className="mt-3"
-                      />
+                      (round.buzz_ends_at ?? 0) > 0 ? (
+                        <Countdown
+                          endsAt={round.buzz_ends_at ?? 0}
+                          offsetMs={round.clockOffset}
+                          durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
+                          className="mt-3"
+                        />
+                      ) : (
+                        <ElapsedTimer
+                          startedAt={round.buzz_open_at ?? 0}
+                          offsetMs={round.clockOffset}
+                          className="mt-3 block"
+                        />
+                      )
                     )}
 
-                  {floorOpen && (buzz.answer_ends_at ?? 0) > 0 && (
+                  {floorOpen && (
                     <div className="mt-3 flex items-center gap-2 font-mono text-sm text-buzz">
                       ⏱ Réponse :
-                      <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={round.clockOffset} />
+                      {(buzz.answer_ends_at ?? 0) > 0 ? (
+                        <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={round.clockOffset} />
+                      ) : (
+                        <ElapsedTimer offsetMs={round.clockOffset} />
+                      )}
                     </div>
                   )}
 

@@ -6,6 +6,7 @@ import BonusChip from "@/components/BonusChip";
 import Button from "@/components/Button";
 import BuzzStrip from "@/components/BuzzStrip";
 import Countdown from "@/components/Countdown";
+import ElapsedTimer from "@/components/ElapsedTimer";
 import Equalizer from "@/components/Equalizer";
 import { CoverImage } from "@/components/MediaImage";
 import * as sfx from "@/lib/sfx";
@@ -265,11 +266,15 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
         </div>
       )}
 
-      {/* Post-buzz answer countdown for the floor-holder */}
-      {buzzed && (snapshot.buzz.answer_ends_at ?? 0) > 0 && (
+      {/* Post-buzz answer countdown for the floor-holder (count-up when no limit) */}
+      {buzzed && (
         <div className="mt-3 flex items-center gap-2 font-mono text-sm text-buzz">
           ⏱ Réponse :
-          <Countdown endsAt={snapshot.buzz.answer_ends_at ?? 0} offsetMs={bt.clockOffset} />
+          {(snapshot.buzz.answer_ends_at ?? 0) > 0 ? (
+            <Countdown endsAt={snapshot.buzz.answer_ends_at ?? 0} offsetMs={bt.clockOffset} />
+          ) : (
+            <ElapsedTimer offsetMs={bt.clockOffset} />
+          )}
         </div>
       )}
 

@@ -9,6 +9,7 @@ import BonusChip from "@/components/BonusChip";
 import BuzzStrip from "@/components/BuzzStrip";
 import Card from "@/components/Card";
 import Countdown from "@/components/Countdown";
+import ElapsedTimer from "@/components/ElapsedTimer";
 import Equalizer from "@/components/Equalizer";
 import JoinCard from "@/components/JoinCard";
 import { CoverImage, PromptImage } from "@/components/MediaImage";
@@ -209,22 +210,36 @@ export default function TvView() {
 
               {state === "BUZZER_OPEN" &&
                 !round.revealed &&
-                (round.buzz_ends_at ?? 0) > 0 &&
                 (round.buzz_open_at ?? 0) <= now + (round.clockOffset ?? 0) && (
-                  <Countdown
-                    endsAt={round.buzz_ends_at ?? 0}
-                    offsetMs={round.clockOffset}
-                    durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
-                    className="mx-auto mt-8 max-w-xl text-2xl"
-                  />
+                  (round.buzz_ends_at ?? 0) > 0 ? (
+                    <Countdown
+                      endsAt={round.buzz_ends_at ?? 0}
+                      offsetMs={round.clockOffset}
+                      durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
+                      className="mx-auto mt-8 max-w-xl text-2xl"
+                    />
+                  ) : (
+                    <ElapsedTimer
+                      startedAt={round.buzz_open_at ?? 0}
+                      offsetMs={round.clockOffset}
+                      className="mt-8 block text-2xl"
+                    />
+                  )
                 )}
 
-              {buzz.state === "BUZZED" && buzz.floor_player_id && (buzz.answer_ends_at ?? 0) > 0 && (
-                <Countdown
-                  endsAt={buzz.answer_ends_at ?? 0}
-                  offsetMs={isBt ? bt.clockOffset : round.clockOffset}
-                  className="mx-auto mt-8 max-w-xl text-2xl text-buzz"
-                />
+              {buzz.state === "BUZZED" && buzz.floor_player_id && (
+                (buzz.answer_ends_at ?? 0) > 0 ? (
+                  <Countdown
+                    endsAt={buzz.answer_ends_at ?? 0}
+                    offsetMs={isBt ? bt.clockOffset : round.clockOffset}
+                    className="mx-auto mt-8 max-w-xl text-2xl text-buzz"
+                  />
+                ) : (
+                  <ElapsedTimer
+                    offsetMs={isBt ? bt.clockOffset : round.clockOffset}
+                    className="mt-8 block text-2xl text-buzz"
+                  />
+                )
               )}
 
               {isBt && !buzz.floor_player_id && bt.revealEndsAt > 0 && bt.state === "BUZZER_OPEN" && (

@@ -259,6 +259,7 @@ export interface BuzzState {
   floor_player_id: string | null;
   answer_ends_at?: number; // epoch ms the floor-holder's answer window expires (0 = none)
   server_now?: number; // server clock at send time, for skew correction
+  excluded_ids?: string[]; // players barred from (re)buzzing this round (wrong answer / already scored)
   queue: BuzzEntry[];
 }
 

@@ -8,6 +8,7 @@ import BlindtestTimerBar from "@/components/BlindtestTimerBar";
 import BonusChip from "@/components/BonusChip";
 import Buzzer from "@/components/Buzzer";
 import Countdown from "@/components/Countdown";
+import ElapsedTimer from "@/components/ElapsedTimer";
 import { CoverImage, PromptImage } from "@/components/MediaImage";
 import QcmChoices from "@/components/QcmChoices";
 import ReadingBadge from "@/components/ReadingBadge";
@@ -180,12 +181,13 @@ export default function PlayerView() {
   const b = snapshot.blindtest;
   if (b.mode === "blindtest") {
     const btYouBuzzed = buzz.queue.some((e) => e.player_id === you.id);
+    const btYouExcluded = (buzz.excluded_ids ?? []).includes(you.id ?? "");
     const btHasFloor = !!buzz.floor_player_id && buzz.floor_player_id === you.id;
     const btFloorPseudo = players.find((p) => p.id === buzz.floor_player_id)?.pseudo;
     const myDelta = b.reveal?.deltas[you.id ?? ""] ?? 0;
     const wonReveal = myDelta > 0;
     const open = b.state === "BUZZER_OPEN" && buzz.state === "BUZZER_OPEN";
-    const canBuzz = open && !btYouBuzzed;
+    const canBuzz = open && !btYouBuzzed && !btYouExcluded;
 
     let label = "BUZZ";
     let sublabel: string | undefined = "Écoute… buzze dès que tu sais !";
@@ -198,6 +200,11 @@ export default function PlayerView() {
     } else if (buzz.state === "BUZZED" && b.state === "BUZZER_OPEN") {
       label = "STOP";
       sublabel = btFloorPseudo ? `${btFloorPseudo} a la main` : "Quelqu'un a buzzé";
+    } else if (btYouExcluded && open) {
+      // Buzzer reopened (only one of title/artist found, or you answered wrong) but
+      // you're barred — make the grayed state legible instead of a stale "BUZZ".
+      label = "STOP";
+      sublabel = "Tu as déjà répondu — écoute la suite";
     }
 
     return (
@@ -234,8 +241,12 @@ export default function PlayerView() {
               </p>
             )}
             <BlindtestTimerBar bt={b} />
-            {btHasFloor && buzz.state === "BUZZED" && (buzz.answer_ends_at ?? 0) > 0 && (
-              <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={b.clockOffset} className="mt-4 text-buzz" />
+            {buzz.state === "BUZZED" && (
+              (buzz.answer_ends_at ?? 0) > 0 ? (
+                <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={b.clockOffset} className="mt-4 text-buzz" />
+              ) : (
+                <ElapsedTimer offsetMs={b.clockOffset} className="mt-4 block text-center text-buzz" />
+              )
             )}
             {!buzz.floor_player_id && b.revealEndsAt > 0 && b.state === "BUZZER_OPEN" && (
               <p className="mt-4 text-center font-mono text-xs text-muted">
@@ -274,6 +285,7 @@ export default function PlayerView() {
   }
 
   const youBuzzed = buzz.queue.some((e) => e.player_id === you.id);
+  const youExcluded = (buzz.excluded_ids ?? []).includes(you.id ?? "");
   const hasFloor = !!round.floor_player_id && round.floor_player_id === you.id;
   const floorPseudo = players.find((p) => p.id === round.floor_player_id)?.pseudo;
   const wonReveal = round.revealed && reveal?.correct_player_id === you.id;
@@ -282,7 +294,8 @@ export default function PlayerView() {
   const buzzReading =
     round.state === "BUZZER_OPEN" && !round.revealed && (round.buzz_open_at ?? 0) > now + (round.clockOffset ?? 0);
   const buzzReadSecs = Math.ceil(((round.buzz_open_at ?? 0) - (now + (round.clockOffset ?? 0))) / 1000);
-  const canBuzz = round.state === "BUZZER_OPEN" && !round.revealed && !youBuzzed && !buzzReading;
+  const canBuzz =
+    round.state === "BUZZER_OPEN" && !round.revealed && !youBuzzed && !buzzReading && !youExcluded;
 
   let label = "BUZZ";
   let sublabel: string | undefined = "Appuie dès que tu sais !";
@@ -301,6 +314,10 @@ export default function PlayerView() {
   } else if (round.state === "BUZZED") {
     label = "STOP";
     sublabel = floorPseudo ? `${floorPseudo} a la main` : "Quelqu'un a buzzé";
+  } else if (youExcluded) {
+    // Buzzer reopened after your wrong answer — you stay locked out this round.
+    label = "STOP";
+    sublabel = "Mauvaise réponse — laisse les autres";
   }
 
   return (
@@ -322,19 +339,33 @@ export default function PlayerView() {
         <PromptImage src={round.image} className="mx-auto mt-3 max-h-44 rounded-lg" />
       )}
 
-      {/* Round time limit bar (auto-reveal when it empties) */}
-      {round.state === "BUZZER_OPEN" && !round.revealed && !buzzReading && (round.buzz_ends_at ?? 0) > 0 && (
-        <Countdown
-          endsAt={round.buzz_ends_at ?? 0}
-          offsetMs={round.clockOffset}
-          durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
-          className="mt-4 text-muted"
-        />
+      {/* Round time limit bar (auto-reveal when it empties), or a count-up when
+          the round has no buzz limit — a timing is always shown. */}
+      {round.state === "BUZZER_OPEN" && !round.revealed && !buzzReading && (
+        (round.buzz_ends_at ?? 0) > 0 ? (
+          <Countdown
+            endsAt={round.buzz_ends_at ?? 0}
+            offsetMs={round.clockOffset}
+            durationMs={(round.buzz_ends_at ?? 0) - (round.buzz_open_at ?? 0)}
+            className="mt-4 text-muted"
+          />
+        ) : (
+          <ElapsedTimer
+            startedAt={round.buzz_open_at ?? 0}
+            offsetMs={round.clockOffset}
+            className="mt-4 block text-center text-muted"
+          />
+        )
       )}
 
-      {/* Post-buzz answer countdown for the player who has the floor */}
-      {hasFloor && !round.revealed && (buzz.answer_ends_at ?? 0) > 0 && (
-        <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={round.clockOffset} className="mt-4 text-buzz" />
+      {/* Post-buzz answer countdown — shown to everyone so the whole room sees
+          how long the floor-holder has left (count-up when no answer limit). */}
+      {round.state === "BUZZED" && !round.revealed && (
+        (buzz.answer_ends_at ?? 0) > 0 ? (
+          <Countdown endsAt={buzz.answer_ends_at ?? 0} offsetMs={round.clockOffset} className="mt-4 text-buzz" />
+        ) : (
+          <ElapsedTimer offsetMs={round.clockOffset} className="mt-4 block text-center text-buzz" />
+        )
       )}
 
       {/* Buzzer (or reading countdown) */}

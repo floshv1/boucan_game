@@ -81,6 +81,10 @@ def buzz_payload(session: Session) -> dict:
         # floor-holder; server auto-invalidates at answer_ends_at (0 = no limit).
         "answer_ends_at": session.answer_ends_at,
         "server_now": now_ms(),
+        # Players barred from (re)buzzing this round (wrong answer / already scored).
+        # Non-secret: lets clients gray out the buzzer instead of letting a barred
+        # player press it only for the server to reject the buzz.
+        "excluded_ids": list(session.excluded_ids),
         "queue": [
             {
                 "player_id": e.player_id,
