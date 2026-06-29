@@ -1,0 +1,26 @@
+{
+  "theme": "geographie",
+  "difficulty": "intermediaire",
+  "questions": [
+    {"question": "Quelle est la capitale du Canada ?", "choices": ["Toronto", "Ottawa", "Montréal", "Vancouver"], "answer": "Ottawa", "anecdote": "Toronto est la plus grande ville, mais Ottawa est la capitale fédérale."},
+    {"question": "Quel est le plus grand pays du monde par superficie ?", "choices": ["Chine", "Russie", "Canada", "États-Unis"], "answer": "Russie", "anecdote": "La Russie s'étend sur onze fuseaux horaires."},
+    {"question": "Quel fleuve traverse Paris ?", "choices": ["La Loire", "La Seine", "Le Rhône", "La Garonne"], "answer": "La Seine", "anecdote": "La Seine se jette dans la Manche au Havre."},
+    {"question": "Quelle est la plus haute montagne du monde ?", "choices": ["Le K2", "L'Everest", "Le mont Blanc", "Le Kilimandjaro"], "answer": "L'Everest", "anecdote": "Son sommet culmine à environ 8 849 mètres."},
+    {"question": "Sur quel continent se trouve le désert du Sahara ?", "choices": ["Asie", "Afrique", "Amérique", "Océanie"], "answer": "Afrique", "anecdote": "C'est le plus grand désert chaud du monde."},
+    {"question": "Quelle est la capitale de l'Australie ?", "choices": ["Sydney", "Melbourne", "Canberra", "Perth"], "answer": "Canberra", "anecdote": "Canberra a été choisie comme compromis entre Sydney et Melbourne."},
+    {"question": "Quel océan borde la côte ouest des États-Unis ?", "choices": ["Atlantique", "Pacifique", "Indien", "Arctique"], "answer": "Pacifique", "anecdote": "Le Pacifique est le plus grand océan de la planète."},
+    {"question": "Dans quel pays se trouve la tour de Pise ?", "choices": ["Espagne", "Italie", "Grèce", "Portugal"], "answer": "Italie", "anecdote": "Son inclinaison est due à un sol instable."},
+    {"question": "Quel pays a la forme d'une botte ?", "choices": ["Italie", "Espagne", "Grèce", "Croatie"], "answer": "Italie", "anecdote": "La péninsule italienne s'avance dans la Méditerranée."},
+    {"question": "Quelle est la capitale du Japon ?", "choices": ["Kyoto", "Osaka", "Tokyo", "Nagoya"], "answer": "Tokyo", "anecdote": "Tokyo est l'une des plus grandes agglomérations du monde."},
+    {"question": "Quel est le plus long fleuve du monde ?", "choices": ["L'Amazone", "Le Nil", "Le Mississippi", "Le Yangtsé"], "answer": "Le Nil", "anecdote": "Le débat Nil/Amazone existe, mais le Nil est traditionnellement cité comme le plus long."},
+    {"question": "Quel détroit sépare l'Europe de l'Afrique au plus court ?", "choices": ["Le Bosphore", "Le détroit de Gibraltar", "Le détroit de Béring", "Le canal de Suez"], "answer": "Le détroit de Gibraltar", "anecdote": "Il ne fait qu'environ 14 km de large à son point le plus étroit."},
+    {"question": "Quelle chaîne de montagnes sépare la France de l'Espagne ?", "choices": ["Les Alpes", "Les Pyrénées", "Le Jura", "Les Vosges"], "answer": "Les Pyrénées", "anecdote": "L'Andorre se niche au cœur des Pyrénées."},
+    {"question": "Quelle est la capitale de l'Allemagne ?", "choices": ["Munich", "Berlin", "Francfort", "Hambourg"], "answer": "Berlin", "anecdote": "Berlin est redevenue capitale après la réunification de 1990."},
+    {"question": "Quel pays compte le plus d'habitants au monde ?", "choices": ["Chine", "Inde", "États-Unis", "Indonésie"], "answer": "Inde", "anecdote": "L'Inde a dépassé la Chine en population vers 2023."},
+    {"question": "Dans quelle ville se trouve la statue de la Liberté ?", "choices": ["Boston", "New York", "Washington", "Chicago"], "answer": "New York", "anecdote": "Elle fut offerte par la France en 1886."},
+    {"question": "Quel pays est entouré par l'Italie et la France et abrite Monaco à proximité ?", "choices": ["La Suisse", "Monaco", "Andorre", "Le Liechtenstein"], "answer": "Monaco", "anecdote": "Monaco est l'un des plus petits États du monde."},
+    {"question": "Quelle mer borde la Côte d'Azur ?", "choices": ["La mer du Nord", "La Méditerranée", "La mer Baltique", "La mer Noire"], "answer": "La Méditerranée", "anecdote": "Nice et Cannes bordent cette mer."},
+    {"question": "Quel est le plus petit continent ?", "choices": ["Europe", "Océanie", "Antarctique", "Amérique du Sud"], "answer": "Océanie", "anecdote": "L'Océanie inclut l'Australie et de nombreuses îles du Pacifique."},
+    {"question": "Quelle est la capitale de l'Espagne ?", "choices": ["Barcelone", "Madrid", "Séville", "Valence"], "answer": "Madrid", "anecdote": "Madrid se situe quasiment au centre géographique du pays."}
+  ]
+}
