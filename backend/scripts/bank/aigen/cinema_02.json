@@ -1,0 +1,22 @@
+{
+  "theme": "cinema",
+  "difficulty": "intermediaire",
+  "questions": [
+    {"question": "Quel film sud-coréen a remporté l'Oscar du meilleur film en 2020 ?", "choices": ["Parasite", "Old Boy", "Memories of Murder", "Burning"], "answer": "Parasite", "anecdote": "C'est le premier film non anglophone à recevoir cette récompense."},
+    {"question": "Quel acteur incarne Jack Sparrow dans « Pirates des Caraïbes » ?", "choices": ["Orlando Bloom", "Johnny Depp", "Javier Bardem", "Geoffrey Rush"], "answer": "Johnny Depp", "anecdote": "Le personnage s'inspire en partie de Keith Richards."},
+    {"question": "Dans « Matrix », quelle couleur de pilule Néo choisit-il pour connaître la vérité ?", "choices": ["La bleue", "La rouge", "La verte", "La blanche"], "answer": "La rouge", "anecdote": "Néo est interprété par Keanu Reeves."},
+    {"question": "Quel film français raconte l'amitié entre un homme riche tétraplégique et son aide-soignant ?", "choices": ["Intouchables", "Le Dîner de cons", "Bienvenue chez les Ch'tis", "La Haine"], "answer": "Intouchables", "anecdote": "Omar Sy et François Cluzet y tiennent les rôles principaux."},
+    {"question": "Qui a réalisé « E.T. l'extra-terrestre » ?", "choices": ["George Lucas", "Steven Spielberg", "Robert Zemeckis", "Tim Burton"], "answer": "Steven Spielberg", "anecdote": "Le film est sorti en 1982."},
+    {"question": "Quel acteur a remporté un Oscar pour son rôle dans « Joker » (2019) ?", "choices": ["Heath Ledger", "Joaquin Phoenix", "Jared Leto", "Jack Nicholson"], "answer": "Joaquin Phoenix", "anecdote": "Heath Ledger avait reçu un Oscar posthume pour le même personnage en 2009."},
+    {"question": "Dans quel film Tom Hanks joue-t-il un naufragé seul sur une île avec un ballon nommé Wilson ?", "choices": ["Seul au monde", "Le Naufragé", "Robinson", "Survivor"], "answer": "Seul au monde", "anecdote": "Le titre original est « Cast Away »."},
+    {"question": "Quelle actrice française incarne le rôle-titre du « Fabuleux Destin d'Amélie Poulain » ?", "choices": ["Marion Cotillard", "Audrey Tautou", "Juliette Binoche", "Léa Seydoux"], "answer": "Audrey Tautou", "anecdote": "Le film est réalisé par Jean-Pierre Jeunet."},
+    {"question": "Quel super-héros est connu sous le nom de « l'homme chauve-souris » ?", "choices": ["Superman", "Batman", "Spider-Man", "Daredevil"], "answer": "Batman", "anecdote": "Son alter ego est Bruce Wayne, à Gotham City."},
+    {"question": "Quel film de 1939 suit Dorothy et son chien Toto au pays d'Oz ?", "choices": ["Le Magicien d'Oz", "Mary Poppins", "Blanche-Neige", "Peter Pan"], "answer": "Le Magicien d'Oz", "anecdote": "La chanson « Over the Rainbow » en est tirée."},
+    {"question": "Quel réalisateur est célèbre pour ses films d'horreur et le « Maître du suspense » ?", "choices": ["Alfred Hitchcock", "Wes Craven", "John Carpenter", "Dario Argento"], "answer": "Alfred Hitchcock", "anecdote": "Il a réalisé « Psychose » et « Les Oiseaux »."},
+    {"question": "Dans « Le Roi Lion », comment s'appelle le frère jaloux de Mufasa ?", "choices": ["Scar", "Zazu", "Rafiki", "Timon"], "answer": "Scar", "anecdote": "Scar provoque la mort de Mufasa."},
+    {"question": "Quel acteur joue le rôle principal de « Gladiator » (2000) ?", "choices": ["Brad Pitt", "Russell Crowe", "Gerard Butler", "Colin Farrell"], "answer": "Russell Crowe", "anecdote": "Le film a remporté l'Oscar du meilleur film."},
+    {"question": "Quel film d'animation Disney met en scène Elsa et ses pouvoirs de glace ?", "choices": ["Vaiana", "La Reine des neiges", "Raiponce", "Encanto"], "answer": "La Reine des neiges", "anecdote": "La chanson « Libérée, délivrée » est devenue mondialement connue."},
+    {"question": "Quel film de Tarantino met en scène un esclave devenu chasseur de primes joué par Jamie Foxx ?", "choices": ["Django Unchained", "Kill Bill", "Inglourious Basterds", "Jackie Brown"], "answer": "Django Unchained", "anecdote": "Le film est sorti en 2012."},
+    {"question": "Dans « Pinocchio », que se passe-t-il quand le pantin ment ?", "choices": ["Ses oreilles grandissent", "Son nez s'allonge", "Il rougit", "Il rétrécit"], "answer": "Son nez s'allonge", "anecdote": "Pinocchio est tiré d'un roman italien de Carlo Collodi."}
+  ]
+}

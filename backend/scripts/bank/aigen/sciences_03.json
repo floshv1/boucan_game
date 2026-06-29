@@ -1,0 +1,11 @@
+{
+  "theme": "sciences",
+  "difficulty": "intermediaire",
+  "questions": [
+    {"question": "Quel est le symbole chimique du carbone ?", "choices": ["Ca", "C", "Co", "Cr"], "answer": "C", "anecdote": "Le carbone est à la base de la chimie du vivant."},
+    {"question": "Quelle est l'unité de mesure de la résistance électrique ?", "choices": ["Le volt", "L'ohm", "L'ampère", "Le watt"], "answer": "L'ohm", "anecdote": "Du nom du physicien Georg Ohm."},
+    {"question": "Quel organe humain est responsable de l'équilibre, dans l'oreille interne ?", "choices": ["Le tympan", "Le vestibule (oreille interne)", "La cochlée", "Le marteau"], "answer": "Le vestibule (oreille interne)", "anecdote": "Il renseigne le cerveau sur la position de la tête."},
+    {"question": "Quel gaz, noté CO, est dangereux car inodore et toxique ?", "choices": ["Le monoxyde de carbone", "Le dioxyde de carbone", "Le méthane", "L'ozone"], "answer": "Le monoxyde de carbone", "anecdote": "Il est produit par une combustion incomplète."},
+    {"question": "Sur quelle planète vivons-nous ?", "choices": ["Mars", "La Terre", "Vénus", "Mercure"], "answer": "La Terre", "anecdote": "Une rotation complète sur elle-même définit le jour."}
+  ]
+}
