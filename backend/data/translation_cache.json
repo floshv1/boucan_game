@@ -1,0 +1,2064 @@
+{
+  "95afebb31548638ffd14866b7bcf3b7f39400f04": {
+    "garder": true,
+    "question": "Quelle est la capitale de l'Afghanistan ?",
+    "choix": [
+      "Tirana",
+      "Kaboul",
+      "Douchanbé",
+      "Tachkent"
+    ],
+    "bonne_reponse": "Kaboul",
+    "difficulte": "moyen"
+  },
+  "d9f99269eccf401e42f8527e854fb025fc6b8a08": {
+    "garder": true,
+    "question": "Quelle est la capitale de l'Australie ?",
+    "choix": [
+      "Canberra",
+      "Sydney",
+      "Melbourne",
+      "Ottawa"
+    ],
+    "bonne_reponse": "Canberra",
+    "difficulte": "moyen"
+  },
+  "32fbaf930e4b64d5662123aff65ed6119cffdefc": {
+    "garder": true,
+    "question": "Quelle est la capitale de la Belgique ?",
+    "choix": [
+      "Amsterdam",
+      "Luxembourg",
+      "Bruxelles",
+      "Stockholm"
+    ],
+    "bonne_reponse": "Bruxelles",
+    "difficulte": "facile"
+  },
+  "9a285ba89b317acb389297b1b3b2938861928f4f": {
+    "garder": true,
+    "question": "Quelle est la capitale de la Grèce ?",
+    "choix": [
+      "Ankara",
+      "Athènes",
+      "Sofia",
+      "Thessalonique"
+    ],
+    "bonne_reponse": "Athènes",
+    "difficulte": "facile"
+  },
+  "579cce23fecca40aee5e7180bd7dcadf02ae9874": {
+    "garder": true,
+    "question": "Quelle est la capitale de l'Italie ?",
+    "choix": [
+      "Venise",
+      "Rome",
+      "Naples",
+      "Milan"
+    ],
+    "bonne_reponse": "Rome",
+    "difficulte": "facile"
+  },
+  "205f0b0f0a1b330362dae49514dcfe3a1ee96bb6": {
+    "garder": true,
+    "question": "Quelle est la capitale d'Israël ?",
+    "choix": [
+      "Tel-Aviv",
+      "Kaboul",
+      "Jérusalem",
+      "Islamabad"
+    ],
+    "bonne_reponse": "Jérusalem",
+    "difficulte": "moyen"
+  },
+  "1a8e0f0e852e6e6eb15089b3d5be4220d84465e6": {
+    "garder": true,
+    "question": "Quelle est la capitale de l'Allemagne ?",
+    "choix": [
+      "Francfort",
+      "Berlin",
+      "Munich",
+      "Hambourg"
+    ],
+    "bonne_reponse": "Berlin",
+    "difficulte": "facile"
+  },
+  "95bea16bf22411bdcda321c225611d07f1f7ecd0": {
+    "garder": true,
+    "question": "Quelle est la capitale de la Norvège ?",
+    "choix": [
+      "Stockholm",
+      "Helsinki",
+      "Oslo",
+      "Copenhague"
+    ],
+    "bonne_reponse": "Oslo",
+    "difficulte": "moyen"
+  },
+  "1bf5ee89df82e9d8379a6488b6948b302783ff8b": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "9c300448894caaa0cbcfdde1fb377681feddb2ef": {
+    "garder": true,
+    "question": "Formé par la jonction de la Biya et de la Katoun, ce grand fleuve de Sibérie occidentale rejoint l'Irtych. Quel est son nom ?",
+    "choix": [
+      "Oural",
+      "Volga",
+      "Ob",
+      "Léna"
+    ],
+    "bonne_reponse": "Ob",
+    "difficulte": "difficile"
+  },
+  "0cf92ad79a9b26062582d4c02ff4b1809fc523a1": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "difficile"
+  },
+  "5aa4a933310192dc77815c7273f26035e98b4970": {
+    "garder": true,
+    "question": "Quel est le plus long fleuve d'Asie, dont le nom chinois Chang Jiang signifie « long fleuve » ?",
+    "choix": [
+      "Irtych",
+      "Huai",
+      "Yangtsé",
+      "Mékong"
+    ],
+    "bonne_reponse": "Yangtsé",
+    "difficulte": "moyen"
+  },
+  "28122ddfb1e4132180caadc8b90e8f2b9225011b": {
+    "garder": true,
+    "question": "Le Huang He, deuxième plus long fleuve de Chine, doit son nom à la couleur de ses eaux chargées de limon. Quelle est cette couleur ?",
+    "choix": [
+      "Marron",
+      "Orange",
+      "Jaune",
+      "Rouge"
+    ],
+    "bonne_reponse": "Jaune",
+    "difficulte": "moyen"
+  },
+  "871832b4b7f7fbbd71309a5e2922eb015c9cde47": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "difficile"
+  },
+  "03372079c601f843f8a88f54af0fb53b274e6271": {
+    "garder": true,
+    "question": "Quel fleuve traverse la Chine, la Birmanie, la Thaïlande, le Laos, le Cambodge et le Vietnam ?",
+    "choix": [
+      "Mékong",
+      "Saskatchewan",
+      "Angara",
+      "Brahmapoutre"
+    ],
+    "bonne_reponse": "Mékong",
+    "difficulte": "moyen"
+  },
+  "7234ac63dd76dbd500196b3191ea077f8d3954fe": {
+    "garder": true,
+    "question": "Quel est le deuxième plus long fleuve d'Europe, qui traverse Vienne, Bratislava, Budapest et Belgrade avant de se jeter dans la mer Noire ?",
+    "choix": [
+      "Don",
+      "Dniepr",
+      "Danube",
+      "Emba"
+    ],
+    "bonne_reponse": "Danube",
+    "difficulte": "moyen"
+  },
+  "80957a1b4fb526de1483cf54a60266d1ea7f0e63": {
+    "garder": true,
+    "question": "Le Gange, fleuve sacré de l'Inde, se jette dans quelle étendue d'eau ?",
+    "choix": [
+      "Le golfe du Bengale",
+      "Le Lop Nor",
+      "La baie de Quarry",
+      "La mer de Kara"
+    ],
+    "bonne_reponse": "Le golfe du Bengale",
+    "difficulte": "moyen"
+  },
+  "e83ebf6427d92f78c014f6d7c413ecd485ace0de": {
+    "garder": true,
+    "question": "Les chutes Victoria, parmi les plus spectaculaires du monde, sont situées sur quel fleuve ?",
+    "choix": [
+      "Le Zambèze",
+      "Le Congo",
+      "La Gambie",
+      "L'Orange"
+    ],
+    "bonne_reponse": "Le Zambèze",
+    "difficulte": "moyen"
+  },
+  "50d480c8e22990d2fcd1773920cb1319d8720cb4": {
+    "garder": true,
+    "question": "Le lac Victoria, considéré comme la source du Nil, se situe sur le territoire de quels trois pays ?",
+    "choix": [
+      "Soudan, Éthiopie et Kenya",
+      "Zambie, Angola et Soudan",
+      "Ouganda, Kenya et Tanzanie",
+      "Égypte, Maroc et Zimbabwe"
+    ],
+    "bonne_reponse": "Ouganda, Kenya et Tanzanie",
+    "difficulte": "difficile"
+  },
+  "32f6430e8b4ba9176481f7971decc9dbf19d0f07": {
+    "garder": true,
+    "question": "Quelle ligne, à égale distance du pôle Nord et du pôle Sud, fait le tour de la Terre horizontalement ?",
+    "choix": [
+      "Le tropique du Capricorne",
+      "L'équateur",
+      "Le tropique du Cancer",
+      "Le méridien de Greenwich"
+    ],
+    "bonne_reponse": "L'équateur",
+    "difficulte": "facile"
+  },
+  "00662b9373f044c2da781299a6dc39158f9cc699": {
+    "garder": true,
+    "question": "Quel nom porte la ligne à 23,5° de latitude sud, traversant l'Amérique du Sud, l'Afrique et l'Australie ?",
+    "choix": [
+      "Le tropique du Cancer",
+      "Le méridien de Greenwich",
+      "Le tropique du Capricorne",
+      "L'équateur"
+    ],
+    "bonne_reponse": "Le tropique du Capricorne",
+    "difficulte": "moyen"
+  },
+  "152c5ebb7c8e6d2ae565b9cc620ad8e40e4d611d": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "d0860cc63f96f5851d5c461ed25d3271a2aa5c1e": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "difficile"
+  },
+  "3b7a2d62ace045efe51d0e56b5465e64f2ecd702": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "3ef960527173a9c7704ad22444cd63551e743f42": {
+    "garder": true,
+    "question": "Quel élément d'une carte permet de déterminer la direction ?",
+    "choix": [
+      "Une clé",
+      "Une légende",
+      "Une rose des vents",
+      "Une échelle"
+    ],
+    "bonne_reponse": "Une rose des vents",
+    "difficulte": "facile"
+  },
+  "92b37ef475b28a0c56d0f7557b37e4e4d88e0eef": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "difficile"
+  },
+  "59ee550f01436e8701275a9e0da03d1bf04df5c8": {
+    "garder": true,
+    "question": "Parmi ces continents, lequel est le plus grand (par superficie) ?",
+    "choix": [
+      "Amérique du Sud",
+      "Antarctique",
+      "Amérique du Nord",
+      "Europe"
+    ],
+    "bonne_reponse": "Amérique du Nord",
+    "difficulte": "moyen"
+  },
+  "09143c12ecfc4c79a4fed97aa2209c584c6fea0e": {
+    "garder": true,
+    "question": "Parmi ces pays, lequel est le plus petit (par superficie) ?",
+    "choix": [
+      "Les Seychelles",
+      "Le Liechtenstein",
+      "Saint-Marin",
+      "Les Îles Marshall"
+    ],
+    "bonne_reponse": "Saint-Marin",
+    "difficulte": "difficile"
+  },
+  "abd3d3127b6e4de1a731ed8a652b3e6720d0a4cb": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "b69fe73105dcfd10f7bfbd9153c96c392912639c": {
+    "garder": true,
+    "question": "Parmi ces montagnes, laquelle est la plus haute ?",
+    "choix": [
+      "Puncak Jaya",
+      "Le mont McKinley",
+      "Le mont Elbrouz",
+      "Le Kilimandjaro"
+    ],
+    "bonne_reponse": "Le mont McKinley",
+    "difficulte": "difficile"
+  },
+  "aa79917c53c0a428b0f7ef9fd5c167c7494f5e94": {
+    "garder": true,
+    "question": "De quoi sont principalement composés les nuages ?",
+    "choix": [
+      "Atomes de carbone",
+      "Gouttelettes d'eau et cristaux de glace",
+      "Ions d'oxygène",
+      "Acariens"
+    ],
+    "bonne_reponse": "Gouttelettes d'eau et cristaux de glace",
+    "difficulte": "facile"
+  },
+  "bd6a98c43243f812f6642d93015035c15d8ae454": {
+    "garder": true,
+    "question": "Quel relief conique se forme lorsque le magma remonte par une ouverture de la croûte terrestre ?",
+    "choix": [
+      "Un volcan",
+      "Une colline",
+      "Un séisme",
+      "Un geyser"
+    ],
+    "bonne_reponse": "Un volcan",
+    "difficulte": "facile"
+  },
+  "e618adb160163280a0f5a76803eb942253ce973f": {
+    "garder": true,
+    "question": "Quel phénomène, fréquent au Japon, est un mouvement soudain de la surface terrestre dû à une libération d'énergie dans la croûte ?",
+    "choix": [
+      "Volcan",
+      "Séisme",
+      "Marée",
+      "Tsunami"
+    ],
+    "bonne_reponse": "Séisme",
+    "difficulte": "facile"
+  },
+  "1d1b7191fc28158dea5616160e597041e1a02df5": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "3b0f367bad2294747f97e409cf76047da7bf3a44": {
+    "garder": true,
+    "question": "Quel est le plus long fleuve du monde ?",
+    "choix": [
+      "La Tamise",
+      "L'Amazone",
+      "Le Nil",
+      "Le Danube"
+    ],
+    "bonne_reponse": "Le Nil",
+    "difficulte": "moyen"
+  },
+  "c327280c10f126fab0b1957254ad2ba6b5d98ce9": {
+    "garder": true,
+    "question": "Pourquoi les voyageurs tombent-ils souvent malades dès leur arrivée à La Paz, en Bolivie ?",
+    "choix": [
+      "À cause de la température élevée",
+      "À cause de l'humidité",
+      "À cause de la qualité du sol",
+      "À cause de l'altitude"
+    ],
+    "bonne_reponse": "À cause de l'altitude",
+    "difficulte": "moyen"
+  },
+  "400083be66698311eefbe760cabbfb026115af15": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "53ecca932dc27356851c74c756972429afe6daf1": {
+    "garder": true,
+    "question": "Comment appelle-t-on ces régions arides, à très faibles précipitations et végétation quasi inexistante ?",
+    "choix": [
+      "Les océans",
+      "Les forêts tropicales",
+      "L'équateur",
+      "Les déserts"
+    ],
+    "bonne_reponse": "Les déserts",
+    "difficulte": "facile"
+  },
+  "16b32009af4ca306fac228021c4400e0db4fac91": {
+    "garder": true,
+    "question": "Quelle gemme est formée de résine d'arbre fossilisée d'au moins 30 millions d'années ?",
+    "choix": [
+      "L'obsidienne",
+      "L'ambre",
+      "La tourmaline",
+      "La malachite"
+    ],
+    "bonne_reponse": "L'ambre",
+    "difficulte": "moyen"
+  },
+  "79d6284ebd8026b0f0c3283fb2735dab4cad68d0": {
+    "garder": true,
+    "question": "Quelle est la plus grande île du monde, dont un tiers est un parc national ?",
+    "choix": [
+      "Le Groenland",
+      "Madagascar",
+      "L'Australie",
+      "L'Alaska"
+    ],
+    "bonne_reponse": "Le Groenland",
+    "difficulte": "moyen"
+  },
+  "37ed515b87be570ed358d1ee021c43b0fbe26a95": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "21618f6464347b7fb83275daab595dd32f875cc0": {
+    "garder": true,
+    "question": "Quel organe de la respiration transporte l'oxygène de l'air vers le sang ?",
+    "choix": [
+      "L'estomac",
+      "Le diaphragme",
+      "La trachée",
+      "Le poumon"
+    ],
+    "bonne_reponse": "Le poumon",
+    "difficulte": "facile"
+  },
+  "0aef0465ec52c999b3d8b7fe0030ad0a7268eff0": {
+    "garder": true,
+    "question": "Quelle glande en forme de papillon aide à réguler l'énergie du corps ?",
+    "choix": [
+      "La parathyroïde",
+      "La thyroïde",
+      "La glande surrénale",
+      "Le thymus"
+    ],
+    "bonne_reponse": "La thyroïde",
+    "difficulte": "moyen"
+  },
+  "2da4ccef74e276bbef05bdf9b30eb56aeb614110": {
+    "garder": true,
+    "question": "Quels organes, très sensibles, sont souvent atteints chez les personnes hypertendues ou diabétiques ?",
+    "choix": [
+      "Le pancréas",
+      "Les reins",
+      "Les ovaires",
+      "Les poumons"
+    ],
+    "bonne_reponse": "Les reins",
+    "difficulte": "moyen"
+  },
+  "bf68149f9859fa0f9de3e272f86abf7008638b57": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "5778e292d7952a695f404b338774ceee46c71e81": {
+    "garder": true,
+    "question": "Quel médecin suit la mère et l'enfant pendant la grossesse ?",
+    "choix": [
+      "Le psychologue",
+      "Le parodontiste",
+      "L'obstétricien",
+      "Le pédiatre"
+    ],
+    "bonne_reponse": "L'obstétricien",
+    "difficulte": "moyen"
+  },
+  "72f5abe91cec703282f0965fc21f9dfe2c82531d": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "08de899aeab98200ac0c59fee4c8a0a8d1dd45cd": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "3f877433005e9ad932e1ea63c28b65ed1ae1b6fd": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "217870db9c58af353abcb83c6bf26d6cfbec1252": {
+    "garder": false,
+    "question": "",
+    "choix": [],
+    "bonne_reponse": "",
+    "difficulte": "moyen"
+  },
+  "42b9fcb53a7dd50f57db379e75dfa608abfb6800": {
+    "garder": true,
+    "question": "Qu'expulse-t-on en même temps que le bébé ou juste après la naissance ?",
+    "choix": [
+      "Les pieds",
+      "Les épaules",
+      "Le placenta",
+      "Un manuel"
+    ],
+    "bonne_reponse": "Le placenta",
+    "difficulte": "facile"
+  },
+  "1619fa34a0aa48d594a8f190e6e0942909ce1a73": {
+    "garder": true,
+    "question": "Quels petits corps célestes sont des vestiges de la formation du Système solaire il y a 4,6 milliards d'années ?",
+    "choix": [
+      "Les comètes",
+      "Les étoiles",
+      "Les planètes",
+      "Les astéroïdes"
+    ],
+    "bonne_reponse": "Les astéroïdes",
+    "difficulte": "moyen"
+  },
+  "ed668e6ee5bce916284a336230e9ba191ef4f6e7": {
+    "garder": true,
+    "question": "Quels astres, faits de glace et de poussière, développent de longues queues en s'approchant du Soleil ?",
+    "choix": [
+      "Les astéroïdes",
+      "Les comètes",
+      "Les ovnis",
+      "Les étoiles"
+    ],
+    "bonne_reponse": "Les comètes",
+    "difficulte": "facile"
+  },
+  "89d53a4c8b1342503a4fa327d5a8d2ed4c35b578": {
+    "garder": true,
+    "question": "Quelle planète, légèrement plus petite que la Terre, en est la plus proche voisine (hors Lune) ?",
+    "choix": [
+      "Vénus",
+      "Uranus",
+      "Mars",
+      "Saturne"
+    ],
+    "bonne_reponse": "Vénus",
+    "difficulte": "moyen"
+  },
+  "227c736742fb3c4d27f0200ede80fc0865517880": {
+    "garder": true,
+    "question": "Quelle planète est célèbre pour son système d'anneaux ?",
+    "choix": [
+      "Neptune",
+      "Mars",
+      "Saturne",
+      "Vénus"
+    ],
+    "bonne_reponse": "Saturne",
+    "difficulte": "facile"
+  },
+  "5520b8f8d71ec65a0ae90b49d879daa8ee8933b1": {
+    "garder": true,
+    "question": "Quelle planète du Système solaire porte le nom romain du dieu grec de la mer et des séismes ?",
+    "choix": [
+      "Mercure",
+      "Neptune",
+      "Pluton",
+      "Uranus"
+    ],
+    "bonne_reponse": "Neptune",
+    "difficulte": "moyen"
+  },
+  "fd1680b4228ce0d32afa3709c570518a01440483": {
+    "garder": true,
+    "question": "Quelle est la planète la plus proche du Soleil ?",
+    "choix": [
+      "Neptune",
+      "Mercure",
+      "Pluton",
+      "Vénus"
+    ],
+    "bonne_reponse": "Mercure",
+    "difficulte": "facile"
+  },
+  "ed435eef68b6420a86670b73d4e534ec8b3cb24a": {
+    "garder": true,
+    "question": "Quelle est la seule planète dont la surface possède de l'eau en grande quantité ?",
+    "choix": [
+      "Saturne",
+      "Pluton",
+      "La Terre",
+      "Mars"
+    ],
+    "bonne_reponse": "La Terre",
+    "difficulte": "facile"
+  },
+  "3b5273c0f90f34e2f40a97323aae34ffda4fad3c": {
+    "garder": true,
+    "question": "Quel corps céleste du Système solaire met environ 248 ans à faire le tour du Soleil ?",
+    "choix": [
+      "Saturne",
+      "Pluton",
+      "Neptune",
+      "Uranus"
+    ],
+    "bonne_reponse": "Pluton",
+    "difficulte": "moyen"
+  },
+  "b96377e41fa7c6fa0289c120613b7b059d53ab5c": {
+    "garder": true,
+    "question": "Quelle est la plus grande planète du Système solaire, célèbre pour sa Grande Tache rouge ?",
+    "choix": [
+      "Mars",
+      "Neptune",
+      "Saturne",
+      "Jupiter"
+    ],
+    "bonne_reponse": "Jupiter",
+    "difficulte": "facile"
+  },
+  "df14fd2ca95370874a345244dfe655801fcba1a7": {
+    "garder": false
+  },
+  "29ce0ea1f9f11930a28dbf4c0d0f98df311dc7c6": {
+    "garder": true,
+    "question": "Au début des années 1990, ce corps momifié vieux de plus de 5000 ans fut découvert dans les Alpes. Comment l'a-t-on surnommé ?",
+    "choix": [
+      "Big Foot",
+      "Sasquatch",
+      "Nessie",
+      "Ötzi"
+    ],
+    "bonne_reponse": "Ötzi",
+    "difficulte": "difficile"
+  },
+  "abbfc1c1d2d411762faf6e3c2f7ad451ec5e4e42": {
+    "garder": true,
+    "question": "Comment s'appelait l'opération militaire lancée par les États-Unis contre l'Irak en janvier 1991, après l'invasion du Koweït ?",
+    "choix": [
+      "Matador",
+      "Boléro",
+      "Determined Force",
+      "Tempête du désert"
+    ],
+    "bonne_reponse": "Tempête du désert",
+    "difficulte": "moyen"
+  },
+  "e6c164c4ab286960493060b3360ca49b5c665675": {
+    "garder": true,
+    "question": "Comment appelle-t-on le procédé qui a permis de créer la brebis Dolly, premier animal cloné, en 1996 ?",
+    "choix": [
+      "La transplantation d'organe",
+      "Le clonage",
+      "La chirurgie sans effusion de sang",
+      "La chirurgie au laser"
+    ],
+    "bonne_reponse": "Le clonage",
+    "difficulte": "facile"
+  },
+  "2e20925c163b0b9b2433eff0490fb51046bf53f9": {
+    "garder": true,
+    "question": "Quel genre de musique électronique, mélodique et hypnotique, s'est popularisé en Europe dans les années 1990 (ex. « Age of Love », 1990) ?",
+    "choix": [
+      "L'électro",
+      "La trance",
+      "La techno",
+      "La dance"
+    ],
+    "bonne_reponse": "La trance",
+    "difficulte": "difficile"
+  },
+  "5f0ca58a36ea5461d8e587fdeacb4fd596da8dfc": {
+    "garder": true,
+    "question": "Quelle personnalité est morte en 1997 dans un accident de voiture en tentant d'échapper aux paparazzi ?",
+    "choix": [
+      "Greta Garbo",
+      "Nancy Marchand",
+      "Madam C. J. Walker",
+      "La princesse Diana"
+    ],
+    "bonne_reponse": "La princesse Diana",
+    "difficulte": "facile"
+  },
+  "9b1b50f3b2aab42f4adc08a385aad006ac3d13b5": {
+    "garder": true,
+    "question": "Quelle union, créée par le traité de Maastricht en 1992, est devenue un partenariat économique et politique entre pays européens ?",
+    "choix": [
+      "L'American Labor Union",
+      "L'Oxford Union",
+      "L'Union européenne",
+      "L'European Trade Union"
+    ],
+    "bonne_reponse": "L'Union européenne",
+    "difficulte": "facile"
+  },
+  "64c41c733b2bb238f53e07d6084521b46e9b9abc": {
+    "garder": true,
+    "question": "Envoyé pour la première fois en 1971, quel outil de communication a explosé en popularité à la fin des années 1990, dopant la croissance d'Internet ?",
+    "choix": [
+      "La messagerie instantanée",
+      "L'URL",
+      "L'e-mail",
+      "Le site web"
+    ],
+    "bonne_reponse": "L'e-mail",
+    "difficulte": "facile"
+  },
+  "5bc1b628adc4ee3c967fed3c31aa68b6478f410f": {
+    "garder": true,
+    "question": "La procédure de destitution (impeachment) devant le Sénat a débuté le 7 janvier 1999 contre quel président américain ?",
+    "choix": [
+      "George Bush",
+      "Ronald Reagan",
+      "Bill Clinton",
+      "Richard Nixon"
+    ],
+    "bonne_reponse": "Bill Clinton",
+    "difficulte": "moyen"
+  },
+  "13f5d4e4c8672b3131d2fea5413dae5cd1c813e8": {
+    "garder": true,
+    "question": "Le 17 août 1999, quelle catastrophe a fait environ 15 000 morts dans l'ouest de la Turquie ?",
+    "choix": [
+      "Un séisme",
+      "Un tsunami",
+      "Une avalanche",
+      "Une éruption volcanique"
+    ],
+    "bonne_reponse": "Un séisme",
+    "difficulte": "moyen"
+  },
+  "889847443b37056dd4878a6dac8efb71eadf2d35": {
+    "garder": true,
+    "question": "Quels appareils, popularisés dans les années 1990 (Super Nintendo, Sony PlayStation, Sega Dreamcast), ont révolutionné le divertissement ?",
+    "choix": [
+      "Les sites de rencontre",
+      "Les systèmes de réalité virtuelle",
+      "Les consoles de jeux vidéo",
+      "Les jeux sur ordinateur"
+    ],
+    "bonne_reponse": "Les consoles de jeux vidéo",
+    "difficulte": "facile"
+  },
+  "dc1347e5767d223420eefab145e99894fdace1a7": {
+    "garder": true,
+    "question": "Les guerres puniques ont opposé ces deux puissances de l'Antiquité.",
+    "choix": [
+      "Rome et Athènes",
+      "Athènes et Sparte",
+      "Carthage et Athènes",
+      "Rome et Carthage"
+    ],
+    "bonne_reponse": "Rome et Carthage",
+    "difficulte": "moyen"
+  },
+  "5ba34c1be5c372b99583a573356c7a55cf48d616": {
+    "garder": true,
+    "question": "Comment nomme-t-on l'annexion de l'Autriche par l'Allemagne nazie en 1938 ?",
+    "choix": [
+      "L'Ansatz",
+      "L'Abwehr",
+      "L'Anschluss",
+      "L'Ahnentafel"
+    ],
+    "bonne_reponse": "L'Anschluss",
+    "difficulte": "moyen"
+  },
+  "9675318ad5e966ef78ea2f9a8996f6caf515e240": {
+    "garder": true,
+    "question": "Quel poste Henry Kissinger a-t-il occupé aux États-Unis de 1974 à 1977 ?",
+    "choix": [
+      "Président du Sénat",
+      "Président de la Chambre des représentants",
+      "Conseiller à la sécurité nationale",
+      "Secrétaire d'État"
+    ],
+    "bonne_reponse": "Secrétaire d'État",
+    "difficulte": "difficile"
+  },
+  "03631d2a5ee9d24db93033c5c1fd413538414088": {
+    "garder": true,
+    "question": "Laquelle de ces villes a été par le passé la capitale du Japon ?",
+    "choix": [
+      "Kyoto",
+      "Yokohama",
+      "Hiroshima",
+      "Osaka"
+    ],
+    "bonne_reponse": "Kyoto",
+    "difficulte": "moyen"
+  },
+  "d252cb10e3d457513c0bebf0338a46ec71ee047d": {
+    "garder": true,
+    "question": "Valeria Messalina était la troisième épouse de quel empereur romain ?",
+    "choix": [
+      "Caligula",
+      "Tibère",
+      "Néron",
+      "Claude"
+    ],
+    "bonne_reponse": "Claude",
+    "difficulte": "difficile"
+  },
+  "d7112926aca144265f50c6439ba2a8d5f520dda6": {
+    "garder": true,
+    "question": "Philippe II de France, Richard Ier d'Angleterre et Frédéric Ier ont mené quelle croisade ?",
+    "choix": [
+      "La croisade des enfants",
+      "La croisade des Albigeois",
+      "La quatrième croisade",
+      "La troisième croisade"
+    ],
+    "bonne_reponse": "La troisième croisade",
+    "difficulte": "moyen"
+  },
+  "9f5f26993deef6838a6d2b6e0745d2fe08dd5445": {
+    "garder": true,
+    "question": "Yu le Grand est le premier monarque légendaire de quelle dynastie chinoise ?",
+    "choix": [
+      "La dynastie Xia",
+      "La dynastie Qing (mandchoue)",
+      "La dynastie Ming",
+      "La dynastie Yuan"
+    ],
+    "bonne_reponse": "La dynastie Xia",
+    "difficulte": "difficile"
+  },
+  "8e7faafe82f6f0bce43d4987eac53cad79835d07": {
+    "garder": true,
+    "question": "Quel général allemand était surnommé « le Renard du désert » pour ses campagnes en Afrique du Nord pendant la Seconde Guerre mondiale ?",
+    "choix": [
+      "Erwin Rommel",
+      "Hermann Göring",
+      "George Patton",
+      "Bernard Montgomery"
+    ],
+    "bonne_reponse": "Erwin Rommel",
+    "difficulte": "facile"
+  },
+  "3a306b41966608d60317424fa980c2ce0fb7693c": {
+    "garder": true,
+    "question": "Combien de plages de débarquement comptait l'opération Overlord en Normandie en 1944 ?",
+    "choix": [
+      "Quatre",
+      "Six",
+      "Cinq",
+      "Trois"
+    ],
+    "bonne_reponse": "Cinq",
+    "difficulte": "moyen"
+  },
+  "47f49ea3bfebad1e41d1ff266db41753fc07cb45": {
+    "garder": true,
+    "question": "Quel fut le premier avion de chasse à réaction utilisé pendant la Seconde Guerre mondiale ?",
+    "choix": [
+      "Le P-51",
+      "Le Hurricane",
+      "Le Me-262",
+      "Le MIG-3"
+    ],
+    "bonne_reponse": "Le Me-262",
+    "difficulte": "difficile"
+  },
+  "a48b96b4a040b3be70ec5278bcb63c59c1efbfa8": {
+    "garder": true,
+    "question": "Quel membre du parti nazi fut le premier architecte du Troisième Reich d'Hitler ?",
+    "choix": [
+      "Rudolf Hess",
+      "Albert Speer",
+      "Hermann Göring",
+      "Joseph Mengele"
+    ],
+    "bonne_reponse": "Albert Speer",
+    "difficulte": "moyen"
+  },
+  "eb089a22e9fec00c65629c2ec8959abbf34d213b": {
+    "garder": true,
+    "question": "L'évacuation britannique de quel port français, en 1940, portait le nom de code « Opération Dynamo » ?",
+    "choix": [
+      "Brest",
+      "Cherbourg",
+      "Dunkerque",
+      "Toulon"
+    ],
+    "bonne_reponse": "Dunkerque",
+    "difficulte": "moyen"
+  },
+  "4323527124e26f514ad6d28e54fde9d8e8cab89f": {
+    "garder": false
+  },
+  "19df35647fbce9e933ba7d9393990ab8e19e0d27": {
+    "garder": true,
+    "question": "Quel président américain a prononcé la phrase « Ne demande pas ce que ton pays peut faire pour toi, demande ce que tu peux faire pour ton pays » ?",
+    "choix": [
+      "Bill Clinton",
+      "Franklin D. Roosevelt",
+      "Abraham Lincoln",
+      "John F. Kennedy"
+    ],
+    "bonne_reponse": "John F. Kennedy",
+    "difficulte": "moyen"
+  },
+  "bf94fbdd3ee9dca8bdbcc7b6112048736b17c94d": {
+    "garder": false
+  },
+  "6c16a1c8aadecf83d8dafb42ec8a08e9b9850e59": {
+    "garder": false
+  },
+  "91527f1aae5b8afcf8deaf0fa34cfffcd6aa0350": {
+    "garder": false
+  },
+  "88285e5d5b0221647e2f8cc175bd134d4960654d": {
+    "garder": false
+  },
+  "b24e226c262ffeeee0b7793a61233dc64ddbf881": {
+    "garder": false
+  },
+  "973e9e1b65ea52f77076b414a2a4a801e8d5a49d": {
+    "garder": true,
+    "question": "Trois de ces animaux hibernent. Lequel n'hiberne pas ?",
+    "choix": [
+      "La souris",
+      "Le paresseux",
+      "La grenouille",
+      "Le serpent"
+    ],
+    "bonne_reponse": "Le paresseux",
+    "difficulte": "facile"
+  },
+  "cd587c9ca862704cab7180913a04010d5dd05358": {
+    "garder": true,
+    "question": "Tous ces animaux sont omnivores, sauf un. Lequel ?",
+    "choix": [
+      "Le renard",
+      "La souris",
+      "L'opossum",
+      "L'escargot"
+    ],
+    "bonne_reponse": "L'escargot",
+    "difficulte": "moyen"
+  },
+  "2762a0f7ca8c7cfe5fa10953036cbf6a0254fba0": {
+    "garder": true,
+    "question": "Trois de ces noms latins désignent des ours. Lequel est l'intrus ?",
+    "choix": [
+      "Melursus ursinus",
+      "Helarctos malayanus",
+      "Ursus minimus",
+      "Felis silvestris catus"
+    ],
+    "bonne_reponse": "Felis silvestris catus",
+    "difficulte": "moyen"
+  },
+  "9809b327a273fe7d0b3d67086eaa63ed2ecd6b9f": {
+    "garder": true,
+    "question": "Ce sont des animaux typiquement australiens, sauf un. Lequel ?",
+    "choix": [
+      "L'ornithorynque",
+      "Le dingo",
+      "L'échidné",
+      "Le paresseux"
+    ],
+    "bonne_reponse": "Le paresseux",
+    "difficulte": "facile"
+  },
+  "1979a6b7984dff704f097cceaddd4f24b76c83ba": {
+    "garder": true,
+    "question": "Trois de ces espèces produisent leur propre venin. Laquelle est l'intruse ?",
+    "choix": [
+      "Les lézards",
+      "Les scorpions",
+      "Les grenouilles",
+      "Les moustiques"
+    ],
+    "bonne_reponse": "Les moustiques",
+    "difficulte": "moyen"
+  },
+  "fd56b21fc90643a1e396af3e2439b4ccf40c900d": {
+    "garder": true,
+    "question": "Trois de ces espèces muent (perdent leur peau). Laquelle ne le fait pas ?",
+    "choix": [
+      "Les manchots",
+      "Les serpents",
+      "Les insectes",
+      "Les crustacés"
+    ],
+    "bonne_reponse": "Les manchots",
+    "difficulte": "moyen"
+  },
+  "6a4a039842603311a16ccf38a39d6db4079695e1": {
+    "garder": true,
+    "question": "Tous ces animaux ont de grandes oreilles par rapport à leur taille, sauf un. Lequel ?",
+    "choix": [
+      "Les ours polaires",
+      "Les renards",
+      "Les chauves-souris",
+      "Les éléphants"
+    ],
+    "bonne_reponse": "Les ours polaires",
+    "difficulte": "facile"
+  },
+  "ca91c5129a3742ad5d0ba7655a7ddf1271f074ae": {
+    "garder": false
+  },
+  "5d6a27c8f932d7e34f02aa61d805885698a8420f": {
+    "garder": true,
+    "question": "Quel est le régime alimentaire des serpents ?",
+    "choix": [
+      "Herbivore",
+      "Omnivore",
+      "Carnivore",
+      "Végétarien"
+    ],
+    "bonne_reponse": "Carnivore",
+    "difficulte": "facile"
+  },
+  "46754747d30969385eeb69d49b0f3c099f48a70f": {
+    "garder": true,
+    "question": "Comment les serpents consomment-ils leur nourriture ?",
+    "choix": [
+      "En respirant",
+      "Par absorption",
+      "En l'avalant tout rond",
+      "En la mâchant"
+    ],
+    "bonne_reponse": "En l'avalant tout rond",
+    "difficulte": "facile"
+  },
+  "052ed56c82aaa4e455de160444cc750766cb16c5": {
+    "garder": true,
+    "question": "À quelle catégorie d'animaux appartiennent les serpents ?",
+    "choix": [
+      "Les invertébrés",
+      "Les lézards",
+      "Les reptiles",
+      "Les mammifères"
+    ],
+    "bonne_reponse": "Les reptiles",
+    "difficulte": "facile"
+  },
+  "e39eed4c3e4b630dbb72ea11c3bc7f6290b4be9e": {
+    "garder": false
+  },
+  "74a38409203ba470a750e917610d469bff802a0d": {
+    "garder": true,
+    "question": "Lequel de ces serpents n'appartient PAS à la famille des vipéridés ?",
+    "choix": [
+      "La vipère cornue",
+      "La couleuvre à collier",
+      "La vipère",
+      "L'aspic"
+    ],
+    "bonne_reponse": "La couleuvre à collier",
+    "difficulte": "difficile"
+  },
+  "67d6d6ddf38dab6964112f9e211961a5a1c01111": {
+    "garder": true,
+    "question": "Les cobras, serpents venimeux de la famille des élapidés, vivent surtout sur quels deux continents ?",
+    "choix": [
+      "Amérique du Sud et Asie",
+      "Asie et Afrique",
+      "Asie et Australie",
+      "Amérique du Sud et Australie"
+    ],
+    "bonne_reponse": "Asie et Afrique",
+    "difficulte": "moyen"
+  },
+  "4b81fbb735a2f0a66c0cc77d4a17342d0828e611": {
+    "garder": true,
+    "question": "À quoi sert le « capuchon » du cobra, ce repli de peau situé derrière la tête ?",
+    "choix": [
+      "Au contrôle de l'équilibre",
+      "À capter la chaleur du soleil",
+      "Au camouflage",
+      "À paraître plus menaçant"
+    ],
+    "bonne_reponse": "À paraître plus menaçant",
+    "difficulte": "moyen"
+  },
+  "e65fa43e4439c895de9edd64bb50e557f8eda222": {
+    "garder": true,
+    "question": "Outre l'homme, quel animal est l'un des rares prédateurs du cobra ?",
+    "choix": [
+      "Le chacal",
+      "La mangouste",
+      "Le lynx",
+      "L'aigle"
+    ],
+    "bonne_reponse": "La mangouste",
+    "difficulte": "moyen"
+  },
+  "b1380366d19a052c8d4dd115b21763bd3935466f": {
+    "garder": true,
+    "question": "Où se situent les côtes qui déploient le capuchon du cobra ?",
+    "choix": [
+      "Derrière sa tête",
+      "Au milieu de son corps",
+      "Le cobra n'a pas de côtes",
+      "Dans sa queue"
+    ],
+    "bonne_reponse": "Derrière sa tête",
+    "difficulte": "difficile"
+  },
+  "0f2f56e5970fbd7b5789fd5df8c230879ae7eb2d": {
+    "garder": false
+  },
+  "0a3029f5aab89e1b2eed9a16770444ddfa351b72": {
+    "garder": false
+  },
+  "63cebbfd465c87d3cf2b1e36b0e9100c35add311": {
+    "garder": false
+  },
+  "8edec769820a645607e4bbc28b03fd5aea17c836": {
+    "garder": false
+  },
+  "e9f3576d270e1bc79798de3619ce898a5d1f0dd0": {
+    "garder": true,
+    "question": "Quelle race de chien était la préférée de la reine Élisabeth II ?",
+    "choix": [
+      "Le border collie",
+      "Le bobtail",
+      "Le corgi gallois",
+      "Le bouvier australien"
+    ],
+    "bonne_reponse": "Le corgi gallois",
+    "difficulte": "facile"
+  },
+  "fa8f0cfdfdf4a797e92aeb50561567fa5b7c92cd": {
+    "garder": false
+  },
+  "f97d0bae177bda647f9f9ca2ad0ef7f71391e436": {
+    "garder": true,
+    "question": "Lequel de ces mammifères marins ne figure PAS sur les listes d'espèces menacées ?",
+    "choix": [
+      "Le rorqual commun",
+      "Le globicéphale",
+      "La baleine bleue",
+      "La baleine à bosse"
+    ],
+    "bonne_reponse": "Le globicéphale",
+    "difficulte": "moyen"
+  },
+  "67c8ae895cc4dbf52fe57823b6a433a35356f746": {
+    "garder": true,
+    "question": "Quelle est la plus grande de toutes les tortues vivantes, atteignant plus de 2,7 m et 900 kg ?",
+    "choix": [
+      "La tortue luth",
+      "La tortue de Kemp",
+      "La tortue imbriquée",
+      "La tortue de rivière mésoaméricaine"
+    ],
+    "bonne_reponse": "La tortue luth",
+    "difficulte": "moyen"
+  },
+  "8aec0edf7ce19ef021f3942d42bbdf22760d64bf": {
+    "garder": true,
+    "question": "Quel est le loup le plus rare et le plus menacé ?",
+    "choix": [
+      "Le loup roux",
+      "Le loup d'Éthiopie",
+      "Le loup à dos noir",
+      "Le loup gris"
+    ],
+    "bonne_reponse": "Le loup roux",
+    "difficulte": "difficile"
+  },
+  "34ae54e677a80d3879798673ca3450791c568791": {
+    "garder": true,
+    "question": "Quel grand singe aux longs bras et au pelage roux est menacé par la déforestation ?",
+    "choix": [
+      "Le gorille",
+      "Le babouin",
+      "L'orang-outan",
+      "Le chimpanzé"
+    ],
+    "bonne_reponse": "L'orang-outan",
+    "difficulte": "facile"
+  },
+  "c35abb32e265049f7d4fc4eb32590555ca5ce3ca": {
+    "garder": true,
+    "question": "Quel est l'habitat naturel de la panthère des neiges, chassée pour sa fourrure ?",
+    "choix": [
+      "L'Amérique du Nord",
+      "L'Asie centrale et l'Amérique du Nord",
+      "L'Asie centrale",
+      "L'Europe et l'Amérique du Nord"
+    ],
+    "bonne_reponse": "L'Asie centrale",
+    "difficulte": "moyen"
+  },
+  "1d873fddf264c2c7adea44c0361d076e29dff00a": {
+    "garder": false
+  },
+  "82d4e20dde4e2c21ad0353be0a7d5bcc393dfe62": {
+    "garder": false
+  },
+  "ac7a319beeae16d5a985693800591e2f8dc7c292": {
+    "garder": false
+  },
+  "aa4684cbb7869536665483634ccc71dda45e1eca": {
+    "garder": false
+  },
+  "ffbcbc80c55a47616a9e050d6dfbbec35b06a75d": {
+    "garder": false
+  },
+  "4fb731d2c033022238bbaec4f99573edbee21509": {
+    "garder": false
+  },
+  "7e7950cc6e7e447bf611201ff4ff06d3103cec58": {
+    "garder": false
+  },
+  "7286e874b3a62101ab7ede9a6684bbcab6ca9c9a": {
+    "garder": false
+  },
+  "c83038491b9b4c971f4afce167d636b53d51ab8e": {
+    "garder": false
+  },
+  "2380d9dd215d1854c5d376f278563137a32eeadb": {
+    "garder": false
+  },
+  "dd4e3f035159475011d41a9cb00a52b4d81cdeaa": {
+    "garder": true,
+    "question": "Lequel de ces James Bond n'est PAS sorti dans les années 1980 ?",
+    "choix": [
+      "Dangereusement vôtre",
+      "Octopussy",
+      "Moonraker",
+      "Rien que pour vos yeux"
+    ],
+    "bonne_reponse": "Moonraker",
+    "difficulte": "difficile"
+  },
+  "d83c40b9a9b8f09ed01671be45028dc3f4447195": {
+    "garder": false
+  },
+  "a237469bd0fb253c306682613f0f347ffbb5c2d7": {
+    "garder": false
+  },
+  "c39381dab9a7b9d6c71db74444a0f819fdd07005": {
+    "garder": false
+  },
+  "c87533adb7d35b15cb8674bac132771b5f098858": {
+    "garder": false
+  },
+  "2aa222dcdd23b908f12f43b2d08f7d4d254f95b2": {
+    "garder": false
+  },
+  "012fde6fe5e0e22037c8017a5170971affac4e88": {
+    "garder": false
+  },
+  "18350c79b7a61aa357400eb3576e2bd6a9624a09": {
+    "garder": true,
+    "question": "Quel film raconte comment des enfants aident un extraterrestre botaniste à rentrer chez lui ?",
+    "choix": [
+      "Star Wars : Le Retour du Jedi",
+      "Le Guide du voyageur galactique",
+      "Cyborg",
+      "E.T. l'extraterrestre"
+    ],
+    "bonne_reponse": "E.T. l'extraterrestre",
+    "difficulte": "facile"
+  },
+  "1e9a253a90b15d8cdb74d3f1437a82203e17e188": {
+    "garder": true,
+    "question": "En quelle année est sorti le film « Les Évadés » (The Shawshank Redemption) ?",
+    "choix": [
+      "1992",
+      "1994",
+      "1990",
+      "1996"
+    ],
+    "bonne_reponse": "1994",
+    "difficulte": "moyen"
+  },
+  "2eae8c5f26d74760a2ea83f46a523774eb14706b": {
+    "garder": false
+  },
+  "25623a804a6bcf9ea052bb4ff7c43a1bbc10d54e": {
+    "garder": false
+  },
+  "a35ed71dbad0d609fd787d0bfbf2f0b3b49cb8d6": {
+    "garder": false
+  },
+  "7e93073909bdc8854ddc6a3d6c6a220ffe1fc463": {
+    "garder": false
+  },
+  "086e22986575c35541571e5f0eaac3829059fb18": {
+    "garder": false
+  },
+  "c4da30bdabcd6a3bb7e5ba6f83bc10292053a5d9": {
+    "garder": false
+  },
+  "cccee8c316c34bb3e6f7ebac69e0de16cf04520b": {
+    "garder": true,
+    "question": "Qui a réalisé « Les Évadés » (The Shawshank Redemption) ?",
+    "choix": [
+      "Ron Howard",
+      "Rob Reiner",
+      "Frank Darabont",
+      "Shimon Bentzvi"
+    ],
+    "bonne_reponse": "Frank Darabont",
+    "difficulte": "difficile"
+  },
+  "f5f7756d64c56ed6031591d7833f4f90c8ba347e": {
+    "garder": false
+  },
+  "67fc6b4911cc0e8f9ce3278d9358d06289b51b3a": {
+    "garder": false
+  },
+  "3aaf3cc0c85e0b0bef7d3bf050ed24a16321efe6": {
+    "garder": false
+  },
+  "b5ec6f30262992f055c8e5bc44c24a7ead9d5b0c": {
+    "garder": false
+  },
+  "3f5827b7d327d66ea8f5fd021423dde23bb1ccff": {
+    "garder": false
+  },
+  "635f12b92c5515767a8b67cbb1f4afd96bfc9283": {
+    "garder": false
+  },
+  "334a936bb2c9ee9b938027f971664263d9bb57df": {
+    "garder": false
+  },
+  "fc8f8065c616eb5f407bab4c3803377becf9db05": {
+    "garder": false
+  },
+  "84c226ba726be97d25eb962f2e495f085cd2895d": {
+    "garder": false
+  },
+  "bef5e0e134806b22d6c11646252f3e696d1b40d2": {
+    "garder": false
+  },
+  "281a1430458222b03c8ce7bec736c92265a34857": {
+    "garder": false
+  },
+  "5f0ddcaca83de90bbdf763473fbed4adb5f67242": {
+    "garder": false
+  },
+  "8cb12486890210bb12dc5f620fbf12f20c62a46b": {
+    "garder": false
+  },
+  "cc27d483d6a9d400ed6daa7524ff7219381c59bf": {
+    "garder": false
+  },
+  "ba49b754786bab996611c51ee8c1d0124f285a5c": {
+    "garder": false
+  },
+  "53090b8a35d98ccf7cfcce9e1746ca3cc75e76ce": {
+    "garder": false
+  },
+  "18e8dc05c99cb76d9f78562f2e279ce53d3077e0": {
+    "garder": false
+  },
+  "e3e47cb698d4199eb2b37349af303bdd193ed807": {
+    "garder": false
+  },
+  "840d2d8d1a06d92150bf71d9261ba327b86811a3": {
+    "garder": false
+  },
+  "f4bf0a5737f7a988fc211546f2b4273fa0c7cc24": {
+    "garder": false
+  },
+  "b6d547108119786e2bf48a063a1cf3063d0908a8": {
+    "garder": false
+  },
+  "a0c30a7c43933626dd6d1f21953dc3712d10c56e": {
+    "garder": false
+  },
+  "871288232b925f1b46abb4e3927f738bac15a9b8": {
+    "garder": false
+  },
+  "6d10343d84919e619c11fe81a7d179b3c3c00834": {
+    "garder": false
+  },
+  "c929d9c5c6dc066a5ac81be7df22cc5adb51f114": {
+    "garder": false
+  },
+  "10d6dda266a4d4d27e53058d52f0df7ed9b34644": {
+    "garder": false
+  },
+  "93547a4bc7752a15cb530269349545a650473740": {
+    "garder": false
+  },
+  "3b0031f1d7056cade239b90535cb1ec567df9c93": {
+    "garder": false
+  },
+  "8a4fd7fb2b61615553f76683b2ff09681c6fb03c": {
+    "garder": false
+  },
+  "9378b7a544671014fb7f5cc812046b0e564ab1e2": {
+    "garder": false
+  },
+  "4fa6d5bb87d2de1b52e901ae404243fdf42e4efb": {
+    "garder": false
+  },
+  "640a3c2406e676c6526ab32e4ec7682026ec15e6": {
+    "garder": false
+  },
+  "8481e08b7dce839f3d21496b779245c5af50289c": {
+    "garder": false
+  },
+  "4eaf343f892738898b0e7fb9898a7c3d5187e8e1": {
+    "garder": false
+  },
+  "64ac367a1658ef12f2f88f4650a5e5ab4c645470": {
+    "garder": false
+  },
+  "ebc70cf8ab92b415058ece8261322969b675025c": {
+    "garder": false
+  },
+  "6ae1705ce1107470d01086570a2c9f98280764bc": {
+    "garder": false
+  },
+  "08b4895a752d6ab457abe8979861aea246811d2c": {
+    "garder": false
+  },
+  "0a83b8ef08f295befe661e9f56fdc3c081ed0c5a": {
+    "garder": false
+  },
+  "e74f116e62622173c294e729c845a464092fae9e": {
+    "garder": false
+  },
+  "f984e200f3c3d2f28bbf224a9633026598ddfabb": {
+    "garder": false
+  },
+  "afc75eee1f3654caf828d3df3399bb21031d7025": {
+    "garder": false
+  },
+  "848bcf91bde5f00bb34d0fb6f12eede1a0bf30ec": {
+    "garder": false
+  },
+  "fae2802335169d0271d9763ca4208898d4dffa89": {
+    "garder": false
+  },
+  "15be0ba6f5775351492635d06d45f6ab955bdc0a": {
+    "garder": true,
+    "question": "Quel pays a défendu sa liberté face à l'URSS pendant la Seconde Guerre mondiale, malgré des pertes de territoire, et a rejoint l'Union européenne en 1995 ?",
+    "choix": [
+      "La Pologne",
+      "La République tchèque",
+      "La Finlande",
+      "La Lituanie"
+    ],
+    "bonne_reponse": "La Finlande",
+    "difficulte": "moyen"
+  },
+  "feb68c081a5c8da86072a5d0b0459ce1f764b17f": {
+    "garder": true,
+    "question": "Quel pays partage une frontière avec tous les pays d'Amérique du Sud, sauf le Chili et l'Équateur ?",
+    "choix": [
+      "La Colombie",
+      "L'Argentine",
+      "La Bolivie",
+      "Le Brésil"
+    ],
+    "bonne_reponse": "Le Brésil",
+    "difficulte": "moyen"
+  },
+  "7610642eaa4befa7a8a1b3568dd6680a2b85fed4": {
+    "garder": true,
+    "question": "Quel pays, indépendant depuis 1991, a gardé les liens les plus étroits avec la Russie parmi les ex-républiques soviétiques ?",
+    "choix": [
+      "L'Ukraine",
+      "La Lettonie",
+      "La Bulgarie",
+      "La Biélorussie"
+    ],
+    "bonne_reponse": "La Biélorussie",
+    "difficulte": "moyen"
+  },
+  "d6bb2735078e057d0d8dce1e518226c064e3c197": {
+    "garder": true,
+    "question": "Quel pays, ancien centre d'un empire, occupé par les Alliés en 1945, a retrouvé son indépendance par un traité d'État en 1955 ?",
+    "choix": [
+      "La Belgique",
+      "Le Danemark",
+      "L'Autriche",
+      "La Hongrie"
+    ],
+    "bonne_reponse": "L'Autriche",
+    "difficulte": "difficile"
+  },
+  "b6bcb729e5cef2eee8bebbef85a51cb4e055ca6a": {
+    "garder": true,
+    "question": "Quel pays abrite la capitale la plus septentrionale d'Europe continentale ?",
+    "choix": [
+      "La Suède",
+      "Le Danemark",
+      "La Finlande",
+      "Le Royaume-Uni"
+    ],
+    "bonne_reponse": "La Finlande",
+    "difficulte": "moyen"
+  },
+  "26d86c168f2a4f50da8ce7fe159c38517a9440cc": {
+    "garder": true,
+    "question": "Quel est le sixième plus grand pays du monde par superficie ?",
+    "choix": [
+      "L'Ukraine",
+      "Le Canada",
+      "L'Australie",
+      "Le Royaume-Uni"
+    ],
+    "bonne_reponse": "L'Australie",
+    "difficulte": "moyen"
+  },
+  "b05096d16168d33e9d5deab6c003b5d7f905c55d": {
+    "garder": true,
+    "question": "Dans quel pays le gouvernement socialiste a-t-il été renversé en 1973 par la dictature militaire d'Augusto Pinochet ?",
+    "choix": [
+      "Le Pérou",
+      "Le Paraguay",
+      "Le Chili",
+      "L'Uruguay"
+    ],
+    "bonne_reponse": "Le Chili",
+    "difficulte": "moyen"
+  },
+  "84034b6d8cc387f7bc8504ccdae153417beafa62": {
+    "garder": true,
+    "question": "Quel pays domine la mer Égée et possède un archipel d'environ 2000 îles ?",
+    "choix": [
+      "L'Italie",
+      "Chypre",
+      "La Grèce",
+      "La Turquie"
+    ],
+    "bonne_reponse": "La Grèce",
+    "difficulte": "moyen"
+  },
+  "eab410302b606bf4a98c5557bd03e22b89351eef": {
+    "garder": true,
+    "question": "Quel pays contrôle la péninsule du Sinaï et est devenu un carrefour mondial après l'ouverture du canal de Suez en 1869 ?",
+    "choix": [
+      "La Thaïlande",
+      "L'Égypte",
+      "Hong Kong",
+      "La Libye"
+    ],
+    "bonne_reponse": "L'Égypte",
+    "difficulte": "facile"
+  },
+  "192f40c4056603754feea0072e0ceffe10b85755": {
+    "garder": true,
+    "question": "Quel pays célèbre son indépendance de l'Espagne (1898) et fête le « jour de la Rébellion » le 26 juillet (1953) ?",
+    "choix": [
+      "La Palestine",
+      "Le Mexique",
+      "Cuba",
+      "Le Chili"
+    ],
+    "bonne_reponse": "Cuba",
+    "difficulte": "difficile"
+  },
+  "efffd789b7a507d28a3a3ab6a167c2037d48716c": {
+    "garder": false
+  },
+  "f51feddc3a98af481a69a0b8260425467ce34bc4": {
+    "garder": false
+  },
+  "31c4ab7cbaba3cfce54c2d44e96f145b8b005c01": {
+    "garder": true,
+    "question": "Quelle capitale signifie « capitale de l'Est » lorsqu'on décompose son nom en kanji ?",
+    "choix": [
+      "Nagoya",
+      "Osaka",
+      "Kyoto",
+      "Tokyo"
+    ],
+    "bonne_reponse": "Tokyo",
+    "difficulte": "facile"
+  },
+  "b6d6b8528edc3179b6cbc5114f2724e3cd3ba65a": {
+    "garder": true,
+    "question": "Quelle ville est divisée par la Seine entre la Rive Droite (au nord) et la Rive Gauche (au sud) ?",
+    "choix": [
+      "Lille",
+      "Lyon",
+      "Marseille",
+      "Paris"
+    ],
+    "bonne_reponse": "Paris",
+    "difficulte": "facile"
+  },
+  "50ff84691f91b492531843bafcccb72b0009f413": {
+    "garder": false
+  },
+  "045d4964d73a7db80b05c0833c944e02f44854ab": {
+    "garder": true,
+    "question": "Qui a écrit le recueil de poèmes « Feuilles d'herbe » (Leaves of Grass) ?",
+    "choix": [
+      "Carl Sandburg",
+      "T. S. Eliot",
+      "Robert Frost",
+      "Walt Whitman"
+    ],
+    "bonne_reponse": "Walt Whitman",
+    "difficulte": "difficile"
+  },
+  "2c73407c1809e7a095c9a28cf48f8c14a0f8cc48": {
+    "garder": true,
+    "question": "Qui a écrit « Les Montagnes hallucinées » (At the Mountains of Madness) ?",
+    "choix": [
+      "H. P. Lovecraft",
+      "Peter Straub",
+      "Edgar Allan Poe",
+      "C. S. Lewis"
+    ],
+    "bonne_reponse": "H. P. Lovecraft",
+    "difficulte": "moyen"
+  },
+  "b385bc354af0db73250ef7caf936c1a79f42dd5b": {
+    "garder": true,
+    "question": "Qui est l'auteur de « Contrepoint », « Temps futurs » et « La Paix des profondeurs » ?",
+    "choix": [
+      "J. D. Salinger",
+      "Aldous Huxley",
+      "Maya Angelou",
+      "William Butler Yeats"
+    ],
+    "bonne_reponse": "Aldous Huxley",
+    "difficulte": "difficile"
+  },
+  "869da05e78efbc3f3f1759c2334233b2d1ced820": {
+    "garder": true,
+    "question": "Qui a écrit « 1984 » et « La Ferme des animaux » ?",
+    "choix": [
+      "Hermann Hesse",
+      "Rudyard Kipling",
+      "George Orwell",
+      "Aldous Huxley"
+    ],
+    "bonne_reponse": "George Orwell",
+    "difficulte": "facile"
+  },
+  "76f4364e6a3a964da1a9273b1036f9b52e8d049f": {
+    "garder": true,
+    "question": "Qui a écrit « Le Retour au pays natal », « Jude l'Obscur » et « Loin de la foule déchaînée » ?",
+    "choix": [
+      "Thomas Hardy",
+      "William Faulkner",
+      "Rudyard Kipling",
+      "James Dickey"
+    ],
+    "bonne_reponse": "Thomas Hardy",
+    "difficulte": "difficile"
+  },
+  "7c6496e795a69678c5fed00a90438d4f8c80914a": {
+    "garder": true,
+    "question": "Qui a écrit « L'Antéchrist », « Par-delà le bien et le mal » et « Ainsi parlait Zarathoustra » ?",
+    "choix": [
+      "Aucun de ceux-ci",
+      "Friedrich Nietzsche",
+      "Amiri Baraka",
+      "Stephen King"
+    ],
+    "bonne_reponse": "Friedrich Nietzsche",
+    "difficulte": "moyen"
+  },
+  "efb1c13767e153162967d8da8f7ae5a8da4436be": {
+    "garder": true,
+    "question": "Quelle langue Harry Potter peut-il parler ?",
+    "choix": [
+      "Le gobelin",
+      "L'anglais",
+      "La langue des sirènes",
+      "Le Fourchelang"
+    ],
+    "bonne_reponse": "Le Fourchelang",
+    "difficulte": "facile"
+  },
+  "c3bdbddde5c45a907a1d1fb707d0517c1139b074": {
+    "garder": true,
+    "question": "En quelle élève Hermione était-elle censée se transformer après avoir bu le Polynectar ?",
+    "choix": [
+      "Millicent Bulstrode",
+      "Crabbe",
+      "Milli Vanilli",
+      "Pansy Parkinson"
+    ],
+    "bonne_reponse": "Millicent Bulstrode",
+    "difficulte": "difficile"
+  },
+  "24ec9ab718e59bc48a2900724fa6da8a5f19246f": {
+    "garder": false
+  },
+  "fcff1cdb7392ec635046875013e4df2e8f003ff8": {
+    "garder": true,
+    "question": "Quel livre de James Joyce fut interdit pendant 15 ans aux États-Unis pour obscénité, jusqu'en 1933 ?",
+    "choix": [
+      "Ulysse",
+      "Portrait de l'artiste en jeune homme",
+      "Gens de Dublin",
+      "Fanny Hill"
+    ],
+    "bonne_reponse": "Ulysse",
+    "difficulte": "difficile"
+  },
+  "80b992cc4bb49a4fa71489e8cfcd2bbec24a5672": {
+    "garder": true,
+    "question": "Quel livre de John Cleland, racontant la vie d'une prostituée, fut interdit pour ses descriptions sexuelles ?",
+    "choix": [
+      "Candide",
+      "Lysistrata",
+      "Fanny Hill",
+      "Le Décaméron"
+    ],
+    "bonne_reponse": "Fanny Hill",
+    "difficulte": "difficile"
+  },
+  "1afb7a6cb48c559f7ba2c438275748c262461082": {
+    "garder": false
+  },
+  "dd19d941816fe083ad3f80baac329c9d1a48bf2a": {
+    "garder": false
+  },
+  "fa677da72c4131c9c739687667938a29e93ef816": {
+    "garder": false
+  },
+  "ba12355025555d3f746cdfb6d2a04df6b21f93f5": {
+    "garder": false
+  },
+  "2596f5f1ff2d0ce1a36123665e127bcbd95738b7": {
+    "garder": true,
+    "question": "Quelle œuvre de Lewis Carroll fut interdite en Chine car humains et animaux y parlent la même langue ?",
+    "choix": [
+      "Sylvie et Bruno",
+      "Les Aventures d'Alice au pays des merveilles",
+      "De l'autre côté du miroir",
+      "La Chasse au Snark"
+    ],
+    "bonne_reponse": "Les Aventures d'Alice au pays des merveilles",
+    "difficulte": "moyen"
+  },
+  "04c1c4d69f3c3467f7817c79627d2b280878c9e4": {
+    "garder": false
+  },
+  "588e1dd439964b5246cee77f35aa782d086d0b37": {
+    "garder": true,
+    "question": "Quel recueil de contes fut censuré au Caire en 1985 pour des passages jugés obscènes ?",
+    "choix": [
+      "Les Mille et Une Nuits",
+      "Don Quichotte",
+      "Les Entretiens de Confucius",
+      "Le Meilleur des mondes"
+    ],
+    "bonne_reponse": "Les Mille et Une Nuits",
+    "difficulte": "moyen"
+  },
+  "81b80382952da1f68d02c77066eec6395b2cda2a": {
+    "garder": true,
+    "question": "Une édition des œuvres de Milton a été reliée avec un matériau étonnant. Lequel ?",
+    "choix": [
+      "De la peau humaine",
+      "Des plaques d'or",
+      "De la fourrure d'ours",
+      "Du papier journal"
+    ],
+    "bonne_reponse": "De la peau humaine",
+    "difficulte": "difficile"
+  },
+  "8718f2a15d83efe4369a1e6cacf7dde51bfc02fd": {
+    "garder": false
+  },
+  "34c1087366edcfaed3de37081673c9692ebc2b92": {
+    "garder": true,
+    "question": "Pourquoi le nom de Cruella d'Enfer (Les 101 Dalmatiens) est-il révélateur ?",
+    "choix": [
+      "Elle préfère les chats aux chiens",
+      "Elle est la propriétaire des dalmatiens",
+      "Elle ne les nourrit pas",
+      "Elle veut les chiots pour leur fourrure"
+    ],
+    "bonne_reponse": "Elle veut les chiots pour leur fourrure",
+    "difficulte": "facile"
+  },
+  "d9ee8ad6f21c868c6e5bd87bc96e0e75b0f202c0": {
+    "garder": true,
+    "question": "Quel personnage de Shakespeare fait exécuter son propre frère et tuer des enfants innocents par ambition royale ?",
+    "choix": [
+      "Edmond",
+      "Richard III",
+      "Aaron le Maure",
+      "Othello"
+    ],
+    "bonne_reponse": "Richard III",
+    "difficulte": "moyen"
+  },
+  "946590a026d464439f01fc56f0b4ddbca986d4a8": {
+    "garder": false
+  },
+  "a889d04c5d0a07daa01622e687c6d36ca56ad288": {
+    "garder": true,
+    "question": "De quelle tradition provient la célèbre sorcière Baba Yaga ?",
+    "choix": [
+      "Une légende nordique",
+      "Un conte ouzbek",
+      "Une chanson marocaine",
+      "Le folklore russe"
+    ],
+    "bonne_reponse": "Le folklore russe",
+    "difficulte": "moyen"
+  },
+  "e91defde6fbcb3c9096faf3f261bfaefda0a9ad5": {
+    "garder": false
+  },
+  "33ea2283b42e88bb4754c1ce066027109f790608": {
+    "garder": true,
+    "question": "Quel est l'auteur de langue anglaise le plus vendu de tous les temps ?",
+    "choix": [
+      "Agatha Christie",
+      "Ben Jonson",
+      "Edgar Allan Poe",
+      "Virginia Woolf"
+    ],
+    "bonne_reponse": "Agatha Christie",
+    "difficulte": "moyen"
+  },
+  "c32d5502c6c96136bd08dbd87705c8c162136e3b": {
+    "garder": true,
+    "question": "Qui a créé le détective Auguste Dupin, archétype du roman policier ?",
+    "choix": [
+      "George Sand",
+      "Edgar Allan Poe",
+      "Washington Irving",
+      "Nathaniel Hawthorne"
+    ],
+    "bonne_reponse": "Edgar Allan Poe",
+    "difficulte": "moyen"
+  },
+  "9f39e97784edffa781559b6119553d2e8daa7c06": {
+    "garder": false
+  },
+  "4203cc2730d15d8a72f42bd1ba4e09fa4d9896c8": {
+    "garder": false
+  },
+  "56dea5f55e775a1704da01609fbb3d45d7ab6c1c": {
+    "garder": false
+  },
+  "e5a61586c6c883410b2220e1473658ca0df5a27b": {
+    "garder": false
+  },
+  "b4737516ebf9988e5a14d527c71f680b7d11ed29": {
+    "garder": false
+  },
+  "25ad1e1b58a315ebe5ad6f8f502a04011de48f4e": {
+    "garder": false
+  },
+  "b781aee12bb4f1cc3ce5c60c205eac0ebab81ec1": {
+    "garder": false
+  },
+  "8b37b5ce0cf7003ca0f3baa18d17addc26a02f0d": {
+    "garder": false
+  },
+  "0f53b6d5bd858a67f91e1784bf06ce6051b16d88": {
+    "garder": false
+  },
+  "840a54e1f4eaf5cdbe733a1112533da9fb0a79b2": {
+    "garder": false
+  },
+  "048988b56200d75accbc35f4c383d49c79a005b2": {
+    "garder": false
+  },
+  "361eb893996f83bd5976c7daf5b31f5453fdf952": {
+    "garder": false
+  },
+  "952900de02ecc68c2ef1ac5fe40740182c2f10bd": {
+    "garder": true,
+    "question": "En raison de la forme de ses fruits, les Aztèques appelaient cet arbre « ahuacuatl » (arbre à testicules). De quel fruit s'agit-il ?",
+    "choix": [
+      "La pomme",
+      "La banane",
+      "L'avocat",
+      "La poire"
+    ],
+    "bonne_reponse": "L'avocat",
+    "difficulte": "moyen"
+  },
+  "dcec5a44ae80b8ceb22b4811fe2216ab3d9d1229": {
+    "garder": true,
+    "question": "Ce fruit pousse sur ce qu'on croit être un arbre, mais qui est en réalité une herbe géante. Lequel ?",
+    "choix": [
+      "La fraise",
+      "La banane",
+      "La pêche",
+      "La cerise"
+    ],
+    "bonne_reponse": "La banane",
+    "difficulte": "facile"
+  },
+  "1732a1cd21c192c6ce5976193d7c77068480912b": {
+    "garder": true,
+    "question": "Quel aliment contient de la phényléthylamine, qui déclenche dans le corps une réaction proche de celle de tomber amoureux ?",
+    "choix": [
+      "Le miel",
+      "La cire d'abeille",
+      "Le chocolat",
+      "Le sucre"
+    ],
+    "bonne_reponse": "Le chocolat",
+    "difficulte": "facile"
+  },
+  "f1848b20bd931a1cba3f05fb93be7adb6fdd8d8a": {
+    "garder": true,
+    "question": "Quel membre odorant de la famille de l'oignon est réputé aphrodisiaque et antioxydant ?",
+    "choix": [
+      "L'épinard",
+      "Le poireau",
+      "Le céleri",
+      "L'ail"
+    ],
+    "bonne_reponse": "L'ail",
+    "difficulte": "facile"
+  },
+  "e704f5364f680f1569c2d098f433593756aa455a": {
+    "garder": true,
+    "question": "Quel aliment naturel, plus calorique que le sucre de betterave, était considéré par les Égyptiens comme un remède contre la stérilité ?",
+    "choix": [
+      "Le miel",
+      "Le chocolat",
+      "L'avocat",
+      "La cannelle"
+    ],
+    "bonne_reponse": "Le miel",
+    "difficulte": "moyen"
+  },
+  "61246fc5f3dc0b071b284e71a93ea43d5f9ea4ca": {
+    "garder": true,
+    "question": "Quel fruit de mer, riche en protéines, était le mets favori de Casanova ?",
+    "choix": [
+      "Le crabe",
+      "Le poisson",
+      "Les huîtres",
+      "Le poireau"
+    ],
+    "bonne_reponse": "Les huîtres",
+    "difficulte": "moyen"
+  },
+  "edddd931aea26e223bd882e08e6feb13a5a24371": {
+    "garder": false
+  },
+  "c5b88cbc512d2f6768a451f55634e0ffa79d791d": {
+    "garder": false
+  },
+  "f3758a61351c4f2781f1a6dfda1a6df0c604a62b": {
+    "garder": true,
+    "question": "Quelle boisson stimulante contient de la caféine, surnommée « la drogue la plus consommée au monde » ?",
+    "choix": [
+      "L'eau",
+      "Le jus d'orange",
+      "Le thé",
+      "Le café"
+    ],
+    "bonne_reponse": "Le café",
+    "difficulte": "facile"
+  },
+  "96cb2c25d01151bcf24392e26e354b9254a309b0": {
+    "garder": true,
+    "question": "Quelle épice millénaire possède des propriétés hallucinogènes à forte dose et était réputée aphrodisiaque en Asie ?",
+    "choix": [
+      "Le poivre noir",
+      "La noix de muscade",
+      "Le curcuma",
+      "La cannelle"
+    ],
+    "bonne_reponse": "La noix de muscade",
+    "difficulte": "moyen"
+  },
+  "5e8b1a2b3e25b51f598b4198cebfe10317d99d39": {
+    "garder": true,
+    "question": "De quel pays le whisky est-il traditionnel, sa couleur donnant un indice sur son âge ?",
+    "choix": [
+      "Le pays de Galles",
+      "Les États-Unis",
+      "L'Écosse",
+      "L'Irlande"
+    ],
+    "bonne_reponse": "L'Écosse",
+    "difficulte": "facile"
+  },
+  "b983277be4a1c540d3e360badb52dfc4764a807b": {
+    "garder": true,
+    "question": "La tequila tient son nom d'une ville du pays où elle est traditionnelle. Lequel ?",
+    "choix": [
+      "Le Chili",
+      "L'Espagne",
+      "Le Portugal",
+      "Le Mexique"
+    ],
+    "bonne_reponse": "Le Mexique",
+    "difficulte": "facile"
+  },
+  "725c4ad339257691ccaca33fc180719e9dbfc3dd": {
+    "garder": true,
+    "question": "De quel pays la vodka est-elle traditionnelle, souvent aromatisée au zeste de citron, au poivre ou aux herbes ?",
+    "choix": [
+      "L'Ukraine",
+      "La Russie",
+      "La Macédoine",
+      "La Roumanie"
+    ],
+    "bonne_reponse": "La Russie",
+    "difficulte": "facile"
+  },
+  "67881671602bd379f1994d81283f32a340d2eb7a": {
+    "garder": true,
+    "question": "Le rakia, alcool fort à base de fruits (raisin, prune, abricot), est traditionnel de quel pays des Balkans ?",
+    "choix": [
+      "La Finlande",
+      "La Hongrie",
+      "La Russie",
+      "La Bulgarie"
+    ],
+    "bonne_reponse": "La Bulgarie",
+    "difficulte": "moyen"
+  },
+  "eb3f3906696e894075b7b5478c91a8636ee9120b": {
+    "garder": true,
+    "question": "Le pastis, à base d'anis et de réglisse, est l'apéritif le plus populaire de quel pays ?",
+    "choix": [
+      "La France",
+      "L'Italie",
+      "La Suisse",
+      "L'Allemagne"
+    ],
+    "bonne_reponse": "La France",
+    "difficulte": "facile"
+  },
+  "847f485d9020f9a50114b137d4edf59d9fb4efd9": {
+    "garder": true,
+    "question": "Dans quel pays boit-on la « gorilka », un alcool proche de la vodka ?",
+    "choix": [
+      "L'Ukraine",
+      "La Géorgie",
+      "L'Azerbaïdjan",
+      "La Biélorussie"
+    ],
+    "bonne_reponse": "L'Ukraine",
+    "difficulte": "moyen"
+  }
+}
