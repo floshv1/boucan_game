@@ -20,7 +20,19 @@ import unicodedata
 from datetime import UTC, datetime
 from pathlib import Path
 
-DIFFICULTIES = ("debutant", "intermediaire", "expert", "inconnu")
+DIFFICULTIES = ("facile", "moyen", "difficile", "inconnu")
+
+_LEGACY_DIFFICULTY = {"debutant": "facile", "intermediaire": "moyen", "expert": "difficile"}
+
+# Points par défaut selon la difficulté (valeur de base ; QCM la multiplie par 1000).
+DIFFICULTY_POINTS = {"facile": 1, "moyen": 2, "difficile": 3, "inconnu": 1}
+
+
+def normalize_difficulty(value: str) -> str:
+    """Map legacy difficulty labels to the new vocabulary; unknown -> 'inconnu'."""
+    v = (value or "").strip().lower()
+    v = _LEGACY_DIFFICULTY.get(v, v)
+    return v if v in DIFFICULTIES else "inconnu"
 
 _SCHEMA = """
 CREATE TABLE IF NOT EXISTS questions (
@@ -57,11 +69,15 @@ def connect() -> sqlite3.Connection:
 
 
 def _migrate(conn: sqlite3.Connection) -> None:
-    """Add columns introduced after the first DBs were created."""
+    """Add columns introduced after the first DBs were created, and convert
+    legacy difficulty labels to the new vocabulary (facile/moyen/difficile/inconnu)."""
     cols = {r["name"] for r in conn.execute("PRAGMA table_info(questions)")}
     if "image" not in cols:
         conn.execute("ALTER TABLE questions ADD COLUMN image TEXT")
         conn.commit()
+    for legacy, new in _LEGACY_DIFFICULTY.items():
+        conn.execute("UPDATE questions SET difficulty = ? WHERE difficulty = ?", (new, legacy))
+    conn.commit()
 
 
 def _strip_accents(s: str) -> str:
@@ -105,7 +121,7 @@ def insert_question(
     answer = (answer or "").strip()
     if not question or not answer:
         return False
-    difficulty = difficulty if difficulty in DIFFICULTIES else "inconnu"
+    difficulty = normalize_difficulty(difficulty)
     cur = conn.execute(
         """
         INSERT OR IGNORE INTO questions

@@ -32,7 +32,7 @@ uv run python -m scripts.bank.build_packs --all --mode qcm    --min 20 --limit 1
 uv run python -m scripts.bank.build_packs --all --mode buzzer --min 20 --limit 150
 
 # Un thème précis
-uv run python -m scripts.bank.build_packs --theme histoire --mode qcm --difficulty expert
+uv run python -m scripts.bank.build_packs --theme histoire --mode qcm --difficulty difficile
 ```
 
 Les packs apparaissent dans `backend/packs/` (tag `banque`) et dans l'éditeur.
@@ -53,7 +53,7 @@ relancer `import_aigen` + `build_packs`. Format :
 ```json
 {
   "theme": "histoire",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
     {"question": "…", "choices": ["A", "B", "C", "D"], "answer": "B", "anecdote": "…"}
   ]
@@ -61,7 +61,7 @@ relancer `import_aigen` + `build_packs`. Format :
 ```
 
 Règles : `theme` ∈ `themes.THEMES` (22 thèmes OpenQuizzDB) ; exactement 4 `choices` ;
-`answer` doit figurer dans `choices` ; `difficulty` ∈ `debutant|intermediaire|expert`.
+`answer` doit figurer dans `choices` ; `difficulty` ∈ `facile|moyen|difficile|inconnu`.
 Le dédoublonnage (qhash sur la question normalisée) est automatique entre toutes les
 sources.
 

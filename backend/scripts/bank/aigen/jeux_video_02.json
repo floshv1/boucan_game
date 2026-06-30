@@ -1,46 +1,446 @@
 {
   "theme": "jeux_video",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Quel personnage rose et rond de Nintendo aspire ses ennemis ?", "choices": ["Yoshi", "Kirby", "Boo", "Toad"], "answer": "Kirby", "anecdote": "Kirby peut copier les pouvoirs de ses adversaires."},
-    {"question": "Quel grand gorille est un personnage emblématique de Nintendo ?", "choices": ["Diddy", "Donkey Kong", "King K. Rool", "Cranky"], "answer": "Donkey Kong", "anecdote": "Il est apparu dès 1981 face à Mario."},
-    {"question": "Dans quel jeu de combat s'affrontent Ryu et Ken ?", "choices": ["Tekken", "Street Fighter", "Mortal Kombat", "Soulcalibur"], "answer": "Street Fighter", "anecdote": "La série est éditée par Capcom."},
-    {"question": "Quel jeu de combat est connu pour ses « fatalities » sanglantes ?", "choices": ["Street Fighter", "Mortal Kombat", "Tekken", "Dead or Alive"], "answer": "Mortal Kombat", "anecdote": "La franchise est née en 1992."},
-    {"question": "Quelle société édite la série Final Fantasy ?", "choices": ["Capcom", "Square Enix", "Bandai Namco", "Konami"], "answer": "Square Enix", "anecdote": "Le premier opus date de 1987."},
-    {"question": "Comment s'appelle le frère de Mario, vêtu de vert ?", "choices": ["Wario", "Luigi", "Waluigi", "Toad"], "answer": "Luigi", "anecdote": "Il est généralement plus grand et plus peureux que Mario."},
-    {"question": "Quel objet rend Mario plus grand dans ses jeux ?", "choices": ["L'étoile", "Le super champignon", "La fleur de glace", "La plume"], "answer": "Le super champignon", "anecdote": "La fleur de feu lui permet de lancer des boules de feu."},
-    {"question": "Quel jeu de Sony met en scène Kratos, un guerrier de la mythologie grecque ?", "choices": ["God of War", "Devil May Cry", "Bayonetta", "Dante's Inferno"], "answer": "God of War", "anecdote": "Les épisodes récents s'inspirent de la mythologie nordique."},
-    {"question": "Dans quel jeu de Naughty Dog suit-on Joel et Ellie après une pandémie ?", "choices": ["Uncharted", "The Last of Us", "Days Gone", "Death Stranding"], "answer": "The Last of Us", "anecdote": "Le jeu a été adapté en série télévisée."},
-    {"question": "Quel marsupial orange est un héros de plateforme de la PlayStation des années 1990 ?", "choices": ["Spyro", "Crash Bandicoot", "Rayman", "Sonic"], "answer": "Crash Bandicoot", "anecdote": "Il a été créé par le studio Naughty Dog."},
-    {"question": "Quelle série de simulation de course automobile est exclusive à la PlayStation ?", "choices": ["Forza", "Gran Turismo", "Need for Speed", "Dirt"], "answer": "Gran Turismo", "anecdote": "Le premier opus est sorti en 1997."},
-    {"question": "Quel super-soldat en armure verte est le héros de la série Halo ?", "choices": ["Doom Slayer", "Master Chief", "Marcus Fenix", "Samus"], "answer": "Master Chief", "anecdote": "Halo a contribué au succès de la première Xbox."},
-    {"question": "Comment s'appelle la console de salon de Nintendo sortie dans les années 1980 ?", "choices": ["La SNES", "La NES", "La N64", "La GameCube"], "answer": "La NES", "anecdote": "Au Japon, on l'appelait la « Famicom »."},
-    {"question": "Comment s'appelle le dresseur héros du dessin animé Pokémon ?", "choices": ["Régis", "Sacha", "Pierre", "Ondine"], "answer": "Sacha", "anecdote": "Son nom anglais est « Ash »."},
-    {"question": "Combien de Pokémon comptait la première génération ?", "choices": ["100", "151", "251", "150"], "answer": "151", "anecdote": "Le 151e, Mew, était secret."},
-    {"question": "Dans quelle série de Rockstar vole-t-on des voitures dans une ville ouverte ?", "choices": ["Watch Dogs", "Grand Theft Auto", "Saints Row", "Mafia"], "answer": "Grand Theft Auto", "anecdote": "On l'abrège souvent en « GTA »."},
-    {"question": "Quel jeu de simulation agricole relaxant est très apprécié des joueurs indépendants ?", "choices": ["Farming Simulator", "Stardew Valley", "Harvest Moon", "Story of Seasons"], "answer": "Stardew Valley", "anecdote": "Il a été développé par une seule personne, Eric Barone."},
-    {"question": "Quel jeu Zelda en monde ouvert est sorti à la sortie de la Switch en 2017 ?", "choices": ["Ocarina of Time", "Breath of the Wild", "Skyward Sword", "Majora's Mask"], "answer": "Breath of the Wild", "anecdote": "Il a reçu de nombreux prix du jeu de l'année."},
-    {"question": "Quel éditeur publie la série Call of Duty ?", "choices": ["EA", "Activision", "Ubisoft", "Take-Two"], "answer": "Activision", "anecdote": "La série sort un nouvel opus presque chaque année."},
-    {"question": "Quelle entreprise japonaise a créé les consoles Mega Drive et Dreamcast ?", "choices": ["Nintendo", "Sega", "Sony", "NEC"], "answer": "Sega", "anecdote": "Sega a quitté le marché des consoles en 2001."},
-    {"question": "Dans quel jeu mobile lance-t-on des oiseaux sur des cochons ?", "choices": ["Candy Crush", "Angry Birds", "Cut the Rope", "Doodle Jump"], "answer": "Angry Birds", "anecdote": "Le jeu finlandais est sorti en 2009."},
-    {"question": "Quel jeu mobile consiste à aligner des bonbons de même couleur ?", "choices": ["Bejeweled", "Candy Crush Saga", "Tetris", "2048"], "answer": "Candy Crush Saga", "anecdote": "Il est édité par King."},
-    {"question": "Comment appelle-t-on un personnage contrôlé par l'ordinateur, pas par un joueur ?", "choices": ["Un avatar", "Un PNJ", "Un boss", "Un bot"], "answer": "Un PNJ", "anecdote": "PNJ signifie « personnage non-joueur »."},
-    {"question": "Quelle aventurière exploratrice est l'héroïne de la série Tomb Raider ?", "choices": ["Aloy", "Lara Croft", "Bayonetta", "Jill Valentine"], "answer": "Lara Croft", "anecdote": "La série a débuté en 1996."},
-    {"question": "Quel jeu de tir en équipe coloré est édité par Blizzard ?", "choices": ["Valorant", "Overwatch", "Team Fortress 2", "Paladins"], "answer": "Overwatch", "anecdote": "Il est sorti en 2016."},
-    {"question": "Quel célèbre MMORPG de Blizzard se déroule dans le monde d'Azeroth ?", "choices": ["Guild Wars", "World of Warcraft", "Final Fantasy XIV", "EverQuest"], "answer": "World of Warcraft", "anecdote": "Souvent abrégé « WoW », sorti en 2004."},
-    {"question": "Quelle chasseuse de primes en armure est l'héroïne de la série Metroid ?", "choices": ["Samus Aran", "Lara Croft", "Aloy", "Faith"], "answer": "Samus Aran", "anecdote": "Sa véritable identité fut une grande surprise à l'époque."},
-    {"question": "Quelle série de jeux d'horreur met en scène des zombies et la société Umbrella ?", "choices": ["Silent Hill", "Resident Evil", "Dead Space", "Outlast"], "answer": "Resident Evil", "anecdote": "Au Japon, la série s'appelle « Biohazard »."},
-    {"question": "Quelle société japonaise édite Resident Evil et Street Fighter ?", "choices": ["Konami", "Capcom", "Sega", "Bandai Namco"], "answer": "Capcom", "anecdote": "Capcom a été fondée en 1979."},
-    {"question": "Quels objets dorés Sonic collecte-t-il tout au long des niveaux ?", "choices": ["Des pièces", "Des anneaux", "Des étoiles", "Des émeraudes"], "answer": "Des anneaux", "anecdote": "Perdre tous ses anneaux le rend vulnérable."},
-    {"question": "Quel jeu de rythme se joue avec une guitare en plastique ?", "choices": ["Just Dance", "Guitar Hero", "Beat Saber", "Dance Dance Revolution"], "answer": "Guitar Hero", "anecdote": "La série a connu un immense succès dans les années 2000."},
-    {"question": "Sur quelle technologie repose la manette de la Nintendo Wii ?", "choices": ["La détection de mouvement", "Un écran tactile", "La reconnaissance vocale", "Un pavé directionnel uniquement"], "answer": "La détection de mouvement", "anecdote": "La Wii est sortie en 2006."},
-    {"question": "Quel jeu Pokémon en réalité augmentée, sorti en 2016, se joue en marchant ?", "choices": ["Pokémon Go", "Pokémon Sleep", "Pokémon Unite", "Pokémon Masters"], "answer": "Pokémon Go", "anecdote": "Il a provoqué un véritable phénomène mondial."},
-    {"question": "Dans quel jeu multijoueur des « jelly beans » s'affrontent dans des parcours déjantés ?", "choices": ["Fall Guys", "Among Us", "Gang Beasts", "Human Fall Flat"], "answer": "Fall Guys", "anecdote": "Le jeu est sorti en 2020."},
-    {"question": "Quel objet ramassé donne un pouvoir temporaire à un personnage de jeu ?", "choices": ["Un bonus (power-up)", "Un trophée", "Un succès", "Un checkpoint"], "answer": "Un bonus (power-up)", "anecdote": "Le champignon de Mario en est un exemple."},
-    {"question": "Quel dinosaure vert sert souvent de monture à Mario ?", "choices": ["Yoshi", "Bowser", "Birdo", "Rex"], "answer": "Yoshi", "anecdote": "Yoshi peut avaler les ennemis avec sa langue."},
-    {"question": "Quelle entreprise a développé le moteur graphique Unreal Engine ?", "choices": ["Unity", "Epic Games", "Valve", "id Software"], "answer": "Epic Games", "anecdote": "Epic Games édite aussi Fortnite."},
-    {"question": "Quel jeu de tir pionnier des années 1990, signé id Software, met en scène un marine sur Mars ?", "choices": ["Quake", "Doom", "Wolfenstein", "Duke Nukem"], "answer": "Doom", "anecdote": "Doom a popularisé le genre du FPS en 1993."},
-    {"question": "Quelle plateforme de distribution de jeux PC appartient à Valve ?", "choices": ["Epic Games Store", "Steam", "GOG", "Origin"], "answer": "Steam", "anecdote": "Steam a été lancé en 2003."},
-    {"question": "Quel personnage moustachu rival de Mario porte du jaune et du violet ?", "choices": ["Waluigi", "Wario", "Bowser Jr.", "Kamek"], "answer": "Wario", "anecdote": "Wario est un personnage cupide et rustre."}
+    {
+      "question": "Quel personnage rose et rond de Nintendo aspire ses ennemis ?",
+      "choices": [
+        "Yoshi",
+        "Kirby",
+        "Boo",
+        "Toad"
+      ],
+      "answer": "Kirby",
+      "anecdote": "Kirby peut copier les pouvoirs de ses adversaires."
+    },
+    {
+      "question": "Quel grand gorille est un personnage emblématique de Nintendo ?",
+      "choices": [
+        "Diddy",
+        "Donkey Kong",
+        "King K. Rool",
+        "Cranky"
+      ],
+      "answer": "Donkey Kong",
+      "anecdote": "Il est apparu dès 1981 face à Mario."
+    },
+    {
+      "question": "Dans quel jeu de combat s'affrontent Ryu et Ken ?",
+      "choices": [
+        "Tekken",
+        "Street Fighter",
+        "Mortal Kombat",
+        "Soulcalibur"
+      ],
+      "answer": "Street Fighter",
+      "anecdote": "La série est éditée par Capcom."
+    },
+    {
+      "question": "Quel jeu de combat est connu pour ses « fatalities » sanglantes ?",
+      "choices": [
+        "Street Fighter",
+        "Mortal Kombat",
+        "Tekken",
+        "Dead or Alive"
+      ],
+      "answer": "Mortal Kombat",
+      "anecdote": "La franchise est née en 1992."
+    },
+    {
+      "question": "Quelle société édite la série Final Fantasy ?",
+      "choices": [
+        "Capcom",
+        "Square Enix",
+        "Bandai Namco",
+        "Konami"
+      ],
+      "answer": "Square Enix",
+      "anecdote": "Le premier opus date de 1987."
+    },
+    {
+      "question": "Comment s'appelle le frère de Mario, vêtu de vert ?",
+      "choices": [
+        "Wario",
+        "Luigi",
+        "Waluigi",
+        "Toad"
+      ],
+      "answer": "Luigi",
+      "anecdote": "Il est généralement plus grand et plus peureux que Mario."
+    },
+    {
+      "question": "Quel objet rend Mario plus grand dans ses jeux ?",
+      "choices": [
+        "L'étoile",
+        "Le super champignon",
+        "La fleur de glace",
+        "La plume"
+      ],
+      "answer": "Le super champignon",
+      "anecdote": "La fleur de feu lui permet de lancer des boules de feu."
+    },
+    {
+      "question": "Quel jeu de Sony met en scène Kratos, un guerrier de la mythologie grecque ?",
+      "choices": [
+        "God of War",
+        "Devil May Cry",
+        "Bayonetta",
+        "Dante's Inferno"
+      ],
+      "answer": "God of War",
+      "anecdote": "Les épisodes récents s'inspirent de la mythologie nordique."
+    },
+    {
+      "question": "Dans quel jeu de Naughty Dog suit-on Joel et Ellie après une pandémie ?",
+      "choices": [
+        "Uncharted",
+        "The Last of Us",
+        "Days Gone",
+        "Death Stranding"
+      ],
+      "answer": "The Last of Us",
+      "anecdote": "Le jeu a été adapté en série télévisée."
+    },
+    {
+      "question": "Quel marsupial orange est un héros de plateforme de la PlayStation des années 1990 ?",
+      "choices": [
+        "Spyro",
+        "Crash Bandicoot",
+        "Rayman",
+        "Sonic"
+      ],
+      "answer": "Crash Bandicoot",
+      "anecdote": "Il a été créé par le studio Naughty Dog."
+    },
+    {
+      "question": "Quelle série de simulation de course automobile est exclusive à la PlayStation ?",
+      "choices": [
+        "Forza",
+        "Gran Turismo",
+        "Need for Speed",
+        "Dirt"
+      ],
+      "answer": "Gran Turismo",
+      "anecdote": "Le premier opus est sorti en 1997."
+    },
+    {
+      "question": "Quel super-soldat en armure verte est le héros de la série Halo ?",
+      "choices": [
+        "Doom Slayer",
+        "Master Chief",
+        "Marcus Fenix",
+        "Samus"
+      ],
+      "answer": "Master Chief",
+      "anecdote": "Halo a contribué au succès de la première Xbox."
+    },
+    {
+      "question": "Comment s'appelle la console de salon de Nintendo sortie dans les années 1980 ?",
+      "choices": [
+        "La SNES",
+        "La NES",
+        "La N64",
+        "La GameCube"
+      ],
+      "answer": "La NES",
+      "anecdote": "Au Japon, on l'appelait la « Famicom »."
+    },
+    {
+      "question": "Comment s'appelle le dresseur héros du dessin animé Pokémon ?",
+      "choices": [
+        "Régis",
+        "Sacha",
+        "Pierre",
+        "Ondine"
+      ],
+      "answer": "Sacha",
+      "anecdote": "Son nom anglais est « Ash »."
+    },
+    {
+      "question": "Combien de Pokémon comptait la première génération ?",
+      "choices": [
+        "100",
+        "151",
+        "251",
+        "150"
+      ],
+      "answer": "151",
+      "anecdote": "Le 151e, Mew, était secret."
+    },
+    {
+      "question": "Dans quelle série de Rockstar vole-t-on des voitures dans une ville ouverte ?",
+      "choices": [
+        "Watch Dogs",
+        "Grand Theft Auto",
+        "Saints Row",
+        "Mafia"
+      ],
+      "answer": "Grand Theft Auto",
+      "anecdote": "On l'abrège souvent en « GTA »."
+    },
+    {
+      "question": "Quel jeu de simulation agricole relaxant est très apprécié des joueurs indépendants ?",
+      "choices": [
+        "Farming Simulator",
+        "Stardew Valley",
+        "Harvest Moon",
+        "Story of Seasons"
+      ],
+      "answer": "Stardew Valley",
+      "anecdote": "Il a été développé par une seule personne, Eric Barone."
+    },
+    {
+      "question": "Quel jeu Zelda en monde ouvert est sorti à la sortie de la Switch en 2017 ?",
+      "choices": [
+        "Ocarina of Time",
+        "Breath of the Wild",
+        "Skyward Sword",
+        "Majora's Mask"
+      ],
+      "answer": "Breath of the Wild",
+      "anecdote": "Il a reçu de nombreux prix du jeu de l'année."
+    },
+    {
+      "question": "Quel éditeur publie la série Call of Duty ?",
+      "choices": [
+        "EA",
+        "Activision",
+        "Ubisoft",
+        "Take-Two"
+      ],
+      "answer": "Activision",
+      "anecdote": "La série sort un nouvel opus presque chaque année."
+    },
+    {
+      "question": "Quelle entreprise japonaise a créé les consoles Mega Drive et Dreamcast ?",
+      "choices": [
+        "Nintendo",
+        "Sega",
+        "Sony",
+        "NEC"
+      ],
+      "answer": "Sega",
+      "anecdote": "Sega a quitté le marché des consoles en 2001."
+    },
+    {
+      "question": "Dans quel jeu mobile lance-t-on des oiseaux sur des cochons ?",
+      "choices": [
+        "Candy Crush",
+        "Angry Birds",
+        "Cut the Rope",
+        "Doodle Jump"
+      ],
+      "answer": "Angry Birds",
+      "anecdote": "Le jeu finlandais est sorti en 2009."
+    },
+    {
+      "question": "Quel jeu mobile consiste à aligner des bonbons de même couleur ?",
+      "choices": [
+        "Bejeweled",
+        "Candy Crush Saga",
+        "Tetris",
+        "2048"
+      ],
+      "answer": "Candy Crush Saga",
+      "anecdote": "Il est édité par King."
+    },
+    {
+      "question": "Comment appelle-t-on un personnage contrôlé par l'ordinateur, pas par un joueur ?",
+      "choices": [
+        "Un avatar",
+        "Un PNJ",
+        "Un boss",
+        "Un bot"
+      ],
+      "answer": "Un PNJ",
+      "anecdote": "PNJ signifie « personnage non-joueur »."
+    },
+    {
+      "question": "Quelle aventurière exploratrice est l'héroïne de la série Tomb Raider ?",
+      "choices": [
+        "Aloy",
+        "Lara Croft",
+        "Bayonetta",
+        "Jill Valentine"
+      ],
+      "answer": "Lara Croft",
+      "anecdote": "La série a débuté en 1996."
+    },
+    {
+      "question": "Quel jeu de tir en équipe coloré est édité par Blizzard ?",
+      "choices": [
+        "Valorant",
+        "Overwatch",
+        "Team Fortress 2",
+        "Paladins"
+      ],
+      "answer": "Overwatch",
+      "anecdote": "Il est sorti en 2016."
+    },
+    {
+      "question": "Quel célèbre MMORPG de Blizzard se déroule dans le monde d'Azeroth ?",
+      "choices": [
+        "Guild Wars",
+        "World of Warcraft",
+        "Final Fantasy XIV",
+        "EverQuest"
+      ],
+      "answer": "World of Warcraft",
+      "anecdote": "Souvent abrégé « WoW », sorti en 2004."
+    },
+    {
+      "question": "Quelle chasseuse de primes en armure est l'héroïne de la série Metroid ?",
+      "choices": [
+        "Samus Aran",
+        "Lara Croft",
+        "Aloy",
+        "Faith"
+      ],
+      "answer": "Samus Aran",
+      "anecdote": "Sa véritable identité fut une grande surprise à l'époque."
+    },
+    {
+      "question": "Quelle série de jeux d'horreur met en scène des zombies et la société Umbrella ?",
+      "choices": [
+        "Silent Hill",
+        "Resident Evil",
+        "Dead Space",
+        "Outlast"
+      ],
+      "answer": "Resident Evil",
+      "anecdote": "Au Japon, la série s'appelle « Biohazard »."
+    },
+    {
+      "question": "Quelle société japonaise édite Resident Evil et Street Fighter ?",
+      "choices": [
+        "Konami",
+        "Capcom",
+        "Sega",
+        "Bandai Namco"
+      ],
+      "answer": "Capcom",
+      "anecdote": "Capcom a été fondée en 1979."
+    },
+    {
+      "question": "Quels objets dorés Sonic collecte-t-il tout au long des niveaux ?",
+      "choices": [
+        "Des pièces",
+        "Des anneaux",
+        "Des étoiles",
+        "Des émeraudes"
+      ],
+      "answer": "Des anneaux",
+      "anecdote": "Perdre tous ses anneaux le rend vulnérable."
+    },
+    {
+      "question": "Quel jeu de rythme se joue avec une guitare en plastique ?",
+      "choices": [
+        "Just Dance",
+        "Guitar Hero",
+        "Beat Saber",
+        "Dance Dance Revolution"
+      ],
+      "answer": "Guitar Hero",
+      "anecdote": "La série a connu un immense succès dans les années 2000."
+    },
+    {
+      "question": "Sur quelle technologie repose la manette de la Nintendo Wii ?",
+      "choices": [
+        "La détection de mouvement",
+        "Un écran tactile",
+        "La reconnaissance vocale",
+        "Un pavé directionnel uniquement"
+      ],
+      "answer": "La détection de mouvement",
+      "anecdote": "La Wii est sortie en 2006."
+    },
+    {
+      "question": "Quel jeu Pokémon en réalité augmentée, sorti en 2016, se joue en marchant ?",
+      "choices": [
+        "Pokémon Go",
+        "Pokémon Sleep",
+        "Pokémon Unite",
+        "Pokémon Masters"
+      ],
+      "answer": "Pokémon Go",
+      "anecdote": "Il a provoqué un véritable phénomène mondial."
+    },
+    {
+      "question": "Dans quel jeu multijoueur des « jelly beans » s'affrontent dans des parcours déjantés ?",
+      "choices": [
+        "Fall Guys",
+        "Among Us",
+        "Gang Beasts",
+        "Human Fall Flat"
+      ],
+      "answer": "Fall Guys",
+      "anecdote": "Le jeu est sorti en 2020."
+    },
+    {
+      "question": "Quel objet ramassé donne un pouvoir temporaire à un personnage de jeu ?",
+      "choices": [
+        "Un bonus (power-up)",
+        "Un trophée",
+        "Un succès",
+        "Un checkpoint"
+      ],
+      "answer": "Un bonus (power-up)",
+      "anecdote": "Le champignon de Mario en est un exemple."
+    },
+    {
+      "question": "Quel dinosaure vert sert souvent de monture à Mario ?",
+      "choices": [
+        "Yoshi",
+        "Bowser",
+        "Birdo",
+        "Rex"
+      ],
+      "answer": "Yoshi",
+      "anecdote": "Yoshi peut avaler les ennemis avec sa langue."
+    },
+    {
+      "question": "Quelle entreprise a développé le moteur graphique Unreal Engine ?",
+      "choices": [
+        "Unity",
+        "Epic Games",
+        "Valve",
+        "id Software"
+      ],
+      "answer": "Epic Games",
+      "anecdote": "Epic Games édite aussi Fortnite."
+    },
+    {
+      "question": "Quel jeu de tir pionnier des années 1990, signé id Software, met en scène un marine sur Mars ?",
+      "choices": [
+        "Quake",
+        "Doom",
+        "Wolfenstein",
+        "Duke Nukem"
+      ],
+      "answer": "Doom",
+      "anecdote": "Doom a popularisé le genre du FPS en 1993."
+    },
+    {
+      "question": "Quelle plateforme de distribution de jeux PC appartient à Valve ?",
+      "choices": [
+        "Epic Games Store",
+        "Steam",
+        "GOG",
+        "Origin"
+      ],
+      "answer": "Steam",
+      "anecdote": "Steam a été lancé en 2003."
+    },
+    {
+      "question": "Quel personnage moustachu rival de Mario porte du jaune et du violet ?",
+      "choices": [
+        "Waluigi",
+        "Wario",
+        "Bowser Jr.",
+        "Kamek"
+      ],
+      "answer": "Wario",
+      "anecdote": "Wario est un personnage cupide et rustre."
+    }
   ]
 }

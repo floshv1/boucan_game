@@ -1,56 +1,556 @@
 {
   "theme": "musique",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Qui a composé « Les Quatre Saisons » ?", "choices": ["Bach", "Vivaldi", "Mozart", "Haendel"], "answer": "Vivaldi", "anecdote": "Cette œuvre baroque date d'environ 1725."},
-    {"question": "Quel groupe suédois a chanté « Dancing Queen » et « Mamma Mia » ?", "choices": ["Roxette", "ABBA", "Ace of Base", "A-ha"], "answer": "ABBA", "anecdote": "Le groupe s'est formé à Stockholm en 1972."},
-    {"question": "Quelle chanteuse américaine est surnommée la « reine de la pop » avec « Material Girl » ?", "choices": ["Cher", "Madonna", "Whitney Houston", "Cyndi Lauper"], "answer": "Madonna", "anecdote": "Sa carrière a démarré au début des années 1980."},
-    {"question": "Quelle note de musique vient juste après « do » ?", "choices": ["mi", "ré", "fa", "si"], "answer": "ré", "anecdote": "L'ordre est do, ré, mi, fa, sol, la, si."},
-    {"question": "Combien de notes compte une gamme de do majeur (do à si) ?", "choices": ["5", "7", "8", "12"], "answer": "7", "anecdote": "On revient ensuite au do à l'octave."},
-    {"question": "Quel groupe américain de grunge a chanté « Smells Like Teen Spirit » ?", "choices": ["Pearl Jam", "Nirvana", "Soundgarden", "Alice in Chains"], "answer": "Nirvana", "anecdote": "Le morceau est sorti en 1991."},
-    {"question": "Qui était le chanteur et guitariste de Nirvana ?", "choices": ["Eddie Vedder", "Kurt Cobain", "Dave Grohl", "Chris Cornell"], "answer": "Kurt Cobain", "anecdote": "Dave Grohl, le batteur, a ensuite fondé les Foo Fighters."},
-    {"question": "Quel instrument de percussion regroupe caisse claire, grosse caisse et cymbales ?", "choices": ["Le xylophone", "La batterie", "Le tambourin", "Les timbales"], "answer": "La batterie", "anecdote": "Le batteur donne souvent le tempo du groupe."},
-    {"question": "À quelle famille appartiennent la trompette, le trombone et le tuba ?", "choices": ["Les bois", "Les cuivres", "Les cordes", "Les percussions"], "answer": "Les cuivres", "anecdote": "On en joue en faisant vibrer ses lèvres dans une embouchure."},
-    {"question": "Quel style musical Elvis Presley a-t-il popularisé dans les années 1950 ?", "choices": ["Le jazz", "Le rock'n'roll", "La soul", "Le blues"], "answer": "Le rock'n'roll", "anecdote": "Elvis était surnommé « The King »."},
-    {"question": "Quelle chanteuse française est célèbre pour « La Vie en rose » ?", "choices": ["Dalida", "Édith Piaf", "Mireille Mathieu", "Barbara"], "answer": "Édith Piaf", "anecdote": "On la surnommait « la Môme »."},
-    {"question": "Quel groupe britannique des années 1990 a chanté « Wonderwall » ?", "choices": ["Blur", "Oasis", "Pulp", "The Verve"], "answer": "Oasis", "anecdote": "Le groupe était mené par les frères Gallagher."},
-    {"question": "Combien de musiciens compose un duo ?", "choices": ["2", "3", "4", "1"], "answer": "2", "anecdote": "Le préfixe « du » renvoie à deux."},
-    {"question": "Quel instrument à clavier, doté de tuyaux, équipe souvent les églises ?", "choices": ["Le clavecin", "L'orgue", "L'harmonium", "Le synthétiseur"], "answer": "L'orgue", "anecdote": "Le grand orgue peut produire des sons très puissants."},
-    {"question": "En musique, que signifie la nuance « forte » ?", "choices": ["Doucement", "Fort", "Rapidement", "Lentement"], "answer": "Fort", "anecdote": "Son contraire est « piano » (doucement)."},
-    {"question": "Quel groupe américain a chanté « Hotel California » ?", "choices": ["The Eagles", "Fleetwood Mac", "Lynyrd Skynyrd", "Toto"], "answer": "The Eagles", "anecdote": "Le morceau est sorti en 1976."},
-    {"question": "Quel artiste jamaïcain est l'auteur de « No Woman, No Cry » ?", "choices": ["Jimmy Cliff", "Bob Marley", "Peter Tosh", "Burning Spear"], "answer": "Bob Marley", "anecdote": "Il est la figure mondiale du reggae."},
-    {"question": "Quelle chanteuse britannique soul, autrice de « Rehab », est décédée en 2011 ?", "choices": ["Adele", "Amy Winehouse", "Duffy", "Joss Stone"], "answer": "Amy Winehouse", "anecdote": "Son album « Back to Black » est très acclamé."},
-    {"question": "Quel groupe australien a chanté « Highway to Hell » et « Thunderstruck » ?", "choices": ["Metallica", "AC/DC", "Guns N' Roses", "Iron Maiden"], "answer": "AC/DC", "anecdote": "Le groupe est connu pour son hard rock énergique."},
-    {"question": "Quel chanteur britannique roux est l'auteur de « Shape of You » ?", "choices": ["Sam Smith", "Ed Sheeran", "James Blunt", "Lewis Capaldi"], "answer": "Ed Sheeran", "anecdote": "Le titre est sorti en 2017."},
-    {"question": "Quelle chanteuse a interprété « Bad Romance » et « Poker Face » ?", "choices": ["Katy Perry", "Lady Gaga", "Kesha", "Pink"], "answer": "Lady Gaga", "anecdote": "Elle est connue pour ses tenues extravagantes."},
-    {"question": "Quel groupe de rock irlandais a pour chanteur Bono ?", "choices": ["The Cranberries", "U2", "Snow Patrol", "Coldplay"], "answer": "U2", "anecdote": "Le groupe s'est formé à Dublin en 1976."},
-    {"question": "Quel instrument à cordes pincées, à manche long et caisse ronde, est associé au folk et à la country ?", "choices": ["La mandoline", "Le banjo", "Le ukulélé", "La harpe"], "answer": "Le banjo", "anecdote": "Il possède souvent cinq cordes."},
-    {"question": "Combien de cordes possède généralement une basse électrique standard ?", "choices": ["4", "5", "6", "7"], "answer": "4", "anecdote": "Certaines basses en ont cinq ou six pour étendre la tessiture."},
-    {"question": "En musique, que signifie l'indication italienne « allegro » ?", "choices": ["Lentement", "Vite et gai", "Très doucement", "En ralentissant"], "answer": "Vite et gai", "anecdote": "C'est un tempo rapide et enjoué."},
-    {"question": "Quel groupe britannique a composé « Stairway to Heaven » ?", "choices": ["Deep Purple", "Led Zeppelin", "Black Sabbath", "The Who"], "answer": "Led Zeppelin", "anecdote": "Le morceau figure sur leur quatrième album (1971)."},
-    {"question": "Quelle chanteuse américaine interprète « I Will Always Love You » dans le film « Bodyguard » ?", "choices": ["Mariah Carey", "Whitney Houston", "Tina Turner", "Diana Ross"], "answer": "Whitney Houston", "anecdote": "La chanson originale est de Dolly Parton."},
-    {"question": "Quel style musical est né dans les églises afro-américaines ?", "choices": ["Le blues", "Le gospel", "Le funk", "Le ska"], "answer": "Le gospel", "anecdote": "Il a fortement influencé la soul."},
-    {"question": "Quel est l'instrument à cordes frottées le plus aigu de l'orchestre ?", "choices": ["L'alto", "Le violon", "Le violoncelle", "La contrebasse"], "answer": "Le violon", "anecdote": "On en joue avec un archet."},
-    {"question": "Quel est le plus grave des instruments à cordes frottées de l'orchestre ?", "choices": ["Le violoncelle", "La contrebasse", "L'alto", "Le violon"], "answer": "La contrebasse", "anecdote": "Elle peut mesurer près de deux mètres."},
-    {"question": "Quelle chanteuse barbadienne a interprété « Umbrella » et « Diamonds » ?", "choices": ["Beyoncé", "Rihanna", "Nicki Minaj", "Alicia Keys"], "answer": "Rihanna", "anecdote": "Elle est aussi entrepreneuse dans la cosmétique."},
-    {"question": "Quel compositeur polonais romantique est célèbre pour ses nocturnes au piano ?", "choices": ["Liszt", "Chopin", "Schumann", "Brahms"], "answer": "Chopin", "anecdote": "Il a passé une grande partie de sa vie en France."},
-    {"question": "Quel groupe de K-pop a connu un succès mondial avec « Dynamite » ?", "choices": ["BTS", "Blackpink", "EXO", "Twice"], "answer": "BTS", "anecdote": "Ce groupe sud-coréen compte sept membres."},
-    {"question": "Quel instrument à vent en bois, noir, se joue avec une anche simple ?", "choices": ["Le hautbois", "La clarinette", "Le basson", "La flûte traversière"], "answer": "La clarinette", "anecdote": "Elle est très utilisée en jazz et en musique classique."},
-    {"question": "Quelle ville américaine est considérée comme la capitale de la musique country ?", "choices": ["Memphis", "Nashville", "Austin", "La Nouvelle-Orléans"], "answer": "Nashville", "anecdote": "On la surnomme « Music City »."},
-    {"question": "Quel compositeur autrichien est l'auteur du « Beau Danube bleu » ?", "choices": ["Johann Strauss", "Schubert", "Mahler", "Bruckner"], "answer": "Johann Strauss", "anecdote": "Cette valse date de 1866."},
-    {"question": "Quel chanteur français a popularisé « Comme d'habitude », repris en anglais sous « My Way » ?", "choices": ["Johnny Hallyday", "Claude François", "Michel Sardou", "Joe Dassin"], "answer": "Claude François", "anecdote": "La version anglaise fut un succès pour Frank Sinatra."},
-    {"question": "Quel terme désigne plusieurs notes jouées simultanément ?", "choices": ["Une mélodie", "Un accord", "Un rythme", "Une gamme"], "answer": "Un accord", "anecdote": "L'accord parfait majeur en comporte trois."},
-    {"question": "Quel instrument italien à soufflet se joue avec des touches et des boutons ?", "choices": ["L'harmonica", "L'accordéon", "La cornemuse", "L'orgue de Barbarie"], "answer": "L'accordéon", "anecdote": "Il est emblématique de la musette française."},
-    {"question": "Quelle légende de la soul est surnommée la « Queen of Soul » ?", "choices": ["Diana Ross", "Aretha Franklin", "Gladys Knight", "Etta James"], "answer": "Aretha Franklin", "anecdote": "Son tube « Respect » est devenu un hymne."},
-    {"question": "Quel groupe de rock britannique a pour chanteur Chris Martin et a composé « Yellow » ?", "choices": ["Muse", "Coldplay", "Radiohead", "Keane"], "answer": "Coldplay", "anecdote": "Le groupe s'est formé à Londres à la fin des années 1990."},
-    {"question": "Combien de lignes compte une portée musicale ?", "choices": ["4", "5", "6", "7"], "answer": "5", "anecdote": "Les notes se placent sur les lignes et dans les interlignes."},
-    {"question": "Quel symbole se place en début de portée pour fixer la hauteur des notes ?", "choices": ["La clé", "La mesure", "Le dièse", "Le soupir"], "answer": "La clé", "anecdote": "La clé de sol est l'une des plus courantes."},
-    {"question": "Quel rappeur américain, figure majeure de la côte Est, est mort en 1997 ?", "choices": ["Tupac", "The Notorious B.I.G.", "Nas", "Jay-Z"], "answer": "The Notorious B.I.G.", "anecdote": "On le surnommait aussi « Biggie »."},
-    {"question": "Quel instrument à vent ancien, à sac, est emblématique de l'Écosse ?", "choices": ["La flûte de pan", "La cornemuse", "Le fifre", "Le sifflet"], "answer": "La cornemuse", "anecdote": "On la joue souvent en kilt lors de défilés."},
-    {"question": "Quelle voix d'homme est la plus aiguë ?", "choices": ["La basse", "Le ténor", "Le baryton", "Le contralto"], "answer": "Le ténor", "anecdote": "Luciano Pavarotti était un ténor célèbre."},
-    {"question": "Quel artiste américain est surnommé « The Boss » ?", "choices": ["Bob Seger", "Bruce Springsteen", "John Mellencamp", "Tom Petty"], "answer": "Bruce Springsteen", "anecdote": "Son album « Born in the U.S.A. » est un classique."},
-    {"question": "Quelle chanson de Queen mêle opéra et rock sur près de six minutes ?", "choices": ["We Are the Champions", "Bohemian Rhapsody", "Don't Stop Me Now", "Radio Ga Ga"], "answer": "Bohemian Rhapsody", "anecdote": "Elle est sortie en 1975."},
-    {"question": "Quel artiste a interprété « Billie Jean » ?", "choices": ["Prince", "Michael Jackson", "Lionel Richie", "Stevie Wonder"], "answer": "Michael Jackson", "anecdote": "Le titre figure sur l'album « Thriller »."},
-    {"question": "Quel DJ français est connu pour « Titanium » et « Memories » ?", "choices": ["David Guetta", "Bob Sinclar", "Martin Solveig", "DJ Snake"], "answer": "David Guetta", "anecdote": "Il a contribué à populariser l'EDM dans le grand public."}
+    {
+      "question": "Qui a composé « Les Quatre Saisons » ?",
+      "choices": [
+        "Bach",
+        "Vivaldi",
+        "Mozart",
+        "Haendel"
+      ],
+      "answer": "Vivaldi",
+      "anecdote": "Cette œuvre baroque date d'environ 1725."
+    },
+    {
+      "question": "Quel groupe suédois a chanté « Dancing Queen » et « Mamma Mia » ?",
+      "choices": [
+        "Roxette",
+        "ABBA",
+        "Ace of Base",
+        "A-ha"
+      ],
+      "answer": "ABBA",
+      "anecdote": "Le groupe s'est formé à Stockholm en 1972."
+    },
+    {
+      "question": "Quelle chanteuse américaine est surnommée la « reine de la pop » avec « Material Girl » ?",
+      "choices": [
+        "Cher",
+        "Madonna",
+        "Whitney Houston",
+        "Cyndi Lauper"
+      ],
+      "answer": "Madonna",
+      "anecdote": "Sa carrière a démarré au début des années 1980."
+    },
+    {
+      "question": "Quelle note de musique vient juste après « do » ?",
+      "choices": [
+        "mi",
+        "ré",
+        "fa",
+        "si"
+      ],
+      "answer": "ré",
+      "anecdote": "L'ordre est do, ré, mi, fa, sol, la, si."
+    },
+    {
+      "question": "Combien de notes compte une gamme de do majeur (do à si) ?",
+      "choices": [
+        "5",
+        "7",
+        "8",
+        "12"
+      ],
+      "answer": "7",
+      "anecdote": "On revient ensuite au do à l'octave."
+    },
+    {
+      "question": "Quel groupe américain de grunge a chanté « Smells Like Teen Spirit » ?",
+      "choices": [
+        "Pearl Jam",
+        "Nirvana",
+        "Soundgarden",
+        "Alice in Chains"
+      ],
+      "answer": "Nirvana",
+      "anecdote": "Le morceau est sorti en 1991."
+    },
+    {
+      "question": "Qui était le chanteur et guitariste de Nirvana ?",
+      "choices": [
+        "Eddie Vedder",
+        "Kurt Cobain",
+        "Dave Grohl",
+        "Chris Cornell"
+      ],
+      "answer": "Kurt Cobain",
+      "anecdote": "Dave Grohl, le batteur, a ensuite fondé les Foo Fighters."
+    },
+    {
+      "question": "Quel instrument de percussion regroupe caisse claire, grosse caisse et cymbales ?",
+      "choices": [
+        "Le xylophone",
+        "La batterie",
+        "Le tambourin",
+        "Les timbales"
+      ],
+      "answer": "La batterie",
+      "anecdote": "Le batteur donne souvent le tempo du groupe."
+    },
+    {
+      "question": "À quelle famille appartiennent la trompette, le trombone et le tuba ?",
+      "choices": [
+        "Les bois",
+        "Les cuivres",
+        "Les cordes",
+        "Les percussions"
+      ],
+      "answer": "Les cuivres",
+      "anecdote": "On en joue en faisant vibrer ses lèvres dans une embouchure."
+    },
+    {
+      "question": "Quel style musical Elvis Presley a-t-il popularisé dans les années 1950 ?",
+      "choices": [
+        "Le jazz",
+        "Le rock'n'roll",
+        "La soul",
+        "Le blues"
+      ],
+      "answer": "Le rock'n'roll",
+      "anecdote": "Elvis était surnommé « The King »."
+    },
+    {
+      "question": "Quelle chanteuse française est célèbre pour « La Vie en rose » ?",
+      "choices": [
+        "Dalida",
+        "Édith Piaf",
+        "Mireille Mathieu",
+        "Barbara"
+      ],
+      "answer": "Édith Piaf",
+      "anecdote": "On la surnommait « la Môme »."
+    },
+    {
+      "question": "Quel groupe britannique des années 1990 a chanté « Wonderwall » ?",
+      "choices": [
+        "Blur",
+        "Oasis",
+        "Pulp",
+        "The Verve"
+      ],
+      "answer": "Oasis",
+      "anecdote": "Le groupe était mené par les frères Gallagher."
+    },
+    {
+      "question": "Combien de musiciens compose un duo ?",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "1"
+      ],
+      "answer": "2",
+      "anecdote": "Le préfixe « du » renvoie à deux."
+    },
+    {
+      "question": "Quel instrument à clavier, doté de tuyaux, équipe souvent les églises ?",
+      "choices": [
+        "Le clavecin",
+        "L'orgue",
+        "L'harmonium",
+        "Le synthétiseur"
+      ],
+      "answer": "L'orgue",
+      "anecdote": "Le grand orgue peut produire des sons très puissants."
+    },
+    {
+      "question": "En musique, que signifie la nuance « forte » ?",
+      "choices": [
+        "Doucement",
+        "Fort",
+        "Rapidement",
+        "Lentement"
+      ],
+      "answer": "Fort",
+      "anecdote": "Son contraire est « piano » (doucement)."
+    },
+    {
+      "question": "Quel groupe américain a chanté « Hotel California » ?",
+      "choices": [
+        "The Eagles",
+        "Fleetwood Mac",
+        "Lynyrd Skynyrd",
+        "Toto"
+      ],
+      "answer": "The Eagles",
+      "anecdote": "Le morceau est sorti en 1976."
+    },
+    {
+      "question": "Quel artiste jamaïcain est l'auteur de « No Woman, No Cry » ?",
+      "choices": [
+        "Jimmy Cliff",
+        "Bob Marley",
+        "Peter Tosh",
+        "Burning Spear"
+      ],
+      "answer": "Bob Marley",
+      "anecdote": "Il est la figure mondiale du reggae."
+    },
+    {
+      "question": "Quelle chanteuse britannique soul, autrice de « Rehab », est décédée en 2011 ?",
+      "choices": [
+        "Adele",
+        "Amy Winehouse",
+        "Duffy",
+        "Joss Stone"
+      ],
+      "answer": "Amy Winehouse",
+      "anecdote": "Son album « Back to Black » est très acclamé."
+    },
+    {
+      "question": "Quel groupe australien a chanté « Highway to Hell » et « Thunderstruck » ?",
+      "choices": [
+        "Metallica",
+        "AC/DC",
+        "Guns N' Roses",
+        "Iron Maiden"
+      ],
+      "answer": "AC/DC",
+      "anecdote": "Le groupe est connu pour son hard rock énergique."
+    },
+    {
+      "question": "Quel chanteur britannique roux est l'auteur de « Shape of You » ?",
+      "choices": [
+        "Sam Smith",
+        "Ed Sheeran",
+        "James Blunt",
+        "Lewis Capaldi"
+      ],
+      "answer": "Ed Sheeran",
+      "anecdote": "Le titre est sorti en 2017."
+    },
+    {
+      "question": "Quelle chanteuse a interprété « Bad Romance » et « Poker Face » ?",
+      "choices": [
+        "Katy Perry",
+        "Lady Gaga",
+        "Kesha",
+        "Pink"
+      ],
+      "answer": "Lady Gaga",
+      "anecdote": "Elle est connue pour ses tenues extravagantes."
+    },
+    {
+      "question": "Quel groupe de rock irlandais a pour chanteur Bono ?",
+      "choices": [
+        "The Cranberries",
+        "U2",
+        "Snow Patrol",
+        "Coldplay"
+      ],
+      "answer": "U2",
+      "anecdote": "Le groupe s'est formé à Dublin en 1976."
+    },
+    {
+      "question": "Quel instrument à cordes pincées, à manche long et caisse ronde, est associé au folk et à la country ?",
+      "choices": [
+        "La mandoline",
+        "Le banjo",
+        "Le ukulélé",
+        "La harpe"
+      ],
+      "answer": "Le banjo",
+      "anecdote": "Il possède souvent cinq cordes."
+    },
+    {
+      "question": "Combien de cordes possède généralement une basse électrique standard ?",
+      "choices": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "4",
+      "anecdote": "Certaines basses en ont cinq ou six pour étendre la tessiture."
+    },
+    {
+      "question": "En musique, que signifie l'indication italienne « allegro » ?",
+      "choices": [
+        "Lentement",
+        "Vite et gai",
+        "Très doucement",
+        "En ralentissant"
+      ],
+      "answer": "Vite et gai",
+      "anecdote": "C'est un tempo rapide et enjoué."
+    },
+    {
+      "question": "Quel groupe britannique a composé « Stairway to Heaven » ?",
+      "choices": [
+        "Deep Purple",
+        "Led Zeppelin",
+        "Black Sabbath",
+        "The Who"
+      ],
+      "answer": "Led Zeppelin",
+      "anecdote": "Le morceau figure sur leur quatrième album (1971)."
+    },
+    {
+      "question": "Quelle chanteuse américaine interprète « I Will Always Love You » dans le film « Bodyguard » ?",
+      "choices": [
+        "Mariah Carey",
+        "Whitney Houston",
+        "Tina Turner",
+        "Diana Ross"
+      ],
+      "answer": "Whitney Houston",
+      "anecdote": "La chanson originale est de Dolly Parton."
+    },
+    {
+      "question": "Quel style musical est né dans les églises afro-américaines ?",
+      "choices": [
+        "Le blues",
+        "Le gospel",
+        "Le funk",
+        "Le ska"
+      ],
+      "answer": "Le gospel",
+      "anecdote": "Il a fortement influencé la soul."
+    },
+    {
+      "question": "Quel est l'instrument à cordes frottées le plus aigu de l'orchestre ?",
+      "choices": [
+        "L'alto",
+        "Le violon",
+        "Le violoncelle",
+        "La contrebasse"
+      ],
+      "answer": "Le violon",
+      "anecdote": "On en joue avec un archet."
+    },
+    {
+      "question": "Quel est le plus grave des instruments à cordes frottées de l'orchestre ?",
+      "choices": [
+        "Le violoncelle",
+        "La contrebasse",
+        "L'alto",
+        "Le violon"
+      ],
+      "answer": "La contrebasse",
+      "anecdote": "Elle peut mesurer près de deux mètres."
+    },
+    {
+      "question": "Quelle chanteuse barbadienne a interprété « Umbrella » et « Diamonds » ?",
+      "choices": [
+        "Beyoncé",
+        "Rihanna",
+        "Nicki Minaj",
+        "Alicia Keys"
+      ],
+      "answer": "Rihanna",
+      "anecdote": "Elle est aussi entrepreneuse dans la cosmétique."
+    },
+    {
+      "question": "Quel compositeur polonais romantique est célèbre pour ses nocturnes au piano ?",
+      "choices": [
+        "Liszt",
+        "Chopin",
+        "Schumann",
+        "Brahms"
+      ],
+      "answer": "Chopin",
+      "anecdote": "Il a passé une grande partie de sa vie en France."
+    },
+    {
+      "question": "Quel groupe de K-pop a connu un succès mondial avec « Dynamite » ?",
+      "choices": [
+        "BTS",
+        "Blackpink",
+        "EXO",
+        "Twice"
+      ],
+      "answer": "BTS",
+      "anecdote": "Ce groupe sud-coréen compte sept membres."
+    },
+    {
+      "question": "Quel instrument à vent en bois, noir, se joue avec une anche simple ?",
+      "choices": [
+        "Le hautbois",
+        "La clarinette",
+        "Le basson",
+        "La flûte traversière"
+      ],
+      "answer": "La clarinette",
+      "anecdote": "Elle est très utilisée en jazz et en musique classique."
+    },
+    {
+      "question": "Quelle ville américaine est considérée comme la capitale de la musique country ?",
+      "choices": [
+        "Memphis",
+        "Nashville",
+        "Austin",
+        "La Nouvelle-Orléans"
+      ],
+      "answer": "Nashville",
+      "anecdote": "On la surnomme « Music City »."
+    },
+    {
+      "question": "Quel compositeur autrichien est l'auteur du « Beau Danube bleu » ?",
+      "choices": [
+        "Johann Strauss",
+        "Schubert",
+        "Mahler",
+        "Bruckner"
+      ],
+      "answer": "Johann Strauss",
+      "anecdote": "Cette valse date de 1866."
+    },
+    {
+      "question": "Quel chanteur français a popularisé « Comme d'habitude », repris en anglais sous « My Way » ?",
+      "choices": [
+        "Johnny Hallyday",
+        "Claude François",
+        "Michel Sardou",
+        "Joe Dassin"
+      ],
+      "answer": "Claude François",
+      "anecdote": "La version anglaise fut un succès pour Frank Sinatra."
+    },
+    {
+      "question": "Quel terme désigne plusieurs notes jouées simultanément ?",
+      "choices": [
+        "Une mélodie",
+        "Un accord",
+        "Un rythme",
+        "Une gamme"
+      ],
+      "answer": "Un accord",
+      "anecdote": "L'accord parfait majeur en comporte trois."
+    },
+    {
+      "question": "Quel instrument italien à soufflet se joue avec des touches et des boutons ?",
+      "choices": [
+        "L'harmonica",
+        "L'accordéon",
+        "La cornemuse",
+        "L'orgue de Barbarie"
+      ],
+      "answer": "L'accordéon",
+      "anecdote": "Il est emblématique de la musette française."
+    },
+    {
+      "question": "Quelle légende de la soul est surnommée la « Queen of Soul » ?",
+      "choices": [
+        "Diana Ross",
+        "Aretha Franklin",
+        "Gladys Knight",
+        "Etta James"
+      ],
+      "answer": "Aretha Franklin",
+      "anecdote": "Son tube « Respect » est devenu un hymne."
+    },
+    {
+      "question": "Quel groupe de rock britannique a pour chanteur Chris Martin et a composé « Yellow » ?",
+      "choices": [
+        "Muse",
+        "Coldplay",
+        "Radiohead",
+        "Keane"
+      ],
+      "answer": "Coldplay",
+      "anecdote": "Le groupe s'est formé à Londres à la fin des années 1990."
+    },
+    {
+      "question": "Combien de lignes compte une portée musicale ?",
+      "choices": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "5",
+      "anecdote": "Les notes se placent sur les lignes et dans les interlignes."
+    },
+    {
+      "question": "Quel symbole se place en début de portée pour fixer la hauteur des notes ?",
+      "choices": [
+        "La clé",
+        "La mesure",
+        "Le dièse",
+        "Le soupir"
+      ],
+      "answer": "La clé",
+      "anecdote": "La clé de sol est l'une des plus courantes."
+    },
+    {
+      "question": "Quel rappeur américain, figure majeure de la côte Est, est mort en 1997 ?",
+      "choices": [
+        "Tupac",
+        "The Notorious B.I.G.",
+        "Nas",
+        "Jay-Z"
+      ],
+      "answer": "The Notorious B.I.G.",
+      "anecdote": "On le surnommait aussi « Biggie »."
+    },
+    {
+      "question": "Quel instrument à vent ancien, à sac, est emblématique de l'Écosse ?",
+      "choices": [
+        "La flûte de pan",
+        "La cornemuse",
+        "Le fifre",
+        "Le sifflet"
+      ],
+      "answer": "La cornemuse",
+      "anecdote": "On la joue souvent en kilt lors de défilés."
+    },
+    {
+      "question": "Quelle voix d'homme est la plus aiguë ?",
+      "choices": [
+        "La basse",
+        "Le ténor",
+        "Le baryton",
+        "Le contralto"
+      ],
+      "answer": "Le ténor",
+      "anecdote": "Luciano Pavarotti était un ténor célèbre."
+    },
+    {
+      "question": "Quel artiste américain est surnommé « The Boss » ?",
+      "choices": [
+        "Bob Seger",
+        "Bruce Springsteen",
+        "John Mellencamp",
+        "Tom Petty"
+      ],
+      "answer": "Bruce Springsteen",
+      "anecdote": "Son album « Born in the U.S.A. » est un classique."
+    },
+    {
+      "question": "Quelle chanson de Queen mêle opéra et rock sur près de six minutes ?",
+      "choices": [
+        "We Are the Champions",
+        "Bohemian Rhapsody",
+        "Don't Stop Me Now",
+        "Radio Ga Ga"
+      ],
+      "answer": "Bohemian Rhapsody",
+      "anecdote": "Elle est sortie en 1975."
+    },
+    {
+      "question": "Quel artiste a interprété « Billie Jean » ?",
+      "choices": [
+        "Prince",
+        "Michael Jackson",
+        "Lionel Richie",
+        "Stevie Wonder"
+      ],
+      "answer": "Michael Jackson",
+      "anecdote": "Le titre figure sur l'album « Thriller »."
+    },
+    {
+      "question": "Quel DJ français est connu pour « Titanium » et « Memories » ?",
+      "choices": [
+        "David Guetta",
+        "Bob Sinclar",
+        "Martin Solveig",
+        "DJ Snake"
+      ],
+      "answer": "David Guetta",
+      "anecdote": "Il a contribué à populariser l'EDM dans le grand public."
+    }
   ]
 }

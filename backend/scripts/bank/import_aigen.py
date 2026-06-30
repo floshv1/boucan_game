@@ -6,7 +6,7 @@ hand-curated AI batches top each broad theme up toward 100+. Each file in
 
     {
       "theme": "histoire",            # one of themes.THEMES
-      "difficulty": "intermediaire",  # debutant | intermediaire | expert
+      "difficulty": "moyen",          # facile | moyen | difficile | inconnu
       "questions": [
         {"question": "...", "choices": ["A","B","C","D"], "answer": "B", "anecdote": "..."}
       ]

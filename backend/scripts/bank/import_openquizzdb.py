@@ -33,7 +33,7 @@ CATEGORIES = [
     "sciences", "sports", "television", "tourisme",
 ]
 # diff param -> our difficulty label
-_DIFF = {1: "debutant", 2: "intermediaire", 3: "expert"}
+_DIFF = {1: "facile", 2: "moyen", 3: "difficile"}
 
 
 def _fetch_one(client: httpx.Client, key: str, categ: str, diff: int) -> tuple[int, dict | None]:

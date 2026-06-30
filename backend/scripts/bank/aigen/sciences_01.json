@@ -1,26 +1,226 @@
 {
   "theme": "sciences",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Quel est le symbole chimique de l'or ?", "choices": ["Or", "Au", "Ag", "Go"], "answer": "Au", "anecdote": "Au vient du latin « aurum »."},
-    {"question": "Quelle planète est la plus proche du Soleil ?", "choices": ["Vénus", "Mercure", "Mars", "Terre"], "answer": "Mercure", "anecdote": "Mercure fait le tour du Soleil en seulement 88 jours."},
-    {"question": "Quel gaz les plantes absorbent-elles pour la photosynthèse ?", "choices": ["Oxygène", "Dioxyde de carbone", "Azote", "Hydrogène"], "answer": "Dioxyde de carbone", "anecdote": "Elles rejettent de l'oxygène en retour."},
-    {"question": "Combien d'os compte le corps humain adulte ?", "choices": ["206", "186", "226", "150"], "answer": "206", "anecdote": "Un nouveau-né en a davantage, certains fusionnant avec l'âge."},
-    {"question": "Quelle est la vitesse de la lumière dans le vide (valeur approchée) ?", "choices": ["300 000 km/s", "30 000 km/s", "3 000 km/s", "3 000 000 km/s"], "answer": "300 000 km/s", "anecdote": "Plus précisément 299 792 km/s."},
-    {"question": "Quel organe pompe le sang dans le corps ?", "choices": ["Le foie", "Le cœur", "Les poumons", "Les reins"], "answer": "Le cœur", "anecdote": "Il bat environ 100 000 fois par jour."},
-    {"question": "Quel est l'élément chimique de symbole « O » ?", "choices": ["Or", "Oxygène", "Osmium", "Olivine"], "answer": "Oxygène", "anecdote": "L'oxygène représente environ 21 % de l'air."},
-    {"question": "Quelle force nous attire vers le sol ?", "choices": ["Le magnétisme", "La gravité", "La friction", "L'électricité"], "answer": "La gravité", "anecdote": "Newton la formalisa au XVIIe siècle."},
-    {"question": "Quel scientifique a énoncé la théorie de la relativité ?", "choices": ["Isaac Newton", "Albert Einstein", "Galilée", "Niels Bohr"], "answer": "Albert Einstein", "anecdote": "Sa célèbre équation est E = mc²."},
-    {"question": "Quelle est la planète surnommée la « planète rouge » ?", "choices": ["Jupiter", "Mars", "Vénus", "Saturne"], "answer": "Mars", "anecdote": "Sa couleur vient de l'oxyde de fer à sa surface."},
-    {"question": "De quel gaz l'atmosphère terrestre est-elle majoritairement composée ?", "choices": ["Oxygène", "Azote", "Dioxyde de carbone", "Argon"], "answer": "Azote", "anecdote": "L'azote représente environ 78 % de l'air."},
-    {"question": "Quelle est l'unité de mesure de la force dans le système international ?", "choices": ["Le joule", "Le newton", "Le watt", "Le pascal"], "answer": "Le newton", "anecdote": "Elle porte le nom d'Isaac Newton."},
-    {"question": "Quel est l'organe principal de la respiration ?", "choices": ["Le cœur", "Les poumons", "L'estomac", "Le cerveau"], "answer": "Les poumons", "anecdote": "Les échanges gazeux se font dans les alvéoles."},
-    {"question": "Quelle particule a une charge électrique négative ?", "choices": ["Le proton", "L'électron", "Le neutron", "Le photon"], "answer": "L'électron", "anecdote": "Les électrons gravitent autour du noyau de l'atome."},
-    {"question": "Combien de planètes compte le Système solaire ?", "choices": ["7", "8", "9", "10"], "answer": "8", "anecdote": "Pluton a été reclassée en planète naine en 2006."},
-    {"question": "Quel liquide est essentiel à la vie et couvre la majorité de la Terre ?", "choices": ["Le pétrole", "L'eau", "Le mercure", "L'alcool"], "answer": "L'eau", "anecdote": "Environ 71 % de la surface terrestre est recouverte d'eau."},
-    {"question": "Quel est l'état de l'eau à 0 °C et en dessous (pression normale) ?", "choices": ["Liquide", "Solide", "Gazeux", "Plasma"], "answer": "Solide", "anecdote": "L'eau gèle et forme de la glace."},
-    {"question": "Quel savant français est célèbre pour ses travaux sur la vaccination et la pasteurisation ?", "choices": ["Louis Pasteur", "Marie Curie", "Antoine Lavoisier", "André Ampère"], "answer": "Louis Pasteur", "anecdote": "Il mit au point le vaccin contre la rage."},
-    {"question": "Quelle scientifique a reçu deux prix Nobel, en physique et en chimie ?", "choices": ["Rosalind Franklin", "Marie Curie", "Ada Lovelace", "Lise Meitner"], "answer": "Marie Curie", "anecdote": "Elle est la première femme lauréate du prix Nobel."},
-    {"question": "Quel est le métal liquide à température ambiante ?", "choices": ["Le fer", "Le mercure", "Le plomb", "L'étain"], "answer": "Le mercure", "anecdote": "Il était autrefois utilisé dans les thermomètres."}
+    {
+      "question": "Quel est le symbole chimique de l'or ?",
+      "choices": [
+        "Or",
+        "Au",
+        "Ag",
+        "Go"
+      ],
+      "answer": "Au",
+      "anecdote": "Au vient du latin « aurum »."
+    },
+    {
+      "question": "Quelle planète est la plus proche du Soleil ?",
+      "choices": [
+        "Vénus",
+        "Mercure",
+        "Mars",
+        "Terre"
+      ],
+      "answer": "Mercure",
+      "anecdote": "Mercure fait le tour du Soleil en seulement 88 jours."
+    },
+    {
+      "question": "Quel gaz les plantes absorbent-elles pour la photosynthèse ?",
+      "choices": [
+        "Oxygène",
+        "Dioxyde de carbone",
+        "Azote",
+        "Hydrogène"
+      ],
+      "answer": "Dioxyde de carbone",
+      "anecdote": "Elles rejettent de l'oxygène en retour."
+    },
+    {
+      "question": "Combien d'os compte le corps humain adulte ?",
+      "choices": [
+        "206",
+        "186",
+        "226",
+        "150"
+      ],
+      "answer": "206",
+      "anecdote": "Un nouveau-né en a davantage, certains fusionnant avec l'âge."
+    },
+    {
+      "question": "Quelle est la vitesse de la lumière dans le vide (valeur approchée) ?",
+      "choices": [
+        "300 000 km/s",
+        "30 000 km/s",
+        "3 000 km/s",
+        "3 000 000 km/s"
+      ],
+      "answer": "300 000 km/s",
+      "anecdote": "Plus précisément 299 792 km/s."
+    },
+    {
+      "question": "Quel organe pompe le sang dans le corps ?",
+      "choices": [
+        "Le foie",
+        "Le cœur",
+        "Les poumons",
+        "Les reins"
+      ],
+      "answer": "Le cœur",
+      "anecdote": "Il bat environ 100 000 fois par jour."
+    },
+    {
+      "question": "Quel est l'élément chimique de symbole « O » ?",
+      "choices": [
+        "Or",
+        "Oxygène",
+        "Osmium",
+        "Olivine"
+      ],
+      "answer": "Oxygène",
+      "anecdote": "L'oxygène représente environ 21 % de l'air."
+    },
+    {
+      "question": "Quelle force nous attire vers le sol ?",
+      "choices": [
+        "Le magnétisme",
+        "La gravité",
+        "La friction",
+        "L'électricité"
+      ],
+      "answer": "La gravité",
+      "anecdote": "Newton la formalisa au XVIIe siècle."
+    },
+    {
+      "question": "Quel scientifique a énoncé la théorie de la relativité ?",
+      "choices": [
+        "Isaac Newton",
+        "Albert Einstein",
+        "Galilée",
+        "Niels Bohr"
+      ],
+      "answer": "Albert Einstein",
+      "anecdote": "Sa célèbre équation est E = mc²."
+    },
+    {
+      "question": "Quelle est la planète surnommée la « planète rouge » ?",
+      "choices": [
+        "Jupiter",
+        "Mars",
+        "Vénus",
+        "Saturne"
+      ],
+      "answer": "Mars",
+      "anecdote": "Sa couleur vient de l'oxyde de fer à sa surface."
+    },
+    {
+      "question": "De quel gaz l'atmosphère terrestre est-elle majoritairement composée ?",
+      "choices": [
+        "Oxygène",
+        "Azote",
+        "Dioxyde de carbone",
+        "Argon"
+      ],
+      "answer": "Azote",
+      "anecdote": "L'azote représente environ 78 % de l'air."
+    },
+    {
+      "question": "Quelle est l'unité de mesure de la force dans le système international ?",
+      "choices": [
+        "Le joule",
+        "Le newton",
+        "Le watt",
+        "Le pascal"
+      ],
+      "answer": "Le newton",
+      "anecdote": "Elle porte le nom d'Isaac Newton."
+    },
+    {
+      "question": "Quel est l'organe principal de la respiration ?",
+      "choices": [
+        "Le cœur",
+        "Les poumons",
+        "L'estomac",
+        "Le cerveau"
+      ],
+      "answer": "Les poumons",
+      "anecdote": "Les échanges gazeux se font dans les alvéoles."
+    },
+    {
+      "question": "Quelle particule a une charge électrique négative ?",
+      "choices": [
+        "Le proton",
+        "L'électron",
+        "Le neutron",
+        "Le photon"
+      ],
+      "answer": "L'électron",
+      "anecdote": "Les électrons gravitent autour du noyau de l'atome."
+    },
+    {
+      "question": "Combien de planètes compte le Système solaire ?",
+      "choices": [
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": "8",
+      "anecdote": "Pluton a été reclassée en planète naine en 2006."
+    },
+    {
+      "question": "Quel liquide est essentiel à la vie et couvre la majorité de la Terre ?",
+      "choices": [
+        "Le pétrole",
+        "L'eau",
+        "Le mercure",
+        "L'alcool"
+      ],
+      "answer": "L'eau",
+      "anecdote": "Environ 71 % de la surface terrestre est recouverte d'eau."
+    },
+    {
+      "question": "Quel est l'état de l'eau à 0 °C et en dessous (pression normale) ?",
+      "choices": [
+        "Liquide",
+        "Solide",
+        "Gazeux",
+        "Plasma"
+      ],
+      "answer": "Solide",
+      "anecdote": "L'eau gèle et forme de la glace."
+    },
+    {
+      "question": "Quel savant français est célèbre pour ses travaux sur la vaccination et la pasteurisation ?",
+      "choices": [
+        "Louis Pasteur",
+        "Marie Curie",
+        "Antoine Lavoisier",
+        "André Ampère"
+      ],
+      "answer": "Louis Pasteur",
+      "anecdote": "Il mit au point le vaccin contre la rage."
+    },
+    {
+      "question": "Quelle scientifique a reçu deux prix Nobel, en physique et en chimie ?",
+      "choices": [
+        "Rosalind Franklin",
+        "Marie Curie",
+        "Ada Lovelace",
+        "Lise Meitner"
+      ],
+      "answer": "Marie Curie",
+      "anecdote": "Elle est la première femme lauréate du prix Nobel."
+    },
+    {
+      "question": "Quel est le métal liquide à température ambiante ?",
+      "choices": [
+        "Le fer",
+        "Le mercure",
+        "Le plomb",
+        "L'étain"
+      ],
+      "answer": "Le mercure",
+      "anecdote": "Il était autrefois utilisé dans les thermomètres."
+    }
   ]
 }

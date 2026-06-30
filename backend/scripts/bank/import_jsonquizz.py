@@ -21,6 +21,7 @@ _FILES = {
     "intermediaire": f"{_BASE}/quizz-interm%C3%A9diaire.json",
     "expert": f"{_BASE}/quizz-expert.json",
 }
+_DIFF_MAP = {"debutant": "facile", "intermediaire": "moyen", "expert": "difficile"}
 SOURCE = "jsonquizz"
 SOURCE_URL = "https://github.com/SimonLeclere/JsonQuizz"
 
@@ -48,7 +49,7 @@ def run() -> None:
                     answer=answer,
                     choices=choices,
                     theme=classify(question, answer, choices),
-                    difficulty=difficulty,
+                    difficulty=_DIFF_MAP.get(difficulty, difficulty),
                     source=SOURCE,
                     source_url=SOURCE_URL,
                     anecdote=anecdote,

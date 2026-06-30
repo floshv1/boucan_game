@@ -1,26 +1,226 @@
 {
   "theme": "histoire",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "En quelle année a eu lieu la prise de la Bastille ?", "choices": ["1789", "1799", "1769", "1804"], "answer": "1789", "anecdote": "Le 14 juillet 1789 est devenu la fête nationale française en 1880."},
-    {"question": "Qui était le premier empereur des Français ?", "choices": ["Louis XVI", "Napoléon Bonaparte", "Charlemagne", "Napoléon III"], "answer": "Napoléon Bonaparte", "anecdote": "Il fut sacré empereur en 1804 à Notre-Dame de Paris."},
-    {"question": "En quelle année a pris fin la Seconde Guerre mondiale en Europe ?", "choices": ["1944", "1945", "1946", "1943"], "answer": "1945", "anecdote": "La capitulation allemande fut signée le 8 mai 1945."},
-    {"question": "Quel mur est tombé en 1989 ?", "choices": ["Le mur de Berlin", "Le mur d'Hadrien", "La Grande Muraille", "Le mur des Lamentations"], "answer": "Le mur de Berlin", "anecdote": "Sa chute symbolise la fin de la guerre froide."},
-    {"question": "Qui a découvert l'Amérique en 1492 ?", "choices": ["Vasco de Gama", "Christophe Colomb", "Magellan", "Amerigo Vespucci"], "answer": "Christophe Colomb", "anecdote": "Il cherchait en réalité une route vers les Indes."},
-    {"question": "Quelle reine d'Égypte est célèbre pour sa relation avec César et Marc Antoine ?", "choices": ["Néfertiti", "Cléopâtre", "Hatchepsout", "Isis"], "answer": "Cléopâtre", "anecdote": "Cléopâtre VII fut la dernière souveraine de l'Égypte ptolémaïque."},
-    {"question": "Quel roi de France est surnommé le « Roi-Soleil » ?", "choices": ["Louis XIV", "Louis XV", "François Ier", "Henri IV"], "answer": "Louis XIV", "anecdote": "Son règne de 72 ans est le plus long de l'histoire de France."},
-    {"question": "En quelle année a débuté la Première Guerre mondiale ?", "choices": ["1914", "1918", "1912", "1916"], "answer": "1914", "anecdote": "Elle est déclenchée après l'attentat de Sarajevo."},
-    {"question": "Quelle civilisation a construit les pyramides de Gizeh ?", "choices": ["Les Romains", "Les Égyptiens", "Les Mayas", "Les Grecs"], "answer": "Les Égyptiens", "anecdote": "La pyramide de Khéops fut la plus haute construction humaine pendant des millénaires."},
-    {"question": "Qui a prononcé l'appel du 18 juin 1940 ?", "choices": ["Philippe Pétain", "Charles de Gaulle", "Georges Clemenceau", "Léon Blum"], "answer": "Charles de Gaulle", "anecdote": "L'appel fut lancé depuis Londres sur les ondes de la BBC."},
-    {"question": "Quel explorateur a réalisé le premier tour du monde maritime (achevé par son équipage) ?", "choices": ["Magellan", "Marco Polo", "Jacques Cartier", "Vasco de Gama"], "answer": "Magellan", "anecdote": "Magellan mourut en route ; l'expédition fut achevée par Elcano en 1522."},
-    {"question": "Quelle période a suivi le Moyen Âge en Europe ?", "choices": ["L'Antiquité", "La Renaissance", "La Préhistoire", "Les Lumières"], "answer": "La Renaissance", "anecdote": "Elle marque un renouveau des arts et des sciences à partir du XVe siècle."},
-    {"question": "Qui était le chancelier de l'Allemagne nazie pendant la Seconde Guerre mondiale ?", "choices": ["Adolf Hitler", "Otto von Bismarck", "Heinrich Himmler", "Hermann Göring"], "answer": "Adolf Hitler", "anecdote": "Il accéda au pouvoir en 1933."},
-    {"question": "Quel empire était dirigé depuis Constantinople ?", "choices": ["L'Empire byzantin", "L'Empire perse", "L'Empire aztèque", "L'Empire mongol"], "answer": "L'Empire byzantin", "anecdote": "Constantinople tomba aux mains des Ottomans en 1453."},
-    {"question": "En quelle année l'homme a-t-il marché sur la Lune pour la première fois ?", "choices": ["1969", "1965", "1972", "1959"], "answer": "1969", "anecdote": "Neil Armstrong posa le pied sur la Lune le 21 juillet 1969."},
-    {"question": "Quel document, signé en 1215 en Angleterre, limite le pouvoir du roi ?", "choices": ["La Magna Carta", "La Déclaration d'indépendance", "L'Édit de Nantes", "Le Code civil"], "answer": "La Magna Carta", "anecdote": "Elle est considérée comme un jalon vers le constitutionnalisme moderne."},
-    {"question": "Quelle guerre a opposé le Nord et le Sud des États-Unis ?", "choices": ["La guerre de Sécession", "La guerre d'indépendance", "La guerre du Vietnam", "La guerre de Corée"], "answer": "La guerre de Sécession", "anecdote": "Elle se déroula de 1861 à 1865 et aboutit à l'abolition de l'esclavage."},
-    {"question": "Qui a rédigé la majeure partie de la Déclaration d'indépendance américaine ?", "choices": ["George Washington", "Thomas Jefferson", "Benjamin Franklin", "Abraham Lincoln"], "answer": "Thomas Jefferson", "anecdote": "Elle fut adoptée le 4 juillet 1776."},
-    {"question": "Quel peuple antique a développé la démocratie à Athènes ?", "choices": ["Les Grecs", "Les Romains", "Les Égyptiens", "Les Phéniciens"], "answer": "Les Grecs", "anecdote": "La démocratie athénienne se développa au Ve siècle av. J.-C."},
-    {"question": "Quel conflit a opposé les blocs de l'Est et de l'Ouest sans affrontement direct majeur ?", "choices": ["La guerre froide", "La guerre de Cent Ans", "La guerre des Boers", "La guerre de Crimée"], "answer": "La guerre froide", "anecdote": "Elle dura environ de 1947 à 1991."}
+    {
+      "question": "En quelle année a eu lieu la prise de la Bastille ?",
+      "choices": [
+        "1789",
+        "1799",
+        "1769",
+        "1804"
+      ],
+      "answer": "1789",
+      "anecdote": "Le 14 juillet 1789 est devenu la fête nationale française en 1880."
+    },
+    {
+      "question": "Qui était le premier empereur des Français ?",
+      "choices": [
+        "Louis XVI",
+        "Napoléon Bonaparte",
+        "Charlemagne",
+        "Napoléon III"
+      ],
+      "answer": "Napoléon Bonaparte",
+      "anecdote": "Il fut sacré empereur en 1804 à Notre-Dame de Paris."
+    },
+    {
+      "question": "En quelle année a pris fin la Seconde Guerre mondiale en Europe ?",
+      "choices": [
+        "1944",
+        "1945",
+        "1946",
+        "1943"
+      ],
+      "answer": "1945",
+      "anecdote": "La capitulation allemande fut signée le 8 mai 1945."
+    },
+    {
+      "question": "Quel mur est tombé en 1989 ?",
+      "choices": [
+        "Le mur de Berlin",
+        "Le mur d'Hadrien",
+        "La Grande Muraille",
+        "Le mur des Lamentations"
+      ],
+      "answer": "Le mur de Berlin",
+      "anecdote": "Sa chute symbolise la fin de la guerre froide."
+    },
+    {
+      "question": "Qui a découvert l'Amérique en 1492 ?",
+      "choices": [
+        "Vasco de Gama",
+        "Christophe Colomb",
+        "Magellan",
+        "Amerigo Vespucci"
+      ],
+      "answer": "Christophe Colomb",
+      "anecdote": "Il cherchait en réalité une route vers les Indes."
+    },
+    {
+      "question": "Quelle reine d'Égypte est célèbre pour sa relation avec César et Marc Antoine ?",
+      "choices": [
+        "Néfertiti",
+        "Cléopâtre",
+        "Hatchepsout",
+        "Isis"
+      ],
+      "answer": "Cléopâtre",
+      "anecdote": "Cléopâtre VII fut la dernière souveraine de l'Égypte ptolémaïque."
+    },
+    {
+      "question": "Quel roi de France est surnommé le « Roi-Soleil » ?",
+      "choices": [
+        "Louis XIV",
+        "Louis XV",
+        "François Ier",
+        "Henri IV"
+      ],
+      "answer": "Louis XIV",
+      "anecdote": "Son règne de 72 ans est le plus long de l'histoire de France."
+    },
+    {
+      "question": "En quelle année a débuté la Première Guerre mondiale ?",
+      "choices": [
+        "1914",
+        "1918",
+        "1912",
+        "1916"
+      ],
+      "answer": "1914",
+      "anecdote": "Elle est déclenchée après l'attentat de Sarajevo."
+    },
+    {
+      "question": "Quelle civilisation a construit les pyramides de Gizeh ?",
+      "choices": [
+        "Les Romains",
+        "Les Égyptiens",
+        "Les Mayas",
+        "Les Grecs"
+      ],
+      "answer": "Les Égyptiens",
+      "anecdote": "La pyramide de Khéops fut la plus haute construction humaine pendant des millénaires."
+    },
+    {
+      "question": "Qui a prononcé l'appel du 18 juin 1940 ?",
+      "choices": [
+        "Philippe Pétain",
+        "Charles de Gaulle",
+        "Georges Clemenceau",
+        "Léon Blum"
+      ],
+      "answer": "Charles de Gaulle",
+      "anecdote": "L'appel fut lancé depuis Londres sur les ondes de la BBC."
+    },
+    {
+      "question": "Quel explorateur a réalisé le premier tour du monde maritime (achevé par son équipage) ?",
+      "choices": [
+        "Magellan",
+        "Marco Polo",
+        "Jacques Cartier",
+        "Vasco de Gama"
+      ],
+      "answer": "Magellan",
+      "anecdote": "Magellan mourut en route ; l'expédition fut achevée par Elcano en 1522."
+    },
+    {
+      "question": "Quelle période a suivi le Moyen Âge en Europe ?",
+      "choices": [
+        "L'Antiquité",
+        "La Renaissance",
+        "La Préhistoire",
+        "Les Lumières"
+      ],
+      "answer": "La Renaissance",
+      "anecdote": "Elle marque un renouveau des arts et des sciences à partir du XVe siècle."
+    },
+    {
+      "question": "Qui était le chancelier de l'Allemagne nazie pendant la Seconde Guerre mondiale ?",
+      "choices": [
+        "Adolf Hitler",
+        "Otto von Bismarck",
+        "Heinrich Himmler",
+        "Hermann Göring"
+      ],
+      "answer": "Adolf Hitler",
+      "anecdote": "Il accéda au pouvoir en 1933."
+    },
+    {
+      "question": "Quel empire était dirigé depuis Constantinople ?",
+      "choices": [
+        "L'Empire byzantin",
+        "L'Empire perse",
+        "L'Empire aztèque",
+        "L'Empire mongol"
+      ],
+      "answer": "L'Empire byzantin",
+      "anecdote": "Constantinople tomba aux mains des Ottomans en 1453."
+    },
+    {
+      "question": "En quelle année l'homme a-t-il marché sur la Lune pour la première fois ?",
+      "choices": [
+        "1969",
+        "1965",
+        "1972",
+        "1959"
+      ],
+      "answer": "1969",
+      "anecdote": "Neil Armstrong posa le pied sur la Lune le 21 juillet 1969."
+    },
+    {
+      "question": "Quel document, signé en 1215 en Angleterre, limite le pouvoir du roi ?",
+      "choices": [
+        "La Magna Carta",
+        "La Déclaration d'indépendance",
+        "L'Édit de Nantes",
+        "Le Code civil"
+      ],
+      "answer": "La Magna Carta",
+      "anecdote": "Elle est considérée comme un jalon vers le constitutionnalisme moderne."
+    },
+    {
+      "question": "Quelle guerre a opposé le Nord et le Sud des États-Unis ?",
+      "choices": [
+        "La guerre de Sécession",
+        "La guerre d'indépendance",
+        "La guerre du Vietnam",
+        "La guerre de Corée"
+      ],
+      "answer": "La guerre de Sécession",
+      "anecdote": "Elle se déroula de 1861 à 1865 et aboutit à l'abolition de l'esclavage."
+    },
+    {
+      "question": "Qui a rédigé la majeure partie de la Déclaration d'indépendance américaine ?",
+      "choices": [
+        "George Washington",
+        "Thomas Jefferson",
+        "Benjamin Franklin",
+        "Abraham Lincoln"
+      ],
+      "answer": "Thomas Jefferson",
+      "anecdote": "Elle fut adoptée le 4 juillet 1776."
+    },
+    {
+      "question": "Quel peuple antique a développé la démocratie à Athènes ?",
+      "choices": [
+        "Les Grecs",
+        "Les Romains",
+        "Les Égyptiens",
+        "Les Phéniciens"
+      ],
+      "answer": "Les Grecs",
+      "anecdote": "La démocratie athénienne se développa au Ve siècle av. J.-C."
+    },
+    {
+      "question": "Quel conflit a opposé les blocs de l'Est et de l'Ouest sans affrontement direct majeur ?",
+      "choices": [
+        "La guerre froide",
+        "La guerre de Cent Ans",
+        "La guerre des Boers",
+        "La guerre de Crimée"
+      ],
+      "answer": "La guerre froide",
+      "anecdote": "Elle dura environ de 1947 à 1991."
+    }
   ]
 }

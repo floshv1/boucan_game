@@ -1,31 +1,281 @@
 {
   "theme": "jeux_video",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Quel plombier moustachu est la mascotte de Nintendo ?", "choices": ["Luigi", "Mario", "Wario", "Toad"], "answer": "Mario", "anecdote": "Mario est apparu pour la première fois dans Donkey Kong en 1981."},
-    {"question": "Dans quel jeu construit-on avec des blocs cubiques dans un monde généré aléatoirement ?", "choices": ["Terraria", "Minecraft", "Roblox", "Fortnite"], "answer": "Minecraft", "anecdote": "Minecraft a été créé par Markus « Notch » Persson."},
-    {"question": "Quelle société a créé la console PlayStation ?", "choices": ["Microsoft", "Sony", "Nintendo", "Sega"], "answer": "Sony", "anecdote": "La première PlayStation est sortie en 1994 au Japon."},
-    {"question": "Quel personnage hérisson bleu court à toute vitesse chez Sega ?", "choices": ["Knuckles", "Sonic", "Tails", "Shadow"], "answer": "Sonic", "anecdote": "Sonic est apparu en 1991 pour concurrencer Mario."},
-    {"question": "Dans Pokémon, quel est le Pokémon électrique emblématique de la franchise ?", "choices": ["Bulbizarre", "Salamèche", "Pikachu", "Carapuce"], "answer": "Pikachu", "anecdote": "Pikachu est devenu la mascotte de toute la marque Pokémon."},
-    {"question": "Quel jeu de battle royale développé par Epic Games est connu pour ses constructions ?", "choices": ["PUBG", "Fortnite", "Apex Legends", "Warzone"], "answer": "Fortnite", "anecdote": "Fortnite Battle Royale est sorti en 2017."},
-    {"question": "Quelle princesse Mario doit-il souvent secourir ?", "choices": ["Daisy", "Peach", "Rosalina", "Zelda"], "answer": "Peach", "anecdote": "La princesse Peach règne sur le Royaume Champignon."},
-    {"question": "Quel est le nom de l'elfe héros de la saga The Legend of Zelda ?", "choices": ["Zelda", "Link", "Ganon", "Navi"], "answer": "Link", "anecdote": "Zelda est le nom de la princesse, pas du héros."},
-    {"question": "Quelle console portable de Nintendo possède deux écrans ?", "choices": ["Game Boy", "Nintendo DS", "PSP", "Game Gear"], "answer": "Nintendo DS", "anecdote": "Le « DS » signifie Dual Screen."},
-    {"question": "Dans quel jeu de tir incarne-t-on des agents posant ou désamorçant une bombe, édité par Valve ?", "choices": ["Call of Duty", "Counter-Strike", "Valorant", "Overwatch"], "answer": "Counter-Strike", "anecdote": "Counter-Strike est né d'un mod de Half-Life."},
-    {"question": "Quel jeu suédois de blocs a été racheté par Microsoft en 2014 ?", "choices": ["Minecraft", "Valheim", "Rust", "Among Us"], "answer": "Minecraft", "anecdote": "Microsoft l'a acquis pour environ 2,5 milliards de dollars."},
-    {"question": "Quelle entreprise édite la série Mario, Zelda et Pokémon ?", "choices": ["Sega", "Nintendo", "Atari", "Capcom"], "answer": "Nintendo", "anecdote": "Nintendo est une entreprise japonaise fondée en 1889."},
-    {"question": "Quel jeu de course met en scène des personnages Nintendo lançant des carapaces ?", "choices": ["Crash Team Racing", "Mario Kart", "Forza", "Gran Turismo"], "answer": "Mario Kart", "anecdote": "La carapace bleue vise le joueur en première position."},
-    {"question": "Dans Among Us, comment appelle-t-on le joueur qui élimine les autres ?", "choices": ["Le Crewmate", "L'Imposteur", "Le Sheriff", "Le Médecin"], "answer": "L'Imposteur", "anecdote": "Le jeu est devenu très populaire en 2020."},
-    {"question": "Quel jeu d'aventure de Rockstar suit Arthur Morgan dans le Far West ?", "choices": ["Red Dead Redemption 2", "GTA V", "Bully", "Max Payne"], "answer": "Red Dead Redemption 2", "anecdote": "Il est sorti en 2018."},
-    {"question": "Quelle console de Microsoft concurrence la PlayStation ?", "choices": ["Wii", "Xbox", "Switch", "Dreamcast"], "answer": "Xbox", "anecdote": "La première Xbox est sortie en 2001."},
-    {"question": "Dans Tetris, que doit-on faire avec les pièces qui tombent ?", "choices": ["Les empiler en hauteur", "Compléter des lignes", "Les colorier", "Les détruire au clic"], "answer": "Compléter des lignes", "anecdote": "Tetris a été conçu par Alexeï Pajitnov en 1984."},
-    {"question": "Quel jeu de Riot Games oppose deux équipes de cinq cherchant à détruire le Nexus adverse ?", "choices": ["Dota 2", "League of Legends", "Smite", "Heroes of the Storm"], "answer": "League of Legends", "anecdote": "Souvent abrégé « LoL », sorti en 2009."},
-    {"question": "Quel personnage est le rival classique de Mario ?", "choices": ["Bowser", "Donkey Kong", "Kamek", "Boo"], "answer": "Bowser", "anecdote": "Bowser est le roi des Koopas."},
-    {"question": "Quelle saga de FromSoftware est réputée pour sa très grande difficulté ?", "choices": ["Dark Souls", "Final Fantasy", "Kingdom Hearts", "Persona"], "answer": "Dark Souls", "anecdote": "Le message « You Died » est devenu emblématique."},
-    {"question": "Quel jeu de simulation permet de créer et gérer la vie de personnages virtuels ?", "choices": ["SimCity", "Les Sims", "Animal Crossing", "Stardew Valley"], "answer": "Les Sims", "anecdote": "Les Sims parlent une langue inventée, le « simlish »."},
-    {"question": "Quelle console hybride de Nintendo se joue sur TV et en portable ?", "choices": ["Wii U", "Switch", "3DS", "GameCube"], "answer": "Switch", "anecdote": "La Nintendo Switch est sortie en 2017."},
-    {"question": "Dans Pac-Man, que poursuit le héros tout en évitant les fantômes ?", "choices": ["Des pièces", "Des pac-gommes", "Des cerises", "Des clés"], "answer": "Des pac-gommes", "anecdote": "Pac-Man est sorti en 1980."},
-    {"question": "Quel studio a créé la série Assassin's Creed ?", "choices": ["Ubisoft", "EA", "Activision", "Bethesda"], "answer": "Ubisoft", "anecdote": "Ubisoft est une entreprise française."},
-    {"question": "Quel jeu de blocs colorés et de personnages en ligne est très populaire chez les jeunes, servant aussi de plateforme de création ?", "choices": ["Roblox", "Minecraft", "Lego Worlds", "Fortnite"], "answer": "Roblox", "anecdote": "Roblox héberge des millions de jeux créés par sa communauté."}
+    {
+      "question": "Quel plombier moustachu est la mascotte de Nintendo ?",
+      "choices": [
+        "Luigi",
+        "Mario",
+        "Wario",
+        "Toad"
+      ],
+      "answer": "Mario",
+      "anecdote": "Mario est apparu pour la première fois dans Donkey Kong en 1981."
+    },
+    {
+      "question": "Dans quel jeu construit-on avec des blocs cubiques dans un monde généré aléatoirement ?",
+      "choices": [
+        "Terraria",
+        "Minecraft",
+        "Roblox",
+        "Fortnite"
+      ],
+      "answer": "Minecraft",
+      "anecdote": "Minecraft a été créé par Markus « Notch » Persson."
+    },
+    {
+      "question": "Quelle société a créé la console PlayStation ?",
+      "choices": [
+        "Microsoft",
+        "Sony",
+        "Nintendo",
+        "Sega"
+      ],
+      "answer": "Sony",
+      "anecdote": "La première PlayStation est sortie en 1994 au Japon."
+    },
+    {
+      "question": "Quel personnage hérisson bleu court à toute vitesse chez Sega ?",
+      "choices": [
+        "Knuckles",
+        "Sonic",
+        "Tails",
+        "Shadow"
+      ],
+      "answer": "Sonic",
+      "anecdote": "Sonic est apparu en 1991 pour concurrencer Mario."
+    },
+    {
+      "question": "Dans Pokémon, quel est le Pokémon électrique emblématique de la franchise ?",
+      "choices": [
+        "Bulbizarre",
+        "Salamèche",
+        "Pikachu",
+        "Carapuce"
+      ],
+      "answer": "Pikachu",
+      "anecdote": "Pikachu est devenu la mascotte de toute la marque Pokémon."
+    },
+    {
+      "question": "Quel jeu de battle royale développé par Epic Games est connu pour ses constructions ?",
+      "choices": [
+        "PUBG",
+        "Fortnite",
+        "Apex Legends",
+        "Warzone"
+      ],
+      "answer": "Fortnite",
+      "anecdote": "Fortnite Battle Royale est sorti en 2017."
+    },
+    {
+      "question": "Quelle princesse Mario doit-il souvent secourir ?",
+      "choices": [
+        "Daisy",
+        "Peach",
+        "Rosalina",
+        "Zelda"
+      ],
+      "answer": "Peach",
+      "anecdote": "La princesse Peach règne sur le Royaume Champignon."
+    },
+    {
+      "question": "Quel est le nom de l'elfe héros de la saga The Legend of Zelda ?",
+      "choices": [
+        "Zelda",
+        "Link",
+        "Ganon",
+        "Navi"
+      ],
+      "answer": "Link",
+      "anecdote": "Zelda est le nom de la princesse, pas du héros."
+    },
+    {
+      "question": "Quelle console portable de Nintendo possède deux écrans ?",
+      "choices": [
+        "Game Boy",
+        "Nintendo DS",
+        "PSP",
+        "Game Gear"
+      ],
+      "answer": "Nintendo DS",
+      "anecdote": "Le « DS » signifie Dual Screen."
+    },
+    {
+      "question": "Dans quel jeu de tir incarne-t-on des agents posant ou désamorçant une bombe, édité par Valve ?",
+      "choices": [
+        "Call of Duty",
+        "Counter-Strike",
+        "Valorant",
+        "Overwatch"
+      ],
+      "answer": "Counter-Strike",
+      "anecdote": "Counter-Strike est né d'un mod de Half-Life."
+    },
+    {
+      "question": "Quel jeu suédois de blocs a été racheté par Microsoft en 2014 ?",
+      "choices": [
+        "Minecraft",
+        "Valheim",
+        "Rust",
+        "Among Us"
+      ],
+      "answer": "Minecraft",
+      "anecdote": "Microsoft l'a acquis pour environ 2,5 milliards de dollars."
+    },
+    {
+      "question": "Quelle entreprise édite la série Mario, Zelda et Pokémon ?",
+      "choices": [
+        "Sega",
+        "Nintendo",
+        "Atari",
+        "Capcom"
+      ],
+      "answer": "Nintendo",
+      "anecdote": "Nintendo est une entreprise japonaise fondée en 1889."
+    },
+    {
+      "question": "Quel jeu de course met en scène des personnages Nintendo lançant des carapaces ?",
+      "choices": [
+        "Crash Team Racing",
+        "Mario Kart",
+        "Forza",
+        "Gran Turismo"
+      ],
+      "answer": "Mario Kart",
+      "anecdote": "La carapace bleue vise le joueur en première position."
+    },
+    {
+      "question": "Dans Among Us, comment appelle-t-on le joueur qui élimine les autres ?",
+      "choices": [
+        "Le Crewmate",
+        "L'Imposteur",
+        "Le Sheriff",
+        "Le Médecin"
+      ],
+      "answer": "L'Imposteur",
+      "anecdote": "Le jeu est devenu très populaire en 2020."
+    },
+    {
+      "question": "Quel jeu d'aventure de Rockstar suit Arthur Morgan dans le Far West ?",
+      "choices": [
+        "Red Dead Redemption 2",
+        "GTA V",
+        "Bully",
+        "Max Payne"
+      ],
+      "answer": "Red Dead Redemption 2",
+      "anecdote": "Il est sorti en 2018."
+    },
+    {
+      "question": "Quelle console de Microsoft concurrence la PlayStation ?",
+      "choices": [
+        "Wii",
+        "Xbox",
+        "Switch",
+        "Dreamcast"
+      ],
+      "answer": "Xbox",
+      "anecdote": "La première Xbox est sortie en 2001."
+    },
+    {
+      "question": "Dans Tetris, que doit-on faire avec les pièces qui tombent ?",
+      "choices": [
+        "Les empiler en hauteur",
+        "Compléter des lignes",
+        "Les colorier",
+        "Les détruire au clic"
+      ],
+      "answer": "Compléter des lignes",
+      "anecdote": "Tetris a été conçu par Alexeï Pajitnov en 1984."
+    },
+    {
+      "question": "Quel jeu de Riot Games oppose deux équipes de cinq cherchant à détruire le Nexus adverse ?",
+      "choices": [
+        "Dota 2",
+        "League of Legends",
+        "Smite",
+        "Heroes of the Storm"
+      ],
+      "answer": "League of Legends",
+      "anecdote": "Souvent abrégé « LoL », sorti en 2009."
+    },
+    {
+      "question": "Quel personnage est le rival classique de Mario ?",
+      "choices": [
+        "Bowser",
+        "Donkey Kong",
+        "Kamek",
+        "Boo"
+      ],
+      "answer": "Bowser",
+      "anecdote": "Bowser est le roi des Koopas."
+    },
+    {
+      "question": "Quelle saga de FromSoftware est réputée pour sa très grande difficulté ?",
+      "choices": [
+        "Dark Souls",
+        "Final Fantasy",
+        "Kingdom Hearts",
+        "Persona"
+      ],
+      "answer": "Dark Souls",
+      "anecdote": "Le message « You Died » est devenu emblématique."
+    },
+    {
+      "question": "Quel jeu de simulation permet de créer et gérer la vie de personnages virtuels ?",
+      "choices": [
+        "SimCity",
+        "Les Sims",
+        "Animal Crossing",
+        "Stardew Valley"
+      ],
+      "answer": "Les Sims",
+      "anecdote": "Les Sims parlent une langue inventée, le « simlish »."
+    },
+    {
+      "question": "Quelle console hybride de Nintendo se joue sur TV et en portable ?",
+      "choices": [
+        "Wii U",
+        "Switch",
+        "3DS",
+        "GameCube"
+      ],
+      "answer": "Switch",
+      "anecdote": "La Nintendo Switch est sortie en 2017."
+    },
+    {
+      "question": "Dans Pac-Man, que poursuit le héros tout en évitant les fantômes ?",
+      "choices": [
+        "Des pièces",
+        "Des pac-gommes",
+        "Des cerises",
+        "Des clés"
+      ],
+      "answer": "Des pac-gommes",
+      "anecdote": "Pac-Man est sorti en 1980."
+    },
+    {
+      "question": "Quel studio a créé la série Assassin's Creed ?",
+      "choices": [
+        "Ubisoft",
+        "EA",
+        "Activision",
+        "Bethesda"
+      ],
+      "answer": "Ubisoft",
+      "anecdote": "Ubisoft est une entreprise française."
+    },
+    {
+      "question": "Quel jeu de blocs colorés et de personnages en ligne est très populaire chez les jeunes, servant aussi de plateforme de création ?",
+      "choices": [
+        "Roblox",
+        "Minecraft",
+        "Lego Worlds",
+        "Fortnite"
+      ],
+      "answer": "Roblox",
+      "anecdote": "Roblox héberge des millions de jeux créés par sa communauté."
+    }
   ]
 }

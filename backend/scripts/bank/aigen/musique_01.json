@@ -1,26 +1,226 @@
 {
   "theme": "musique",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Quel groupe britannique a chanté « Bohemian Rhapsody » ?", "choices": ["The Beatles", "Queen", "Pink Floyd", "The Rolling Stones"], "answer": "Queen", "anecdote": "Le chanteur du groupe était Freddie Mercury."},
-    {"question": "Qui est surnommé le « King of Pop » ?", "choices": ["Elvis Presley", "Michael Jackson", "Prince", "James Brown"], "answer": "Michael Jackson", "anecdote": "Son album Thriller est l'un des plus vendus de l'histoire."},
-    {"question": "Combien de cordes possède une guitare classique standard ?", "choices": ["4", "5", "6", "7"], "answer": "6", "anecdote": "La basse en a généralement 4."},
-    {"question": "De quel pays vient le reggae ?", "choices": ["Cuba", "Brésil", "Jamaïque", "Sénégal"], "answer": "Jamaïque", "anecdote": "Bob Marley en est la figure la plus célèbre."},
-    {"question": "Quel duo français électronique porte des casques de robots ?", "choices": ["Justice", "Daft Punk", "Air", "Cassius"], "answer": "Daft Punk", "anecdote": "Le duo a annoncé sa séparation en 2021."},
-    {"question": "Quel instrument possède des touches noires et blanches ?", "choices": ["Le violon", "Le piano", "La trompette", "La flûte"], "answer": "Le piano", "anecdote": "Un piano standard compte 88 touches."},
-    {"question": "Quelle chanteuse britannique a sorti l'album « 21 » ?", "choices": ["Adele", "Amy Winehouse", "Dua Lipa", "Sia"], "answer": "Adele", "anecdote": "L'album contient le tube « Rolling in the Deep »."},
-    {"question": "Dans quelle ville américaine le hip-hop est-il né ?", "choices": ["Los Angeles", "New York", "Atlanta", "Detroit"], "answer": "New York", "anecdote": "Le hip-hop a émergé dans le Bronx dans les années 1970."},
-    {"question": "Combien de symphonies Beethoven a-t-il achevées ?", "choices": ["5", "7", "9", "12"], "answer": "9", "anecdote": "La 9e contient l'« Hymne à la joie »."},
-    {"question": "Quel groupe de Liverpool comptait John, Paul, George et Ringo ?", "choices": ["The Rolling Stones", "The Beatles", "The Who", "The Kinks"], "answer": "The Beatles", "anecdote": "Ils sont souvent appelés les « Fab Four »."},
-    {"question": "Quel chanteur français est l'auteur de « Ne me quitte pas » ?", "choices": ["Charles Aznavour", "Jacques Brel", "Georges Brassens", "Léo Ferré"], "answer": "Jacques Brel", "anecdote": "Jacques Brel était belge d'origine."},
-    {"question": "Quelle famille d'instruments comprend le violon, l'alto et le violoncelle ?", "choices": ["Les vents", "Les cordes", "Les percussions", "Les cuivres"], "answer": "Les cordes", "anecdote": "On en joue généralement avec un archet."},
-    {"question": "Quel artiste américain a chanté « Like a Rolling Stone » et reçu un prix Nobel de littérature ?", "choices": ["Bruce Springsteen", "Bob Dylan", "Neil Young", "Leonard Cohen"], "answer": "Bob Dylan", "anecdote": "Il a reçu le Nobel de littérature en 2016."},
-    {"question": "Comment appelle-t-on un groupe de quatre musiciens ?", "choices": ["Un trio", "Un quatuor", "Un quintette", "Un duo"], "answer": "Un quatuor", "anecdote": "Le quatuor à cordes est une formation classique répandue."},
-    {"question": "Quelle chanteuse américaine est l'autrice de l'album « 1989 » ?", "choices": ["Katy Perry", "Taylor Swift", "Lady Gaga", "Ariana Grande"], "answer": "Taylor Swift", "anecdote": "L'album tire son nom de son année de naissance."},
-    {"question": "Quel compositeur autrichien, enfant prodige, a écrit « La Flûte enchantée » ?", "choices": ["Bach", "Mozart", "Haydn", "Schubert"], "answer": "Mozart", "anecdote": "Mozart composait déjà très jeune."},
-    {"question": "Quel style musical est associé à La Nouvelle-Orléans et à Louis Armstrong ?", "choices": ["Le blues", "Le jazz", "La soul", "Le funk"], "answer": "Le jazz", "anecdote": "Louis Armstrong était surnommé « Satchmo »."},
-    {"question": "Combien de musiciens compose un trio ?", "choices": ["2", "3", "4", "5"], "answer": "3", "anecdote": "Le préfixe « tri » signifie trois."},
-    {"question": "Quel groupe de rock a pour chanteur Mick Jagger ?", "choices": ["Led Zeppelin", "The Rolling Stones", "The Doors", "AC/DC"], "answer": "The Rolling Stones", "anecdote": "Leur logo est une langue tirée."},
-    {"question": "Quel terme désigne la vitesse d'un morceau de musique ?", "choices": ["Le timbre", "Le tempo", "La tonalité", "Le rythme"], "answer": "Le tempo", "anecdote": "Il se mesure souvent en battements par minute (BPM)."}
+    {
+      "question": "Quel groupe britannique a chanté « Bohemian Rhapsody » ?",
+      "choices": [
+        "The Beatles",
+        "Queen",
+        "Pink Floyd",
+        "The Rolling Stones"
+      ],
+      "answer": "Queen",
+      "anecdote": "Le chanteur du groupe était Freddie Mercury."
+    },
+    {
+      "question": "Qui est surnommé le « King of Pop » ?",
+      "choices": [
+        "Elvis Presley",
+        "Michael Jackson",
+        "Prince",
+        "James Brown"
+      ],
+      "answer": "Michael Jackson",
+      "anecdote": "Son album Thriller est l'un des plus vendus de l'histoire."
+    },
+    {
+      "question": "Combien de cordes possède une guitare classique standard ?",
+      "choices": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "6",
+      "anecdote": "La basse en a généralement 4."
+    },
+    {
+      "question": "De quel pays vient le reggae ?",
+      "choices": [
+        "Cuba",
+        "Brésil",
+        "Jamaïque",
+        "Sénégal"
+      ],
+      "answer": "Jamaïque",
+      "anecdote": "Bob Marley en est la figure la plus célèbre."
+    },
+    {
+      "question": "Quel duo français électronique porte des casques de robots ?",
+      "choices": [
+        "Justice",
+        "Daft Punk",
+        "Air",
+        "Cassius"
+      ],
+      "answer": "Daft Punk",
+      "anecdote": "Le duo a annoncé sa séparation en 2021."
+    },
+    {
+      "question": "Quel instrument possède des touches noires et blanches ?",
+      "choices": [
+        "Le violon",
+        "Le piano",
+        "La trompette",
+        "La flûte"
+      ],
+      "answer": "Le piano",
+      "anecdote": "Un piano standard compte 88 touches."
+    },
+    {
+      "question": "Quelle chanteuse britannique a sorti l'album « 21 » ?",
+      "choices": [
+        "Adele",
+        "Amy Winehouse",
+        "Dua Lipa",
+        "Sia"
+      ],
+      "answer": "Adele",
+      "anecdote": "L'album contient le tube « Rolling in the Deep »."
+    },
+    {
+      "question": "Dans quelle ville américaine le hip-hop est-il né ?",
+      "choices": [
+        "Los Angeles",
+        "New York",
+        "Atlanta",
+        "Detroit"
+      ],
+      "answer": "New York",
+      "anecdote": "Le hip-hop a émergé dans le Bronx dans les années 1970."
+    },
+    {
+      "question": "Combien de symphonies Beethoven a-t-il achevées ?",
+      "choices": [
+        "5",
+        "7",
+        "9",
+        "12"
+      ],
+      "answer": "9",
+      "anecdote": "La 9e contient l'« Hymne à la joie »."
+    },
+    {
+      "question": "Quel groupe de Liverpool comptait John, Paul, George et Ringo ?",
+      "choices": [
+        "The Rolling Stones",
+        "The Beatles",
+        "The Who",
+        "The Kinks"
+      ],
+      "answer": "The Beatles",
+      "anecdote": "Ils sont souvent appelés les « Fab Four »."
+    },
+    {
+      "question": "Quel chanteur français est l'auteur de « Ne me quitte pas » ?",
+      "choices": [
+        "Charles Aznavour",
+        "Jacques Brel",
+        "Georges Brassens",
+        "Léo Ferré"
+      ],
+      "answer": "Jacques Brel",
+      "anecdote": "Jacques Brel était belge d'origine."
+    },
+    {
+      "question": "Quelle famille d'instruments comprend le violon, l'alto et le violoncelle ?",
+      "choices": [
+        "Les vents",
+        "Les cordes",
+        "Les percussions",
+        "Les cuivres"
+      ],
+      "answer": "Les cordes",
+      "anecdote": "On en joue généralement avec un archet."
+    },
+    {
+      "question": "Quel artiste américain a chanté « Like a Rolling Stone » et reçu un prix Nobel de littérature ?",
+      "choices": [
+        "Bruce Springsteen",
+        "Bob Dylan",
+        "Neil Young",
+        "Leonard Cohen"
+      ],
+      "answer": "Bob Dylan",
+      "anecdote": "Il a reçu le Nobel de littérature en 2016."
+    },
+    {
+      "question": "Comment appelle-t-on un groupe de quatre musiciens ?",
+      "choices": [
+        "Un trio",
+        "Un quatuor",
+        "Un quintette",
+        "Un duo"
+      ],
+      "answer": "Un quatuor",
+      "anecdote": "Le quatuor à cordes est une formation classique répandue."
+    },
+    {
+      "question": "Quelle chanteuse américaine est l'autrice de l'album « 1989 » ?",
+      "choices": [
+        "Katy Perry",
+        "Taylor Swift",
+        "Lady Gaga",
+        "Ariana Grande"
+      ],
+      "answer": "Taylor Swift",
+      "anecdote": "L'album tire son nom de son année de naissance."
+    },
+    {
+      "question": "Quel compositeur autrichien, enfant prodige, a écrit « La Flûte enchantée » ?",
+      "choices": [
+        "Bach",
+        "Mozart",
+        "Haydn",
+        "Schubert"
+      ],
+      "answer": "Mozart",
+      "anecdote": "Mozart composait déjà très jeune."
+    },
+    {
+      "question": "Quel style musical est associé à La Nouvelle-Orléans et à Louis Armstrong ?",
+      "choices": [
+        "Le blues",
+        "Le jazz",
+        "La soul",
+        "Le funk"
+      ],
+      "answer": "Le jazz",
+      "anecdote": "Louis Armstrong était surnommé « Satchmo »."
+    },
+    {
+      "question": "Combien de musiciens compose un trio ?",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "3",
+      "anecdote": "Le préfixe « tri » signifie trois."
+    },
+    {
+      "question": "Quel groupe de rock a pour chanteur Mick Jagger ?",
+      "choices": [
+        "Led Zeppelin",
+        "The Rolling Stones",
+        "The Doors",
+        "AC/DC"
+      ],
+      "answer": "The Rolling Stones",
+      "anecdote": "Leur logo est une langue tirée."
+    },
+    {
+      "question": "Quel terme désigne la vitesse d'un morceau de musique ?",
+      "choices": [
+        "Le timbre",
+        "Le tempo",
+        "La tonalité",
+        "Le rythme"
+      ],
+      "answer": "Le tempo",
+      "anecdote": "Il se mesure souvent en battements par minute (BPM)."
+    }
   ]
 }

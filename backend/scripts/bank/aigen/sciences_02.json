@@ -1,64 +1,644 @@
 {
   "theme": "sciences",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Quel est le symbole chimique du fer ?", "choices": ["Fr", "Fe", "Fa", "Ir"], "answer": "Fe", "anecdote": "Il vient du latin « ferrum »."},
-    {"question": "Quel est le symbole chimique de l'hydrogène ?", "choices": ["H", "Hy", "He", "Ho"], "answer": "H", "anecdote": "C'est l'élément le plus abondant de l'univers."},
-    {"question": "Quel est le symbole chimique du sodium ?", "choices": ["So", "Na", "Sd", "S"], "answer": "Na", "anecdote": "Il vient du latin « natrium »."},
-    {"question": "Combien de chromosomes possède une cellule humaine ?", "choices": ["23", "46", "48", "44"], "answer": "46", "anecdote": "Soit 23 paires."},
-    {"question": "Quel organe filtre le sang et produit l'urine ?", "choices": ["Le foie", "Les reins", "La vessie", "La rate"], "answer": "Les reins", "anecdote": "Le corps humain en possède deux."},
-    {"question": "Quel est le plus grand organe du corps humain ?", "choices": ["Le foie", "La peau", "Les poumons", "L'intestin"], "answer": "La peau", "anecdote": "Elle protège l'ensemble du corps."},
-    {"question": "Combien de dents compte un adulte (dents de sagesse incluses) ?", "choices": ["28", "30", "32", "36"], "answer": "32", "anecdote": "Les enfants ont 20 dents de lait."},
-    {"question": "Quelle est la plus grande planète du Système solaire ?", "choices": ["Saturne", "Jupiter", "Neptune", "Uranus"], "answer": "Jupiter", "anecdote": "C'est une géante gazeuse."},
-    {"question": "Quelle planète est célèbre pour ses anneaux ?", "choices": ["Mars", "Saturne", "Vénus", "Mercure"], "answer": "Saturne", "anecdote": "Ses anneaux sont composés de glace et de roche."},
-    {"question": "À quelle température l'eau bout-elle au niveau de la mer ?", "choices": ["90 °C", "100 °C", "110 °C", "80 °C"], "answer": "100 °C", "anecdote": "Cette valeur diminue avec l'altitude."},
-    {"question": "Quelle est la formule chimique de l'eau ?", "choices": ["CO2", "H2O", "O2", "NaCl"], "answer": "H2O", "anecdote": "Deux atomes d'hydrogène pour un d'oxygène."},
-    {"question": "Quel astre se trouve au centre du Système solaire ?", "choices": ["La Terre", "Le Soleil", "La Lune", "Jupiter"], "answer": "Le Soleil", "anecdote": "C'est une étoile."},
-    {"question": "Quel est le satellite naturel de la Terre ?", "choices": ["Mars", "La Lune", "Phobos", "Titan"], "answer": "La Lune", "anecdote": "Elle influence les marées."},
-    {"question": "Combien de temps la Terre met-elle pour faire le tour du Soleil ?", "choices": ["365 jours", "30 jours", "24 heures", "100 jours"], "answer": "365 jours", "anecdote": "On ajoute un jour tous les quatre ans (année bissextile)."},
-    {"question": "Quel naturaliste a proposé la théorie de l'évolution des espèces ?", "choices": ["Lamarck", "Charles Darwin", "Mendel", "Cuvier"], "answer": "Charles Darwin", "anecdote": "Son ouvrage majeur est « L'Origine des espèces » (1859)."},
-    {"question": "Quelle partie de la cellule contient l'ADN ?", "choices": ["La membrane", "Le noyau", "Le cytoplasme", "La mitochondrie"], "answer": "Le noyau", "anecdote": "L'ADN porte l'information génétique."},
-    {"question": "Que mesure un baromètre ?", "choices": ["La température", "La pression atmosphérique", "L'humidité", "Le vent"], "answer": "La pression atmosphérique", "anecdote": "Il aide à prévoir le temps."},
-    {"question": "Quelles cellules du sang transportent l'oxygène ?", "choices": ["Les globules blancs", "Les globules rouges", "Les plaquettes", "Les neurones"], "answer": "Les globules rouges", "anecdote": "On les appelle aussi hématies."},
-    {"question": "Quel organe est le siège de la pensée ?", "choices": ["Le cœur", "Le cerveau", "Le foie", "L'estomac"], "answer": "Le cerveau", "anecdote": "Il contient des milliards de neurones."},
-    {"question": "Quel gaz, plus léger que l'air, gonfle les ballons de fête ?", "choices": ["L'oxygène", "L'hélium", "L'azote", "Le méthane"], "answer": "L'hélium", "anecdote": "Inhalé, il rend la voix aiguë (mais c'est dangereux)."},
-    {"question": "Quel métal précieux a pour symbole « Ag » ?", "choices": ["L'or", "L'argent", "L'aluminium", "Le platine"], "answer": "L'argent", "anecdote": "« Ag » vient du latin « argentum »."},
-    {"question": "Quelle vitamine est produite par la peau grâce au soleil ?", "choices": ["La vitamine C", "La vitamine D", "La vitamine A", "La vitamine B12"], "answer": "La vitamine D", "anecdote": "Elle est importante pour les os."},
-    {"question": "Quelle est l'unité de mesure de l'énergie dans le système international ?", "choices": ["Le watt", "Le joule", "Le newton", "Le pascal"], "answer": "Le joule", "anecdote": "Elle porte le nom du physicien James Joule."},
-    {"question": "Quelle est l'unité de mesure de la puissance ?", "choices": ["Le joule", "Le watt", "L'ampère", "Le volt"], "answer": "Le watt", "anecdote": "On l'utilise pour les ampoules et appareils électriques."},
-    {"question": "Quel appareil enregistre les tremblements de terre ?", "choices": ["Le baromètre", "Le sismographe", "L'anémomètre", "Le télescope"], "answer": "Le sismographe", "anecdote": "Il mesure les ondes sismiques."},
-    {"question": "Quel scientifique britannique a découvert la pénicilline ?", "choices": ["Louis Pasteur", "Alexander Fleming", "Robert Koch", "Edward Jenner"], "answer": "Alexander Fleming", "anecdote": "Cette découverte de 1928 fut accidentelle."},
-    {"question": "Quel savant italien a perfectionné la lunette astronomique au XVIIe siècle ?", "choices": ["Copernic", "Galilée", "Kepler", "Newton"], "answer": "Galilée", "anecdote": "Il observa les lunes de Jupiter."},
-    {"question": "Comment appelle-t-on l'eau à l'état gazeux ?", "choices": ["La glace", "La vapeur", "La rosée", "Le givre"], "answer": "La vapeur", "anecdote": "Elle se forme par évaporation."},
-    {"question": "Combien de pattes possède un insecte ?", "choices": ["6", "8", "4", "10"], "answer": "6", "anecdote": "Les araignées, avec 8 pattes, ne sont pas des insectes."},
-    {"question": "Combien de pattes possède une araignée ?", "choices": ["6", "8", "10", "4"], "answer": "8", "anecdote": "Les araignées sont des arachnides."},
-    {"question": "Quel est le plus grand animal vivant sur Terre ?", "choices": ["L'éléphant d'Afrique", "La baleine bleue", "Le requin-baleine", "Le cachalot"], "answer": "La baleine bleue", "anecdote": "Elle peut dépasser 30 mètres de long."},
-    {"question": "Quel organe produit l'insuline ?", "choices": ["Le foie", "Le pancréas", "La rate", "L'estomac"], "answer": "Le pancréas", "anecdote": "Un défaut de régulation provoque le diabète."},
-    {"question": "Quelle planète est surnommée la « planète bleue » ?", "choices": ["Neptune", "La Terre", "Uranus", "Vénus"], "answer": "La Terre", "anecdote": "Sa couleur vient des océans."},
-    {"question": "Quelle couche de l'atmosphère nous protège des rayons ultraviolets ?", "choices": ["La couche d'ozone", "La troposphère", "La ionosphère", "La mésosphère"], "answer": "La couche d'ozone", "anecdote": "Elle est composée d'ozone (O3)."},
-    {"question": "Quelle particule du noyau atomique porte une charge positive ?", "choices": ["L'électron", "Le proton", "Le neutron", "Le photon"], "answer": "Le proton", "anecdote": "Le nombre de protons définit l'élément chimique."},
-    {"question": "Quelle particule du noyau atomique est électriquement neutre ?", "choices": ["L'électron", "Le neutron", "Le proton", "L'ion"], "answer": "Le neutron", "anecdote": "Il a été découvert en 1932."},
-    {"question": "Quel élément chimique a pour symbole « He » ?", "choices": ["Le mercure", "L'hélium", "L'hydrogène", "Le hafnium"], "answer": "L'hélium", "anecdote": "C'est un gaz noble."},
-    {"question": "Quelle est la formule chimique du sel de table ?", "choices": ["NaCl", "KCl", "CaCO3", "H2O2"], "answer": "NaCl", "anecdote": "C'est du chlorure de sodium."},
-    {"question": "Quelle science étudie les êtres vivants ?", "choices": ["La biologie", "La physique", "La géologie", "La chimie"], "answer": "La biologie", "anecdote": "Du grec « bios » (vie)."},
-    {"question": "Quelle science étudie les astres et l'univers ?", "choices": ["L'astrologie", "L'astronomie", "La cosmétologie", "La géographie"], "answer": "L'astronomie", "anecdote": "À ne pas confondre avec l'astrologie."},
-    {"question": "Quelle science étudie les roches et la Terre ?", "choices": ["La géologie", "La biologie", "La botanique", "La météorologie"], "answer": "La géologie", "anecdote": "Elle s'intéresse aussi aux séismes et volcans."},
-    {"question": "Combien de cavités (chambres) compte le cœur humain ?", "choices": ["2", "3", "4", "5"], "answer": "4", "anecdote": "Deux oreillettes et deux ventricules."},
-    {"question": "Quel processus transforme l'eau liquide en vapeur ?", "choices": ["La condensation", "L'évaporation", "La solidification", "La fusion"], "answer": "L'évaporation", "anecdote": "Elle est accélérée par la chaleur."},
-    {"question": "Quel gaz les êtres humains rejettent-ils en expirant ?", "choices": ["L'oxygène", "Le dioxyde de carbone", "L'azote", "L'hydrogène"], "answer": "Le dioxyde de carbone", "anecdote": "Les plantes l'absorbent pour la photosynthèse."},
-    {"question": "Quel est le métal de base de l'acier ?", "choices": ["L'aluminium", "Le fer", "Le cuivre", "Le zinc"], "answer": "Le fer", "anecdote": "On y ajoute du carbone pour obtenir de l'acier."},
-    {"question": "Quelle planète est la plus chaude du Système solaire ?", "choices": ["Mercure", "Vénus", "Mars", "Jupiter"], "answer": "Vénus", "anecdote": "Son atmosphère provoque un effet de serre intense."},
-    {"question": "Quelle force s'oppose au mouvement entre deux surfaces en contact ?", "choices": ["La gravité", "Le frottement", "Le magnétisme", "La poussée"], "answer": "Le frottement", "anecdote": "On l'appelle aussi friction."},
-    {"question": "Quel organe humain peut se régénérer en partie après une ablation ?", "choices": ["Le cœur", "Le foie", "Le cerveau", "Les reins"], "answer": "Le foie", "anecdote": "C'est une capacité rare chez les organes humains."},
-    {"question": "Quelle planète est la plus éloignée du Soleil ?", "choices": ["Saturne", "Neptune", "Uranus", "Pluton"], "answer": "Neptune", "anecdote": "Pluton est désormais classée parmi les planètes naines."},
-    {"question": "Quel scientifique a énoncé les trois lois du mouvement ?", "choices": ["Galilée", "Isaac Newton", "Albert Einstein", "Kepler"], "answer": "Isaac Newton", "anecdote": "Elles fondent la mécanique classique."},
-    {"question": "Quelle est l'unité de mesure de l'intensité du courant électrique ?", "choices": ["Le volt", "L'ampère", "L'ohm", "Le watt"], "answer": "L'ampère", "anecdote": "Du nom du physicien français André-Marie Ampère."},
-    {"question": "Quel gaz constitue la majeure partie du Soleil ?", "choices": ["L'oxygène", "L'hydrogène", "L'azote", "Le carbone"], "answer": "L'hydrogène", "anecdote": "Le Soleil le transforme en hélium par fusion."},
-    {"question": "Quelle est la température de congélation de l'eau (pression normale) ?", "choices": ["0 °C", "-10 °C", "5 °C", "10 °C"], "answer": "0 °C", "anecdote": "L'eau passe alors de l'état liquide à solide."},
-    {"question": "Quel appareil grossit les objets microscopiques ?", "choices": ["Le télescope", "Le microscope", "Le périscope", "Le stéthoscope"], "answer": "Le microscope", "anecdote": "Il permet d'observer cellules et bactéries."},
-    {"question": "De quoi se nourrissent les plantes vertes grâce à la lumière ?", "choices": ["De viande", "De dioxyde de carbone et d'eau", "De sable", "D'oxygène pur"], "answer": "De dioxyde de carbone et d'eau", "anecdote": "C'est le principe de la photosynthèse."},
-    {"question": "Quel est l'élément chimique le plus abondant dans l'atmosphère terrestre ?", "choices": ["L'oxygène", "L'azote", "L'argon", "Le dioxyde de carbone"], "answer": "L'azote", "anecdote": "Il représente environ 78 % de l'air."},
-    {"question": "Quelle grandeur le voltmètre mesure-t-il ?", "choices": ["L'intensité", "La tension électrique", "La résistance", "La puissance"], "answer": "La tension électrique", "anecdote": "Elle s'exprime en volts."},
-    {"question": "Quel organe respiratoire permet aux poissons de respirer sous l'eau ?", "choices": ["Les poumons", "Les branchies", "La peau", "Les nageoires"], "answer": "Les branchies", "anecdote": "Elles extraient l'oxygène dissous dans l'eau."}
+    {
+      "question": "Quel est le symbole chimique du fer ?",
+      "choices": [
+        "Fr",
+        "Fe",
+        "Fa",
+        "Ir"
+      ],
+      "answer": "Fe",
+      "anecdote": "Il vient du latin « ferrum »."
+    },
+    {
+      "question": "Quel est le symbole chimique de l'hydrogène ?",
+      "choices": [
+        "H",
+        "Hy",
+        "He",
+        "Ho"
+      ],
+      "answer": "H",
+      "anecdote": "C'est l'élément le plus abondant de l'univers."
+    },
+    {
+      "question": "Quel est le symbole chimique du sodium ?",
+      "choices": [
+        "So",
+        "Na",
+        "Sd",
+        "S"
+      ],
+      "answer": "Na",
+      "anecdote": "Il vient du latin « natrium »."
+    },
+    {
+      "question": "Combien de chromosomes possède une cellule humaine ?",
+      "choices": [
+        "23",
+        "46",
+        "48",
+        "44"
+      ],
+      "answer": "46",
+      "anecdote": "Soit 23 paires."
+    },
+    {
+      "question": "Quel organe filtre le sang et produit l'urine ?",
+      "choices": [
+        "Le foie",
+        "Les reins",
+        "La vessie",
+        "La rate"
+      ],
+      "answer": "Les reins",
+      "anecdote": "Le corps humain en possède deux."
+    },
+    {
+      "question": "Quel est le plus grand organe du corps humain ?",
+      "choices": [
+        "Le foie",
+        "La peau",
+        "Les poumons",
+        "L'intestin"
+      ],
+      "answer": "La peau",
+      "anecdote": "Elle protège l'ensemble du corps."
+    },
+    {
+      "question": "Combien de dents compte un adulte (dents de sagesse incluses) ?",
+      "choices": [
+        "28",
+        "30",
+        "32",
+        "36"
+      ],
+      "answer": "32",
+      "anecdote": "Les enfants ont 20 dents de lait."
+    },
+    {
+      "question": "Quelle est la plus grande planète du Système solaire ?",
+      "choices": [
+        "Saturne",
+        "Jupiter",
+        "Neptune",
+        "Uranus"
+      ],
+      "answer": "Jupiter",
+      "anecdote": "C'est une géante gazeuse."
+    },
+    {
+      "question": "Quelle planète est célèbre pour ses anneaux ?",
+      "choices": [
+        "Mars",
+        "Saturne",
+        "Vénus",
+        "Mercure"
+      ],
+      "answer": "Saturne",
+      "anecdote": "Ses anneaux sont composés de glace et de roche."
+    },
+    {
+      "question": "À quelle température l'eau bout-elle au niveau de la mer ?",
+      "choices": [
+        "90 °C",
+        "100 °C",
+        "110 °C",
+        "80 °C"
+      ],
+      "answer": "100 °C",
+      "anecdote": "Cette valeur diminue avec l'altitude."
+    },
+    {
+      "question": "Quelle est la formule chimique de l'eau ?",
+      "choices": [
+        "CO2",
+        "H2O",
+        "O2",
+        "NaCl"
+      ],
+      "answer": "H2O",
+      "anecdote": "Deux atomes d'hydrogène pour un d'oxygène."
+    },
+    {
+      "question": "Quel astre se trouve au centre du Système solaire ?",
+      "choices": [
+        "La Terre",
+        "Le Soleil",
+        "La Lune",
+        "Jupiter"
+      ],
+      "answer": "Le Soleil",
+      "anecdote": "C'est une étoile."
+    },
+    {
+      "question": "Quel est le satellite naturel de la Terre ?",
+      "choices": [
+        "Mars",
+        "La Lune",
+        "Phobos",
+        "Titan"
+      ],
+      "answer": "La Lune",
+      "anecdote": "Elle influence les marées."
+    },
+    {
+      "question": "Combien de temps la Terre met-elle pour faire le tour du Soleil ?",
+      "choices": [
+        "365 jours",
+        "30 jours",
+        "24 heures",
+        "100 jours"
+      ],
+      "answer": "365 jours",
+      "anecdote": "On ajoute un jour tous les quatre ans (année bissextile)."
+    },
+    {
+      "question": "Quel naturaliste a proposé la théorie de l'évolution des espèces ?",
+      "choices": [
+        "Lamarck",
+        "Charles Darwin",
+        "Mendel",
+        "Cuvier"
+      ],
+      "answer": "Charles Darwin",
+      "anecdote": "Son ouvrage majeur est « L'Origine des espèces » (1859)."
+    },
+    {
+      "question": "Quelle partie de la cellule contient l'ADN ?",
+      "choices": [
+        "La membrane",
+        "Le noyau",
+        "Le cytoplasme",
+        "La mitochondrie"
+      ],
+      "answer": "Le noyau",
+      "anecdote": "L'ADN porte l'information génétique."
+    },
+    {
+      "question": "Que mesure un baromètre ?",
+      "choices": [
+        "La température",
+        "La pression atmosphérique",
+        "L'humidité",
+        "Le vent"
+      ],
+      "answer": "La pression atmosphérique",
+      "anecdote": "Il aide à prévoir le temps."
+    },
+    {
+      "question": "Quelles cellules du sang transportent l'oxygène ?",
+      "choices": [
+        "Les globules blancs",
+        "Les globules rouges",
+        "Les plaquettes",
+        "Les neurones"
+      ],
+      "answer": "Les globules rouges",
+      "anecdote": "On les appelle aussi hématies."
+    },
+    {
+      "question": "Quel organe est le siège de la pensée ?",
+      "choices": [
+        "Le cœur",
+        "Le cerveau",
+        "Le foie",
+        "L'estomac"
+      ],
+      "answer": "Le cerveau",
+      "anecdote": "Il contient des milliards de neurones."
+    },
+    {
+      "question": "Quel gaz, plus léger que l'air, gonfle les ballons de fête ?",
+      "choices": [
+        "L'oxygène",
+        "L'hélium",
+        "L'azote",
+        "Le méthane"
+      ],
+      "answer": "L'hélium",
+      "anecdote": "Inhalé, il rend la voix aiguë (mais c'est dangereux)."
+    },
+    {
+      "question": "Quel métal précieux a pour symbole « Ag » ?",
+      "choices": [
+        "L'or",
+        "L'argent",
+        "L'aluminium",
+        "Le platine"
+      ],
+      "answer": "L'argent",
+      "anecdote": "« Ag » vient du latin « argentum »."
+    },
+    {
+      "question": "Quelle vitamine est produite par la peau grâce au soleil ?",
+      "choices": [
+        "La vitamine C",
+        "La vitamine D",
+        "La vitamine A",
+        "La vitamine B12"
+      ],
+      "answer": "La vitamine D",
+      "anecdote": "Elle est importante pour les os."
+    },
+    {
+      "question": "Quelle est l'unité de mesure de l'énergie dans le système international ?",
+      "choices": [
+        "Le watt",
+        "Le joule",
+        "Le newton",
+        "Le pascal"
+      ],
+      "answer": "Le joule",
+      "anecdote": "Elle porte le nom du physicien James Joule."
+    },
+    {
+      "question": "Quelle est l'unité de mesure de la puissance ?",
+      "choices": [
+        "Le joule",
+        "Le watt",
+        "L'ampère",
+        "Le volt"
+      ],
+      "answer": "Le watt",
+      "anecdote": "On l'utilise pour les ampoules et appareils électriques."
+    },
+    {
+      "question": "Quel appareil enregistre les tremblements de terre ?",
+      "choices": [
+        "Le baromètre",
+        "Le sismographe",
+        "L'anémomètre",
+        "Le télescope"
+      ],
+      "answer": "Le sismographe",
+      "anecdote": "Il mesure les ondes sismiques."
+    },
+    {
+      "question": "Quel scientifique britannique a découvert la pénicilline ?",
+      "choices": [
+        "Louis Pasteur",
+        "Alexander Fleming",
+        "Robert Koch",
+        "Edward Jenner"
+      ],
+      "answer": "Alexander Fleming",
+      "anecdote": "Cette découverte de 1928 fut accidentelle."
+    },
+    {
+      "question": "Quel savant italien a perfectionné la lunette astronomique au XVIIe siècle ?",
+      "choices": [
+        "Copernic",
+        "Galilée",
+        "Kepler",
+        "Newton"
+      ],
+      "answer": "Galilée",
+      "anecdote": "Il observa les lunes de Jupiter."
+    },
+    {
+      "question": "Comment appelle-t-on l'eau à l'état gazeux ?",
+      "choices": [
+        "La glace",
+        "La vapeur",
+        "La rosée",
+        "Le givre"
+      ],
+      "answer": "La vapeur",
+      "anecdote": "Elle se forme par évaporation."
+    },
+    {
+      "question": "Combien de pattes possède un insecte ?",
+      "choices": [
+        "6",
+        "8",
+        "4",
+        "10"
+      ],
+      "answer": "6",
+      "anecdote": "Les araignées, avec 8 pattes, ne sont pas des insectes."
+    },
+    {
+      "question": "Combien de pattes possède une araignée ?",
+      "choices": [
+        "6",
+        "8",
+        "10",
+        "4"
+      ],
+      "answer": "8",
+      "anecdote": "Les araignées sont des arachnides."
+    },
+    {
+      "question": "Quel est le plus grand animal vivant sur Terre ?",
+      "choices": [
+        "L'éléphant d'Afrique",
+        "La baleine bleue",
+        "Le requin-baleine",
+        "Le cachalot"
+      ],
+      "answer": "La baleine bleue",
+      "anecdote": "Elle peut dépasser 30 mètres de long."
+    },
+    {
+      "question": "Quel organe produit l'insuline ?",
+      "choices": [
+        "Le foie",
+        "Le pancréas",
+        "La rate",
+        "L'estomac"
+      ],
+      "answer": "Le pancréas",
+      "anecdote": "Un défaut de régulation provoque le diabète."
+    },
+    {
+      "question": "Quelle planète est surnommée la « planète bleue » ?",
+      "choices": [
+        "Neptune",
+        "La Terre",
+        "Uranus",
+        "Vénus"
+      ],
+      "answer": "La Terre",
+      "anecdote": "Sa couleur vient des océans."
+    },
+    {
+      "question": "Quelle couche de l'atmosphère nous protège des rayons ultraviolets ?",
+      "choices": [
+        "La couche d'ozone",
+        "La troposphère",
+        "La ionosphère",
+        "La mésosphère"
+      ],
+      "answer": "La couche d'ozone",
+      "anecdote": "Elle est composée d'ozone (O3)."
+    },
+    {
+      "question": "Quelle particule du noyau atomique porte une charge positive ?",
+      "choices": [
+        "L'électron",
+        "Le proton",
+        "Le neutron",
+        "Le photon"
+      ],
+      "answer": "Le proton",
+      "anecdote": "Le nombre de protons définit l'élément chimique."
+    },
+    {
+      "question": "Quelle particule du noyau atomique est électriquement neutre ?",
+      "choices": [
+        "L'électron",
+        "Le neutron",
+        "Le proton",
+        "L'ion"
+      ],
+      "answer": "Le neutron",
+      "anecdote": "Il a été découvert en 1932."
+    },
+    {
+      "question": "Quel élément chimique a pour symbole « He » ?",
+      "choices": [
+        "Le mercure",
+        "L'hélium",
+        "L'hydrogène",
+        "Le hafnium"
+      ],
+      "answer": "L'hélium",
+      "anecdote": "C'est un gaz noble."
+    },
+    {
+      "question": "Quelle est la formule chimique du sel de table ?",
+      "choices": [
+        "NaCl",
+        "KCl",
+        "CaCO3",
+        "H2O2"
+      ],
+      "answer": "NaCl",
+      "anecdote": "C'est du chlorure de sodium."
+    },
+    {
+      "question": "Quelle science étudie les êtres vivants ?",
+      "choices": [
+        "La biologie",
+        "La physique",
+        "La géologie",
+        "La chimie"
+      ],
+      "answer": "La biologie",
+      "anecdote": "Du grec « bios » (vie)."
+    },
+    {
+      "question": "Quelle science étudie les astres et l'univers ?",
+      "choices": [
+        "L'astrologie",
+        "L'astronomie",
+        "La cosmétologie",
+        "La géographie"
+      ],
+      "answer": "L'astronomie",
+      "anecdote": "À ne pas confondre avec l'astrologie."
+    },
+    {
+      "question": "Quelle science étudie les roches et la Terre ?",
+      "choices": [
+        "La géologie",
+        "La biologie",
+        "La botanique",
+        "La météorologie"
+      ],
+      "answer": "La géologie",
+      "anecdote": "Elle s'intéresse aussi aux séismes et volcans."
+    },
+    {
+      "question": "Combien de cavités (chambres) compte le cœur humain ?",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "4",
+      "anecdote": "Deux oreillettes et deux ventricules."
+    },
+    {
+      "question": "Quel processus transforme l'eau liquide en vapeur ?",
+      "choices": [
+        "La condensation",
+        "L'évaporation",
+        "La solidification",
+        "La fusion"
+      ],
+      "answer": "L'évaporation",
+      "anecdote": "Elle est accélérée par la chaleur."
+    },
+    {
+      "question": "Quel gaz les êtres humains rejettent-ils en expirant ?",
+      "choices": [
+        "L'oxygène",
+        "Le dioxyde de carbone",
+        "L'azote",
+        "L'hydrogène"
+      ],
+      "answer": "Le dioxyde de carbone",
+      "anecdote": "Les plantes l'absorbent pour la photosynthèse."
+    },
+    {
+      "question": "Quel est le métal de base de l'acier ?",
+      "choices": [
+        "L'aluminium",
+        "Le fer",
+        "Le cuivre",
+        "Le zinc"
+      ],
+      "answer": "Le fer",
+      "anecdote": "On y ajoute du carbone pour obtenir de l'acier."
+    },
+    {
+      "question": "Quelle planète est la plus chaude du Système solaire ?",
+      "choices": [
+        "Mercure",
+        "Vénus",
+        "Mars",
+        "Jupiter"
+      ],
+      "answer": "Vénus",
+      "anecdote": "Son atmosphère provoque un effet de serre intense."
+    },
+    {
+      "question": "Quelle force s'oppose au mouvement entre deux surfaces en contact ?",
+      "choices": [
+        "La gravité",
+        "Le frottement",
+        "Le magnétisme",
+        "La poussée"
+      ],
+      "answer": "Le frottement",
+      "anecdote": "On l'appelle aussi friction."
+    },
+    {
+      "question": "Quel organe humain peut se régénérer en partie après une ablation ?",
+      "choices": [
+        "Le cœur",
+        "Le foie",
+        "Le cerveau",
+        "Les reins"
+      ],
+      "answer": "Le foie",
+      "anecdote": "C'est une capacité rare chez les organes humains."
+    },
+    {
+      "question": "Quelle planète est la plus éloignée du Soleil ?",
+      "choices": [
+        "Saturne",
+        "Neptune",
+        "Uranus",
+        "Pluton"
+      ],
+      "answer": "Neptune",
+      "anecdote": "Pluton est désormais classée parmi les planètes naines."
+    },
+    {
+      "question": "Quel scientifique a énoncé les trois lois du mouvement ?",
+      "choices": [
+        "Galilée",
+        "Isaac Newton",
+        "Albert Einstein",
+        "Kepler"
+      ],
+      "answer": "Isaac Newton",
+      "anecdote": "Elles fondent la mécanique classique."
+    },
+    {
+      "question": "Quelle est l'unité de mesure de l'intensité du courant électrique ?",
+      "choices": [
+        "Le volt",
+        "L'ampère",
+        "L'ohm",
+        "Le watt"
+      ],
+      "answer": "L'ampère",
+      "anecdote": "Du nom du physicien français André-Marie Ampère."
+    },
+    {
+      "question": "Quel gaz constitue la majeure partie du Soleil ?",
+      "choices": [
+        "L'oxygène",
+        "L'hydrogène",
+        "L'azote",
+        "Le carbone"
+      ],
+      "answer": "L'hydrogène",
+      "anecdote": "Le Soleil le transforme en hélium par fusion."
+    },
+    {
+      "question": "Quelle est la température de congélation de l'eau (pression normale) ?",
+      "choices": [
+        "0 °C",
+        "-10 °C",
+        "5 °C",
+        "10 °C"
+      ],
+      "answer": "0 °C",
+      "anecdote": "L'eau passe alors de l'état liquide à solide."
+    },
+    {
+      "question": "Quel appareil grossit les objets microscopiques ?",
+      "choices": [
+        "Le télescope",
+        "Le microscope",
+        "Le périscope",
+        "Le stéthoscope"
+      ],
+      "answer": "Le microscope",
+      "anecdote": "Il permet d'observer cellules et bactéries."
+    },
+    {
+      "question": "De quoi se nourrissent les plantes vertes grâce à la lumière ?",
+      "choices": [
+        "De viande",
+        "De dioxyde de carbone et d'eau",
+        "De sable",
+        "D'oxygène pur"
+      ],
+      "answer": "De dioxyde de carbone et d'eau",
+      "anecdote": "C'est le principe de la photosynthèse."
+    },
+    {
+      "question": "Quel est l'élément chimique le plus abondant dans l'atmosphère terrestre ?",
+      "choices": [
+        "L'oxygène",
+        "L'azote",
+        "L'argon",
+        "Le dioxyde de carbone"
+      ],
+      "answer": "L'azote",
+      "anecdote": "Il représente environ 78 % de l'air."
+    },
+    {
+      "question": "Quelle grandeur le voltmètre mesure-t-il ?",
+      "choices": [
+        "L'intensité",
+        "La tension électrique",
+        "La résistance",
+        "La puissance"
+      ],
+      "answer": "La tension électrique",
+      "anecdote": "Elle s'exprime en volts."
+    },
+    {
+      "question": "Quel organe respiratoire permet aux poissons de respirer sous l'eau ?",
+      "choices": [
+        "Les poumons",
+        "Les branchies",
+        "La peau",
+        "Les nageoires"
+      ],
+      "answer": "Les branchies",
+      "anecdote": "Elles extraient l'oxygène dissous dans l'eau."
+    }
   ]
 }

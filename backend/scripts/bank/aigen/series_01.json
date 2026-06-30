@@ -1,29 +1,259 @@
 {
   "theme": "series",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Dans quelle série un professeur de chimie devient-il fabricant de méthamphétamine ?", "choices": ["Breaking Bad", "Ozark", "Narcos", "The Wire"], "answer": "Breaking Bad", "anecdote": "Le personnage principal se nomme Walter White."},
-    {"question": "Quelle série fantastique adaptée de George R. R. Martin se déroule à Westeros ?", "choices": ["Vikings", "Game of Thrones", "The Witcher", "Le Seigneur des anneaux"], "answer": "Game of Thrones", "anecdote": "Elle est tirée de la saga « Le Trône de fer »."},
-    {"question": "Dans Friends, dans quelle ville vivent les six amis ?", "choices": ["Los Angeles", "New York", "Chicago", "Boston"], "answer": "New York", "anecdote": "Le café qu'ils fréquentent s'appelle Central Perk."},
-    {"question": "Quelle série espagnole suit un braquage de la Maison de la Monnaie ?", "choices": ["Élite", "La Casa de Papel", "Vis a vis", "Toy Boy"], "answer": "La Casa de Papel", "anecdote": "Les braqueurs portent des masques de Salvador Dalí."},
-    {"question": "Dans Stranger Things, dans quelle décennie se déroule l'intrigue ?", "choices": ["Les années 1970", "Les années 1980", "Les années 1990", "Les années 2000"], "answer": "Les années 1980", "anecdote": "La série rend hommage à la pop culture des eighties."},
-    {"question": "Quelle série médicale se déroule à l'hôpital Seattle Grace ?", "choices": ["Dr House", "Grey's Anatomy", "Urgences", "New Amsterdam"], "answer": "Grey's Anatomy", "anecdote": "Le personnage principal est Meredith Grey."},
-    {"question": "Quel personnage répète « Legen... wait for it ...dary » dans How I Met Your Mother ?", "choices": ["Ted", "Barney", "Marshall", "Lily"], "answer": "Barney", "anecdote": "Barney Stinson est joué par Neil Patrick Harris."},
-    {"question": "Quelle série animée suit la famille jaune de Springfield ?", "choices": ["Family Guy", "Les Simpson", "South Park", "Futurama"], "answer": "Les Simpson", "anecdote": "C'est l'une des séries les plus longues de l'histoire de la télévision américaine."},
-    {"question": "Dans The Walking Dead, quelle est la principale menace ?", "choices": ["Des vampires", "Des zombies", "Des extraterrestres", "Des robots"], "answer": "Des zombies", "anecdote": "Les zombies y sont surnommés les « rôdeurs »."},
-    {"question": "Quelle série britannique met en scène le détective Sherlock Holmes à l'époque moderne ?", "choices": ["Luther", "Sherlock", "Broadchurch", "Peaky Blinders"], "answer": "Sherlock", "anecdote": "Benedict Cumberbatch y interprète Sherlock."},
-    {"question": "Quelle série suit les Peaky Blinders, un gang de Birmingham ?", "choices": ["Gomorra", "Peaky Blinders", "Boardwalk Empire", "Les Soprano"], "answer": "Peaky Blinders", "anecdote": "Le chef du gang est Thomas Shelby."},
-    {"question": "Dans Game of Thrones, quelle maison a pour devise « Winter is coming » ?", "choices": ["Lannister", "Stark", "Targaryen", "Baratheon"], "answer": "Stark", "anecdote": "Les Stark règnent sur Winterfell."},
-    {"question": "Quelle série suit les employés d'un bureau dans un style « faux documentaire » ?", "choices": ["The Office", "Parks and Recreation", "Brooklyn Nine-Nine", "Silicon Valley"], "answer": "The Office", "anecdote": "Il existe une version britannique et une version américaine."},
-    {"question": "Quelle série de science-fiction explore des technologies dystopiques avec des épisodes indépendants ?", "choices": ["Black Mirror", "Westworld", "The Twilight Zone", "Love, Death & Robots"], "answer": "Black Mirror", "anecdote": "Chaque épisode raconte une histoire distincte."},
-    {"question": "Dans Lost (Les Disparus), où les survivants sont-ils bloqués ?", "choices": ["Sur une île", "Dans un désert", "En montagne", "Sur un bateau"], "answer": "Sur une île", "anecdote": "Leur avion, le vol Oceanic 815, s'y est écrasé."},
-    {"question": "Quelle série française à succès suit une agence d'agents artistiques ?", "choices": ["Dix pour cent", "Engrenages", "Le Bureau des légendes", "Lupin"], "answer": "Dix pour cent", "anecdote": "Son titre international est « Call My Agent! »."},
-    {"question": "Quel gentleman cambrioleur inspire la série française avec Omar Sy ?", "choices": ["Fantômas", "Arsène Lupin", "Vidocq", "Rocambole"], "answer": "Arsène Lupin", "anecdote": "Le personnage est créé par Maurice Leblanc."},
-    {"question": "Dans Breaking Bad, quel est le surnom/pseudo de Walter White ?", "choices": ["Heisenberg", "Scarface", "El Patron", "Gus"], "answer": "Heisenberg", "anecdote": "Le nom fait référence au physicien Werner Heisenberg."},
-    {"question": "Quelle sitcom met en scène des physiciens geeks et leur voisine Penny ?", "choices": ["The Big Bang Theory", "Community", "Scrubs", "How I Met Your Mother"], "answer": "The Big Bang Theory", "anecdote": "Sheldon Cooper en est un personnage central."},
-    {"question": "Quelle série fantastique suit le sorceleur Geralt de Riv ?", "choices": ["The Witcher", "Shadow and Bone", "His Dark Materials", "The Wheel of Time"], "answer": "The Witcher", "anecdote": "Elle est adaptée des romans d'Andrzej Sapkowski."},
-    {"question": "Quelle plateforme a produit La Casa de Papel et Stranger Things ?", "choices": ["HBO", "Netflix", "Disney+", "Amazon Prime"], "answer": "Netflix", "anecdote": "Netflix produit de nombreuses séries originales."},
-    {"question": "Dans la série 24 heures chrono, quel agent doit déjouer des menaces en temps réel ?", "choices": ["Jason Bourne", "Jack Bauer", "Ethan Hunt", "Jack Ryan"], "answer": "Jack Bauer", "anecdote": "Chaque saison couvre 24 heures d'une journée."},
-    {"question": "Quelle série dramatique italienne dépeint la Camorra napolitaine ?", "choices": ["Gomorra", "Suburra", "1992", "Romanzo Criminale"], "answer": "Gomorra", "anecdote": "Elle est inspirée du livre de Roberto Saviano."}
+    {
+      "question": "Dans quelle série un professeur de chimie devient-il fabricant de méthamphétamine ?",
+      "choices": [
+        "Breaking Bad",
+        "Ozark",
+        "Narcos",
+        "The Wire"
+      ],
+      "answer": "Breaking Bad",
+      "anecdote": "Le personnage principal se nomme Walter White."
+    },
+    {
+      "question": "Quelle série fantastique adaptée de George R. R. Martin se déroule à Westeros ?",
+      "choices": [
+        "Vikings",
+        "Game of Thrones",
+        "The Witcher",
+        "Le Seigneur des anneaux"
+      ],
+      "answer": "Game of Thrones",
+      "anecdote": "Elle est tirée de la saga « Le Trône de fer »."
+    },
+    {
+      "question": "Dans Friends, dans quelle ville vivent les six amis ?",
+      "choices": [
+        "Los Angeles",
+        "New York",
+        "Chicago",
+        "Boston"
+      ],
+      "answer": "New York",
+      "anecdote": "Le café qu'ils fréquentent s'appelle Central Perk."
+    },
+    {
+      "question": "Quelle série espagnole suit un braquage de la Maison de la Monnaie ?",
+      "choices": [
+        "Élite",
+        "La Casa de Papel",
+        "Vis a vis",
+        "Toy Boy"
+      ],
+      "answer": "La Casa de Papel",
+      "anecdote": "Les braqueurs portent des masques de Salvador Dalí."
+    },
+    {
+      "question": "Dans Stranger Things, dans quelle décennie se déroule l'intrigue ?",
+      "choices": [
+        "Les années 1970",
+        "Les années 1980",
+        "Les années 1990",
+        "Les années 2000"
+      ],
+      "answer": "Les années 1980",
+      "anecdote": "La série rend hommage à la pop culture des eighties."
+    },
+    {
+      "question": "Quelle série médicale se déroule à l'hôpital Seattle Grace ?",
+      "choices": [
+        "Dr House",
+        "Grey's Anatomy",
+        "Urgences",
+        "New Amsterdam"
+      ],
+      "answer": "Grey's Anatomy",
+      "anecdote": "Le personnage principal est Meredith Grey."
+    },
+    {
+      "question": "Quel personnage répète « Legen... wait for it ...dary » dans How I Met Your Mother ?",
+      "choices": [
+        "Ted",
+        "Barney",
+        "Marshall",
+        "Lily"
+      ],
+      "answer": "Barney",
+      "anecdote": "Barney Stinson est joué par Neil Patrick Harris."
+    },
+    {
+      "question": "Quelle série animée suit la famille jaune de Springfield ?",
+      "choices": [
+        "Family Guy",
+        "Les Simpson",
+        "South Park",
+        "Futurama"
+      ],
+      "answer": "Les Simpson",
+      "anecdote": "C'est l'une des séries les plus longues de l'histoire de la télévision américaine."
+    },
+    {
+      "question": "Dans The Walking Dead, quelle est la principale menace ?",
+      "choices": [
+        "Des vampires",
+        "Des zombies",
+        "Des extraterrestres",
+        "Des robots"
+      ],
+      "answer": "Des zombies",
+      "anecdote": "Les zombies y sont surnommés les « rôdeurs »."
+    },
+    {
+      "question": "Quelle série britannique met en scène le détective Sherlock Holmes à l'époque moderne ?",
+      "choices": [
+        "Luther",
+        "Sherlock",
+        "Broadchurch",
+        "Peaky Blinders"
+      ],
+      "answer": "Sherlock",
+      "anecdote": "Benedict Cumberbatch y interprète Sherlock."
+    },
+    {
+      "question": "Quelle série suit les Peaky Blinders, un gang de Birmingham ?",
+      "choices": [
+        "Gomorra",
+        "Peaky Blinders",
+        "Boardwalk Empire",
+        "Les Soprano"
+      ],
+      "answer": "Peaky Blinders",
+      "anecdote": "Le chef du gang est Thomas Shelby."
+    },
+    {
+      "question": "Dans Game of Thrones, quelle maison a pour devise « Winter is coming » ?",
+      "choices": [
+        "Lannister",
+        "Stark",
+        "Targaryen",
+        "Baratheon"
+      ],
+      "answer": "Stark",
+      "anecdote": "Les Stark règnent sur Winterfell."
+    },
+    {
+      "question": "Quelle série suit les employés d'un bureau dans un style « faux documentaire » ?",
+      "choices": [
+        "The Office",
+        "Parks and Recreation",
+        "Brooklyn Nine-Nine",
+        "Silicon Valley"
+      ],
+      "answer": "The Office",
+      "anecdote": "Il existe une version britannique et une version américaine."
+    },
+    {
+      "question": "Quelle série de science-fiction explore des technologies dystopiques avec des épisodes indépendants ?",
+      "choices": [
+        "Black Mirror",
+        "Westworld",
+        "The Twilight Zone",
+        "Love, Death & Robots"
+      ],
+      "answer": "Black Mirror",
+      "anecdote": "Chaque épisode raconte une histoire distincte."
+    },
+    {
+      "question": "Dans Lost (Les Disparus), où les survivants sont-ils bloqués ?",
+      "choices": [
+        "Sur une île",
+        "Dans un désert",
+        "En montagne",
+        "Sur un bateau"
+      ],
+      "answer": "Sur une île",
+      "anecdote": "Leur avion, le vol Oceanic 815, s'y est écrasé."
+    },
+    {
+      "question": "Quelle série française à succès suit une agence d'agents artistiques ?",
+      "choices": [
+        "Dix pour cent",
+        "Engrenages",
+        "Le Bureau des légendes",
+        "Lupin"
+      ],
+      "answer": "Dix pour cent",
+      "anecdote": "Son titre international est « Call My Agent! »."
+    },
+    {
+      "question": "Quel gentleman cambrioleur inspire la série française avec Omar Sy ?",
+      "choices": [
+        "Fantômas",
+        "Arsène Lupin",
+        "Vidocq",
+        "Rocambole"
+      ],
+      "answer": "Arsène Lupin",
+      "anecdote": "Le personnage est créé par Maurice Leblanc."
+    },
+    {
+      "question": "Dans Breaking Bad, quel est le surnom/pseudo de Walter White ?",
+      "choices": [
+        "Heisenberg",
+        "Scarface",
+        "El Patron",
+        "Gus"
+      ],
+      "answer": "Heisenberg",
+      "anecdote": "Le nom fait référence au physicien Werner Heisenberg."
+    },
+    {
+      "question": "Quelle sitcom met en scène des physiciens geeks et leur voisine Penny ?",
+      "choices": [
+        "The Big Bang Theory",
+        "Community",
+        "Scrubs",
+        "How I Met Your Mother"
+      ],
+      "answer": "The Big Bang Theory",
+      "anecdote": "Sheldon Cooper en est un personnage central."
+    },
+    {
+      "question": "Quelle série fantastique suit le sorceleur Geralt de Riv ?",
+      "choices": [
+        "The Witcher",
+        "Shadow and Bone",
+        "His Dark Materials",
+        "The Wheel of Time"
+      ],
+      "answer": "The Witcher",
+      "anecdote": "Elle est adaptée des romans d'Andrzej Sapkowski."
+    },
+    {
+      "question": "Quelle plateforme a produit La Casa de Papel et Stranger Things ?",
+      "choices": [
+        "HBO",
+        "Netflix",
+        "Disney+",
+        "Amazon Prime"
+      ],
+      "answer": "Netflix",
+      "anecdote": "Netflix produit de nombreuses séries originales."
+    },
+    {
+      "question": "Dans la série 24 heures chrono, quel agent doit déjouer des menaces en temps réel ?",
+      "choices": [
+        "Jason Bourne",
+        "Jack Bauer",
+        "Ethan Hunt",
+        "Jack Ryan"
+      ],
+      "answer": "Jack Bauer",
+      "anecdote": "Chaque saison couvre 24 heures d'une journée."
+    },
+    {
+      "question": "Quelle série dramatique italienne dépeint la Camorra napolitaine ?",
+      "choices": [
+        "Gomorra",
+        "Suburra",
+        "1992",
+        "Romanzo Criminale"
+      ],
+      "answer": "Gomorra",
+      "anecdote": "Elle est inspirée du livre de Roberto Saviano."
+    }
   ]
 }

@@ -1,26 +1,226 @@
 {
   "theme": "cinema",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Quel réalisateur a dirigé « Titanic » et « Avatar » ?", "choices": ["Steven Spielberg", "James Cameron", "Christopher Nolan", "Ridley Scott"], "answer": "James Cameron", "anecdote": "« Avatar » est sorti en 2009."},
-    {"question": "Dans « Star Wars », quel est le père de Luke Skywalker ?", "choices": ["Obi-Wan Kenobi", "Dark Vador", "L'Empereur", "Yoda"], "answer": "Dark Vador", "anecdote": "La révélation « Je suis ton père » est l'une des plus célèbres du cinéma."},
-    {"question": "Quel film d'animation Pixar met en scène des jouets qui prennent vie ?", "choices": ["Toy Story", "Cars", "Là-haut", "Le Monde de Nemo"], "answer": "Toy Story", "anecdote": "« Toy Story » (1995) est le premier long-métrage entièrement en images de synthèse."},
-    {"question": "Qui a réalisé « Pulp Fiction » ?", "choices": ["Martin Scorsese", "Quentin Tarantino", "Coen Brothers", "David Fincher"], "answer": "Quentin Tarantino", "anecdote": "Le film a remporté la Palme d'or en 1994."},
-    {"question": "Quel acteur incarne Jack Dawson dans « Titanic » ?", "choices": ["Brad Pitt", "Leonardo DiCaprio", "Johnny Depp", "Matt Damon"], "answer": "Leonardo DiCaprio", "anecdote": "Kate Winslet jouait Rose."},
-    {"question": "Dans quelle saga trouve-t-on l'Anneau unique ?", "choices": ["Harry Potter", "Le Seigneur des anneaux", "Le Hobbit", "Narnia"], "answer": "Le Seigneur des anneaux", "anecdote": "La trilogie est réalisée par Peter Jackson."},
-    {"question": "Quel film de 1972 de Coppola suit la famille mafieuse Corleone ?", "choices": ["Les Affranchis", "Le Parrain", "Scarface", "Casino"], "answer": "Le Parrain", "anecdote": "Marlon Brando y joue Don Vito Corleone."},
-    {"question": "Quelle école de sorciers Harry Potter fréquente-t-il ?", "choices": ["Durmstrang", "Poudlard", "Beauxbâtons", "Ilvermorny"], "answer": "Poudlard", "anecdote": "Harry est réparti dans la maison Gryffondor."},
-    {"question": "Quel studio d'animation japonais a produit « Le Voyage de Chihiro » ?", "choices": ["Toei", "Studio Ghibli", "Madhouse", "Pixar"], "answer": "Studio Ghibli", "anecdote": "Le film a été réalisé par Hayao Miyazaki."},
-    {"question": "Quel personnage de super-héros est joué par Robert Downey Jr. chez Marvel ?", "choices": ["Captain America", "Iron Man", "Thor", "Hulk"], "answer": "Iron Man", "anecdote": "Son vrai nom est Tony Stark."},
-    {"question": "Quelle récompense majeure est décernée chaque année à Hollywood ?", "choices": ["La Palme d'or", "L'Oscar", "Le César", "L'Ours d'or"], "answer": "L'Oscar", "anecdote": "Les Oscars sont remis par l'Académie des arts et sciences du cinéma."},
-    {"question": "Dans « Le Roi Lion », comment s'appelle le jeune lion héros ?", "choices": ["Mufasa", "Simba", "Scar", "Nala"], "answer": "Simba", "anecdote": "Mufasa est son père."},
-    {"question": "Quel réalisateur est connu pour « Inception » et « Interstellar » ?", "choices": ["Christopher Nolan", "Denis Villeneuve", "Zack Snyder", "J.J. Abrams"], "answer": "Christopher Nolan", "anecdote": "« Inception » explore le thème des rêves."},
-    {"question": "Quel film catastrophe de Spielberg met en scène un requin géant ?", "choices": ["Jurassic Park", "Les Dents de la mer", "Twister", "Deep Blue Sea"], "answer": "Les Dents de la mer", "anecdote": "Son thème musical à deux notes est culte."},
-    {"question": "Quelle actrice incarne Hermione Granger dans Harry Potter ?", "choices": ["Emma Stone", "Emma Watson", "Emma Roberts", "Keira Knightley"], "answer": "Emma Watson", "anecdote": "Elle avait neuf ans au début du casting."},
-    {"question": "Quel film de 1994 raconte la vie de Forrest, qui traverse l'histoire américaine ?", "choices": ["Forrest Gump", "Rain Man", "The Truman Show", "Big"], "answer": "Forrest Gump", "anecdote": "Tom Hanks y tient le rôle-titre."},
-    {"question": "Quelle franchise de science-fiction met en scène des dinosaures clonés dans un parc ?", "choices": ["Godzilla", "Jurassic Park", "King Kong", "Pacific Rim"], "answer": "Jurassic Park", "anecdote": "Le premier film est sorti en 1993."},
-    {"question": "Quel acteur britannique a longtemps incarné l'agent secret James Bond avant Daniel Craig ?", "choices": ["Pierce Brosnan", "Hugh Grant", "Colin Firth", "Jude Law"], "answer": "Pierce Brosnan", "anecdote": "Daniel Craig lui a succédé dès « Casino Royale » (2006)."},
-    {"question": "Dans « Retour vers le futur », quel véhicule sert de machine à voyager dans le temps ?", "choices": ["Une DeLorean", "Une cabine téléphonique", "Une moto", "Un train"], "answer": "Une DeLorean", "anecdote": "Elle doit atteindre 88 miles par heure."},
-    {"question": "Quel film de James Cameron se déroule sur la planète Pandora ?", "choices": ["Avatar", "Prometheus", "Star Trek", "Dune"], "answer": "Avatar", "anecdote": "Les habitants de Pandora sont les Na'vi."}
+    {
+      "question": "Quel réalisateur a dirigé « Titanic » et « Avatar » ?",
+      "choices": [
+        "Steven Spielberg",
+        "James Cameron",
+        "Christopher Nolan",
+        "Ridley Scott"
+      ],
+      "answer": "James Cameron",
+      "anecdote": "« Avatar » est sorti en 2009."
+    },
+    {
+      "question": "Dans « Star Wars », quel est le père de Luke Skywalker ?",
+      "choices": [
+        "Obi-Wan Kenobi",
+        "Dark Vador",
+        "L'Empereur",
+        "Yoda"
+      ],
+      "answer": "Dark Vador",
+      "anecdote": "La révélation « Je suis ton père » est l'une des plus célèbres du cinéma."
+    },
+    {
+      "question": "Quel film d'animation Pixar met en scène des jouets qui prennent vie ?",
+      "choices": [
+        "Toy Story",
+        "Cars",
+        "Là-haut",
+        "Le Monde de Nemo"
+      ],
+      "answer": "Toy Story",
+      "anecdote": "« Toy Story » (1995) est le premier long-métrage entièrement en images de synthèse."
+    },
+    {
+      "question": "Qui a réalisé « Pulp Fiction » ?",
+      "choices": [
+        "Martin Scorsese",
+        "Quentin Tarantino",
+        "Coen Brothers",
+        "David Fincher"
+      ],
+      "answer": "Quentin Tarantino",
+      "anecdote": "Le film a remporté la Palme d'or en 1994."
+    },
+    {
+      "question": "Quel acteur incarne Jack Dawson dans « Titanic » ?",
+      "choices": [
+        "Brad Pitt",
+        "Leonardo DiCaprio",
+        "Johnny Depp",
+        "Matt Damon"
+      ],
+      "answer": "Leonardo DiCaprio",
+      "anecdote": "Kate Winslet jouait Rose."
+    },
+    {
+      "question": "Dans quelle saga trouve-t-on l'Anneau unique ?",
+      "choices": [
+        "Harry Potter",
+        "Le Seigneur des anneaux",
+        "Le Hobbit",
+        "Narnia"
+      ],
+      "answer": "Le Seigneur des anneaux",
+      "anecdote": "La trilogie est réalisée par Peter Jackson."
+    },
+    {
+      "question": "Quel film de 1972 de Coppola suit la famille mafieuse Corleone ?",
+      "choices": [
+        "Les Affranchis",
+        "Le Parrain",
+        "Scarface",
+        "Casino"
+      ],
+      "answer": "Le Parrain",
+      "anecdote": "Marlon Brando y joue Don Vito Corleone."
+    },
+    {
+      "question": "Quelle école de sorciers Harry Potter fréquente-t-il ?",
+      "choices": [
+        "Durmstrang",
+        "Poudlard",
+        "Beauxbâtons",
+        "Ilvermorny"
+      ],
+      "answer": "Poudlard",
+      "anecdote": "Harry est réparti dans la maison Gryffondor."
+    },
+    {
+      "question": "Quel studio d'animation japonais a produit « Le Voyage de Chihiro » ?",
+      "choices": [
+        "Toei",
+        "Studio Ghibli",
+        "Madhouse",
+        "Pixar"
+      ],
+      "answer": "Studio Ghibli",
+      "anecdote": "Le film a été réalisé par Hayao Miyazaki."
+    },
+    {
+      "question": "Quel personnage de super-héros est joué par Robert Downey Jr. chez Marvel ?",
+      "choices": [
+        "Captain America",
+        "Iron Man",
+        "Thor",
+        "Hulk"
+      ],
+      "answer": "Iron Man",
+      "anecdote": "Son vrai nom est Tony Stark."
+    },
+    {
+      "question": "Quelle récompense majeure est décernée chaque année à Hollywood ?",
+      "choices": [
+        "La Palme d'or",
+        "L'Oscar",
+        "Le César",
+        "L'Ours d'or"
+      ],
+      "answer": "L'Oscar",
+      "anecdote": "Les Oscars sont remis par l'Académie des arts et sciences du cinéma."
+    },
+    {
+      "question": "Dans « Le Roi Lion », comment s'appelle le jeune lion héros ?",
+      "choices": [
+        "Mufasa",
+        "Simba",
+        "Scar",
+        "Nala"
+      ],
+      "answer": "Simba",
+      "anecdote": "Mufasa est son père."
+    },
+    {
+      "question": "Quel réalisateur est connu pour « Inception » et « Interstellar » ?",
+      "choices": [
+        "Christopher Nolan",
+        "Denis Villeneuve",
+        "Zack Snyder",
+        "J.J. Abrams"
+      ],
+      "answer": "Christopher Nolan",
+      "anecdote": "« Inception » explore le thème des rêves."
+    },
+    {
+      "question": "Quel film catastrophe de Spielberg met en scène un requin géant ?",
+      "choices": [
+        "Jurassic Park",
+        "Les Dents de la mer",
+        "Twister",
+        "Deep Blue Sea"
+      ],
+      "answer": "Les Dents de la mer",
+      "anecdote": "Son thème musical à deux notes est culte."
+    },
+    {
+      "question": "Quelle actrice incarne Hermione Granger dans Harry Potter ?",
+      "choices": [
+        "Emma Stone",
+        "Emma Watson",
+        "Emma Roberts",
+        "Keira Knightley"
+      ],
+      "answer": "Emma Watson",
+      "anecdote": "Elle avait neuf ans au début du casting."
+    },
+    {
+      "question": "Quel film de 1994 raconte la vie de Forrest, qui traverse l'histoire américaine ?",
+      "choices": [
+        "Forrest Gump",
+        "Rain Man",
+        "The Truman Show",
+        "Big"
+      ],
+      "answer": "Forrest Gump",
+      "anecdote": "Tom Hanks y tient le rôle-titre."
+    },
+    {
+      "question": "Quelle franchise de science-fiction met en scène des dinosaures clonés dans un parc ?",
+      "choices": [
+        "Godzilla",
+        "Jurassic Park",
+        "King Kong",
+        "Pacific Rim"
+      ],
+      "answer": "Jurassic Park",
+      "anecdote": "Le premier film est sorti en 1993."
+    },
+    {
+      "question": "Quel acteur britannique a longtemps incarné l'agent secret James Bond avant Daniel Craig ?",
+      "choices": [
+        "Pierce Brosnan",
+        "Hugh Grant",
+        "Colin Firth",
+        "Jude Law"
+      ],
+      "answer": "Pierce Brosnan",
+      "anecdote": "Daniel Craig lui a succédé dès « Casino Royale » (2006)."
+    },
+    {
+      "question": "Dans « Retour vers le futur », quel véhicule sert de machine à voyager dans le temps ?",
+      "choices": [
+        "Une DeLorean",
+        "Une cabine téléphonique",
+        "Une moto",
+        "Un train"
+      ],
+      "answer": "Une DeLorean",
+      "anecdote": "Elle doit atteindre 88 miles par heure."
+    },
+    {
+      "question": "Quel film de James Cameron se déroule sur la planète Pandora ?",
+      "choices": [
+        "Avatar",
+        "Prometheus",
+        "Star Trek",
+        "Dune"
+      ],
+      "answer": "Avatar",
+      "anecdote": "Les habitants de Pandora sont les Na'vi."
+    }
   ]
 }

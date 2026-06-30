@@ -36,12 +36,13 @@ def _qcm_item(row: dict) -> dict | None:
     choices = json.loads(row["choices_json"])
     if len(choices) != 4 or row["answer"] not in choices:
         return None
+    points = bank_db.DIFFICULTY_POINTS.get(row.get("difficulty"), 1) * 1000
     return {
         "question": row["question"],
         "choices": choices,
         "correct": choices.index(row["answer"]),
         "time_limit": 20,
-        "points": 1000,
+        "points": points,
         "bonus": False,
         "image": row.get("image"),
     }
@@ -51,7 +52,7 @@ def _buzzer_item(row: dict) -> dict:
     return {
         "question": row["question"],
         "answer": row["answer"],
-        "points": 1,
+        "points": bank_db.DIFFICULTY_POINTS.get(row.get("difficulty"), 1),
         "bonus": False,
         "image": row.get("image"),
     }

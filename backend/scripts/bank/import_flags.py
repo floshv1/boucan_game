@@ -108,7 +108,7 @@ def run() -> None:
                 answer=name,
                 choices=choices,
                 theme="drapeaux",
-                difficulty="intermediaire",
+                difficulty="moyen",
                 source=SOURCE,
                 source_url=SOURCE_URL,
                 image=f"/media/flag_{cc}.png",

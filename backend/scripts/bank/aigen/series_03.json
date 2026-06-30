@@ -1,44 +1,424 @@
 {
   "theme": "series",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "Quelle série fantastique se déroule à Mystic Falls et met en scène des vampires ?", "choices": ["The Vampire Diaries", "True Blood", "Buffy contre les vampires", "Teen Wolf"], "answer": "The Vampire Diaries", "anecdote": "Elle a donné lieu au spin-off « The Originals »."},
-    {"question": "Quelle série suit un lycéen devenu loup-garou ?", "choices": ["Teen Wolf", "Riverdale", "The Vampire Diaries", "Shadowhunters"], "answer": "Teen Wolf", "anecdote": "Le héros s'appelle Scott McCall."},
-    {"question": "Quelle série suit un consultant de la police doté d'un grand sens de l'observation, Patrick Jane ?", "choices": ["Mentalist", "Lie to Me", "Sherlock", "Castle"], "answer": "Mentalist", "anecdote": "Il traque un tueur surnommé « John le Rouge »."},
-    {"question": "Quelle série suit une unité d'enquêteurs de la marine américaine ?", "choices": ["NCIS", "JAG", "SEAL Team", "The Unit"], "answer": "NCIS", "anecdote": "L'agent Gibbs en est la figure centrale."},
-    {"question": "Quelle série suit une unité de profileurs du FBI traquant des tueurs en série ?", "choices": ["Esprits criminels", "Mindhunter", "Hannibal", "The Mentalist"], "answer": "Esprits criminels", "anecdote": "Son titre original est « Criminal Minds »."},
-    {"question": "Quelle série médicale met en scène un jeune chirurgien autiste très doué ?", "choices": ["The Good Doctor", "Dr House", "New Amsterdam", "Nip/Tuck"], "answer": "The Good Doctor", "anecdote": "Le héros s'appelle Shaun Murphy."},
-    {"question": "Quelle série Marvel sur Disney+ place Wanda dans une banlieue façon sitcom ?", "choices": ["WandaVision", "Loki", "Hawkeye", "Moon Knight"], "answer": "WandaVision", "anecdote": "Chaque épisode parodie une décennie de sitcoms."},
-    {"question": "Quelle série Marvel suit le dieu de la malice à travers le temps ?", "choices": ["Loki", "WandaVision", "Falcon et le Soldat de l'Hiver", "What If...?"], "answer": "Loki", "anecdote": "Tom Hiddleston reprend son rôle du cinéma."},
-    {"question": "Quelle série de l'univers DC suit un héros doté d'une super-vitesse ?", "choices": ["Flash", "Arrow", "Supergirl", "Titans"], "answer": "Flash", "anecdote": "Son alter ego est Barry Allen."},
-    {"question": "Quelle série DC suit un justicier archer surnommé « Green Arrow » ?", "choices": ["Arrow", "Flash", "Batwoman", "Gotham"], "answer": "Arrow", "anecdote": "Le héros s'appelle Oliver Queen."},
-    {"question": "Quelle série se déroule dans la ville de Riverdale autour d'Archie et ses amis ?", "choices": ["Riverdale", "Sabrina", "Pretty Little Liars", "Gossip Girl"], "answer": "Riverdale", "anecdote": "Elle s'inspire des bandes dessinées Archie Comics."},
-    {"question": "Quelle série suit un homme qui se fait incarcérer volontairement pour faire évader son frère ?", "choices": ["Prison Break", "Oz", "Wentworth", "Escape at Dannemora"], "answer": "Prison Break", "anecdote": "Le héros a les plans de la prison tatoués sur le corps."},
-    {"question": "Comment s'appelle le héros ingénieur de Prison Break ?", "choices": ["Michael Scofield", "Lincoln Burrows", "T-Bag", "Sucre"], "answer": "Michael Scofield", "anecdote": "Il veut sauver son frère Lincoln du couloir de la mort."},
-    {"question": "Quelle série suit une analyste de la CIA, Carrie Mathison, traquant le terrorisme ?", "choices": ["Homeland", "24 heures chrono", "The Americans", "Jack Ryan"], "answer": "Homeland", "anecdote": "Elle est adaptée d'une série israélienne."},
-    {"question": "Quelle série française d'espionnage suit des agents clandestins de la DGSE ?", "choices": ["Le Bureau des légendes", "Engrenages", "Au service de la France", "Braquo"], "answer": "Le Bureau des légendes", "anecdote": "Elle est saluée pour son réalisme."},
-    {"question": "Quelle série préquelle de Breaking Bad suit l'avocat Jimmy McGill ?", "choices": ["Better Call Saul", "El Camino", "Ozark", "Fargo"], "answer": "Better Call Saul", "anecdote": "Jimmy devient l'avocat véreux Saul Goodman."},
-    {"question": "Quelle série Netflix dépeint la haute société londonienne et ses intrigues amoureuses au XIXe siècle ?", "choices": ["Bridgerton", "Downton Abbey", "Sanditon", "The Gilded Age"], "answer": "Bridgerton", "anecdote": "Elle est produite par Shonda Rhimes."},
-    {"question": "Quelle série de science-fiction se déroule dans un parc à thème peuplé d'androïdes ?", "choices": ["Westworld", "Black Mirror", "Devs", "Humans"], "answer": "Westworld", "anecdote": "Elle est adaptée d'un film de 1973."},
-    {"question": "Quelle série allemande Netflix sur le voyage dans le temps se déroule à Winden ?", "choices": ["Dark", "1899", "Tribes of Europa", "Biohackers"], "answer": "Dark", "anecdote": "Elle est réputée pour son intrigue complexe."},
-    {"question": "Quelle série dramatique suit la famille Pearson à différentes époques ?", "choices": ["This Is Us", "Parenthood", "Brothers & Sisters", "A Million Little Things"], "answer": "This Is Us", "anecdote": "Elle est connue pour ses retournements émouvants."},
-    {"question": "Quelle série comique suit les employés d'un service municipal d'une ville fictive, Pawnee ?", "choices": ["Parks and Recreation", "The Office", "Brooklyn Nine-Nine", "Superstore"], "answer": "Parks and Recreation", "anecdote": "Leslie Knope en est l'héroïne enthousiaste."},
-    {"question": "Quelle série suit une équipe d'ingénieurs montant une start-up dans la Silicon Valley ?", "choices": ["Silicon Valley", "The IT Crowd", "Mythic Quest", "Halt and Catch Fire"], "answer": "Silicon Valley", "anecdote": "C'est une comédie satirique de la tech."},
-    {"question": "Quelle série suit des frères et sœurs dotés de super-pouvoirs et adoptés par un milliardaire ?", "choices": ["Umbrella Academy", "The Boys", "Misfits", "Heroes"], "answer": "Umbrella Academy", "anecdote": "Elle est adaptée d'un comics de Gerard Way."},
-    {"question": "Quelle série culinaire suit un chef étoilé reprenant le sandwicherie familiale à Chicago ?", "choices": ["The Bear", "Chef's Table", "Boiling Point", "Julia"], "answer": "The Bear", "anecdote": "Le cri « Yes, Chef ! » y est récurrent."},
-    {"question": "Quelle série historique met en scène le règne du roi Henri VIII ?", "choices": ["The Tudors", "Wolf Hall", "The Crown", "Reign"], "answer": "The Tudors", "anecdote": "Jonathan Rhys Meyers y incarne le roi."},
-    {"question": "Quelle anthologie policière a réuni Matthew McConaughey et Woody Harrelson dans sa première saison ?", "choices": ["True Detective", "Fargo", "The Sinner", "Mare of Easttown"], "answer": "True Detective", "anecdote": "Chaque saison raconte une enquête distincte."},
-    {"question": "Quelle série dérivée de The Big Bang Theory suit l'enfance d'un personnage au Texas ?", "choices": ["Young Sheldon", "The Goldbergs", "Everybody Hates Chris", "Malcolm"], "answer": "Young Sheldon", "anecdote": "Elle raconte la jeunesse de Sheldon Cooper."},
-    {"question": "Quelle série dramatique américaine des années 1980 mettait en scène la riche famille Ewing et le pétrole ?", "choices": ["Dallas", "Dynastie", "Falcon Crest", "Côte Ouest"], "answer": "Dallas", "anecdote": "Le « Qui a tiré sur J.R. ? » a tenu le monde en haleine."},
-    {"question": "Quelle série post-apocalyptique se déroule dans un train sans fin parcourant une Terre gelée ?", "choices": ["Snowpiercer", "The 100", "Sweet Tooth", "Station Eleven"], "answer": "Snowpiercer", "anecdote": "Elle est adaptée d'un film de Bong Joon-ho."},
-    {"question": "Quelle série suit une mère célibataire luttant pour s'en sortir en faisant des ménages ?", "choices": ["Maid", "Shameless", "Workin' Moms", "Good Girls"], "answer": "Maid", "anecdote": "Elle est inspirée d'un récit autobiographique."},
-    {"question": "Quelle série juridique suit l'avocate Alicia Florrick ?", "choices": ["The Good Wife", "Suits", "Damages", "How to Get Away with Murder"], "answer": "The Good Wife", "anecdote": "Elle a donné lieu au spin-off « The Good Fight »."},
-    {"question": "Quelle série canadienne suit des clones interprétés par une même actrice ?", "choices": ["Orphan Black", "Continuum", "Travelers", "Fringe"], "answer": "Orphan Black", "anecdote": "Tatiana Maslany y joue de nombreux personnages."},
-    {"question": "Quelle série comique américaine se déroule dans une succursale de papeterie à Scranton ?", "choices": ["The Office", "Parks and Recreation", "Superstore", "Better Off Ted"], "answer": "The Office", "anecdote": "Michael Scott en est le directeur maladroit."},
-    {"question": "Quelle série dramatique suit des lycéens et l'addiction, avec Zendaya dans le rôle de Rue ?", "choices": ["Euphoria", "Skins", "13 Reasons Why", "Elite"], "answer": "Euphoria", "anecdote": "Sa photographie très stylisée est remarquée."},
-    {"question": "Quelle série suit un professeur devenu baron de la drogue dans le Nouveau-Mexique ?", "choices": ["Breaking Bad", "Weeds", "Narcos", "Snowfall"], "answer": "Breaking Bad", "anecdote": "Elle est souvent citée parmi les meilleures séries de tous les temps."},
-    {"question": "Quelle série médicale créée par Shonda Rhimes se déroule à l'hôpital Grey Sloan ?", "choices": ["Grey's Anatomy", "Private Practice", "Station 19", "The Resident"], "answer": "Grey's Anatomy", "anecdote": "C'est l'une des séries médicales les plus longues."},
-    {"question": "Quelle série fantastique Netflix se déroule à Hawkins et met en scène une fillette aux pouvoirs, Eleven ?", "choices": ["Stranger Things", "Locke & Key", "The OA", "I Am Not Okay With This"], "answer": "Stranger Things", "anecdote": "Le monde parallèle s'appelle le « Monde à l'envers »."},
-    {"question": "Quelle série dramatique allemande se déroule dans le Berlin des années 1920 ?", "choices": ["Babylon Berlin", "Deutschland 83", "Charité", "Generation War"], "answer": "Babylon Berlin", "anecdote": "Elle mêle enquête policière et fresque historique."}
+    {
+      "question": "Quelle série fantastique se déroule à Mystic Falls et met en scène des vampires ?",
+      "choices": [
+        "The Vampire Diaries",
+        "True Blood",
+        "Buffy contre les vampires",
+        "Teen Wolf"
+      ],
+      "answer": "The Vampire Diaries",
+      "anecdote": "Elle a donné lieu au spin-off « The Originals »."
+    },
+    {
+      "question": "Quelle série suit un lycéen devenu loup-garou ?",
+      "choices": [
+        "Teen Wolf",
+        "Riverdale",
+        "The Vampire Diaries",
+        "Shadowhunters"
+      ],
+      "answer": "Teen Wolf",
+      "anecdote": "Le héros s'appelle Scott McCall."
+    },
+    {
+      "question": "Quelle série suit un consultant de la police doté d'un grand sens de l'observation, Patrick Jane ?",
+      "choices": [
+        "Mentalist",
+        "Lie to Me",
+        "Sherlock",
+        "Castle"
+      ],
+      "answer": "Mentalist",
+      "anecdote": "Il traque un tueur surnommé « John le Rouge »."
+    },
+    {
+      "question": "Quelle série suit une unité d'enquêteurs de la marine américaine ?",
+      "choices": [
+        "NCIS",
+        "JAG",
+        "SEAL Team",
+        "The Unit"
+      ],
+      "answer": "NCIS",
+      "anecdote": "L'agent Gibbs en est la figure centrale."
+    },
+    {
+      "question": "Quelle série suit une unité de profileurs du FBI traquant des tueurs en série ?",
+      "choices": [
+        "Esprits criminels",
+        "Mindhunter",
+        "Hannibal",
+        "The Mentalist"
+      ],
+      "answer": "Esprits criminels",
+      "anecdote": "Son titre original est « Criminal Minds »."
+    },
+    {
+      "question": "Quelle série médicale met en scène un jeune chirurgien autiste très doué ?",
+      "choices": [
+        "The Good Doctor",
+        "Dr House",
+        "New Amsterdam",
+        "Nip/Tuck"
+      ],
+      "answer": "The Good Doctor",
+      "anecdote": "Le héros s'appelle Shaun Murphy."
+    },
+    {
+      "question": "Quelle série Marvel sur Disney+ place Wanda dans une banlieue façon sitcom ?",
+      "choices": [
+        "WandaVision",
+        "Loki",
+        "Hawkeye",
+        "Moon Knight"
+      ],
+      "answer": "WandaVision",
+      "anecdote": "Chaque épisode parodie une décennie de sitcoms."
+    },
+    {
+      "question": "Quelle série Marvel suit le dieu de la malice à travers le temps ?",
+      "choices": [
+        "Loki",
+        "WandaVision",
+        "Falcon et le Soldat de l'Hiver",
+        "What If...?"
+      ],
+      "answer": "Loki",
+      "anecdote": "Tom Hiddleston reprend son rôle du cinéma."
+    },
+    {
+      "question": "Quelle série de l'univers DC suit un héros doté d'une super-vitesse ?",
+      "choices": [
+        "Flash",
+        "Arrow",
+        "Supergirl",
+        "Titans"
+      ],
+      "answer": "Flash",
+      "anecdote": "Son alter ego est Barry Allen."
+    },
+    {
+      "question": "Quelle série DC suit un justicier archer surnommé « Green Arrow » ?",
+      "choices": [
+        "Arrow",
+        "Flash",
+        "Batwoman",
+        "Gotham"
+      ],
+      "answer": "Arrow",
+      "anecdote": "Le héros s'appelle Oliver Queen."
+    },
+    {
+      "question": "Quelle série se déroule dans la ville de Riverdale autour d'Archie et ses amis ?",
+      "choices": [
+        "Riverdale",
+        "Sabrina",
+        "Pretty Little Liars",
+        "Gossip Girl"
+      ],
+      "answer": "Riverdale",
+      "anecdote": "Elle s'inspire des bandes dessinées Archie Comics."
+    },
+    {
+      "question": "Quelle série suit un homme qui se fait incarcérer volontairement pour faire évader son frère ?",
+      "choices": [
+        "Prison Break",
+        "Oz",
+        "Wentworth",
+        "Escape at Dannemora"
+      ],
+      "answer": "Prison Break",
+      "anecdote": "Le héros a les plans de la prison tatoués sur le corps."
+    },
+    {
+      "question": "Comment s'appelle le héros ingénieur de Prison Break ?",
+      "choices": [
+        "Michael Scofield",
+        "Lincoln Burrows",
+        "T-Bag",
+        "Sucre"
+      ],
+      "answer": "Michael Scofield",
+      "anecdote": "Il veut sauver son frère Lincoln du couloir de la mort."
+    },
+    {
+      "question": "Quelle série suit une analyste de la CIA, Carrie Mathison, traquant le terrorisme ?",
+      "choices": [
+        "Homeland",
+        "24 heures chrono",
+        "The Americans",
+        "Jack Ryan"
+      ],
+      "answer": "Homeland",
+      "anecdote": "Elle est adaptée d'une série israélienne."
+    },
+    {
+      "question": "Quelle série française d'espionnage suit des agents clandestins de la DGSE ?",
+      "choices": [
+        "Le Bureau des légendes",
+        "Engrenages",
+        "Au service de la France",
+        "Braquo"
+      ],
+      "answer": "Le Bureau des légendes",
+      "anecdote": "Elle est saluée pour son réalisme."
+    },
+    {
+      "question": "Quelle série préquelle de Breaking Bad suit l'avocat Jimmy McGill ?",
+      "choices": [
+        "Better Call Saul",
+        "El Camino",
+        "Ozark",
+        "Fargo"
+      ],
+      "answer": "Better Call Saul",
+      "anecdote": "Jimmy devient l'avocat véreux Saul Goodman."
+    },
+    {
+      "question": "Quelle série Netflix dépeint la haute société londonienne et ses intrigues amoureuses au XIXe siècle ?",
+      "choices": [
+        "Bridgerton",
+        "Downton Abbey",
+        "Sanditon",
+        "The Gilded Age"
+      ],
+      "answer": "Bridgerton",
+      "anecdote": "Elle est produite par Shonda Rhimes."
+    },
+    {
+      "question": "Quelle série de science-fiction se déroule dans un parc à thème peuplé d'androïdes ?",
+      "choices": [
+        "Westworld",
+        "Black Mirror",
+        "Devs",
+        "Humans"
+      ],
+      "answer": "Westworld",
+      "anecdote": "Elle est adaptée d'un film de 1973."
+    },
+    {
+      "question": "Quelle série allemande Netflix sur le voyage dans le temps se déroule à Winden ?",
+      "choices": [
+        "Dark",
+        "1899",
+        "Tribes of Europa",
+        "Biohackers"
+      ],
+      "answer": "Dark",
+      "anecdote": "Elle est réputée pour son intrigue complexe."
+    },
+    {
+      "question": "Quelle série dramatique suit la famille Pearson à différentes époques ?",
+      "choices": [
+        "This Is Us",
+        "Parenthood",
+        "Brothers & Sisters",
+        "A Million Little Things"
+      ],
+      "answer": "This Is Us",
+      "anecdote": "Elle est connue pour ses retournements émouvants."
+    },
+    {
+      "question": "Quelle série comique suit les employés d'un service municipal d'une ville fictive, Pawnee ?",
+      "choices": [
+        "Parks and Recreation",
+        "The Office",
+        "Brooklyn Nine-Nine",
+        "Superstore"
+      ],
+      "answer": "Parks and Recreation",
+      "anecdote": "Leslie Knope en est l'héroïne enthousiaste."
+    },
+    {
+      "question": "Quelle série suit une équipe d'ingénieurs montant une start-up dans la Silicon Valley ?",
+      "choices": [
+        "Silicon Valley",
+        "The IT Crowd",
+        "Mythic Quest",
+        "Halt and Catch Fire"
+      ],
+      "answer": "Silicon Valley",
+      "anecdote": "C'est une comédie satirique de la tech."
+    },
+    {
+      "question": "Quelle série suit des frères et sœurs dotés de super-pouvoirs et adoptés par un milliardaire ?",
+      "choices": [
+        "Umbrella Academy",
+        "The Boys",
+        "Misfits",
+        "Heroes"
+      ],
+      "answer": "Umbrella Academy",
+      "anecdote": "Elle est adaptée d'un comics de Gerard Way."
+    },
+    {
+      "question": "Quelle série culinaire suit un chef étoilé reprenant le sandwicherie familiale à Chicago ?",
+      "choices": [
+        "The Bear",
+        "Chef's Table",
+        "Boiling Point",
+        "Julia"
+      ],
+      "answer": "The Bear",
+      "anecdote": "Le cri « Yes, Chef ! » y est récurrent."
+    },
+    {
+      "question": "Quelle série historique met en scène le règne du roi Henri VIII ?",
+      "choices": [
+        "The Tudors",
+        "Wolf Hall",
+        "The Crown",
+        "Reign"
+      ],
+      "answer": "The Tudors",
+      "anecdote": "Jonathan Rhys Meyers y incarne le roi."
+    },
+    {
+      "question": "Quelle anthologie policière a réuni Matthew McConaughey et Woody Harrelson dans sa première saison ?",
+      "choices": [
+        "True Detective",
+        "Fargo",
+        "The Sinner",
+        "Mare of Easttown"
+      ],
+      "answer": "True Detective",
+      "anecdote": "Chaque saison raconte une enquête distincte."
+    },
+    {
+      "question": "Quelle série dérivée de The Big Bang Theory suit l'enfance d'un personnage au Texas ?",
+      "choices": [
+        "Young Sheldon",
+        "The Goldbergs",
+        "Everybody Hates Chris",
+        "Malcolm"
+      ],
+      "answer": "Young Sheldon",
+      "anecdote": "Elle raconte la jeunesse de Sheldon Cooper."
+    },
+    {
+      "question": "Quelle série dramatique américaine des années 1980 mettait en scène la riche famille Ewing et le pétrole ?",
+      "choices": [
+        "Dallas",
+        "Dynastie",
+        "Falcon Crest",
+        "Côte Ouest"
+      ],
+      "answer": "Dallas",
+      "anecdote": "Le « Qui a tiré sur J.R. ? » a tenu le monde en haleine."
+    },
+    {
+      "question": "Quelle série post-apocalyptique se déroule dans un train sans fin parcourant une Terre gelée ?",
+      "choices": [
+        "Snowpiercer",
+        "The 100",
+        "Sweet Tooth",
+        "Station Eleven"
+      ],
+      "answer": "Snowpiercer",
+      "anecdote": "Elle est adaptée d'un film de Bong Joon-ho."
+    },
+    {
+      "question": "Quelle série suit une mère célibataire luttant pour s'en sortir en faisant des ménages ?",
+      "choices": [
+        "Maid",
+        "Shameless",
+        "Workin' Moms",
+        "Good Girls"
+      ],
+      "answer": "Maid",
+      "anecdote": "Elle est inspirée d'un récit autobiographique."
+    },
+    {
+      "question": "Quelle série juridique suit l'avocate Alicia Florrick ?",
+      "choices": [
+        "The Good Wife",
+        "Suits",
+        "Damages",
+        "How to Get Away with Murder"
+      ],
+      "answer": "The Good Wife",
+      "anecdote": "Elle a donné lieu au spin-off « The Good Fight »."
+    },
+    {
+      "question": "Quelle série canadienne suit des clones interprétés par une même actrice ?",
+      "choices": [
+        "Orphan Black",
+        "Continuum",
+        "Travelers",
+        "Fringe"
+      ],
+      "answer": "Orphan Black",
+      "anecdote": "Tatiana Maslany y joue de nombreux personnages."
+    },
+    {
+      "question": "Quelle série comique américaine se déroule dans une succursale de papeterie à Scranton ?",
+      "choices": [
+        "The Office",
+        "Parks and Recreation",
+        "Superstore",
+        "Better Off Ted"
+      ],
+      "answer": "The Office",
+      "anecdote": "Michael Scott en est le directeur maladroit."
+    },
+    {
+      "question": "Quelle série dramatique suit des lycéens et l'addiction, avec Zendaya dans le rôle de Rue ?",
+      "choices": [
+        "Euphoria",
+        "Skins",
+        "13 Reasons Why",
+        "Elite"
+      ],
+      "answer": "Euphoria",
+      "anecdote": "Sa photographie très stylisée est remarquée."
+    },
+    {
+      "question": "Quelle série suit un professeur devenu baron de la drogue dans le Nouveau-Mexique ?",
+      "choices": [
+        "Breaking Bad",
+        "Weeds",
+        "Narcos",
+        "Snowfall"
+      ],
+      "answer": "Breaking Bad",
+      "anecdote": "Elle est souvent citée parmi les meilleures séries de tous les temps."
+    },
+    {
+      "question": "Quelle série médicale créée par Shonda Rhimes se déroule à l'hôpital Grey Sloan ?",
+      "choices": [
+        "Grey's Anatomy",
+        "Private Practice",
+        "Station 19",
+        "The Resident"
+      ],
+      "answer": "Grey's Anatomy",
+      "anecdote": "C'est l'une des séries médicales les plus longues."
+    },
+    {
+      "question": "Quelle série fantastique Netflix se déroule à Hawkins et met en scène une fillette aux pouvoirs, Eleven ?",
+      "choices": [
+        "Stranger Things",
+        "Locke & Key",
+        "The OA",
+        "I Am Not Okay With This"
+      ],
+      "answer": "Stranger Things",
+      "anecdote": "Le monde parallèle s'appelle le « Monde à l'envers »."
+    },
+    {
+      "question": "Quelle série dramatique allemande se déroule dans le Berlin des années 1920 ?",
+      "choices": [
+        "Babylon Berlin",
+        "Deutschland 83",
+        "Charité",
+        "Generation War"
+      ],
+      "answer": "Babylon Berlin",
+      "anecdote": "Elle mêle enquête policière et fresque historique."
+    }
   ]
 }

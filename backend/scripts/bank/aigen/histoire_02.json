@@ -1,46 +1,446 @@
 {
   "theme": "histoire",
-  "difficulty": "intermediaire",
+  "difficulty": "moyen",
   "questions": [
-    {"question": "En quelle année s'est terminée la Première Guerre mondiale ?", "choices": ["1916", "1918", "1920", "1914"], "answer": "1918", "anecdote": "L'armistice fut signé le 11 novembre 1918."},
-    {"question": "Sur quelle ville japonaise la première bombe atomique fut-elle larguée le 6 août 1945 ?", "choices": ["Tokyo", "Hiroshima", "Nagasaki", "Kyoto"], "answer": "Hiroshima", "anecdote": "Nagasaki fut bombardée trois jours plus tard."},
-    {"question": "Dans quelle ville Jeanne d'Arc a-t-elle été brûlée en 1431 ?", "choices": ["Orléans", "Rouen", "Paris", "Reims"], "answer": "Rouen", "anecdote": "Elle fut réhabilitée puis canonisée en 1920."},
-    {"question": "Quel roi de France fut guillotiné en 1793 ?", "choices": ["Louis XIV", "Louis XV", "Louis XVI", "Charles X"], "answer": "Louis XVI", "anecdote": "Son épouse Marie-Antoinette fut exécutée la même année."},
-    {"question": "Qui fut le premier président des États-Unis ?", "choices": ["Thomas Jefferson", "George Washington", "John Adams", "Benjamin Franklin"], "answer": "George Washington", "anecdote": "Il entra en fonction en 1789."},
-    {"question": "Quel président américain a aboli l'esclavage pendant la guerre de Sécession ?", "choices": ["George Washington", "Abraham Lincoln", "Andrew Jackson", "Ulysses Grant"], "answer": "Abraham Lincoln", "anecdote": "Il fut assassiné en 1865."},
-    {"question": "Quel pays a lancé le premier satellite artificiel, Spoutnik, en 1957 ?", "choices": ["Les États-Unis", "L'URSS", "La Chine", "Le Royaume-Uni"], "answer": "L'URSS", "anecdote": "Cela marqua le début de la conquête spatiale."},
-    {"question": "Quel traité a mis fin officiellement à la Première Guerre mondiale en 1919 ?", "choices": ["Le traité de Versailles", "Le traité de Rome", "Le traité de Vienne", "Le traité de Tordesillas"], "answer": "Le traité de Versailles", "anecdote": "Il fut signé dans la galerie des Glaces du château de Versailles."},
-    {"question": "Quel leader indien prônait la non-violence pour l'indépendance de l'Inde ?", "choices": ["Nehru", "Gandhi", "Tagore", "Bose"], "answer": "Gandhi", "anecdote": "On le surnommait le « Mahatma »."},
-    {"question": "En quelle année Charlemagne fut-il couronné empereur ?", "choices": ["800", "732", "987", "1066"], "answer": "800", "anecdote": "Il fut couronné par le pape Léon III à Rome."},
-    {"question": "La guerre de Cent Ans a opposé la France à quel pays ?", "choices": ["L'Espagne", "L'Angleterre", "L'Allemagne", "L'Italie"], "answer": "L'Angleterre", "anecdote": "Elle s'est étalée de 1337 à 1453."},
-    {"question": "Quel paquebot a coulé après avoir heurté un iceberg en 1912 ?", "choices": ["Le Lusitania", "Le Titanic", "Le Britannic", "Le Queen Mary"], "answer": "Le Titanic", "anecdote": "Il effectuait sa traversée inaugurale."},
-    {"question": "Quelle épidémie a ravagé l'Europe au XIVe siècle ?", "choices": ["Le choléra", "La peste noire", "La grippe espagnole", "La variole"], "answer": "La peste noire", "anecdote": "Elle aurait tué près d'un tiers de la population européenne."},
-    {"question": "Qui fut le premier homme à voyager dans l'espace, en 1961 ?", "choices": ["Neil Armstrong", "Iouri Gagarine", "Alan Shepard", "Valentina Terechkova"], "answer": "Iouri Gagarine", "anecdote": "Ce cosmonaute soviétique fit le tour de la Terre en orbite."},
-    {"question": "Quelle reine du Royaume-Uni a régné de 1952 à 2022 ?", "choices": ["Victoria", "Elizabeth II", "Elizabeth Ire", "Mary II"], "answer": "Elizabeth II", "anecdote": "Son règne est le plus long de l'histoire britannique."},
-    {"question": "Quel chef gaulois s'est opposé à Jules César à Alésia ?", "choices": ["Astérix", "Vercingétorix", "Brennus", "Ambiorix"], "answer": "Vercingétorix", "anecdote": "Il se rendit à César en 52 av. J.-C."},
-    {"question": "Quelle cité romaine fut ensevelie par l'éruption du Vésuve en 79 ?", "choices": ["Rome", "Pompéi", "Ostie", "Naples"], "answer": "Pompéi", "anecdote": "Le site fut redécouvert au XVIIIe siècle."},
-    {"question": "Quel marchand vénitien a relaté ses voyages jusqu'en Chine au XIIIe siècle ?", "choices": ["Christophe Colomb", "Marco Polo", "Vasco de Gama", "Ibn Battuta"], "answer": "Marco Polo", "anecdote": "Son récit s'intitule « Le Livre des merveilles »."},
-    {"question": "Quel roi d'Angleterre a fondé l'Église anglicane au XVIe siècle ?", "choices": ["Henri VIII", "Richard Cœur de Lion", "Guillaume le Conquérant", "Édouard Ier"], "answer": "Henri VIII", "anecdote": "Il rompit avec Rome pour pouvoir divorcer."},
-    {"question": "Combien d'épouses successives a eu le roi Henri VIII d'Angleterre ?", "choices": ["Quatre", "Six", "Deux", "Huit"], "answer": "Six", "anecdote": "Deux d'entre elles furent décapitées."},
-    {"question": "En quelle année a eu lieu le débarquement allié en Normandie ?", "choices": ["1942", "1943", "1944", "1945"], "answer": "1944", "anecdote": "Le « Jour J » fut le 6 juin 1944."},
-    {"question": "Quel président américain dirigeait le pays lors de la crise des missiles de Cuba en 1962 ?", "choices": ["Eisenhower", "John F. Kennedy", "Lyndon Johnson", "Richard Nixon"], "answer": "John F. Kennedy", "anecdote": "La crise opposa les États-Unis à l'URSS."},
-    {"question": "Qui fut le premier empereur romain ?", "choices": ["Jules César", "Auguste", "Néron", "Trajan"], "answer": "Auguste", "anecdote": "Il régna à partir de 27 av. J.-C."},
-    {"question": "Où Napoléon a-t-il subi sa défaite définitive en 1815 ?", "choices": ["Austerlitz", "Waterloo", "Iéna", "Wagram"], "answer": "Waterloo", "anecdote": "Il fut ensuite exilé sur l'île de Sainte-Hélène."},
-    {"question": "Quelle civilisation a bâti la cité de Machu Picchu dans les Andes ?", "choices": ["Les Aztèques", "Les Incas", "Les Mayas", "Les Olmèques"], "answer": "Les Incas", "anecdote": "Machu Picchu se trouve au Pérou."},
-    {"question": "En quelle année est tombé l'Empire romain d'Occident ?", "choices": ["476", "800", "1066", "395"], "answer": "476", "anecdote": "La date marque traditionnellement le début du Moyen Âge."},
-    {"question": "Quel général a conquis la Gaule au Ier siècle av. J.-C. ?", "choices": ["Pompée", "Jules César", "Marc Antoine", "Scipion"], "answer": "Jules César", "anecdote": "Il relate cette conquête dans « La Guerre des Gaules »."},
-    {"question": "Quelle bataille de 1916 est l'une des plus meurtrières de la Première Guerre mondiale, en France ?", "choices": ["Verdun", "Stalingrad", "Marignan", "Azincourt"], "answer": "Verdun", "anecdote": "Elle dura près de dix mois."},
-    {"question": "Qui dirigea la Révolution bolchevique de 1917 en Russie ?", "choices": ["Staline", "Lénine", "Trotski", "Tsar Nicolas II"], "answer": "Lénine", "anecdote": "Elle aboutit à la création de l'URSS."},
-    {"question": "Quel mur, érigé en 1961, a séparé une ville allemande en deux ?", "choices": ["Le mur d'Hadrien", "Le mur de Berlin", "Le rideau de fer", "La ligne Maginot"], "answer": "Le mur de Berlin", "anecdote": "Il symbolisait la division Est-Ouest."},
-    {"question": "Quel pharaon a fait construire la plus grande pyramide de Gizeh ?", "choices": ["Toutânkhamon", "Khéops", "Ramsès II", "Akhenaton"], "answer": "Khéops", "anecdote": "Sa pyramide est l'une des Sept Merveilles du monde antique."},
-    {"question": "Quelle ville était la capitale de l'Empire romain ?", "choices": ["Athènes", "Rome", "Constantinople", "Alexandrie"], "answer": "Rome", "anecdote": "« Tous les chemins mènent à Rome » selon l'adage."},
-    {"question": "Quel explorateur portugais a contourné l'Afrique pour atteindre l'Inde par la mer ?", "choices": ["Magellan", "Vasco de Gama", "Bartolomeu Dias", "Henri le Navigateur"], "answer": "Vasco de Gama", "anecdote": "Il atteignit l'Inde en 1498."},
-    {"question": "Quel mouvement intellectuel du XVIIIe siècle prônait la raison et le progrès ?", "choices": ["La Renaissance", "Les Lumières", "Le Romantisme", "L'Humanisme"], "answer": "Les Lumières", "anecdote": "Voltaire et Rousseau en sont des figures majeures."},
-    {"question": "Quel roi de France a fait bâtir le château de Versailles ?", "choices": ["François Ier", "Louis XIV", "Henri IV", "Louis IX"], "answer": "Louis XIV", "anecdote": "La cour s'y installa en 1682."},
-    {"question": "Quelle organisation internationale a été créée en 1945 pour maintenir la paix ?", "choices": ["L'ONU", "L'OTAN", "La SDN", "L'Union européenne"], "answer": "L'ONU", "anecdote": "Son siège principal se trouve à New York."},
-    {"question": "Quel conflit a opposé les États-Unis au Nord-Vietnam de 1955 à 1975 ?", "choices": ["La guerre de Corée", "La guerre du Vietnam", "La guerre du Golfe", "La guerre froide"], "answer": "La guerre du Vietnam", "anecdote": "Elle s'acheva par la prise de Saïgon en 1975."},
-    {"question": "Qui était le chef de la France libre pendant la Seconde Guerre mondiale ?", "choices": ["Philippe Pétain", "Charles de Gaulle", "Pierre Laval", "Jean Moulin"], "answer": "Charles de Gaulle", "anecdote": "Il deviendra président de la République en 1959."},
-    {"question": "Quelle dynastie chinoise a fait construire une grande partie de la Grande Muraille telle qu'on la connaît ?", "choices": ["Les Ming", "Les Han", "Les Tang", "Les Qing"], "answer": "Les Ming", "anecdote": "La dynastie Ming régna du XIVe au XVIIe siècle."},
-    {"question": "Quel roi franc a été baptisé à Reims vers 496 ?", "choices": ["Clovis", "Dagobert", "Pépin le Bref", "Charles Martel"], "answer": "Clovis", "anecdote": "Il est considéré comme le premier roi des Francs unifiés."}
+    {
+      "question": "En quelle année s'est terminée la Première Guerre mondiale ?",
+      "choices": [
+        "1916",
+        "1918",
+        "1920",
+        "1914"
+      ],
+      "answer": "1918",
+      "anecdote": "L'armistice fut signé le 11 novembre 1918."
+    },
+    {
+      "question": "Sur quelle ville japonaise la première bombe atomique fut-elle larguée le 6 août 1945 ?",
+      "choices": [
+        "Tokyo",
+        "Hiroshima",
+        "Nagasaki",
+        "Kyoto"
+      ],
+      "answer": "Hiroshima",
+      "anecdote": "Nagasaki fut bombardée trois jours plus tard."
+    },
+    {
+      "question": "Dans quelle ville Jeanne d'Arc a-t-elle été brûlée en 1431 ?",
+      "choices": [
+        "Orléans",
+        "Rouen",
+        "Paris",
+        "Reims"
+      ],
+      "answer": "Rouen",
+      "anecdote": "Elle fut réhabilitée puis canonisée en 1920."
+    },
+    {
+      "question": "Quel roi de France fut guillotiné en 1793 ?",
+      "choices": [
+        "Louis XIV",
+        "Louis XV",
+        "Louis XVI",
+        "Charles X"
+      ],
+      "answer": "Louis XVI",
+      "anecdote": "Son épouse Marie-Antoinette fut exécutée la même année."
+    },
+    {
+      "question": "Qui fut le premier président des États-Unis ?",
+      "choices": [
+        "Thomas Jefferson",
+        "George Washington",
+        "John Adams",
+        "Benjamin Franklin"
+      ],
+      "answer": "George Washington",
+      "anecdote": "Il entra en fonction en 1789."
+    },
+    {
+      "question": "Quel président américain a aboli l'esclavage pendant la guerre de Sécession ?",
+      "choices": [
+        "George Washington",
+        "Abraham Lincoln",
+        "Andrew Jackson",
+        "Ulysses Grant"
+      ],
+      "answer": "Abraham Lincoln",
+      "anecdote": "Il fut assassiné en 1865."
+    },
+    {
+      "question": "Quel pays a lancé le premier satellite artificiel, Spoutnik, en 1957 ?",
+      "choices": [
+        "Les États-Unis",
+        "L'URSS",
+        "La Chine",
+        "Le Royaume-Uni"
+      ],
+      "answer": "L'URSS",
+      "anecdote": "Cela marqua le début de la conquête spatiale."
+    },
+    {
+      "question": "Quel traité a mis fin officiellement à la Première Guerre mondiale en 1919 ?",
+      "choices": [
+        "Le traité de Versailles",
+        "Le traité de Rome",
+        "Le traité de Vienne",
+        "Le traité de Tordesillas"
+      ],
+      "answer": "Le traité de Versailles",
+      "anecdote": "Il fut signé dans la galerie des Glaces du château de Versailles."
+    },
+    {
+      "question": "Quel leader indien prônait la non-violence pour l'indépendance de l'Inde ?",
+      "choices": [
+        "Nehru",
+        "Gandhi",
+        "Tagore",
+        "Bose"
+      ],
+      "answer": "Gandhi",
+      "anecdote": "On le surnommait le « Mahatma »."
+    },
+    {
+      "question": "En quelle année Charlemagne fut-il couronné empereur ?",
+      "choices": [
+        "800",
+        "732",
+        "987",
+        "1066"
+      ],
+      "answer": "800",
+      "anecdote": "Il fut couronné par le pape Léon III à Rome."
+    },
+    {
+      "question": "La guerre de Cent Ans a opposé la France à quel pays ?",
+      "choices": [
+        "L'Espagne",
+        "L'Angleterre",
+        "L'Allemagne",
+        "L'Italie"
+      ],
+      "answer": "L'Angleterre",
+      "anecdote": "Elle s'est étalée de 1337 à 1453."
+    },
+    {
+      "question": "Quel paquebot a coulé après avoir heurté un iceberg en 1912 ?",
+      "choices": [
+        "Le Lusitania",
+        "Le Titanic",
+        "Le Britannic",
+        "Le Queen Mary"
+      ],
+      "answer": "Le Titanic",
+      "anecdote": "Il effectuait sa traversée inaugurale."
+    },
+    {
+      "question": "Quelle épidémie a ravagé l'Europe au XIVe siècle ?",
+      "choices": [
+        "Le choléra",
+        "La peste noire",
+        "La grippe espagnole",
+        "La variole"
+      ],
+      "answer": "La peste noire",
+      "anecdote": "Elle aurait tué près d'un tiers de la population européenne."
+    },
+    {
+      "question": "Qui fut le premier homme à voyager dans l'espace, en 1961 ?",
+      "choices": [
+        "Neil Armstrong",
+        "Iouri Gagarine",
+        "Alan Shepard",
+        "Valentina Terechkova"
+      ],
+      "answer": "Iouri Gagarine",
+      "anecdote": "Ce cosmonaute soviétique fit le tour de la Terre en orbite."
+    },
+    {
+      "question": "Quelle reine du Royaume-Uni a régné de 1952 à 2022 ?",
+      "choices": [
+        "Victoria",
+        "Elizabeth II",
+        "Elizabeth Ire",
+        "Mary II"
+      ],
+      "answer": "Elizabeth II",
+      "anecdote": "Son règne est le plus long de l'histoire britannique."
+    },
+    {
+      "question": "Quel chef gaulois s'est opposé à Jules César à Alésia ?",
+      "choices": [
+        "Astérix",
+        "Vercingétorix",
+        "Brennus",
+        "Ambiorix"
+      ],
+      "answer": "Vercingétorix",
+      "anecdote": "Il se rendit à César en 52 av. J.-C."
+    },
+    {
+      "question": "Quelle cité romaine fut ensevelie par l'éruption du Vésuve en 79 ?",
+      "choices": [
+        "Rome",
+        "Pompéi",
+        "Ostie",
+        "Naples"
+      ],
+      "answer": "Pompéi",
+      "anecdote": "Le site fut redécouvert au XVIIIe siècle."
+    },
+    {
+      "question": "Quel marchand vénitien a relaté ses voyages jusqu'en Chine au XIIIe siècle ?",
+      "choices": [
+        "Christophe Colomb",
+        "Marco Polo",
+        "Vasco de Gama",
+        "Ibn Battuta"
+      ],
+      "answer": "Marco Polo",
+      "anecdote": "Son récit s'intitule « Le Livre des merveilles »."
+    },
+    {
+      "question": "Quel roi d'Angleterre a fondé l'Église anglicane au XVIe siècle ?",
+      "choices": [
+        "Henri VIII",
+        "Richard Cœur de Lion",
+        "Guillaume le Conquérant",
+        "Édouard Ier"
+      ],
+      "answer": "Henri VIII",
+      "anecdote": "Il rompit avec Rome pour pouvoir divorcer."
+    },
+    {
+      "question": "Combien d'épouses successives a eu le roi Henri VIII d'Angleterre ?",
+      "choices": [
+        "Quatre",
+        "Six",
+        "Deux",
+        "Huit"
+      ],
+      "answer": "Six",
+      "anecdote": "Deux d'entre elles furent décapitées."
+    },
+    {
+      "question": "En quelle année a eu lieu le débarquement allié en Normandie ?",
+      "choices": [
+        "1942",
+        "1943",
+        "1944",
+        "1945"
+      ],
+      "answer": "1944",
+      "anecdote": "Le « Jour J » fut le 6 juin 1944."
+    },
+    {
+      "question": "Quel président américain dirigeait le pays lors de la crise des missiles de Cuba en 1962 ?",
+      "choices": [
+        "Eisenhower",
+        "John F. Kennedy",
+        "Lyndon Johnson",
+        "Richard Nixon"
+      ],
+      "answer": "John F. Kennedy",
+      "anecdote": "La crise opposa les États-Unis à l'URSS."
+    },
+    {
+      "question": "Qui fut le premier empereur romain ?",
+      "choices": [
+        "Jules César",
+        "Auguste",
+        "Néron",
+        "Trajan"
+      ],
+      "answer": "Auguste",
+      "anecdote": "Il régna à partir de 27 av. J.-C."
+    },
+    {
+      "question": "Où Napoléon a-t-il subi sa défaite définitive en 1815 ?",
+      "choices": [
+        "Austerlitz",
+        "Waterloo",
+        "Iéna",
+        "Wagram"
+      ],
+      "answer": "Waterloo",
+      "anecdote": "Il fut ensuite exilé sur l'île de Sainte-Hélène."
+    },
+    {
+      "question": "Quelle civilisation a bâti la cité de Machu Picchu dans les Andes ?",
+      "choices": [
+        "Les Aztèques",
+        "Les Incas",
+        "Les Mayas",
+        "Les Olmèques"
+      ],
+      "answer": "Les Incas",
+      "anecdote": "Machu Picchu se trouve au Pérou."
+    },
+    {
+      "question": "En quelle année est tombé l'Empire romain d'Occident ?",
+      "choices": [
+        "476",
+        "800",
+        "1066",
+        "395"
+      ],
+      "answer": "476",
+      "anecdote": "La date marque traditionnellement le début du Moyen Âge."
+    },
+    {
+      "question": "Quel général a conquis la Gaule au Ier siècle av. J.-C. ?",
+      "choices": [
+        "Pompée",
+        "Jules César",
+        "Marc Antoine",
+        "Scipion"
+      ],
+      "answer": "Jules César",
+      "anecdote": "Il relate cette conquête dans « La Guerre des Gaules »."
+    },
+    {
+      "question": "Quelle bataille de 1916 est l'une des plus meurtrières de la Première Guerre mondiale, en France ?",
+      "choices": [
+        "Verdun",
+        "Stalingrad",
+        "Marignan",
+        "Azincourt"
+      ],
+      "answer": "Verdun",
+      "anecdote": "Elle dura près de dix mois."
+    },
+    {
+      "question": "Qui dirigea la Révolution bolchevique de 1917 en Russie ?",
+      "choices": [
+        "Staline",
+        "Lénine",
+        "Trotski",
+        "Tsar Nicolas II"
+      ],
+      "answer": "Lénine",
+      "anecdote": "Elle aboutit à la création de l'URSS."
+    },
+    {
+      "question": "Quel mur, érigé en 1961, a séparé une ville allemande en deux ?",
+      "choices": [
+        "Le mur d'Hadrien",
+        "Le mur de Berlin",
+        "Le rideau de fer",
+        "La ligne Maginot"
+      ],
+      "answer": "Le mur de Berlin",
+      "anecdote": "Il symbolisait la division Est-Ouest."
+    },
+    {
+      "question": "Quel pharaon a fait construire la plus grande pyramide de Gizeh ?",
+      "choices": [
+        "Toutânkhamon",
+        "Khéops",
+        "Ramsès II",
+        "Akhenaton"
+      ],
+      "answer": "Khéops",
+      "anecdote": "Sa pyramide est l'une des Sept Merveilles du monde antique."
+    },
+    {
+      "question": "Quelle ville était la capitale de l'Empire romain ?",
+      "choices": [
+        "Athènes",
+        "Rome",
+        "Constantinople",
+        "Alexandrie"
+      ],
+      "answer": "Rome",
+      "anecdote": "« Tous les chemins mènent à Rome » selon l'adage."
+    },
+    {
+      "question": "Quel explorateur portugais a contourné l'Afrique pour atteindre l'Inde par la mer ?",
+      "choices": [
+        "Magellan",
+        "Vasco de Gama",
+        "Bartolomeu Dias",
+        "Henri le Navigateur"
+      ],
+      "answer": "Vasco de Gama",
+      "anecdote": "Il atteignit l'Inde en 1498."
+    },
+    {
+      "question": "Quel mouvement intellectuel du XVIIIe siècle prônait la raison et le progrès ?",
+      "choices": [
+        "La Renaissance",
+        "Les Lumières",
+        "Le Romantisme",
+        "L'Humanisme"
+      ],
+      "answer": "Les Lumières",
+      "anecdote": "Voltaire et Rousseau en sont des figures majeures."
+    },
+    {
+      "question": "Quel roi de France a fait bâtir le château de Versailles ?",
+      "choices": [
+        "François Ier",
+        "Louis XIV",
+        "Henri IV",
+        "Louis IX"
+      ],
+      "answer": "Louis XIV",
+      "anecdote": "La cour s'y installa en 1682."
+    },
+    {
+      "question": "Quelle organisation internationale a été créée en 1945 pour maintenir la paix ?",
+      "choices": [
+        "L'ONU",
+        "L'OTAN",
+        "La SDN",
+        "L'Union européenne"
+      ],
+      "answer": "L'ONU",
+      "anecdote": "Son siège principal se trouve à New York."
+    },
+    {
+      "question": "Quel conflit a opposé les États-Unis au Nord-Vietnam de 1955 à 1975 ?",
+      "choices": [
+        "La guerre de Corée",
+        "La guerre du Vietnam",
+        "La guerre du Golfe",
+        "La guerre froide"
+      ],
+      "answer": "La guerre du Vietnam",
+      "anecdote": "Elle s'acheva par la prise de Saïgon en 1975."
+    },
+    {
+      "question": "Qui était le chef de la France libre pendant la Seconde Guerre mondiale ?",
+      "choices": [
+        "Philippe Pétain",
+        "Charles de Gaulle",
+        "Pierre Laval",
+        "Jean Moulin"
+      ],
+      "answer": "Charles de Gaulle",
+      "anecdote": "Il deviendra président de la République en 1959."
+    },
+    {
+      "question": "Quelle dynastie chinoise a fait construire une grande partie de la Grande Muraille telle qu'on la connaît ?",
+      "choices": [
+        "Les Ming",
+        "Les Han",
+        "Les Tang",
+        "Les Qing"
+      ],
+      "answer": "Les Ming",
+      "anecdote": "La dynastie Ming régna du XIVe au XVIIe siècle."
+    },
+    {
+      "question": "Quel roi franc a été baptisé à Reims vers 496 ?",
+      "choices": [
+        "Clovis",
+        "Dagobert",
+        "Pépin le Bref",
+        "Charles Martel"
+      ],
+      "answer": "Clovis",
+      "anecdote": "Il est considéré comme le premier roi des Francs unifiés."
+    }
   ]
 }
