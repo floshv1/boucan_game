@@ -10,6 +10,10 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 
 
+# Allowed values for BlindtestTrack.origin_type (empty string = no origin target).
+ORIGIN_TYPES = frozenset({"jeu_video", "film", "serie", "anime", "autre"})
+
+
 class GameState(StrEnum):
     """Lifecycle states (cahier §12). Buzzer + QCM share this enum."""
 
@@ -90,7 +94,12 @@ class BlindtestTrack:
     start_ms: int = 0
     points_title: int = 1  # legacy per-track points (kept for pack storage); awards use session globals
     points_artist: int = 1
-    bonus: bool = False  # ×2 points (title + artist) when set
+    bonus: bool = False  # ×2 points (title + artist + origin) when set
+    # Optional "work of origin" as a 3rd guessable target (e.g. a game/movie/series/anime
+    # soundtrack): host-only until REVEAL, like title/artist. Active only when ``origin`` is set.
+    origin: str = ""  # name of the work (e.g. "The Legend of Zelda")
+    origin_type: str = ""  # one of ORIGIN_TYPES ("jeu_video"/"film"/"serie"/"anime"/"autre") or ""
+    points_origin: int = 1  # legacy per-track points (kept for pack storage); awards use session globals
 
 
 @dataclass
@@ -139,9 +148,11 @@ class Session:
     bt_index: int = -1
     bt_title_by: str | None = None  # player_id who got the title on the current track
     bt_artist_by: str | None = None  # player_id who got the artist on the current track
+    bt_origin_by: str | None = None  # player_id who got the origin (œuvre) on the current track
     bt_max_play_ms: int = 30000  # per-game cap on snippet length (0 = no cap)
     bt_points_title: int = 1  # global points for guessing the title (×2 on bonus songs)
     bt_points_artist: int = 1  # global points for guessing the artist (×2 on bonus songs)
+    bt_points_origin: int = 1  # global points for guessing the origin/œuvre (×2 on bonus songs)
     bt_random_start: bool = False  # start each track at a random offset
     bt_countdown_ms: int = 3000  # 3-2-1 pre-roll before a track (0 = none)
     bt_play_started_at: int = 0  # epoch ms the current play segment's clock started (incl. countdown)

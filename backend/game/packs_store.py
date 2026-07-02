@@ -90,6 +90,10 @@ def _normalize_blindtest_item(it: dict) -> dict:
         "points_title": track.points_title,
         "points_artist": track.points_artist,
         "bonus": track.bonus,
+        # Optional "work of origin" 3rd guessable target (game/movie/series/anime OST).
+        "origin": track.origin,
+        "origin_type": track.origin_type,
+        "points_origin": track.points_origin,
         # Editor-only grouping metadata: kept so re-opening a saved pack still shows
         # imported playlists as compact cards instead of exploding into loose tracks.
         # Ignored by the game engine (_parse_track doesn't read them).

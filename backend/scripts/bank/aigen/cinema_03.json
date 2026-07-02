@@ -1,0 +1,102 @@
+{
+  "theme": "cinema",
+  "difficulty": "facile",
+  "questions": [
+    {
+      "question": "Quel acteur incarne le personnage-titre dans « Forrest Gump » ?",
+      "choices": ["Tom Hanks", "Brad Pitt", "Kevin Costner", "Robin Williams"],
+      "answer": "Tom Hanks",
+      "anecdote": "Tom Hanks a remporté l'Oscar du meilleur acteur pour ce rôle en 1995."
+    },
+    {
+      "question": "Dans « Le Monde de Nemo », quelle espèce de poisson est Nemo ?",
+      "choices": ["Un poisson-clown", "Un poisson rouge", "Un requin", "Un hippocampe"],
+      "answer": "Un poisson-clown",
+      "anecdote": "Ce film d'animation Pixar est sorti en 2003."
+    },
+    {
+      "question": "Quel duo tient les rôles principaux du film français « Intouchables » ?",
+      "choices": ["François Cluzet et Omar Sy", "Jean Dujardin et Gilles Lellouche", "Dany Boon et Kad Merad", "Vincent Cassel et Gérard Depardieu"],
+      "answer": "François Cluzet et Omar Sy",
+      "anecdote": "« Intouchables » (2011) est l'un des plus grands succès du cinéma français."
+    },
+    {
+      "question": "Quelle arme emblématique utilisent les Jedi dans « Star Wars » ?",
+      "choices": ["Le sabre laser", "L'arc électrique", "Le blaster", "Le fouet à plasma"],
+      "answer": "Le sabre laser",
+      "anecdote": "La couleur de la lame varie selon le Jedi ou le Sith."
+    },
+    {
+      "question": "Quel réalisateur a dirigé « Inception » et « Interstellar » ?",
+      "choices": ["Christopher Nolan", "Denis Villeneuve", "Ridley Scott", "James Cameron"],
+      "answer": "Christopher Nolan",
+      "anecdote": "« Interstellar » est sorti en 2014."
+    },
+    {
+      "question": "Dans quelle ville vit principalement Spider-Man ?",
+      "choices": ["New York", "Gotham City", "Metropolis", "Los Angeles"],
+      "answer": "New York",
+      "anecdote": "Contrairement à Batman ou Superman, Spider-Man évolue dans une vraie ville."
+    },
+    {
+      "question": "Quel studio a produit le film d'animation « Le Roi Lion » (1994) ?",
+      "choices": ["Disney", "Pixar", "DreamWorks", "Studio Ghibli"],
+      "answer": "Disney",
+      "anecdote": "Le film a inspiré une comédie musicale à succès à Broadway."
+    },
+    {
+      "question": "Quel animal terrorise les baigneurs dans « Les Dents de la mer » ?",
+      "choices": ["Un requin", "un orque", "Un crocodile", "Une pieuvre géante"],
+      "answer": "Un requin",
+      "anecdote": "Réalisé par Steven Spielberg en 1975, c'est l'un des premiers blockbusters."
+    },
+    {
+      "question": "Quel acteur a incarné Iron Man dans les films Marvel ?",
+      "choices": ["Robert Downey Jr.", "Chris Evans", "Chris Hemsworth", "Mark Ruffalo"],
+      "answer": "Robert Downey Jr.",
+      "anecdote": "Il tient le rôle de Tony Stark depuis « Iron Man » (2008)."
+    },
+    {
+      "question": "Comment s'appelle le premier long-métrage entièrement en images de synthèse de Pixar ?",
+      "choices": ["Toy Story", "Shrek", "Bambi", "Le Voyage de Chihiro"],
+      "answer": "Toy Story",
+      "anecdote": "Sorti en 1995, il met en scène le cow-boy Woody et Buzz l'Éclair."
+    },
+    {
+      "question": "Quel réalisateur est connu pour « Pulp Fiction » et « Kill Bill » ?",
+      "choices": ["Quentin Tarantino", "Martin Scorsese", "Guy Ritchie", "Robert Rodriguez"],
+      "answer": "Quentin Tarantino",
+      "anecdote": "« Pulp Fiction » a reçu la Palme d'or à Cannes en 1994."
+    },
+    {
+      "question": "Dans « La Reine des Neiges », quelle chanson est chantée par Elsa ?",
+      "choices": ["Libérée, délivrée", "Sous l'océan", "Ce rêve bleu", "Il en faut peu pour être heureux"],
+      "answer": "Libérée, délivrée",
+      "anecdote": "Le titre original anglais est « Let It Go »."
+    },
+    {
+      "question": "Quelle actrice interprète Hermione Granger dans les films « Harry Potter » ?",
+      "choices": ["Emma Watson", "Emma Stone", "Keira Knightley", "Natalie Portman"],
+      "answer": "Emma Watson",
+      "anecdote": "Elle avait 11 ans lors du tournage du premier film."
+    },
+    {
+      "question": "Quel personnage Leonardo DiCaprio incarne-t-il dans « Titanic » ?",
+      "choices": ["Jack Dawson", "Jack Sparrow", "Rose DeWitt", "Cal Hockley"],
+      "answer": "Jack Dawson",
+      "anecdote": "Kate Winslet joue Rose, son amoureuse."
+    },
+    {
+      "question": "Dans « Retour vers le futur », quel véhicule sert de machine à voyager dans le temps ?",
+      "choices": ["Une DeLorean", "Une cabine téléphonique", "Une Ford Mustang", "Un TARDIS"],
+      "answer": "Une DeLorean",
+      "anecdote": "La voiture doit atteindre 88 miles à l'heure pour voyager dans le temps."
+    },
+    {
+      "question": "Quel film d'animation Pixar suit un robot nettoyeur seul sur Terre ?",
+      "choices": ["WALL-E", "Robots", "Big Hero 6", "Astro Boy"],
+      "answer": "WALL-E",
+      "anecdote": "Sorti en 2008, le film comporte de longues séquences sans dialogue."
+    }
+  ]
+}

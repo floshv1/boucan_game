@@ -17,7 +17,7 @@ import random
 
 from game import engine, qcm
 from game.engine import Outbound, player_list_payload
-from game.models import BlindtestTrack, GameMode, GameState, Session
+from game.models import ORIGIN_TYPES, BlindtestTrack, GameMode, GameState, Session
 from game.store import now_ms
 
 # --------------------------------------------------------------------------- #
@@ -34,6 +34,7 @@ def prepared_blindtest_payload(session: Session) -> dict:
         "countdown": session.bt_countdown_ms > 0,
         "points_title": session.bt_points_title,
         "points_artist": session.bt_points_artist,
+        "points_origin": session.bt_points_origin,
         "tracks": [
             {
                 "spotify_track_id": t.spotify_track_id,
@@ -46,6 +47,9 @@ def prepared_blindtest_payload(session: Session) -> dict:
                 "points_title": t.points_title,
                 "points_artist": t.points_artist,
                 "bonus": t.bonus,
+                "origin": t.origin,
+                "origin_type": t.origin_type,
+                "points_origin": t.points_origin,
             }
             for t in session.blindtest_tracks
         ],
@@ -75,6 +79,14 @@ def _parse_track(item: dict) -> BlindtestTrack:
         points_artist = max(0, int(item.get("points_artist") or 1))
     except (TypeError, ValueError):
         points_artist = 1
+    try:
+        points_origin = max(0, int(item.get("points_origin") or 1))
+    except (TypeError, ValueError):
+        points_origin = 1
+    origin = str(item.get("origin") or "")
+    origin_type = str(item.get("origin_type") or "")
+    if origin_type not in ORIGIN_TYPES:
+        origin_type = ""
     return BlindtestTrack(
         spotify_track_id=track_id,
         uri=uri,
@@ -86,6 +98,9 @@ def _parse_track(item: dict) -> BlindtestTrack:
         points_title=points_title,
         points_artist=points_artist,
         bonus=bool(item.get("bonus")),
+        origin=origin,
+        origin_type=origin_type,
+        points_origin=points_origin,
     )
 
 
@@ -120,6 +135,7 @@ def _timing_block(session: Session, now: int) -> dict:
         "audio_seq": session.bt_audio_seq,
         "reveal_ends_at": session.bt_reveal_ends_at,  # non-secret: post-snippet auto-reveal countdown
         "bonus": bool(cur.bonus) if cur else False,  # non-secret: lets all clients show ×2
+        "has_origin": bool(cur.origin) if cur else False,  # non-secret: an œuvre is guessable (name stays host-only)
     }
 
 
@@ -138,6 +154,8 @@ def _track_payload(session: Session, now: int, *, include_track: bool) -> dict:
         payload["title"] = t.title
         payload["artist"] = t.artist
         payload["cover_url"] = t.cover_url
+        payload["origin"] = t.origin
+        payload["origin_type"] = t.origin_type
     return payload
 
 
@@ -162,6 +180,7 @@ def set_blindtest_tracks(
     countdown: bool = True,
     points_title: int = 1,
     points_artist: int = 1,
+    points_origin: int = 1,
     buzz_answer_s: int | None = None,
     reveal_grace_s: int | None = None,
 ) -> list[Outbound]:
@@ -180,6 +199,7 @@ def set_blindtest_tracks(
     session.bt_countdown_ms = 3000 if countdown else 0
     session.bt_points_title = max(0, int(points_title))
     session.bt_points_artist = max(0, int(points_artist))
+    session.bt_points_origin = max(0, int(points_origin))
     return [
         Outbound("host", "prepared_blindtest", prepared_blindtest_payload(session)),
         Outbound("all", "player_list", player_list_payload(session)),
@@ -223,6 +243,7 @@ def load_track(session: Session, index: int, now: int) -> list[Outbound]:
     # Reset per-track blindtest state
     session.bt_title_by = None
     session.bt_artist_by = None
+    session.bt_origin_by = None
     # Compute start offset and play timing
     track = session.blindtest_tracks[index]
     if session.bt_random_start and track.duration_ms > 0:
@@ -288,24 +309,41 @@ def on_buzz(session: Session, player_id: str, now: int) -> list[Outbound]:
 # --------------------------------------------------------------------------- #
 
 
-def _bt_award(session: Session, track: BlindtestTrack) -> tuple[int, int]:
-    """Title/artist points for a track: global session values, doubled on a bonus song."""
+def _bt_award(session: Session, track: BlindtestTrack) -> tuple[int, int, int]:
+    """Title/artist/origin points for a track: global session values, doubled on a bonus song."""
     mult = 2 if track.bonus else 1
-    return session.bt_points_title * mult, session.bt_points_artist * mult
+    return (
+        session.bt_points_title * mult,
+        session.bt_points_artist * mult,
+        session.bt_points_origin * mult,
+    )
 
 
-def validate(session: Session, *, title: bool, artist: bool, now: int | None = None) -> list[Outbound]:
-    """Award title/artist points to the floor player; auto-reveal when both found."""
+def _all_targets_found(session: Session, track: BlindtestTrack) -> bool:
+    """True once every applicable target for this track is credited: title + artist,
+    plus origin only when the track defines one."""
+    return (
+        session.bt_title_by is not None
+        and session.bt_artist_by is not None
+        and (session.bt_origin_by is not None or not track.origin)
+    )
+
+
+def validate(
+    session: Session, *, title: bool, artist: bool, origin: bool = False, now: int | None = None
+) -> list[Outbound]:
+    """Award title/artist/origin points to the floor player; auto-reveal when all
+    applicable targets are found (origin counts only when the track defines one)."""
     if session.state is not GameState.BUZZED or session.floor_player_id is None:
         return []
     if now is None:
         now = now_ms()
-    if not title and not artist:  # no-op validate: emit nothing
+    if not title and not artist and not origin:  # no-op validate: emit nothing
         return []
     pid = session.floor_player_id
     track = session.blindtest_tracks[session.bt_index]
     player = session.players[pid]
-    pts_title, pts_artist = _bt_award(session, track)
+    pts_title, pts_artist, pts_origin = _bt_award(session, track)
     session.answer_ends_at = 0  # judged: stop the post-buzz answer countdown
 
     if title and session.bt_title_by is None:
@@ -314,18 +352,25 @@ def validate(session: Session, *, title: bool, artist: bool, now: int | None = N
     if artist and session.bt_artist_by is None:
         player.score += pts_artist
         session.bt_artist_by = pid
+    if origin and track.origin and session.bt_origin_by is None:
+        player.score += pts_origin
+        session.bt_origin_by = pid
 
     outs: list[Outbound] = [Outbound("all", "player_list", player_list_payload(session))]
 
-    if session.bt_title_by is not None and session.bt_artist_by is not None:
-        # Both found → auto-reveal
+    if _all_targets_found(session, track):
+        # Every applicable target found → auto-reveal
         outs.extend(reveal(session, now))
     else:
         outs.append(
             Outbound(
                 "host",
                 "bt_partial",
-                {"title_by": session.bt_title_by, "artist_by": session.bt_artist_by},
+                {
+                    "title_by": session.bt_title_by,
+                    "artist_by": session.bt_artist_by,
+                    "origin_by": session.bt_origin_by,
+                },
             )
         )
     return outs
@@ -341,7 +386,9 @@ def cont(session: Session, now: int) -> list[Outbound]:
     session.state = GameState.BUZZER_OPEN
     session.buzz_queue = []
     session.buzzed_ids = set()
-    session.excluded_ids = {pid for pid in (session.bt_title_by, session.bt_artist_by) if pid}
+    session.excluded_ids = {
+        pid for pid in (session.bt_title_by, session.bt_artist_by, session.bt_origin_by) if pid
+    }
     session.floor_index = 0
     session.answer_ends_at = 0
     session.bt_reveal_ends_at = 0
@@ -393,7 +440,7 @@ def reveal(session: Session, now: int | None = None) -> list[Outbound]:
     if now is None:
         now = now_ms()
     track = session.blindtest_tracks[session.bt_index]
-    pts_title, pts_artist = _bt_award(session, track)
+    pts_title, pts_artist, pts_origin = _bt_award(session, track)
 
     # Build score deltas from who already won points this track
     deltas: dict[str, int] = {}
@@ -401,6 +448,8 @@ def reveal(session: Session, now: int | None = None) -> list[Outbound]:
         deltas[session.bt_title_by] = deltas.get(session.bt_title_by, 0) + pts_title
     if session.bt_artist_by is not None:
         deltas[session.bt_artist_by] = deltas.get(session.bt_artist_by, 0) + pts_artist
+    if session.bt_origin_by is not None:
+        deltas[session.bt_origin_by] = deltas.get(session.bt_origin_by, 0) + pts_origin
 
     session.state = GameState.REVEAL
     session.bt_playing = False
@@ -415,6 +464,8 @@ def reveal(session: Session, now: int | None = None) -> list[Outbound]:
                 "title": track.title,
                 "artist": track.artist,
                 "cover_url": track.cover_url,
+                "origin": track.origin,
+                "origin_type": track.origin_type,
                 "deltas": deltas,
             },
         ),
@@ -570,7 +621,13 @@ def state_sync_payload(session: Session, *, role: str, player_id: str | None = N
     elif session.state is GameState.REVEAL:
         if 0 <= session.bt_index < len(session.blindtest_tracks):
             t = session.blindtest_tracks[session.bt_index]
-            data["reveal"] = {"title": t.title, "artist": t.artist, "cover_url": t.cover_url}
+            data["reveal"] = {
+                "title": t.title,
+                "artist": t.artist,
+                "cover_url": t.cover_url,
+                "origin": t.origin,
+                "origin_type": t.origin_type,
+            }
     elif session.state is GameState.GAME_END:
         data["game_end"] = qcm.game_end_payload(session)
     return data

@@ -148,7 +148,11 @@ export interface BlindtestTrackDraft {
   start_ms: number;
   points_title: number;
   points_artist: number;
-  bonus?: boolean; // ×2 points (title + artist) for this song
+  bonus?: boolean; // ×2 points (title + artist + origin) for this song
+  // Optional "work of origin" as a 3rd guessable target (game/movie/series/anime OST).
+  origin?: string; // name of the work (e.g. "Zelda"); empty = no origin target
+  origin_type?: string; // "jeu_video" | "film" | "serie" | "anime" | "autre" | ""
+  points_origin?: number;
   // Editor-only grouping metadata (ignored by the game): which imported playlist
   // a track came from, so the editor can show a compact "playlist — N songs" card.
   source_playlist?: string | null;
@@ -169,12 +173,16 @@ export interface BlindtestTrackNow {
   title: string;
   artist: string;
   cover_url: string;
+  origin?: string; // host-only: name of the work of origin ("" = none)
+  origin_type?: string; // host-only: "jeu_video" | "film" | "serie" | "anime" | "autre" | ""
 }
 
 export interface BlindtestReveal {
   title: string;
   artist: string;
   cover_url: string;
+  origin?: string;
+  origin_type?: string;
   deltas: Record<string, number>;
 }
 
@@ -189,7 +197,8 @@ export interface BlindtestState {
   reveal: BlindtestReveal | null;
   scoreboard: ScoreboardRow[];
   gameEnd: { podium: PodiumEntry[] } | null;
-  partial: { titleBy: string | null; artistBy: string | null };
+  partial: { titleBy: string | null; artistBy: string | null; originBy: string | null };
+  hasOrigin: boolean;   // non-secret: current song has a guessable œuvre (name stays host-only)
   // Pause-aware, clock-skew-safe timing (see backend _timing_block).
   segStartedAt: number; // epoch ms (server clock) the current play segment started (incl. countdown)
   endsAt: number;       // epoch ms auto-pause; 0 = no cap / paused
@@ -212,7 +221,8 @@ export const EMPTY_BLINDTEST: BlindtestState = {
   reveal: null,
   scoreboard: [],
   gameEnd: null,
-  partial: { titleBy: null, artistBy: null },
+  partial: { titleBy: null, artistBy: null, originBy: null },
+  hasOrigin: false,
   segStartedAt: 0,
   endsAt: 0,
   maxPlayMs: 0,

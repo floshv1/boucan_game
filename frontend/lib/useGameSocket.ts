@@ -38,6 +38,7 @@ function btTiming(p: any, prev: GameSnapshot["blindtest"]) {
     audioSeq: p.audio_seq ?? prev.audioSeq,
     revealEndsAt: p.reveal_ends_at ?? prev.revealEndsAt,
     bonus: p.bonus ?? prev.bonus,
+    hasOrigin: p.has_origin ?? prev.hasOrigin,
     clockOffset:
       p.server_now !== undefined ? p.server_now - Date.now() : prev.clockOffset,
   };
@@ -97,6 +98,8 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
                     title: p.blindtest.title,
                     artist: p.blindtest.artist,
                     cover_url: p.blindtest.cover_url,
+                    origin: p.blindtest.origin ?? "",
+                    origin_type: p.blindtest.origin_type ?? "",
                   }
                 : null,
               reveal: p.blindtest.reveal ?? null,
@@ -131,7 +134,7 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
           index: p.index,
           total: p.total,
           reveal: null,
-          partial: { titleBy: null, artistBy: null },
+          partial: { titleBy: null, artistBy: null, originBy: null },
           track: hasTrackFields
             ? {
                 uri: p.uri,
@@ -139,6 +142,8 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
                 title: p.title,
                 artist: p.artist,
                 cover_url: p.cover_url ?? "",
+                origin: p.origin ?? "",
+                origin_type: p.origin_type ?? "",
               }
             : null,
           audio: p.audio ?? s.blindtest.audio,
@@ -156,7 +161,11 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
         ...s,
         blindtest: {
           ...s.blindtest,
-          partial: { titleBy: p.title_by ?? null, artistBy: p.artist_by ?? null },
+          partial: {
+            titleBy: p.title_by ?? null,
+            artistBy: p.artist_by ?? null,
+            originBy: p.origin_by ?? null,
+          },
         },
       };
     case "question_start":
@@ -194,6 +203,8 @@ function reduce(s: GameSnapshot, msg: any, code: string): GameSnapshot {
               title: p.title,
               artist: p.artist,
               cover_url: p.cover_url ?? "",
+              origin: p.origin ?? "",
+              origin_type: p.origin_type ?? "",
               deltas: p.deltas ?? {},
             },
           },

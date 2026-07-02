@@ -83,6 +83,33 @@ def test_blindtest_item_normalized():
     item = packs_store.get_pack(saved["id"])["items"][0]
     assert item["uri"] == "spotify:track:abc"
     assert item["points_title"] == 1
+    # origin defaults present even when omitted
+    assert item["origin"] == ""
+    assert item["origin_type"] == ""
+    assert item["points_origin"] == 1
+
+
+def test_blindtest_item_preserves_origin():
+    saved = packs_store.save_pack(
+        {
+            "name": "x",
+            "mode": "blindtest",
+            "items": [
+                {
+                    "spotify_track_id": "abc",
+                    "title": "Main Theme",
+                    "artist": "Koji Kondo",
+                    "origin": "The Legend of Zelda",
+                    "origin_type": "jeu_video",
+                    "points_origin": 3,
+                }
+            ],
+        }
+    )
+    item = packs_store.get_pack(saved["id"])["items"][0]
+    assert item["origin"] == "The Legend of Zelda"
+    assert item["origin_type"] == "jeu_video"
+    assert item["points_origin"] == 3
 
 
 def test_delete_removes_pack():

@@ -1,0 +1,102 @@
+{
+  "theme": "musique",
+  "difficulty": "moyen",
+  "questions": [
+    {
+      "question": "Quel compositeur allemand, devenu sourd, a écrit la « 9e Symphonie » ?",
+      "choices": ["Ludwig van Beethoven", "Jean-Sébastien Bach", "Wolfgang Amadeus Mozart", "Johannes Brahms"],
+      "answer": "Ludwig van Beethoven",
+      "anecdote": "L'« Ode à la joie » en est le finale, devenu hymne européen."
+    },
+    {
+      "question": "Quel groupe britannique a sorti l'album « The Dark Side of the Moon » ?",
+      "choices": ["Pink Floyd", "The Who", "Genesis", "Deep Purple"],
+      "answer": "Pink Floyd",
+      "anecdote": "Sorti en 1973, c'est l'un des albums les plus vendus au monde."
+    },
+    {
+      "question": "Quelle chanteuse américaine était surnommée la « Reine du Soul » ?",
+      "choices": ["Aretha Franklin", "Whitney Houston", "Diana Ross", "Tina Turner"],
+      "answer": "Aretha Franklin",
+      "anecdote": "Son titre « Respect » est devenu un hymne."
+    },
+    {
+      "question": "Combien de cordes possède une guitare classique standard ?",
+      "choices": ["Six", "Quatre", "Sept", "Douze"],
+      "answer": "Six",
+      "anecdote": "La basse électrique en compte généralement quatre."
+    },
+    {
+      "question": "Quel artiste a composé les « Quatre Saisons » ?",
+      "choices": ["Antonio Vivaldi", "Frédéric Chopin", "Franz Schubert", "Georg Friedrich Haendel"],
+      "answer": "Antonio Vivaldi",
+      "anecdote": "Ce sont quatre concertos pour violon représentant les saisons."
+    },
+    {
+      "question": "Quel chanteur britannique se cachait derrière le personnage de Ziggy Stardust ?",
+      "choices": ["David Bowie", "Elton John", "Rod Stewart", "Freddie Mercury"],
+      "answer": "David Bowie",
+      "anecdote": "Ziggy Stardust est un alter ego créé au début des années 1970."
+    },
+    {
+      "question": "De quel pays est originaire le style musical du fado ?",
+      "choices": ["Le Portugal", "L'Espagne", "L'Italie", "La Grèce"],
+      "answer": "Le Portugal",
+      "anecdote": "Amália Rodrigues en est la plus célèbre interprète."
+    },
+    {
+      "question": "Quel rappeur américain a sorti l'album « The Marshall Mathers LP » ?",
+      "choices": ["Eminem", "Jay-Z", "50 Cent", "Snoop Dogg"],
+      "answer": "Eminem",
+      "anecdote": "Marshall Mathers est son véritable nom."
+    },
+    {
+      "question": "Quel terme musical italien indique de jouer doucement ?",
+      "choices": ["Piano", "Forte", "Allegro", "Presto"],
+      "answer": "Piano",
+      "anecdote": "« Forte » signifie au contraire jouer fort."
+    },
+    {
+      "question": "Quelle chanteuse belge a connu le succès avec le titre « Balance ton quoi » ?",
+      "choices": ["Angèle", "Stromae", "Lous and the Yakuza", "Pomme"],
+      "answer": "Angèle",
+      "anecdote": "Son premier album « Brol » est sorti en 2018."
+    },
+    {
+      "question": "Quel groupe de rock américain a pour chanteur Anthony Kiedis ?",
+      "choices": ["Red Hot Chili Peppers", "Foo Fighters", "Nirvana", "Pearl Jam"],
+      "answer": "Red Hot Chili Peppers",
+      "anecdote": "Le groupe mêle funk et rock depuis les années 1980."
+    },
+    {
+      "question": "Quel chanteur de reggae français a fondé le groupe autour du titre « Tomber la chemise » ?",
+      "choices": ["Zebda", "Tryo", "Sinsemilia", "Massilia Sound System"],
+      "answer": "Zebda",
+      "anecdote": "« Tomber la chemise » a été un tube de l'été 1999."
+    },
+    {
+      "question": "Quel est le nom du festival de musique légendaire qui s'est tenu aux États-Unis en 1969 ?",
+      "choices": ["Woodstock", "Coachella", "Glastonbury", "Lollapalooza"],
+      "answer": "Woodstock",
+      "anecdote": "Il a rassemblé des centaines de milliers de spectateurs."
+    },
+    {
+      "question": "Quel compositeur autrichien a écrit l'opéra « La Flûte enchantée » ?",
+      "choices": ["Wolfgang Amadeus Mozart", "Richard Wagner", "Giuseppe Verdi", "Joseph Haydn"],
+      "answer": "Wolfgang Amadeus Mozart",
+      "anecdote": "Mozart est mort en 1791, l'année de la création de cet opéra."
+    },
+    {
+      "question": "Quel groupe irlandais est mené par le chanteur Bono ?",
+      "choices": ["U2", "The Cranberries", "Snow Patrol", "The Script"],
+      "answer": "U2",
+      "anecdote": "Le groupe existe depuis la fin des années 1970."
+    },
+    {
+      "question": "Quelle diva américaine a interprété « I Will Always Love You » dans le film « Bodyguard » ?",
+      "choices": ["Whitney Houston", "Mariah Carey", "Céline Dion", "Beyoncé"],
+      "answer": "Whitney Houston",
+      "anecdote": "La chanson est en réalité une reprise de Dolly Parton."
+    }
+  ]
+}

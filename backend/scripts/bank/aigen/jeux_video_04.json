@@ -1,0 +1,102 @@
+{
+  "theme": "jeux_video",
+  "difficulty": "facile",
+  "questions": [
+    {
+      "question": "Quel est le métier du personnage Mario dans les jeux Nintendo ?",
+      "choices": ["Plombier", "Électricien", "Pompier", "Jardinier"],
+      "answer": "Plombier",
+      "anecdote": "Mario et son frère Luigi sont des plombiers italiens."
+    },
+    {
+      "question": "Quelle entreprise a créé la console PlayStation ?",
+      "choices": ["Sony", "Nintendo", "Microsoft", "Sega"],
+      "answer": "Sony",
+      "anecdote": "La première PlayStation est sortie en 1994."
+    },
+    {
+      "question": "Dans « Pokémon », quel est le premier Pokémon reçu si l'on choisit le type feu chez le professeur Chen (première génération) ?",
+      "choices": ["Salamèche", "Bulbizarre", "Carapuce", "Pikachu"],
+      "answer": "Salamèche",
+      "anecdote": "Salamèche évolue en Reptincel puis en Dracaufeu."
+    },
+    {
+      "question": "Quel jeu de construction en blocs cubiques permet de bâtir des mondes entiers ?",
+      "choices": ["Minecraft", "Roblox", "Terraria", "Lego Worlds"],
+      "answer": "Minecraft",
+      "anecdote": "Minecraft est l'un des jeux les plus vendus de l'histoire."
+    },
+    {
+      "question": "Comment s'appelle la princesse que Mario doit souvent sauver ?",
+      "choices": ["Peach", "Zelda", "Daisy", "Rosalina"],
+      "answer": "Peach",
+      "anecdote": "Elle est régulièrement enlevée par Bowser."
+    },
+    {
+      "question": "Quel personnage bleu de Sega court très vite et collectionne des anneaux ?",
+      "choices": ["Sonic", "Crash Bandicoot", "Rayman", "Spyro"],
+      "answer": "Sonic",
+      "anecdote": "Sonic le hérisson est la mascotte historique de Sega."
+    },
+    {
+      "question": "Dans « Tetris », que doit-on faire des lignes complètes ?",
+      "choices": ["Elles disparaissent", "Elles montent", "Elles clignotent sans effet", "Elles se dupliquent"],
+      "answer": "Elles disparaissent",
+      "anecdote": "Le jeu a été créé par le Russe Alexeï Pajitnov en 1984."
+    },
+    {
+      "question": "Quel accessoire lance-t-on sur ses adversaires dans « Mario Kart » ?",
+      "choices": ["Une carapace", "Un marteau", "Une bombe à eau", "Un boomerang"],
+      "answer": "Une carapace",
+      "anecdote": "La carapace bleue vise le pilote en tête de course."
+    },
+    {
+      "question": "Quelle console portable de Nintendo possède deux écrans ?",
+      "choices": ["La Nintendo DS", "La Game Boy", "La PSP", "La Game Gear"],
+      "answer": "La Nintendo DS",
+      "anecdote": "« DS » signifie « Dual Screen »."
+    },
+    {
+      "question": "Dans « Among Us », quel joueur doit éliminer les autres en secret ?",
+      "choices": ["L'imposteur", "Le capitaine", "Le médecin", "L'ingénieur"],
+      "answer": "L'imposteur",
+      "anecdote": "Les autres joueurs sont des équipiers qui doivent le démasquer."
+    },
+    {
+      "question": "Quel jeu de tir populaire propose un mode « Battle Royale » avec des constructions ?",
+      "choices": ["Fortnite", "Call of Duty", "Counter-Strike", "Overwatch"],
+      "answer": "Fortnite",
+      "anecdote": "Fortnite est développé par Epic Games."
+    },
+    {
+      "question": "Quel personnage de jeu vidéo est un chasseur de trésors nommé Nathan Drake ?",
+      "choices": ["Uncharted", "Tomb Raider", "Assassin's Creed", "Far Cry"],
+      "answer": "Uncharted",
+      "anecdote": "La série Uncharted est développée par Naughty Dog."
+    },
+    {
+      "question": "Dans « The Legend of Zelda », quel est généralement le nom du héros ?",
+      "choices": ["Link", "Zelda", "Ganon", "Epona"],
+      "answer": "Link",
+      "anecdote": "Zelda est le nom de la princesse, pas du héros."
+    },
+    {
+      "question": "Quelle société développe la série de consoles Xbox ?",
+      "choices": ["Microsoft", "Sony", "Nintendo", "Atari"],
+      "answer": "Microsoft",
+      "anecdote": "La première Xbox est sortie en 2001."
+    },
+    {
+      "question": "Dans « Candy Crush », que doit-on aligner pour marquer des points ?",
+      "choices": ["Des bonbons", "Des bulles", "Des diamants", "Des fruits"],
+      "answer": "Des bonbons",
+      "anecdote": "Le jeu est un grand succès sur téléphone mobile."
+    },
+    {
+      "question": "Quel plombier vert est le frère de Mario ?",
+      "choices": ["Luigi", "Wario", "Yoshi", "Toad"],
+      "answer": "Luigi",
+      "anecdote": "Luigi est souvent représenté comme plus grand et plus peureux."
+    }
+  ]
+}

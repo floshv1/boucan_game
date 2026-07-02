@@ -1,0 +1,96 @@
+{
+  "theme": "bd",
+  "difficulty": "moyen",
+  "questions": [
+    {
+      "question": "Quel reporter belge à la houppette voyage avec son chien Milou ?",
+      "choices": ["Tintin", "Spirou", "Gaston Lagaffe", "Boule"],
+      "answer": "Tintin",
+      "anecdote": "Tintin est une création du dessinateur Hergé."
+    },
+    {
+      "question": "Dans « Astérix », quelle potion donne une force surhumaine aux Gaulois ?",
+      "choices": ["La potion magique", "L'élixir de vie", "Le philtre d'amour", "La soupe druidique"],
+      "answer": "La potion magique",
+      "anecdote": "Elle est préparée par le druide Panoramix."
+    },
+    {
+      "question": "Quel gros chat orange et paresseux adore les lasagnes ?",
+      "choices": ["Garfield", "Le Chat", "Félix", "Tom"],
+      "answer": "Garfield",
+      "anecdote": "Garfield est une bande dessinée américaine de Jim Davis."
+    },
+    {
+      "question": "Comment s'appelle le meilleur ami d'Astérix, un livreur de menhirs ?",
+      "choices": ["Obélix", "Idéfix", "Assurancetourix", "Abraracourcix"],
+      "answer": "Obélix",
+      "anecdote": "Obélix est tombé dans la marmite de potion magique étant petit."
+    },
+    {
+      "question": "Quel cow-boy solitaire « tire plus vite que son ombre » ?",
+      "choices": ["Lucky Luke", "Blueberry", "Tex Willer", "Jerry Spring"],
+      "answer": "Lucky Luke",
+      "anecdote": "Il est accompagné de son cheval Jolly Jumper."
+    },
+    {
+      "question": "Quels petits personnages bleus vivent dans des maisons en forme de champignon ?",
+      "choices": ["Les Schtroumpfs", "Les Barbapapa", "Les Minions", "Les Snorky"],
+      "answer": "Les Schtroumpfs",
+      "anecdote": "Ils ont été créés par le dessinateur belge Peyo."
+    },
+    {
+      "question": "Quel super-héros Marvel est un homme-araignée créé par Stan Lee et Steve Ditko ?",
+      "choices": ["Spider-Man", "Superman", "Batman", "Iron Man"],
+      "answer": "Spider-Man",
+      "anecdote": "Superman et Batman appartiennent à l'univers DC Comics."
+    },
+    {
+      "question": "Dans le manga « One Piece », quel est le rêve de Monkey D. Luffy ?",
+      "choices": ["Devenir le Roi des Pirates", "Devenir Hokage", "Sauver le monde des Titans", "Devenir Maître Pokémon"],
+      "answer": "Devenir le Roi des Pirates",
+      "anecdote": "Le manga d'Eiichiro Oda est l'un des plus vendus au monde."
+    },
+    {
+      "question": "Quel manga créé par Akira Toriyama suit les aventures de Son Goku ?",
+      "choices": ["Dragon Ball", "Naruto", "Bleach", "One Piece"],
+      "answer": "Dragon Ball",
+      "anecdote": "Goku recherche les sept boules de cristal."
+    },
+    {
+      "question": "Quel personnage de Franquin est un employé de bureau nonchalant et maladroit ?",
+      "choices": ["Gaston Lagaffe", "Achille Talon", "Cédric", "Titeuf"],
+      "answer": "Gaston Lagaffe",
+      "anecdote": "Gaston travaille au journal Spirou."
+    },
+    {
+      "question": "Dans « Naruto », quel village est le village caché de la Feuille ?",
+      "choices": ["Konoha", "Suna", "Kiri", "Iwa"],
+      "answer": "Konoha",
+      "anecdote": "Naruto rêve de devenir Hokage, le chef du village."
+    },
+    {
+      "question": "Quel duo formé d'un enfant et de son tigre en peluche est au cœur d'un célèbre comic strip américain ?",
+      "choices": ["Calvin et Hobbes", "Charlie Brown et Snoopy", "Boule et Bill", "Cédric et Chen"],
+      "answer": "Calvin et Hobbes",
+      "anecdote": "La bande dessinée a été créée par Bill Watterson."
+    },
+    {
+      "question": "Quel héros de bande dessinée franco-belge est un « groom » travaillant dans un hôtel ?",
+      "choices": ["Spirou", "Gil Jourdan", "Ric Hochet", "Michel Vaillant"],
+      "answer": "Spirou",
+      "anecdote": "Spirou est souvent accompagné de son ami Fantasio et de l'écureuil Spip."
+    },
+    {
+      "question": "Quel manga de Hajime Isayama met en scène des humains luttant contre des géants mangeurs d'hommes ?",
+      "choices": ["L'Attaque des Titans", "Death Note", "My Hero Academia", "Fullmetal Alchemist"],
+      "answer": "L'Attaque des Titans",
+      "anecdote": "Le titre original japonais est « Shingeki no Kyojin »."
+    },
+    {
+      "question": "Quel personnage de comics est un milliardaire de Gotham City qui devient un justicier masqué ?",
+      "choices": ["Batman", "Green Arrow", "Iron Man", "Daredevil"],
+      "answer": "Batman",
+      "anecdote": "Bruce Wayne endosse le costume de Batman."
+    }
+  ]
+}

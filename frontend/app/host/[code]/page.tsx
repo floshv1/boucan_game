@@ -56,6 +56,7 @@ export default function HostConsole() {
     countdown: true,
     pointsTitle: 1,
     pointsArtist: 1,
+    pointsOrigin: 1,
     revealGraceS: 5,
   });
 
@@ -169,6 +170,7 @@ export default function HostConsole() {
       countdown: btSettings.countdown,
       points_title: btSettings.pointsTitle,
       points_artist: btSettings.pointsArtist,
+      points_origin: btSettings.pointsOrigin,
       buzz_answer_s: answerLimitS,
       reveal_grace_s: btSettings.revealGraceS,
     });
@@ -385,6 +387,16 @@ export default function HostConsole() {
                         min={0}
                         value={btSettings.pointsArtist}
                         onChange={(e) => setBtSettings((s) => ({ ...s, pointsArtist: Number.parseInt(e.target.value, 10) || 0 }))}
+                        className="w-14 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
+                      />
+                    </label>
+                    <label className="flex items-center gap-2">
+                      Pts œuvre
+                      <input
+                        type="number"
+                        min={0}
+                        value={btSettings.pointsOrigin}
+                        onChange={(e) => setBtSettings((s) => ({ ...s, pointsOrigin: Number.parseInt(e.target.value, 10) || 0 }))}
                         className="w-14 rounded-lg border border-panel2 bg-ink/60 px-2 py-1 text-center text-cream outline-none"
                       />
                     </label>

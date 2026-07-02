@@ -19,6 +19,19 @@ interface Props {
   spotify: SpotifyPlayerControls;
 }
 
+// Human labels for a track's œuvre type (mirrors backend ORIGIN_TYPES).
+const ORIGIN_TYPE_LABELS: Record<string, string> = {
+  jeu_video: "🎮 Jeu vidéo",
+  film: "🎬 Film",
+  serie: "📺 Série",
+  anime: "🌸 Anime",
+  autre: "🎵 Œuvre",
+};
+
+function originLabel(type?: string): string {
+  return (type && ORIGIN_TYPE_LABELS[type]) || "🎵 Œuvre";
+}
+
 export default function BlindtestStage({ snapshot, action, spotify }: Props) {
   const bt = snapshot.blindtest;
   const playTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -110,8 +123,13 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
     snapshot.buzz.state === "BUZZED" && !!snapshot.buzz.floor_player_id;
   const titleFound = !!bt.partial.titleBy;
   const artistFound = !!bt.partial.artistBy;
-  const partialOneFound =
-    (titleFound || artistFound) && !(titleFound && artistFound) && bt.reveal === null;
+  const originFound = !!bt.partial.originBy;
+  const hasOrigin = !!bt.track?.origin; // host sees the œuvre; players get bt.hasOrigin
+  const applicableCount = 2 + (hasOrigin ? 1 : 0);
+  const foundCount =
+    (titleFound ? 1 : 0) + (artistFound ? 1 : 0) + (hasOrigin && originFound ? 1 : 0);
+  // Some (but not all) applicable targets found → offer "Continuer" for the rest.
+  const partialSomeFound = foundCount >= 1 && foundCount < applicableCount && bt.reveal === null;
 
   function pseudoById(id: string | null): string {
     if (!id) return "?";
@@ -181,6 +199,11 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-lg">{bt.track.title}</p>
               <p className="truncate font-mono text-sm text-muted">{bt.track.artist}</p>
+              {bt.track.origin && (
+                <p className="mt-0.5 truncate font-mono text-xs text-volt">
+                  {originLabel(bt.track.origin_type)} · {bt.track.origin}
+                </p>
+              )}
             </div>
           </div>
         )
@@ -248,19 +271,24 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
       </div>
 
       {/* Found so far */}
-      {(titleFound || artistFound) && (
-        <div className="mt-3 rounded-xl border border-panel2 bg-ink/20 px-4 py-2 font-mono text-sm text-muted">
+      {(titleFound || artistFound || originFound) && (
+        <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 rounded-xl border border-panel2 bg-ink/20 px-4 py-2 font-mono text-sm text-muted">
           {titleFound && (
             <span>
               Titre trouvé par{" "}
               <span className="text-volt">{pseudoById(bt.partial.titleBy)}</span>
-              {artistFound ? " · " : ""}
             </span>
           )}
           {artistFound && (
             <span>
               Artiste trouvé par{" "}
               <span className="text-volt">{pseudoById(bt.partial.artistBy)}</span>
+            </span>
+          )}
+          {originFound && (
+            <span>
+              Œuvre trouvée par{" "}
+              <span className="text-volt">{pseudoById(bt.partial.originBy)}</span>
             </span>
           )}
         </div>
@@ -297,16 +325,25 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
         <Button variant="primary" onClick={() => action("validate_bt", { title: true, artist: true })} disabled={!buzzed}>
           ✓ Les deux
         </Button>
+        {hasOrigin && (
+          <Button
+            variant="primary"
+            onClick={() => action("validate_bt", { origin: true })}
+            disabled={!buzzed}
+          >
+            ✓ Œuvre
+          </Button>
+        )}
         <Button variant="danger" onClick={() => action("invalidate")} disabled={!buzzed}>
           ✗ Faux
         </Button>
       </div>
 
       {/* Partial controls */}
-      {partialOneFound && (
+      {partialSomeFound && (
         <div className="mt-3 flex flex-wrap gap-2">
           <Button variant="primary" onClick={() => action("continue_bt")}>
-            ▶ Continuer (2e point)
+            ▶ Continuer (points restants)
           </Button>
           <Button variant="ghost" onClick={() => action("reveal")}>
             Révéler
@@ -320,9 +357,16 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
           {bt.reveal.cover_url && (
             <CoverImage src={bt.reveal.cover_url} size={48} className="h-12 w-12 shrink-0 rounded-lg" />
           )}
-          <p className="font-display text-lg text-volt">
-            ✓ {bt.reveal.title} — {bt.reveal.artist}
-          </p>
+          <div className="min-w-0">
+            <p className="font-display text-lg text-volt">
+              ✓ {bt.reveal.title} — {bt.reveal.artist}
+            </p>
+            {bt.reveal.origin && (
+              <p className="truncate font-mono text-sm text-cream">
+                {originLabel(bt.reveal.origin_type)} · {bt.reveal.origin}
+              </p>
+            )}
+          </div>
         </div>
       )}
 
@@ -361,7 +405,7 @@ export default function BlindtestStage({ snapshot, action, spotify }: Props) {
       <div className="mt-4 flex flex-wrap gap-2">
         {/* Reveal: available while the round is live and not already revealed
             (the partial block has its own Révéler when one field is found). */}
-        {!partialOneFound &&
+        {!partialSomeFound &&
           bt.state !== "REVEAL" &&
           bt.state !== "SCOREBOARD" &&
           bt.reveal === null && (

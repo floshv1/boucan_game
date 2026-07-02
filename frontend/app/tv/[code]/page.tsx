@@ -162,6 +162,9 @@ export default function TvView() {
                   )}
                   <p className="mt-6 font-display text-5xl text-volt">{bt.reveal.title}</p>
                   <p className="mt-2 font-display text-3xl text-cream/80">{bt.reveal.artist}</p>
+                  {bt.reveal.origin && (
+                    <p className="mt-2 font-display text-2xl text-cream/60">🎬 {bt.reveal.origin}</p>
+                  )}
                 </div>
               ) : bt.index >= 0 ? (
                 <div className="flex flex-col items-center">
@@ -175,6 +178,9 @@ export default function TvView() {
                   <BlindtestTimerBar bt={bt} />
                   <Equalizer bars={9} animated={bt.playing} className="mt-2 h-10" />
                   <p className="mt-3 font-display text-2xl text-muted">À l&apos;écoute… buzze dès que tu sais !</p>
+                  {bt.hasOrigin && (
+                    <p className="mt-2 font-display text-xl text-volt/80">🎬 Devine aussi l&apos;œuvre !</p>
+                  )}
                 </div>
               ) : (
                 <p className="font-display text-4xl text-muted">En attente du blindtest…</p>

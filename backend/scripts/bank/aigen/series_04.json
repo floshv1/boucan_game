@@ -1,0 +1,102 @@
+{
+  "theme": "series",
+  "difficulty": "moyen",
+  "questions": [
+    {
+      "question": "Dans « Breaking Bad », quel est le métier initial de Walter White ?",
+      "choices": ["Professeur de chimie", "Médecin", "Avocat", "Policier"],
+      "answer": "Professeur de chimie",
+      "anecdote": "Il utilise ses connaissances pour fabriquer de la drogue."
+    },
+    {
+      "question": "Quelle série met en scène la famille Stark et la maison Targaryen ?",
+      "choices": ["Game of Thrones", "Vikings", "The Witcher", "The Last Kingdom"],
+      "answer": "Game of Thrones",
+      "anecdote": "La série est adaptée des romans de George R. R. Martin."
+    },
+    {
+      "question": "Dans « Friends », quel est le métier de Ross Geller ?",
+      "choices": ["Paléontologue", "Chef cuisinier", "Acteur", "Publicitaire"],
+      "answer": "Paléontologue",
+      "anecdote": "Ross travaille au muséum d'histoire naturelle."
+    },
+    {
+      "question": "Quelle série espagnole suit un groupe de braqueurs portant des combinaisons rouges et des masques de Dalí ?",
+      "choices": ["La Casa de Papel", "Élite", "Narcos", "Vis a vis"],
+      "answer": "La Casa de Papel",
+      "anecdote": "Le personnage central est surnommé « le Professeur »."
+    },
+    {
+      "question": "Dans « Stranger Things », dans quel monde parallèle se déroule une partie de l'intrigue ?",
+      "choices": ["Le Monde à l'envers", "L'Outre-Monde", "La Zone", "Le Néant"],
+      "answer": "Le Monde à l'envers",
+      "anecdote": "La série se déroule dans les années 1980 à Hawkins."
+    },
+    {
+      "question": "Quelle série médicale met en scène le docteur Gregory House ?",
+      "choices": ["Dr House", "Grey's Anatomy", "Urgences", "The Good Doctor"],
+      "answer": "Dr House",
+      "anecdote": "House est réputé pour son mauvais caractère et sa canne."
+    },
+    {
+      "question": "Dans « The Big Bang Theory », quelle discipline scientifique Sheldon Cooper exerce-t-il ?",
+      "choices": ["La physique", "La biologie", "La chimie", "L'astronomie"],
+      "answer": "La physique",
+      "anecdote": "Sheldon est physicien théoricien."
+    },
+    {
+      "question": "Quelle série française à succès sur Netflix met en scène Assane Diop, inspiré d'Arsène Lupin ?",
+      "choices": ["Lupin", "Marseille", "Braqueurs", "Family Business"],
+      "answer": "Lupin",
+      "anecdote": "Omar Sy tient le rôle principal."
+    },
+    {
+      "question": "Dans « The Office » (version américaine), qui est le directeur de l'agence de Scranton ?",
+      "choices": ["Michael Scott", "Jim Halpert", "Dwight Schrute", "Andy Bernard"],
+      "answer": "Michael Scott",
+      "anecdote": "Le rôle est joué par Steve Carell."
+    },
+    {
+      "question": "Quelle série britannique moderne met en scène Sherlock Holmes joué par Benedict Cumberbatch ?",
+      "choices": ["Sherlock", "Luther", "Broadchurch", "Peaky Blinders"],
+      "answer": "Sherlock",
+      "anecdote": "Martin Freeman y interprète le docteur Watson."
+    },
+    {
+      "question": "Dans « Peaky Blinders », dans quelle ville anglaise vit la famille Shelby ?",
+      "choices": ["Birmingham", "Londres", "Manchester", "Liverpool"],
+      "answer": "Birmingham",
+      "anecdote": "La série se déroule après la Première Guerre mondiale."
+    },
+    {
+      "question": "Quelle série d'animation américaine suit la famille Simpson dans la ville de Springfield ?",
+      "choices": ["Les Simpson", "Family Guy", "South Park", "Futurama"],
+      "answer": "Les Simpson",
+      "anecdote": "C'est la série d'animation la plus longue de la télévision américaine."
+    },
+    {
+      "question": "Dans « Dexter », quelle est la particularité du personnage principal ?",
+      "choices": ["C'est un tueur en série", "C'est un espion", "C'est un médium", "C'est un cambrioleur"],
+      "answer": "C'est un tueur en série",
+      "anecdote": "Dexter travaille le jour comme expert en analyse de sang pour la police."
+    },
+    {
+      "question": "Quelle série met en scène le chimiste devenu baron de la drogue Pablo Escobar en Colombie ?",
+      "choices": ["Narcos", "Ozark", "Snowfall", "ZeroZeroZero"],
+      "answer": "Narcos",
+      "anecdote": "La série est diffusée sur Netflix depuis 2015."
+    },
+    {
+      "question": "Dans « How I Met Your Mother », dans quel bar les amis se retrouvent-ils habituellement ?",
+      "choices": ["Le MacLaren's", "Le Central Perk", "Le Cheers", "Le Paddy's Pub"],
+      "answer": "Le MacLaren's",
+      "anecdote": "Le Central Perk est le café de la série « Friends »."
+    },
+    {
+      "question": "Quelle série télévisée fantastique suit les frères Winchester chassant des créatures surnaturelles ?",
+      "choices": ["Supernatural", "The Vampire Diaries", "Charmed", "Grimm"],
+      "answer": "Supernatural",
+      "anecdote": "Sam et Dean sillonnent les États-Unis dans une Chevrolet Impala."
+    }
+  ]
+}

@@ -226,6 +226,9 @@ export default function PlayerView() {
             )}
             <p className="mt-4 font-display text-2xl">{b.reveal.title}</p>
             <p className="font-mono text-sm text-muted">{b.reveal.artist}</p>
+            {b.reveal.origin && (
+              <p className="mt-1 font-mono text-sm text-volt">🎬 {b.reveal.origin}</p>
+            )}
           </div>
         ) : b.state === "SCOREBOARD" ? (
           <div className="flex flex-1 flex-col justify-center">
@@ -238,6 +241,7 @@ export default function PlayerView() {
               <p className="mt-6 flex items-center justify-center gap-2 text-center font-mono text-sm text-muted">
                 Morceau {b.index + 1}/{b.total}
                 {b.bonus && <BonusChip />}
+                {b.hasOrigin && <span className="text-volt">· 🎬 œuvre</span>}
               </p>
             )}
             <BlindtestTimerBar bt={b} />

@@ -1,0 +1,96 @@
+{
+  "theme": "television",
+  "difficulty": "facile",
+  "questions": [
+    {
+      "question": "Quel présentateur a longtemps animé « Koh-Lanta » sur TF1 ?",
+      "choices": ["Denis Brogniart", "Nikos Aliagas", "Arthur", "Cyril Hanouna"],
+      "answer": "Denis Brogniart",
+      "anecdote": "« Koh-Lanta » est une émission d'aventure diffusée depuis 2001."
+    },
+    {
+      "question": "Dans « Qui veut gagner des millions ? », combien de jokers le candidat possède-t-il classiquement ?",
+      "choices": ["Trois", "Deux", "Quatre", "Cinq"],
+      "answer": "Trois",
+      "anecdote": "Le 50/50, l'appel à un ami et le vote du public sont les jokers classiques."
+    },
+    {
+      "question": "Quelle émission culinaire de M6 est présentée par un chef et met en compétition des cuisiniers amateurs ?",
+      "choices": ["Top Chef", "Cauchemar en cuisine", "Un dîner presque parfait", "MasterChef"],
+      "answer": "Top Chef",
+      "anecdote": "Attention, « Top Chef » réunit en réalité des cuisiniers professionnels."
+    },
+    {
+      "question": "Quel jeu télévisé de France 2 propose de répondre à des questions pour former un mot le plus long possible et compter ?",
+      "choices": ["Des chiffres et des lettres", "Motus", "Slam", "Tout le monde veut prendre sa place"],
+      "answer": "Des chiffres et des lettres",
+      "anecdote": "C'est l'un des plus anciens jeux de la télévision française."
+    },
+    {
+      "question": "Quelle chaîne diffuse le journal télévisé de 20 heures présenté par Anne-Sophie Lapix (jusqu'en 2023) ?",
+      "choices": ["France 2", "TF1", "M6", "Arte"],
+      "answer": "France 2",
+      "anecdote": "Le « 20 heures » est le journal le plus regardé du service public."
+    },
+    {
+      "question": "Quelle émission de téléréalité de W9 réunit des candidats dans une villa au bord de la mer ?",
+      "choices": ["Les Marseillais", "Secret Story", "Loft Story", "Koh-Lanta"],
+      "answer": "Les Marseillais",
+      "anecdote": "Le programme suit un groupe de jeunes originaires de Marseille."
+    },
+    {
+      "question": "Quel animateur présente l'émission « Touche pas à mon poste » (TPMP) ?",
+      "choices": ["Cyril Hanouna", "Yann Barthès", "Laurent Ruquier", "Jean-Luc Reichmann"],
+      "answer": "Cyril Hanouna",
+      "anecdote": "L'émission est un talk-show consacré à l'actualité des médias."
+    },
+    {
+      "question": "Quel dessin animé français met en scène un petit garçon casse-cou dans « Titeuf » ?",
+      "choices": ["Titeuf", "Cédric", "Kirikou", "Boule et Bill"],
+      "answer": "Titeuf",
+      "anecdote": "Titeuf est d'abord une bande dessinée de Zep."
+    },
+    {
+      "question": "Quel jeu télévisé demande aux candidats de deviner un prix pour gagner des cadeaux ?",
+      "choices": ["Le Juste Prix", "Une famille en or", "Questions pour un champion", "Fort Boyard"],
+      "answer": "Le Juste Prix",
+      "anecdote": "Le concept repose sur l'estimation du prix de produits."
+    },
+    {
+      "question": "Dans « Fort Boyard », qui garde les clés et pose des énigmes aux candidats ?",
+      "choices": ["Le Père Fouras", "Passe-Partout", "Blanche", "La Boule"],
+      "answer": "Le Père Fouras",
+      "anecdote": "Le Père Fouras est le personnage emblématique de l'émission."
+    },
+    {
+      "question": "Quelle émission musicale de TF1 fait s'affronter des chanteurs jugés par des coachs assis dos à la scène ?",
+      "choices": ["The Voice", "Nouvelle Star", "Star Academy", "N'oubliez pas les paroles"],
+      "answer": "The Voice",
+      "anecdote": "Les coachs se retournent s'ils apprécient la voix du candidat."
+    },
+    {
+      "question": "Quel présentateur historique a longtemps animé le jeu « Questions pour un champion » ?",
+      "choices": ["Julien Lepers", "Nagui", "Patrick Sabatier", "Michel Drucker"],
+      "answer": "Julien Lepers",
+      "anecdote": "Il a animé le jeu de France 3 pendant près de 28 ans."
+    },
+    {
+      "question": "Quelle émission dominicale de France 3 permet de découvrir des régions et villages français ?",
+      "choices": ["Le Village préféré des Français", "Thalassa", "Faut pas rêver", "Des racines et des ailes"],
+      "answer": "Le Village préféré des Français",
+      "anecdote": "Les téléspectateurs votent pour leur village favori."
+    },
+    {
+      "question": "Quel animateur présente « N'oubliez pas les paroles » sur France 2 ?",
+      "choices": ["Nagui", "Cyril Féraud", "Laurence Boccolini", "Stéphane Bern"],
+      "answer": "Nagui",
+      "anecdote": "Les candidats doivent chanter les paroles exactes d'une chanson."
+    },
+    {
+      "question": "Quelle chaîne franco-allemande est réputée pour ses documentaires et sa programmation culturelle ?",
+      "choices": ["Arte", "Canal+", "TMC", "Gulli"],
+      "answer": "Arte",
+      "anecdote": "Arte diffuse ses programmes en français et en allemand."
+    }
+  ]
+}

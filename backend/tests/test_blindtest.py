@@ -51,6 +51,19 @@ _TWO_TRACKS = [
 ]
 
 
+# A track carrying a "work of origin" (3rd guessable target), e.g. a game OST.
+_TRACKS_WITH_ORIGIN = [
+    {
+        "spotify_track_id": "zelda1",
+        "title": "Main Theme",
+        "artist": "Koji Kondo",
+        "cover_url": "https://example.com/zelda.jpg",
+        "origin": "The Legend of Zelda",
+        "origin_type": "jeu_video",
+    },
+]
+
+
 # --------------------------------------------------------------------------- #
 # set_blindtest_tracks
 # --------------------------------------------------------------------------- #
@@ -676,9 +689,9 @@ def test_s16_no_track_secrets_before_reveal():
     """Â§16 regression: none of the payloads targeting 'players' or 'all'
     may contain title/artist/cover_url/uri before the 'reveal' message is sent."""
     session, [alice, bob] = _session_with_players("Alice", "Bob")
-    blindtest.set_blindtest_tracks(session, _TWO_TRACKS)
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN)
 
-    forbidden_keys = {"title", "artist", "cover_url", "uri"}
+    forbidden_keys = {"title", "artist", "cover_url", "uri", "origin", "origin_type"}
 
     def _check(outs, label):
         for o in outs:
@@ -686,7 +699,7 @@ def test_s16_no_track_secrets_before_reveal():
                 leaks = forbidden_keys & o.payload.keys()
                 assert not leaks, f"Â§16 violation in {label}: target={o.target!r} type={o.type!r} leaked {leaks}"
 
-    _check(blindtest.set_blindtest_tracks(session, _TWO_TRACKS), "set_blindtest_tracks")
+    _check(blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN), "set_blindtest_tracks")
     _check(blindtest.start_blindtest(session, now=0), "start_blindtest")  # includes load_track(0)
     # bt_play_started_at == 3000 (0 + countdown 3000)
     _check(blindtest.on_buzz(session, alice.id, now=5000), "on_buzz alice")
@@ -1106,3 +1119,157 @@ def test_audio_seq_increments_on_each_transition():
     blindtest.replay(session, now=4000)
     seqs.append(session.bt_audio_seq)
     assert seqs == sorted(seqs) and len(set(seqs)) == len(seqs)  # strictly increasing
+
+
+# --------------------------------------------------------------------------- #
+# "Œuvre" — 3rd guessable target (game/movie/series/anime OST)
+# --------------------------------------------------------------------------- #
+
+
+def test_parse_track_reads_origin_fields():
+    session, _ = _session_with_players()
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN)
+    t = session.blindtest_tracks[0]
+    assert t.origin == "The Legend of Zelda"
+    assert t.origin_type == "jeu_video"
+    assert t.points_origin == 1
+
+
+def test_parse_track_invalid_origin_type_falls_back_to_empty():
+    session, _ = _session_with_players()
+    tracks = [{**_TRACKS_WITH_ORIGIN[0], "origin_type": "podcast"}]
+    blindtest.set_blindtest_tracks(session, tracks)
+    assert session.blindtest_tracks[0].origin_type == ""
+
+
+def test_prepared_blindtest_carries_origin_and_global_points():
+    session, _ = _session_with_players()
+    outs = blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN, points_origin=4)
+    payload = _by_type(outs, "prepared_blindtest")[0].payload
+    assert payload["points_origin"] == 4
+    assert payload["tracks"][0]["origin"] == "The Legend of Zelda"
+    assert payload["tracks"][0]["origin_type"] == "jeu_video"
+
+
+def test_validate_origin_awards_points_and_emits_partial():
+    session, [alice] = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN, points_origin=5)
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+
+    outs = blindtest.validate(session, title=False, artist=False, origin=True)
+
+    assert alice.score == 5
+    assert session.bt_origin_by == alice.id
+    assert session.state is GameState.BUZZED  # title/artist still missing → not revealed
+    partial = _by_type(outs, "bt_partial")
+    assert partial and partial[0].payload["origin_by"] == alice.id
+    assert not _by_type(outs, "reveal")
+
+
+def test_validate_origin_ignored_when_track_has_no_origin():
+    """origin=True on a track without an œuvre must award nothing."""
+    session, [alice] = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TWO_TRACKS)
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+
+    blindtest.validate(session, title=False, artist=False, origin=True)
+    assert alice.score == 0
+    assert session.bt_origin_by is None
+
+
+def test_no_auto_reveal_until_origin_found_when_track_has_origin():
+    """With an œuvre defined, title+artist alone must NOT auto-reveal."""
+    session, [alice] = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN)
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+
+    outs = blindtest.validate(session, title=True, artist=True)
+    assert session.state is GameState.BUZZED  # origin still missing
+    assert not _by_type(outs, "reveal")
+
+
+def test_all_three_targets_trigger_auto_reveal():
+    session, [alice] = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(
+        session, _TRACKS_WITH_ORIGIN, points_title=1, points_artist=1, points_origin=3
+    )
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+
+    blindtest.validate(session, title=True, artist=True)  # 2 targets, still BUZZED
+    outs = blindtest.validate(session, title=False, artist=False, origin=True)
+
+    assert session.state is GameState.REVEAL
+    reveal_out = _by_type(outs, "reveal")[0]
+    assert reveal_out.payload["origin"] == "The Legend of Zelda"
+    assert reveal_out.payload["origin_type"] == "jeu_video"
+    assert reveal_out.payload["deltas"][alice.id] == 5  # 1 + 1 + 3
+
+
+def test_bonus_song_doubles_origin_points():
+    session, [alice] = _session_with_players("Alice")
+    tracks = [{**_TRACKS_WITH_ORIGIN[0], "bonus": True}]
+    blindtest.set_blindtest_tracks(session, tracks, points_origin=3)
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+    blindtest.validate(session, title=False, artist=False, origin=True)
+    assert alice.score == 6  # 3 × 2
+
+
+def test_cont_bars_origin_scorer_from_rebuzzing():
+    session, [alice, bob] = _session_with_players("Alice", "Bob")
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN)
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+    blindtest.validate(session, title=False, artist=False, origin=True)  # alice got the œuvre
+    blindtest.cont(session, now=6000)
+    assert alice.id in session.excluded_ids
+    assert bob.id not in session.excluded_ids
+
+
+def test_has_origin_flag_broadcast_to_players_without_leaking_name():
+    session, _ = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN, countdown=False)
+    outs = blindtest.start_blindtest(session, now=0)
+    players = [o for o in outs if o.type == "bt_track" and o.target == "players"][0]
+    assert players.payload["has_origin"] is True  # non-secret flag
+    assert "origin" not in players.payload  # the name stays host-only
+
+
+def test_reveal_exposes_origin_to_all():
+    session, [alice] = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN, countdown=False)
+    blindtest.start_blindtest(session, now=0)
+    blindtest.on_buzz(session, alice.id, now=10)
+    outs = blindtest.reveal(session)
+    reveal_out = [o for o in outs if o.type == "reveal" and o.target == "all"][0]
+    assert reveal_out.payload["origin"] == "The Legend of Zelda"
+    assert reveal_out.payload["origin_type"] == "jeu_video"
+
+
+def test_state_sync_reveal_includes_origin():
+    session, [alice] = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN, countdown=False)
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+    blindtest.reveal(session)
+    for role in ("host", "player", "tv"):
+        data = blindtest.state_sync_payload(
+            session, role=role, player_id=alice.id if role == "player" else None
+        )
+        assert data["reveal"]["origin"] == "The Legend of Zelda"
+        assert data["reveal"]["origin_type"] == "jeu_video"
+
+
+def test_load_track_resets_origin_by():
+    session, [alice] = _session_with_players("Alice")
+    blindtest.set_blindtest_tracks(session, _TRACKS_WITH_ORIGIN + _TRACKS_WITH_ORIGIN)
+    blindtest.load_track(session, 0, 0)
+    blindtest.on_buzz(session, alice.id, now=5000)
+    blindtest.validate(session, title=False, artist=False, origin=True)
+    assert session.bt_origin_by == alice.id
+    blindtest.load_track(session, 1, 10000)  # next track
+    assert session.bt_origin_by is None

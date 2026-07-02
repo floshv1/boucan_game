@@ -1,0 +1,102 @@
+{
+  "theme": "cinema",
+  "difficulty": "moyen",
+  "questions": [
+    {
+      "question": "Quel film de Bong Joon-ho a remporté l'Oscar du meilleur film en 2020 ?",
+      "choices": ["Parasite", "1917", "Joker", "Green Book"],
+      "answer": "Parasite",
+      "anecdote": "C'est le premier film non anglophone à recevoir cette récompense."
+    },
+    {
+      "question": "Quel acteur français a gagné l'Oscar du meilleur acteur pour « The Artist » ?",
+      "choices": ["Jean Dujardin", "Omar Sy", "Vincent Cassel", "Jean Reno"],
+      "answer": "Jean Dujardin",
+      "anecdote": "« The Artist » est un film muet en noir et blanc sorti en 2011."
+    },
+    {
+      "question": "Dans « Le Parrain », quelle famille mafieuse est au cœur de l'intrigue ?",
+      "choices": ["Les Corleone", "Les Soprano", "Les Montana", "Les Gambino"],
+      "answer": "Les Corleone",
+      "anecdote": "Marlon Brando incarne le patriarche Vito Corleone."
+    },
+    {
+      "question": "Quel réalisateur espagnol a réalisé « Le Labyrinthe de Pan » ?",
+      "choices": ["Guillermo del Toro", "Pedro Almodóvar", "Alejandro González Iñárritu", "Alfonso Cuarón"],
+      "answer": "Guillermo del Toro",
+      "anecdote": "Il a ensuite remporté l'Oscar du meilleur film pour « La Forme de l'eau »."
+    },
+    {
+      "question": "Quelle actrice tient le rôle principal dans « Amélie » (Le Fabuleux Destin d'Amélie Poulain) ?",
+      "choices": ["Audrey Tautou", "Marion Cotillard", "Sophie Marceau", "Juliette Binoche"],
+      "answer": "Audrey Tautou",
+      "anecdote": "Le film de Jean-Pierre Jeunet est sorti en 2001."
+    },
+    {
+      "question": "Dans « Matrix », quelle pilule Neo choisit-il pour connaître la vérité ?",
+      "choices": ["La rouge", "La bleue", "La verte", "La blanche"],
+      "answer": "La rouge",
+      "anecdote": "La pilule bleue lui aurait permis de rester dans l'illusion."
+    },
+    {
+      "question": "Quel film de Christopher Nolan met en scène le magicien joué par Hugh Jackman et Christian Bale ?",
+      "choices": ["Le Prestige", "Insomnia", "Memento", "Following"],
+      "answer": "Le Prestige",
+      "anecdote": "Le film est sorti en 2006."
+    },
+    {
+      "question": "Qui a réalisé « La La Land » ?",
+      "choices": ["Damien Chazelle", "Barry Jenkins", "David Fincher", "Alejandro Iñárritu"],
+      "answer": "Damien Chazelle",
+      "anecdote": "Il avait déjà réalisé « Whiplash » en 2014."
+    },
+    {
+      "question": "Dans « Le Seigneur des anneaux », quel personnage détruit finalement l'Anneau unique ?",
+      "choices": ["Gollum", "Frodon", "Sam", "Aragorn"],
+      "answer": "Gollum",
+      "anecdote": "Gollum tombe dans la lave avec l'Anneau à la fin du « Retour du roi »."
+    },
+    {
+      "question": "Quel studio d'animation japonais a produit « Le Voyage de Chihiro » ?",
+      "choices": ["Studio Ghibli", "Toei Animation", "Madhouse", "Pixar"],
+      "answer": "Studio Ghibli",
+      "anecdote": "Le film de Hayao Miyazaki a remporté l'Oscar du meilleur film d'animation en 2003."
+    },
+    {
+      "question": "Quel acteur incarne le Joker dans le film « Joker » (2019) ?",
+      "choices": ["Joaquin Phoenix", "Heath Ledger", "Jared Leto", "Jack Nicholson"],
+      "answer": "Joaquin Phoenix",
+      "anecdote": "Il a remporté l'Oscar du meilleur acteur pour ce rôle."
+    },
+    {
+      "question": "Dans « Fight Club », quelle règle est énoncée en premier par Tyler Durden ?",
+      "choices": ["Il est interdit de parler du Fight Club", "On ne frappe jamais le premier", "Un seul combat à la fois", "Pas de chaussures"],
+      "answer": "Il est interdit de parler du Fight Club",
+      "anecdote": "La deuxième règle est identique à la première."
+    },
+    {
+      "question": "Quel réalisateur québécois a réalisé « Dune » (2021) et « Blade Runner 2049 » ?",
+      "choices": ["Denis Villeneuve", "Xavier Dolan", "Jean-Marc Vallée", "David Cronenberg"],
+      "answer": "Denis Villeneuve",
+      "anecdote": "Il est réputé pour son cinéma visuellement ambitieux."
+    },
+    {
+      "question": "Comment s'appelle le majordome de Bruce Wayne dans les films Batman ?",
+      "choices": ["Alfred", "Lucius", "Jarvis", "Gordon"],
+      "answer": "Alfred",
+      "anecdote": "Alfred Pennyworth veille sur Bruce depuis la mort de ses parents."
+    },
+    {
+      "question": "Quel film de 1994 raconte l'amitié entre deux détenus, Andy et Red ?",
+      "choices": ["Les Évadés", "La Ligne verte", "Le Fugitif", "Prison Break"],
+      "answer": "Les Évadés",
+      "anecdote": "Titre original : « The Shawshank Redemption », adapté d'une nouvelle de Stephen King."
+    },
+    {
+      "question": "Dans la saga « Pirates des Caraïbes », quel est le nom du personnage de Johnny Depp ?",
+      "choices": ["Jack Sparrow", "Davy Jones", "Will Turner", "Hector Barbossa"],
+      "answer": "Jack Sparrow",
+      "anecdote": "Le capitaine Jack Sparrow tient toujours à son titre de « capitaine »."
+    }
+  ]
+}

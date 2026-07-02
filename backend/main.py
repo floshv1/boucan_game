@@ -395,6 +395,8 @@ def _run_blindtest_host_action(session, action: str, payload: dict) -> list:
                 kwargs["points_title"] = int(payload["points_title"])
             if "points_artist" in payload:
                 kwargs["points_artist"] = int(payload["points_artist"])
+            if "points_origin" in payload:
+                kwargs["points_origin"] = int(payload["points_origin"])
             if "buzz_answer_s" in payload:
                 kwargs["buzz_answer_s"] = int(payload["buzz_answer_s"])
             if "reveal_grace_s" in payload:
@@ -407,6 +409,7 @@ def _run_blindtest_host_action(session, action: str, payload: dict) -> list:
                 session,
                 title=bool(payload.get("title")),
                 artist=bool(payload.get("artist")),
+                origin=bool(payload.get("origin")),
                 now=now_ms(),
             )
         case "continue_bt":

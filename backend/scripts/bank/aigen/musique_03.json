@@ -1,0 +1,102 @@
+{
+  "theme": "musique",
+  "difficulty": "facile",
+  "questions": [
+    {
+      "question": "Quel groupe britannique a composé la chanson « Bohemian Rhapsody » ?",
+      "choices": ["Queen", "The Beatles", "The Rolling Stones", "Led Zeppelin"],
+      "answer": "Queen",
+      "anecdote": "Le chanteur du groupe était Freddie Mercury."
+    },
+    {
+      "question": "De quel instrument joue principalement un violoniste ?",
+      "choices": ["Le violon", "La guitare", "Le piano", "La flûte"],
+      "answer": "Le violon",
+      "anecdote": "Le violon se joue le plus souvent avec un archet."
+    },
+    {
+      "question": "Quel chanteur est surnommé le « King of Pop » ?",
+      "choices": ["Michael Jackson", "Elvis Presley", "Prince", "James Brown"],
+      "answer": "Michael Jackson",
+      "anecdote": "Son album « Thriller » (1982) est l'un des plus vendus de l'histoire."
+    },
+    {
+      "question": "Combien y avait-il de membres dans le groupe The Beatles ?",
+      "choices": ["Quatre", "Trois", "Cinq", "Deux"],
+      "answer": "Quatre",
+      "anecdote": "John, Paul, George et Ringo formaient le célèbre quatuor de Liverpool."
+    },
+    {
+      "question": "Quelle chanteuse française est connue pour « La Vie en rose » ?",
+      "choices": ["Édith Piaf", "Dalida", "Mireille Mathieu", "France Gall"],
+      "answer": "Édith Piaf",
+      "anecdote": "« La Vie en rose » est devenue un classique mondial."
+    },
+    {
+      "question": "Quel duo électronique français masqué a sorti l'album « Discovery » ?",
+      "choices": ["Daft Punk", "Justice", "Cassius", "Modjo"],
+      "answer": "Daft Punk",
+      "anecdote": "Les deux musiciens portaient des casques de robots."
+    },
+    {
+      "question": "Quel instrument compte 88 touches noires et blanches ?",
+      "choices": ["Le piano", "L'accordéon", "L'orgue de Barbarie", "Le xylophone"],
+      "answer": "Le piano",
+      "anecdote": "Un piano moderne standard possède 52 touches blanches et 36 noires."
+    },
+    {
+      "question": "Quel chanteur britannique a interprété « Shape of You » ?",
+      "choices": ["Ed Sheeran", "Sam Smith", "Harry Styles", "Lewis Capaldi"],
+      "answer": "Ed Sheeran",
+      "anecdote": "Ce titre de 2017 a battu des records de streaming."
+    },
+    {
+      "question": "Comment appelle-t-on un groupe de musiciens dirigé par un chef et jouant des œuvres symphoniques ?",
+      "choices": ["Un orchestre", "Un chœur", "Une fanfare", "Un quatuor"],
+      "answer": "Un orchestre",
+      "anecdote": "Un orchestre symphonique peut compter plus de 80 musiciens."
+    },
+    {
+      "question": "Quelle chanteuse américaine a sorti les albums « 1989 » et « Folklore » ?",
+      "choices": ["Taylor Swift", "Katy Perry", "Ariana Grande", "Lady Gaga"],
+      "answer": "Taylor Swift",
+      "anecdote": "« 1989 » marque son passage de la country à la pop."
+    },
+    {
+      "question": "Quel style de musique est né à la Jamaïque et est associé à Bob Marley ?",
+      "choices": ["Le reggae", "Le blues", "Le jazz", "La salsa"],
+      "answer": "Le reggae",
+      "anecdote": "Bob Marley en est la figure la plus célèbre."
+    },
+    {
+      "question": "Quel groupe suédois est célèbre pour « Dancing Queen » et « Mamma Mia » ?",
+      "choices": ["ABBA", "Roxette", "Ace of Base", "A-ha"],
+      "answer": "ABBA",
+      "anecdote": "Le groupe a remporté l'Eurovision en 1974 avec « Waterloo »."
+    },
+    {
+      "question": "Comment nomme-t-on la voix féminine la plus aiguë dans le chant classique ?",
+      "choices": ["Soprano", "Alto", "Ténor", "Basse"],
+      "answer": "Soprano",
+      "anecdote": "Chez les hommes, la voix la plus aiguë est le ténor."
+    },
+    {
+      "question": "Quel rappeur français a sorti l'album « Ceinture noire » sous le nom de MHD… non, quel artiste chante « Djadja » ?",
+      "choices": ["Aya Nakamura", "Angèle", "Wejdene", "Louane"],
+      "answer": "Aya Nakamura",
+      "anecdote": "« Djadja » (2018) l'a fait connaître à l'international."
+    },
+    {
+      "question": "Quel instrument à vent en cuivre possède un long tube coulissant ?",
+      "choices": ["Le trombone", "La trompette", "Le saxophone", "La clarinette"],
+      "answer": "Le trombone",
+      "anecdote": "La coulisse permet de changer la hauteur des notes."
+    },
+    {
+      "question": "Quel groupe australien est connu pour « Highway to Hell » et « Thunderstruck » ?",
+      "choices": ["AC/DC", "Metallica", "Guns N' Roses", "Aerosmith"],
+      "answer": "AC/DC",
+      "anecdote": "Le groupe est une icône du hard rock depuis les années 1970."
+    }
+  ]
+}

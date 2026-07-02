@@ -1,0 +1,102 @@
+{
+  "theme": "jeux_video",
+  "difficulty": "moyen",
+  "questions": [
+    {
+      "question": "Quel studio polonais a développé « The Witcher 3: Wild Hunt » ?",
+      "choices": ["CD Projekt Red", "Ubisoft", "Bethesda", "Rockstar Games"],
+      "answer": "CD Projekt Red",
+      "anecdote": "Le jeu est adapté des romans d'Andrzej Sapkowski."
+    },
+    {
+      "question": "Dans la série « Assassin's Creed », comment s'appelle l'appareil qui permet de revivre les souvenirs des ancêtres ?",
+      "choices": ["L'Animus", "Le Portail", "Le Nexus", "L'Oculus"],
+      "answer": "L'Animus",
+      "anecdote": "La série est développée par Ubisoft depuis 2007."
+    },
+    {
+      "question": "Quel studio a créé la série « Grand Theft Auto » (GTA) ?",
+      "choices": ["Rockstar Games", "Electronic Arts", "Activision", "Konami"],
+      "answer": "Rockstar Games",
+      "anecdote": "« GTA V » est l'un des jeux les plus vendus de tous les temps."
+    },
+    {
+      "question": "Dans « Dark Souls », que voit-on à l'écran lorsque le personnage meurt ?",
+      "choices": ["« YOU DIED »", "« GAME OVER »", "« TRY AGAIN »", "« DEFEAT »"],
+      "answer": "« YOU DIED »",
+      "anecdote": "La série est réputée pour sa grande difficulté."
+    },
+    {
+      "question": "Quel jeu de FromSoftware, sorti en 2022, a été co-écrit avec George R. R. Martin ?",
+      "choices": ["Elden Ring", "Sekiro", "Bloodborne", "Nioh"],
+      "answer": "Elden Ring",
+      "anecdote": "Il a remporté plusieurs prix du jeu de l'année."
+    },
+    {
+      "question": "Comment s'appelle le royaume dans lequel se déroule la série « The Legend of Zelda » ?",
+      "choices": ["Hyrule", "Termina", "Skyloft", "Gondor"],
+      "answer": "Hyrule",
+      "anecdote": "La princesse Zelda règne sur Hyrule."
+    },
+    {
+      "question": "Quel personnage est la mascotte de la série « Metal Gear Solid » ?",
+      "choices": ["Solid Snake", "Master Chief", "Sam Fisher", "Big Boss"],
+      "answer": "Solid Snake",
+      "anecdote": "La série est créée par Hideo Kojima."
+    },
+    {
+      "question": "Dans « Overwatch », combien de joueurs composent une équipe (format original) ?",
+      "choices": ["Six", "Cinq", "Quatre", "Dix"],
+      "answer": "Six",
+      "anecdote": "Le jeu est développé par Blizzard Entertainment."
+    },
+    {
+      "question": "Quel jeu de survie met en scène l'apocalypse zombie et les personnages Joel et Ellie ?",
+      "choices": ["The Last of Us", "Resident Evil", "Days Gone", "Dying Light"],
+      "answer": "The Last of Us",
+      "anecdote": "Le jeu de Naughty Dog a été adapté en série télévisée."
+    },
+    {
+      "question": "Quelle entreprise japonaise a créé la borne d'arcade « Pac-Man » ?",
+      "choices": ["Namco", "Taito", "Capcom", "Sega"],
+      "answer": "Namco",
+      "anecdote": "Pac-Man est sorti en 1980."
+    },
+    {
+      "question": "Dans « World of Warcraft », comment nomme-t-on les deux grandes factions qui s'affrontent ?",
+      "choices": ["L'Alliance et la Horde", "L'Ordre et le Chaos", "Le Nord et le Sud", "Les Anges et les Démons"],
+      "answer": "L'Alliance et la Horde",
+      "anecdote": "Le jeu de Blizzard est sorti en 2004."
+    },
+    {
+      "question": "Quel personnage principal de « Half-Life » est un scientifique nommé Gordon… ?",
+      "choices": ["Freeman", "Newman", "Foster", "Calhoun"],
+      "answer": "Freeman",
+      "anecdote": "Gordon Freeman ne parle jamais dans les jeux."
+    },
+    {
+      "question": "Quel jeu de rythme japonais consiste à taper sur un tambour au rythme de la musique ?",
+      "choices": ["Taiko no Tatsujin", "Guitar Hero", "Beat Saber", "Just Dance"],
+      "answer": "Taiko no Tatsujin",
+      "anecdote": "La série est développée par Bandai Namco."
+    },
+    {
+      "question": "Dans « Portal », quel objet le joueur utilise-t-il pour se déplacer ?",
+      "choices": ["Un pistolet à portails", "Un grappin", "Un jetpack", "Un téléporteur de poche"],
+      "answer": "Un pistolet à portails",
+      "anecdote": "L'IA antagoniste du jeu s'appelle GLaDOS."
+    },
+    {
+      "question": "Quel jeu de stratégie en temps réel de Blizzard se déroule dans l'univers de StarCraft ?",
+      "choices": ["StarCraft", "Age of Empires", "Command & Conquer", "Warcraft"],
+      "answer": "StarCraft",
+      "anecdote": "Il est très populaire comme sport électronique en Corée du Sud."
+    },
+    {
+      "question": "Comment s'appelle le héros armuré de la série « Halo » ?",
+      "choices": ["Master Chief", "Doom Slayer", "Marcus Fenix", "Commander Shepard"],
+      "answer": "Master Chief",
+      "anecdote": "La série Halo est une exclusivité Xbox."
+    }
+  ]
+}

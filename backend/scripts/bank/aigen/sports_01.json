@@ -1,0 +1,96 @@
+{
+  "theme": "sports",
+  "difficulty": "facile",
+  "questions": [
+    {
+      "question": "Combien de joueurs composent une équipe de football sur le terrain (hors remplaçants) ?",
+      "choices": ["Onze", "Dix", "Douze", "Neuf"],
+      "answer": "Onze",
+      "anecdote": "Le gardien de but est compté parmi ces onze joueurs."
+    },
+    {
+      "question": "Tous les combien d'années ont lieu les Jeux olympiques d'été ?",
+      "choices": ["Quatre ans", "Deux ans", "Trois ans", "Cinq ans"],
+      "answer": "Quatre ans",
+      "anecdote": "Les Jeux olympiques d'hiver ont eux aussi lieu tous les quatre ans."
+    },
+    {
+      "question": "Quel pays a organisé et remporté la Coupe du monde de football 1998 ?",
+      "choices": ["La France", "Le Brésil", "L'Italie", "L'Allemagne"],
+      "answer": "La France",
+      "anecdote": "La finale s'est jouée au Stade de France contre le Brésil."
+    },
+    {
+      "question": "Dans quel sport pratique-t-on un « service » et un « smash » par-dessus un filet, sur terre battue ou gazon ?",
+      "choices": ["Le tennis", "Le volley-ball", "Le badminton", "Le ping-pong"],
+      "answer": "Le tennis",
+      "anecdote": "Roland-Garros se joue sur terre battue."
+    },
+    {
+      "question": "Quelle célèbre course cycliste a lieu chaque été en France ?",
+      "choices": ["Le Tour de France", "Le Giro", "La Vuelta", "Paris-Roubaix"],
+      "answer": "Le Tour de France",
+      "anecdote": "Le maillot jaune récompense le leader du classement général."
+    },
+    {
+      "question": "Combien de joueurs compte une équipe de basket-ball sur le terrain ?",
+      "choices": ["Cinq", "Six", "Sept", "Quatre"],
+      "answer": "Cinq",
+      "anecdote": "Un panier compté derrière la ligne à trois points vaut trois points."
+    },
+    {
+      "question": "Quel sport se joue avec un ballon ovale et des essais ?",
+      "choices": ["Le rugby", "Le handball", "Le football américain", "Le hockey"],
+      "answer": "Le rugby",
+      "anecdote": "Un essai rapporte cinq points au rugby à XV."
+    },
+    {
+      "question": "Dans quel sport Michael Jordan est-il une légende ?",
+      "choices": ["Le basket-ball", "Le baseball", "Le golf", "Le football américain"],
+      "answer": "Le basket-ball",
+      "anecdote": "Il a évolué principalement avec les Chicago Bulls."
+    },
+    {
+      "question": "Quel joueur argentin, surnommé « la Pulga », a remporté de nombreux Ballons d'or ?",
+      "choices": ["Lionel Messi", "Diego Maradona", "Sergio Agüero", "Ángel Di María"],
+      "answer": "Lionel Messi",
+      "anecdote": "Il a remporté la Coupe du monde avec l'Argentine en 2022."
+    },
+    {
+      "question": "Combien de temps dure un match de football réglementaire (hors prolongations) ?",
+      "choices": ["90 minutes", "60 minutes", "120 minutes", "45 minutes"],
+      "answer": "90 minutes",
+      "anecdote": "Le match est divisé en deux mi-temps de 45 minutes."
+    },
+    {
+      "question": "Quel sport de combat japonais oppose deux lutteurs dans un cercle, le but étant de faire sortir l'adversaire ?",
+      "choices": ["Le sumo", "Le judo", "Le karaté", "L'aïkido"],
+      "answer": "Le sumo",
+      "anecdote": "Les lutteurs de sumo sont appelés « rikishi »."
+    },
+    {
+      "question": "Dans quelle discipline Teddy Riner est-il multiple champion olympique ?",
+      "choices": ["Le judo", "La lutte", "La boxe", "L'haltérophilie"],
+      "answer": "Le judo",
+      "anecdote": "Il est l'un des plus grands judokas de l'histoire."
+    },
+    {
+      "question": "Quel tournoi de tennis se dispute sur gazon près de Londres ?",
+      "choices": ["Wimbledon", "Roland-Garros", "L'US Open", "L'Open d'Australie"],
+      "answer": "Wimbledon",
+      "anecdote": "C'est le plus ancien tournoi du Grand Chelem."
+    },
+    {
+      "question": "Combien de trous compte un parcours de golf classique ?",
+      "choices": ["Dix-huit", "Neuf", "Douze", "Vingt-quatre"],
+      "answer": "Dix-huit",
+      "anecdote": "Un parcours peut aussi se jouer en neuf trous."
+    },
+    {
+      "question": "Quel nageur américain est l'athlète le plus médaillé de l'histoire des Jeux olympiques ?",
+      "choices": ["Michael Phelps", "Mark Spitz", "Ryan Lochte", "Caeleb Dressel"],
+      "answer": "Michael Phelps",
+      "anecdote": "Il a remporté 23 médailles d'or olympiques."
+    }
+  ]
+}
